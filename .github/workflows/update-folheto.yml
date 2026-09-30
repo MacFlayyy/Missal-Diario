@@ -1,0 +1,44 @@
+name: Atualizar folheto O Povo de Deus
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Brasília (UTC-3): 05h, 08h, 11h, 14h, 17h e 20h.
+    - cron: "0 8,11,14,17,20,23 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Verificar folhetos e atualizar o site
+        run: python scripts/update_folheto.py
+
+      - name: Revisar e corrigir o Missal antes de publicar
+        run: python scripts/validate_daily.py
+
+      - name: Salvar alterações, se houver
+        run: |
+          if git diff --quiet; then
+            echo "Nenhuma alteração."
+            exit 0
+          fi
+          git config user.name "Missal Diário Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data.js status.js
+          git commit -m "Atualiza folheto O Povo de Deus"
+          git push
