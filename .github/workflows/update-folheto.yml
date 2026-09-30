@@ -1,10 +1,7 @@
-name: Atualizar folheto O Povo de Deus
+name: Atualizar Missal Diário
 
 on:
   workflow_dispatch:
-  schedule:
-    # Brasília (UTC-3): 05h, 08h, 11h, 14h, 17h e 20h.
-    - cron: "0 8,11,14,17,20,23 * * *"
 
 permissions:
   contents: write
@@ -40,5 +37,5 @@ jobs:
           git config user.name "Missal Diário Bot"
           git config user.email "actions@users.noreply.github.com"
           git add data.js status.js
-          git commit -m "Atualiza folheto O Povo de Deus"
+          git commit -m "Atualiza Missal Diário"
           git push
