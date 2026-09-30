@@ -62,3 +62,8 @@ O site mantém o mesmo padrão usado na separação manual:
 - `Ato Penitencial — Terceira fórmula, 1ª/2ª/3ª opção`.
 
 As sugestões continuam identificadas como `(sugestão)`.
+
+## Atualização diária sem datas pré-cadastradas
+
+O site não mantém datas futuras pré-cadastradas. A partir de 30/09/2026, cada novo dia é analisado às 05:00 (horário de Brasília), adicionado ao `data.js` e publicado. Os dias anteriores permanecem como histórico; datas futuras não ficam disponíveis.
+
