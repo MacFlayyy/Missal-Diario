@@ -1116,106 +1116,301 @@ async function buildShareImageBlob(){
   const d=data[window.currentDateKey];
   if(!d) return null;
 
-  const canvas=document.createElement("canvas");
-  canvas.width=1080;
-  canvas.height=1350;
-  const ctx=canvas.getContext("2d");
+  const W=1080;
+  const margin=54;
+  const gap=26;
+  const colW=472;
   const wine="#7d1722";
+  const wineDark="#5e1019";
   const cream="#f7f2ea";
+  const paper="#fffdf9";
   const ink="#241a17";
   const muted="#6e6158";
   const line="#ead9dc";
+  const accent=(window.activeLiturgicalPalette&&window.activeLiturgicalPalette.accent)||d.colorHex||"#c8a96a";
+
+  const measureCanvas=document.createElement("canvas");
+  measureCanvas.width=W;
+  measureCanvas.height=10;
+  const mctx=measureCanvas.getContext("2d");
+
+  function linesFor(ctx,text,maxWidth,font){
+    ctx.font=font;
+    const words=String(text||"—").split(/\s+/).filter(Boolean);
+    const lines=[];
+    let lineText="";
+    words.forEach(function(word){
+      const test=lineText ? lineText+" "+word : word;
+      if(lineText && ctx.measureText(test).width>maxWidth){
+        lines.push(lineText);
+        lineText=word;
+      }else{
+        lineText=test;
+      }
+    });
+    if(lineText) lines.push(lineText);
+    return lines.length ? lines : ["—"];
+  }
+
+  function drawLines(ctx,lines,x,y,lineHeight){
+    lines.forEach(function(lineText,idx){
+      ctx.fillText(lineText,x,y+(idx*lineHeight));
+    });
+    return y+(lines.length*lineHeight);
+  }
+
+  function tapeMetrics(t){
+    const titleLines=linesFor(mctx,t.title,colW-48,"700 24px Arial, sans-serif");
+    let detailsHeight=0;
+    (t.details||[]).forEach(function(pair){
+      const label=labelWithSuggestion(pair[0]);
+      const value=String(pair[1]||"—").replace(/^“|”$/g,"");
+      const valueLines=linesFor(mctx,value,colW-48,"600 17px Arial, sans-serif");
+      detailsHeight+=22+(valueLines.length*22)+12;
+      if(label.isSuggestion) detailsHeight+=2;
+    });
+    const height=84+(titleLines.length*30)+detailsHeight+22;
+    return {height:Math.max(190,height),titleLines:titleLines};
+  }
+
+  const tapes=(d.tapes||[]).slice(0,5);
+  const metrics=tapes.map(tapeMetrics);
+  const row1=Math.max(metrics[0]?.height||0,metrics[1]?.height||0);
+  const row2=Math.max(metrics[2]?.height||0,metrics[3]?.height||0);
+  const row3=metrics[4]?.height||0;
+
+  const heroTitleLines=linesFor(mctx,d.celebration,850,"700 36px Arial, sans-serif");
+  const heroH=Math.max(224,126+(heroTitleLines.length*42));
+
+  const obsLines=linesFor(mctx,d.liturgicalNote||d.note||"—",900,"600 21px Arial, sans-serif");
+  const obsH=Math.max(112,70+(obsLines.length*26));
+
+  const topH=184;
+  const infoH=104;
+  const quickH=128;
+  const sectionH=72;
+  const afterHero=26+infoH+18+quickH+18+obsH+sectionH;
+  const tapesH=row1+(row2?gap+row2:0)+(row3?gap+row3:0);
+  const footerH=150;
+  const calculatedH=topH+34+heroH+afterHero+tapesH+footerH+42;
+  const H=Math.max(1920,calculatedH);
+
+  const canvas=document.createElement("canvas");
+  canvas.width=W;
+  canvas.height=H;
+  const ctx=canvas.getContext("2d");
 
   ctx.fillStyle=cream;
-  ctx.fillRect(0,0,1080,1350);
+  ctx.fillRect(0,0,W,H);
 
-  const grad=ctx.createLinearGradient(0,0,1080,0);
-  grad.addColorStop(0,"#7d1722");
-  grad.addColorStop(1,"#5e1019");
-  ctx.fillStyle=grad;
-  ctx.fillRect(0,0,1080,170);
+  const headerGrad=ctx.createLinearGradient(0,0,W,0);
+  headerGrad.addColorStop(0,wine);
+  headerGrad.addColorStop(1,wineDark);
+  ctx.fillStyle=headerGrad;
+  ctx.fillRect(0,0,W,topH);
+
+  ctx.fillStyle=accent;
+  ctx.fillRect(0,topH-7,W,7);
+
+  ctx.fillStyle="rgba(255,255,255,.09)";
+  ctx.beginPath();ctx.arc(930,18,150,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(1010,130,95,0,Math.PI*2);ctx.fill();
 
   ctx.fillStyle="#fff";
-  ctx.font="700 46px Arial, sans-serif";
+  ctx.font="800 48px Arial, sans-serif";
   ctx.fillText("Missal Diário",64,82);
-  ctx.font="400 24px Arial, sans-serif";
-  ctx.fillText("Separação para compartilhar",64,122);
+  ctx.font="500 24px Arial, sans-serif";
+  ctx.fillText("Separação para compartilhar",64,124);
+  ctx.font="700 18px Arial, sans-serif";
+  ctx.fillStyle="rgba(255,255,255,.82)";
+  ctx.fillText("Missal Romano • celebração do dia",64,156);
 
-  let y=218;
-  roundRectPath(ctx,54,y,972,185,28);
-  ctx.fillStyle="#fffdf9";ctx.fill();
+  let y=topH+34;
+
+  roundRectPath(ctx,margin,y,W-(margin*2),heroH,28);
+  ctx.fillStyle=paper;ctx.fill();
   ctx.strokeStyle=line;ctx.lineWidth=2;ctx.stroke();
 
+  ctx.fillStyle=accent;
+  roundRectPath(ctx,margin,y,10,heroH,8);
+  ctx.fill();
+
   ctx.fillStyle=wine;
-  ctx.font="800 24px Arial, sans-serif";
+  ctx.font="800 23px Arial, sans-serif";
   const heading=window.currentDateKey===brasiliaTodayKey()?"Hoje":"Data selecionada";
   ctx.fillText(heading+" — "+formatSelectedDate(window.currentDateKey),84,y+42);
 
   ctx.fillStyle=ink;
-  ctx.font="700 34px Arial, sans-serif";
-  let ty=wrapCanvasText(ctx,d.celebration,84,y+88,850,40,2);
+  ctx.font="700 36px Arial, sans-serif";
+  const heroBottom=drawLines(ctx,heroTitleLines,84,y+92,42);
 
-  ctx.fillStyle=muted;
-  ctx.font="600 22px Arial, sans-serif";
-  ctx.fillText((d.grade||"—")+" • "+(d.season||"—")+" • "+(d.color||"—"),84,ty+17);
-
-  y+=215;
-  const infoRows=[
-    ["Dia do Santo(a)",d.saint||"—"],
-    [cycleLabelFor(window.currentDateKey,d),d.cycle||"—"],
-    ["Separação rápida",d.quick||"—"]
+  const chips=[
+    d.grade||"—",
+    d.season||"—",
+    d.color||"—"
   ];
-
-  infoRows.forEach(function(row){
-    roundRectPath(ctx,54,y,972,72,22);
-    ctx.fillStyle="#fff";ctx.fill();
-    ctx.strokeStyle=line;ctx.stroke();
-    ctx.fillStyle=wine;ctx.font="700 18px Arial, sans-serif";ctx.fillText(row[0],84,y+28);
-    ctx.fillStyle=ink;ctx.font="600 21px Arial, sans-serif";
-    wrapCanvasText(ctx,row[1],84,y+54,900,25,1);
-    y+=86;
+  let chipX=84;
+  const chipY=Math.min(y+heroH-48,heroBottom+14);
+  chips.forEach(function(chip){
+    ctx.font="700 17px Arial, sans-serif";
+    const cw=Math.ceil(ctx.measureText(chip).width)+28;
+    roundRectPath(ctx,chipX,chipY,cw,34,17);
+    ctx.fillStyle="#f6edef";ctx.fill();
+    ctx.strokeStyle="#ead9dc";ctx.stroke();
+    ctx.fillStyle=wine;ctx.fillText(chip,chipX+14,chipY+23);
+    chipX+=cw+10;
   });
 
-  roundRectPath(ctx,54,y,972,95,22);
+  y+=heroH+26;
+
+  const half=(W-(margin*2)-18)/2;
+  const info=[
+    ["Dia do Santo(a)",d.saint||"—"],
+    [cycleLabelFor(window.currentDateKey,d),d.cycle||"—"]
+  ];
+  info.forEach(function(row,idx){
+    const x=margin+idx*(half+18);
+    roundRectPath(ctx,x,y,half,infoH,22);
+    ctx.fillStyle="#fff";ctx.fill();
+    ctx.strokeStyle=line;ctx.stroke();
+    ctx.fillStyle=wine;ctx.font="800 17px Arial, sans-serif";ctx.fillText(row[0],x+26,y+30);
+    ctx.fillStyle=ink;ctx.font="700 21px Arial, sans-serif";
+    const rowLines=linesFor(ctx,row[1],half-52,"700 21px Arial, sans-serif");
+    drawLines(ctx,rowLines.slice(0,2),x+26,y+62,24);
+  });
+
+  y+=infoH+18;
+
+  roundRectPath(ctx,margin,y,W-(margin*2),quickH,24);
+  ctx.fillStyle=wine;ctx.fill();
+  ctx.fillStyle="rgba(255,255,255,.08)";
+  roundRectPath(ctx,margin+10,y+10,W-(margin*2)-20,quickH-20,18);
+  ctx.fill();
+  ctx.fillStyle="#fff";ctx.font="800 18px Arial, sans-serif";
+  ctx.fillText("Separação rápida",84,y+32);
+
+  const pages=String(d.quick||"").match(/\d+(?:\/\d+)?/g)||[];
+  let qx=84;
+  const qy=y+54;
+  pages.forEach(function(page,idx){
+    ctx.font="800 22px Arial, sans-serif";
+    const bw=Math.max(72,Math.ceil(ctx.measureText(page).width)+28);
+    roundRectPath(ctx,qx,qy,bw,48,15);
+    ctx.fillStyle="rgba(255,255,255,.14)";ctx.fill();
+    ctx.strokeStyle="rgba(255,255,255,.25)";ctx.stroke();
+    ctx.fillStyle="#fff";ctx.fillText(page,qx+14,qy+31);
+    qx+=bw;
+    if(idx<pages.length-1){
+      ctx.font="700 20px Arial, sans-serif";
+      ctx.fillStyle="rgba(255,255,255,.78)";
+      ctx.fillText("→",qx+10,qy+30);
+      qx+=42;
+    }
+  });
+  if(!pages.length){
+    ctx.fillStyle="#fff";ctx.font="700 22px Arial, sans-serif";
+    ctx.fillText(d.quick||"—",84,qy+31);
+  }
+
+  y+=quickH+18;
+
+  roundRectPath(ctx,margin,y,W-(margin*2),obsH,22);
   ctx.fillStyle="#fff";ctx.fill();
   ctx.strokeStyle=line;ctx.stroke();
-  ctx.fillStyle=wine;ctx.font="700 18px Arial, sans-serif";ctx.fillText("Observação",84,y+28);
-  ctx.fillStyle=ink;ctx.font="600 20px Arial, sans-serif";
-  wrapCanvasText(ctx,d.liturgicalNote||d.note||"—",84,y+56,900,24,2);
-  y+=116;
+  ctx.fillStyle=wine;ctx.font="800 18px Arial, sans-serif";
+  ctx.fillText("Observação litúrgica",84,y+30);
+  ctx.fillStyle=ink;ctx.font="600 21px Arial, sans-serif";
+  drawLines(ctx,obsLines,84,y+62,26);
 
-  const positions=[[54,y],[554,y],[54,y+196],[554,y+196],[54,y+392]];
-  (d.tapes||[]).slice(0,5).forEach(function(t,idx){
-    const pos=positions[idx];
-    roundRectPath(ctx,pos[0],pos[1],472,166,22);
+  y+=obsH+sectionH;
+  ctx.fillStyle=ink;ctx.font="800 30px Arial, sans-serif";
+  ctx.fillText("Marcações do Missal",margin,y-22);
+  ctx.fillStyle=accent;
+  roundRectPath(ctx,margin,y-10,92,5,3);ctx.fill();
+
+  function drawTapeCard(t,metric,x,top,w,h){
+    roundRectPath(ctx,x,top,w,h,24);
     ctx.fillStyle="#fff";ctx.fill();
-    ctx.strokeStyle=line;ctx.stroke();
+    ctx.strokeStyle=line;ctx.lineWidth=2;ctx.stroke();
+
+    ctx.fillStyle=accent;
+    roundRectPath(ctx,x,top,8,h,7);ctx.fill();
 
     ctx.fillStyle=wine;
-    roundRectPath(ctx,pos[0]+18,pos[1]+16,42,42,12);
-    ctx.fill();
+    roundRectPath(ctx,x+22,top+20,46,46,13);ctx.fill();
     ctx.fillStyle="#fff";ctx.font="800 22px Arial, sans-serif";
-    ctx.fillText(String(t.n),pos[0]+34,pos[1]+43);
+    ctx.textAlign="center";ctx.fillText(String(t.n),x+45,top+50);ctx.textAlign="left";
 
-    ctx.fillStyle=muted;ctx.font="700 18px Arial, sans-serif";
-    ctx.fillText("pág. "+t.page,pos[0]+78,pos[1]+40);
+    ctx.fillStyle=muted;ctx.font="800 17px Arial, sans-serif";
+    ctx.fillText("pág. "+t.page,x+84,top+48);
 
-    ctx.fillStyle=ink;ctx.font="700 21px Arial, sans-serif";
-    const titleBottom=wrapCanvasText(ctx,t.title,pos[0]+24,pos[1]+86,424,26,2);
+    if(t.suggestion){
+      ctx.font="800 13px Arial, sans-serif";
+      const sw=92;
+      roundRectPath(ctx,x+w-sw-22,top+24,sw,30,15);
+      ctx.fillStyle="#fff6ea";ctx.fill();
+      ctx.strokeStyle="#ead7b5";ctx.stroke();
+      ctx.fillStyle="#8a6420";ctx.fillText("SUGESTÃO",x+w-sw-10,top+44);
+    }
 
-    const brief=(t.details||[]).slice(0,1).map(function(pair){
-      return labelWithSuggestion(pair[0]).clean+": "+String(pair[1]).replace(/^“|”$/g,"");
-    }).join(" • ");
-    ctx.fillStyle=muted;ctx.font="600 16px Arial, sans-serif";
-    wrapCanvasText(ctx,brief,pos[0]+24,titleBottom+8,424,20,2);
-  });
+    ctx.fillStyle=ink;ctx.font="700 24px Arial, sans-serif";
+    let cy=drawLines(ctx,metric.titleLines,x+24,top+96,30)+10;
 
-  ctx.fillStyle=wine;
-  ctx.font="700 18px Arial, sans-serif";
-  ctx.fillText("macflayyy.github.io/Missal-Diario/",54,1305);
+    (t.details||[]).forEach(function(pair,detailIndex){
+      const label=labelWithSuggestion(pair[0]);
+      ctx.fillStyle=wine;ctx.font="800 15px Arial, sans-serif";
+      const labelText=label.clean+(label.isSuggestion?" • sugestão":"");
+      ctx.fillText(labelText.toUpperCase(),x+24,cy);
+      cy+=24;
+
+      const value=String(pair[1]||"—").replace(/^“|”$/g,"");
+      const valueLines=linesFor(ctx,value,w-48,"600 17px Arial, sans-serif");
+      ctx.fillStyle=muted;ctx.font="600 17px Arial, sans-serif";
+      cy=drawLines(ctx,valueLines,x+24,cy,22)+10;
+
+      if(detailIndex<(t.details||[]).length-1){
+        ctx.strokeStyle="#f0e5e2";ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(x+24,cy);ctx.lineTo(x+w-24,cy);ctx.stroke();
+        cy+=13;
+      }
+    });
+  }
+
+  let tapeY=y;
+  if(tapes[0]) drawTapeCard(tapes[0],metrics[0],margin,tapeY,colW,row1);
+  if(tapes[1]) drawTapeCard(tapes[1],metrics[1],margin+colW+gap,tapeY,colW,row1);
+  tapeY+=row1;
+
+  if(row2){
+    tapeY+=gap;
+    if(tapes[2]) drawTapeCard(tapes[2],metrics[2],margin,tapeY,colW,row2);
+    if(tapes[3]) drawTapeCard(tapes[3],metrics[3],margin+colW+gap,tapeY,colW,row2);
+    tapeY+=row2;
+  }
+
+  if(row3){
+    tapeY+=gap;
+    if(tapes[4]) drawTapeCard(tapes[4],metrics[4],margin,tapeY,colW,row3);
+    tapeY+=row3;
+  }
+
+  const footerY=H-footerH+26;
+  ctx.strokeStyle="#e2d3ce";ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(margin,footerY-20);ctx.lineTo(W-margin,footerY-20);ctx.stroke();
+
+  ctx.fillStyle=wine;ctx.font="800 18px Arial, sans-serif";
+  ctx.fillText("macflayyy.github.io/Missal-Diario/",margin,footerY+10);
   ctx.textAlign="right";
-  ctx.fillText("Criado por Ronielly Macflay",1026,1305);
+  ctx.fillText("Criado por Ronielly Macflay",W-margin,footerY+10);
   ctx.textAlign="left";
+
+  ctx.fillStyle=muted;ctx.font="600 15px Arial, sans-serif";
+  const sourceText=d.source||"Missal Romano CNBB 2023";
+  const sourceLines=linesFor(ctx,"Fonte: "+sourceText,W-(margin*2),"600 15px Arial, sans-serif");
+  drawLines(ctx,sourceLines.slice(0,2),margin,footerY+42,21);
+
+  ctx.fillStyle=muted;ctx.font="700 14px Arial, sans-serif";
+  ctx.fillText("Atualização automática diária às 05:00 • Brasília",margin,footerY+94);
 
   return new Promise(function(resolve){canvas.toBlob(resolve,"image/png");});
 }
