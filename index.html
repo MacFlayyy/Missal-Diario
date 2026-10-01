@@ -446,6 +446,82 @@
       color:var(--wine);
     }
 
+  
+    /* Correções mobile: separação rápida e toque */
+    @media(max-width:620px){
+      .side{padding:20px 16px}
+      .quick{
+        width:100%;
+        padding:14px 12px 15px;
+        overflow:hidden;
+      }
+      .quick-steps{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:0;
+        width:100%;
+        max-width:100%;
+        overflow:hidden;
+        padding:0;
+      }
+      .quick-step{
+        min-width:0;
+        width:clamp(30px,8.6vw,36px);
+        height:clamp(30px,8.6vw,36px);
+        padding:0 2px;
+        border-radius:9px;
+        font-size:clamp(10px,2.8vw,12px);
+        flex:0 0 auto;
+      }
+      .quick-arrow{
+        width:10px;
+        min-width:10px;
+        text-align:center;
+        font-size:9px;
+        flex:0 0 10px;
+      }
+      .section-title{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:9px;
+      }
+      .section-title span{
+        width:100%;
+        line-height:1.45;
+        font-size:12px;
+      }
+    }
+
+    @media(hover:none) and (pointer:coarse){
+      .tape.touch-active{
+        transform:translateY(-5px) scale(.995);
+        box-shadow:0 18px 40px rgba(61,44,34,.16);
+        border-color:#d7b6bb !important;
+      }
+      .tape.touch-active::before{width:9px}
+      .tape.touch-active .tape-no{transform:scale(1.08) rotate(-3deg)}
+      .meta-item.touch-active{
+        transform:translateY(-2px);
+        border-color:#d7b6bb;
+        box-shadow:0 8px 18px rgba(61,44,34,.09);
+      }
+      .quick-step.touch-active{
+        transform:translateY(-2px) scale(1.07);
+        background:rgba(255,255,255,.18);
+        border-color:rgba(255,255,255,.24);
+      }
+      .date-picker-btn.touch-active,
+      .nav-btn.touch-active{
+        transform:translateY(-2px);
+        box-shadow:0 8px 18px rgba(61,44,34,.10);
+      }
+      .color-chip.touch-active{
+        transform:translateY(-2px);
+        box-shadow:0 8px 18px rgba(61,44,34,.08);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -780,6 +856,26 @@ const initialKey = visibleDates.includes(todayKey)
 render(initialKey);
 
 document.body.classList.add("is-ready");
+
+
+function clearTouchActive(){
+  document.querySelectorAll(".touch-active").forEach(el=>el.classList.remove("touch-active"));
+}
+function updateTouchActive(touch){
+  if(!touch) return;
+  const el = document.elementFromPoint(touch.clientX,touch.clientY);
+  const target = el && el.closest(".tape,.meta-item,.quick-step,.date-picker-btn,.nav-btn,.color-chip");
+  const current = document.querySelector(".touch-active");
+  if(current === target) return;
+  clearTouchActive();
+  if(target) target.classList.add("touch-active");
+}
+if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
+  document.addEventListener("touchstart",e=>updateTouchActive(e.touches[0]),{passive:true});
+  document.addEventListener("touchmove",e=>updateTouchActive(e.touches[0]),{passive:true});
+  document.addEventListener("touchend",clearTouchActive,{passive:true});
+  document.addEventListener("touchcancel",clearTouchActive,{passive:true});
+}
 
 const backToTop = document.getElementById("backToTop");
 function updateBackToTop(){
