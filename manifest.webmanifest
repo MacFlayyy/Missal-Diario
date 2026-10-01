@@ -1,0 +1,19 @@
+{
+  "name": "Missal Diário",
+  "short_name": "Missal Diário",
+  "description": "Separação diária do Missal Romano",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#7d1722",
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
