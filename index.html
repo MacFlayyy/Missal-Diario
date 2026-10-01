@@ -4,6 +4,13 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Missal Diário</title>
+  <meta name="theme-color" content="#7d1722" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Missal Diário" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="app-icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="app-icon.svg" />
   <style>
     :root{
       --bg:#f6f1e8;
@@ -522,6 +529,175 @@
       }
     }
 
+  
+    /* Pacote avançado do Missal Diário */
+    .source-status{
+      margin-top:14px;padding:10px 12px;border-radius:13px;border:1px solid #ead9dc;
+      display:flex;align-items:center;gap:9px;font-size:12px;font-weight:800;color:var(--wine);
+      background:#fff8f8
+    }
+    .source-status-dot{
+      width:9px;height:9px;border-radius:50%;background:var(--wine);
+      box-shadow:0 0 0 5px rgba(125,23,34,.08);flex:0 0 auto
+    }
+    .source-status.official{
+      color:#315d45;border-color:#d8e5dc;background:#f5fbf7
+    }
+    .source-status.official .source-status-dot{
+      background:#315d45;box-shadow:0 0 0 5px rgba(49,93,69,.09)
+    }
+    .side-actions{
+      margin-top:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px
+    }
+    .utility-btn{
+      min-height:42px;border:1px solid var(--line);border-radius:12px;background:#fffdf9;
+      color:var(--ink);font-weight:800;font-size:12px;cursor:pointer;padding:9px 10px;
+      display:flex;align-items:center;justify-content:center;gap:7px;
+      transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease,background .2s ease
+    }
+    .utility-btn:hover{
+      transform:translateY(-2px);border-color:#d7b6bb;background:#fff9f8;
+      box-shadow:0 8px 18px rgba(61,44,34,.09)
+    }
+    .utility-btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+    .last-update{margin-top:5px;color:#eadfe0;font-weight:700}
+    .tape-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .tape-icon{
+      width:30px;height:30px;border-radius:10px;border:1px solid #ead9dc;
+      display:grid;place-items:center;color:var(--wine);font-size:15px;background:#fff9fa;
+      transition:transform .25s ease,background .25s ease
+    }
+    .tape:hover .tape-icon,.tape.in-focus .tape-icon{transform:rotate(4deg) scale(1.06);background:#f9ecef}
+    .tape.in-focus{
+      transform:translateY(-5px);
+      box-shadow:0 18px 42px rgba(61,44,34,.16)!important;
+      border-color:#d7b6bb!important
+    }
+    .tape.in-focus::before{width:9px}
+    .tape.in-focus .tape-no{transform:scale(1.07)}
+    .reveal{opacity:0;transform:translateY(18px)}
+    .reveal.is-visible{
+      opacity:1;transform:translateY(0);
+      transition:opacity .52s ease,transform .52s cubic-bezier(.2,.7,.2,1)
+    }
+
+    /* Calendário mensal */
+    .date-menu.calendar-panel{
+      max-height:none;overflow:visible;padding:12px
+    }
+    .calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+    .calendar-head strong{text-transform:capitalize;font-size:13px}
+    .calendar-nav{
+      width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:white;cursor:pointer
+    }
+    .calendar-nav:disabled{opacity:.3;cursor:default}
+    .calendar-week,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+    .calendar-week span{
+      text-align:center;font-size:9px;text-transform:uppercase;color:var(--muted);font-weight:900;padding:4px 0
+    }
+    .calendar-day,.calendar-empty{
+      aspect-ratio:1/1;border-radius:9px;display:grid;place-items:center;font-size:11px
+    }
+    .calendar-day{
+      border:0;background:transparent;cursor:pointer;color:var(--ink);font-weight:800
+    }
+    .calendar-day:hover{background:#fff1f3;color:var(--wine)}
+    .calendar-day.active{background:var(--wine);color:#fff}
+    .calendar-day.today:not(.active){box-shadow:inset 0 0 0 1px var(--wine);color:var(--wine)}
+    .calendar-day.unavailable{opacity:.25;cursor:default}
+    .calendar-footer{
+      margin-top:9px;padding-top:8px;border-top:1px solid var(--line);
+      display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;color:var(--muted)
+    }
+
+    /* Modo celebração */
+    .celebration-exit{
+      position:fixed;right:18px;top:18px;z-index:100;width:auto;min-width:72px;height:42px;padding:0 14px;
+      border:0;border-radius:999px;background:var(--wine);color:#fff;font-weight:900;cursor:pointer;
+      box-shadow:0 12px 28px rgba(78,20,28,.25);display:none
+    }
+    body.celebration-mode{background:#f7f2ea}
+    body.celebration-mode .celebration-exit{display:block}
+    body.celebration-mode .topbar,
+    body.celebration-mode .hero-main,
+    body.celebration-mode .source,
+    body.celebration-mode .footer,
+    body.celebration-mode .back-to-top,
+    body.celebration-mode .section-title span,
+    body.celebration-mode .side > .eyebrow,
+    body.celebration-mode .side > .date-control,
+    body.celebration-mode .side > .date-menu,
+    body.celebration-mode .side > .color-chip,
+    body.celebration-mode .side > .source-status,
+    body.celebration-mode .side > .side-actions{
+      display:none!important
+    }
+    body.celebration-mode .shell{max-width:1220px;padding-top:18px}
+    body.celebration-mode .hero{display:block;margin-top:0}
+    body.celebration-mode .side{
+      background:transparent;border:0;box-shadow:none;padding:0;overflow:visible
+    }
+    body.celebration-mode .quick{
+      max-width:860px;margin:0 auto 20px;padding:18px 20px;border-radius:20px
+    }
+    body.celebration-mode .quick small{font-size:12px}
+    body.celebration-mode .quick-step{min-width:56px;height:48px;font-size:16px}
+    body.celebration-mode .quick-arrow{font-size:15px}
+    body.celebration-mode .section-title{margin:12px 0 16px;display:block}
+    body.celebration-mode .section-title h3{text-align:center;font-size:26px}
+    body.celebration-mode .section-title h3::after{margin:8px auto 0}
+    body.celebration-mode .tape{min-height:285px}
+    body.celebration-mode .tape h4{font-size:18px}
+
+    /* Header mobile compacto */
+    @media(max-width:620px){
+      .topbar{
+        position:sticky!important;top:8px!important;z-index:30;
+        transition:padding .25s ease,border-radius .25s ease,box-shadow .25s ease
+      }
+      body.mobile-scrolled .topbar{
+        padding:10px 12px!important;border-radius:14px!important;
+        box-shadow:0 12px 28px rgba(74,17,25,.22)
+      }
+      body.mobile-scrolled .mark{width:40px;height:40px;border-radius:10px}
+      body.mobile-scrolled .brand{gap:10px}
+      body.mobile-scrolled .brand h1{font-size:16px}
+      body.mobile-scrolled .brand p{display:none}
+      .side-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .utility-btn{font-size:11px;min-height:40px;padding:8px 6px}
+      .date-menu.calendar-panel{padding:10px}
+      .calendar-day,.calendar-empty{font-size:10px}
+      body.celebration-mode .shell{padding:12px 10px 30px}
+      body.celebration-mode .quick{margin-top:54px;padding:15px 12px}
+      body.celebration-mode .quick-step{
+        min-width:0;width:clamp(32px,9vw,40px);height:36px;font-size:11px
+      }
+      body.celebration-mode .quick-arrow{font-size:9px}
+      body.celebration-mode .section-title h3{font-size:22px}
+    }
+
+    @media print{
+      body{background:#fff!important}
+      body::before,.topbar,.side,.source,.footer,.back-to-top,.celebration-exit,.today-kicker,
+      .meta,.note,.section-title span{display:none!important}
+      .shell{max-width:none!important;padding:0!important}
+      .hero{display:block!important;margin:0 0 14px!important}
+      .hero-main{display:block!important;border:0!important;box-shadow:none!important;padding:0!important;background:#fff!important}
+      .hero-main::before{display:none!important}
+      .hero-main h2{font-size:24px!important;margin-bottom:4px!important}
+      .subtitle{font-size:12px!important}
+      .section-title{display:block!important;margin:14px 0 10px!important}
+      .section-title h3{font-size:18px!important}
+      .tapes{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}
+      .tape{min-height:0!important;box-shadow:none!important;break-inside:avoid;padding:13px!important}
+      .tape h4{font-size:14px!important}
+      .detail{font-size:11px!important}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .reveal,.reveal.is-visible{opacity:1!important;transform:none!important}
+    }
+
   </style>
 </head>
 <body>
@@ -569,10 +745,24 @@
           <div class="dot" id="colorDot" style="background:#3b6f50"></div>
           <div><small style="color:var(--muted)">Cor do dia</small><br><strong id="colorSide">Verde</strong></div>
         </div>
+        <div class="source-status" id="sourceStatus" aria-live="polite">
+          <span class="source-status-dot"></span>
+          <span id="sourceStatusText">Separação pelo Missal</span>
+        </div>
+
         <div class="quick">
           <small>Separação rápida</small>
           <strong id="quickSep" class="sr-only">430 → 409 → 477 → 545 → 585</strong>
           <div class="quick-steps" id="quickSteps" aria-label="Separação rápida"></div>
+        </div>
+
+        <div class="side-actions">
+          <button class="utility-btn" id="copyQuickBtn" type="button" title="Copiar separação rápida">⧉ <span>Copiar</span></button>
+          <button class="utility-btn" id="shareQuickBtn" type="button" title="Compartilhar separação">↗ <span>Compartilhar</span></button>
+          <button class="utility-btn" id="todayBtn" type="button" title="Voltar para hoje">⌂ <span>Hoje</span></button>
+          <button class="utility-btn" id="celebrationModeBtn" type="button" title="Abrir modo celebração">▣ <span>Modo celebração</span></button>
+          <button class="utility-btn" id="printQuickBtn" type="button" title="Imprimir ou salvar em PDF">⌑ <span>Imprimir / PDF</span></button>
+          <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário">＋ <span>Instalar app</span></button>
         </div>
       </aside>
     </section>
@@ -608,9 +798,11 @@
       </div>
       <div class="footer-auto">
         Atualização automática ativada: às 05:00 o novo Missal é atualizado, revisado, corrigido automaticamente se necessário e então publicado.
+        <div class="last-update" id="lastUpdateText"></div>
       </div>
     </div>
   </div>
+  <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
 <script src="data.js"></script>
@@ -664,6 +856,118 @@ function renderQuickSteps(value){
     '<span class="quick-step" title="Fita '+(i+1)+'">'+page+'</span>' +
     (i < pages.length-1 ? '<span class="quick-arrow">→</span>' : '')
   ).join("");
+}
+
+
+function tapeIcon(n){
+  return ({1:"✦",2:"☩",3:"◈",4:"✧",5:"✝"})[n] || "•";
+}
+
+function sourceIsOfficial(d){
+  return /folheto oficial|atualizado pelo folheto/i.test(String(d?.source || ""));
+}
+
+function updateSourceStatus(d){
+  const box=document.getElementById("sourceStatus");
+  const txt=document.getElementById("sourceStatusText");
+  if(!box || !txt) return;
+  const official=sourceIsOfficial(d);
+  box.classList.toggle("official",official);
+  txt.textContent=official ? "Folheto oficial aplicado" : "Separação pelo Missal";
+}
+
+function formatLastUpdate(){
+  const raw=window.MISSAL_STATUS?.lastSuccessfulUpdateAt;
+  const target=document.getElementById("lastUpdateText");
+  if(!raw || !target) return;
+  const dt=new Date(raw);
+  const today=brasiliaTodayKey();
+  const localKey=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Sao_Paulo",year:"numeric",month:"2-digit",day:"2-digit"})
+    .format(dt);
+  const time=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",hour:"2-digit",minute:"2-digit"}).format(dt);
+  const date=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",year:"numeric"}).format(dt);
+  target.textContent=localKey===today ? "Última atualização: hoje às "+time : "Última atualização: "+date+" às "+time;
+}
+
+let revealObserver=null;
+function observeReveals(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if(!revealObserver){
+    revealObserver=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+  }
+  document.querySelectorAll(".tape,.source,.section-title").forEach(el=>{
+    if(!el.classList.contains("reveal")) el.classList.add("reveal");
+    if(!el.classList.contains("is-visible")) revealObserver.observe(el);
+  });
+}
+
+let tapeFocusObserver=null;
+function observeTapeFocus(){
+  if(!window.matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+  if(tapeFocusObserver) tapeFocusObserver.disconnect();
+  tapeFocusObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>entry.target.classList.toggle("in-focus",entry.isIntersecting));
+  },{threshold:.45,rootMargin:"-32% 0px -32% 0px"});
+  document.querySelectorAll(".tape").forEach(el=>tapeFocusObserver.observe(el));
+}
+
+async function copyQuickSeparation(showFeedback=true){
+  const value=document.getElementById("quickSep")?.textContent?.trim() || "";
+  if(!value) return;
+  try{
+    await navigator.clipboard.writeText(value);
+  }catch(e){
+    const ta=document.createElement("textarea");ta.value=value;document.body.appendChild(ta);ta.select();
+    document.execCommand("copy");ta.remove();
+  }
+  if(showFeedback){
+    const btn=document.getElementById("copyQuickBtn");
+    if(btn){const old=btn.innerHTML;btn.innerHTML="✓ <span>Copiado</span>";setTimeout(()=>btn.innerHTML=old,1300);}
+  }
+}
+
+async function shareCurrent(){
+  const d=data[window.currentDateKey];
+  const quick=document.getElementById("quickSep")?.textContent?.trim() || "";
+  const text=(d?.celebration || "Missal Diário")+"\nSeparação: "+quick;
+  if(navigator.share){
+    try{await navigator.share({title:"Missal Diário",text,url:location.href});}catch(e){}
+  }else{
+    await copyQuickSeparation(false);
+    alert("Separação copiada. Você pode colar no WhatsApp, Telegram ou onde quiser.");
+  }
+}
+
+let installPromptEvent=null;
+function isIos(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+function setupInstallButton(){
+  const btn=document.getElementById("installAppBtn");
+  if(!btn) return;
+  window.addEventListener("beforeinstallprompt",e=>{
+    e.preventDefault();installPromptEvent=e;btn.disabled=false;
+  });
+  btn.addEventListener("click",async()=>{
+    if(installPromptEvent){
+      installPromptEvent.prompt();
+      try{await installPromptEvent.userChoice;}catch(e){}
+      installPromptEvent=null;
+      return;
+    }
+    if(isIos()){
+      alert("No iPhone: toque no botão Compartilhar do Safari e escolha “Adicionar à Tela de Início”.");
+    }else{
+      alert("Abra o menu do navegador e escolha “Instalar app” ou “Adicionar à tela inicial”, se disponível.");
+    }
+  });
 }
 
 function animateUpdatedContent(){
@@ -721,6 +1025,7 @@ function render(dateKey){
   document.getElementById("quickSep").textContent = d.quick;
   renderQuickSteps(d.quick);
   document.getElementById("sourceBadge").textContent = d.source;
+  updateSourceStatus(d);
   document.getElementById("datePickerLabel").textContent =
     new Date(dateKey+"T12:00:00").toLocaleDateString("pt-BR");
 
@@ -730,7 +1035,10 @@ function render(dateKey){
     const el = document.createElement("article");
     el.className = "card tape";
     el.innerHTML = `
-      <div class="tape-no">${t.n}</div>
+      <div class="tape-top">
+        <div class="tape-no">${t.n}</div>
+        <div class="tape-icon" aria-hidden="true">${tapeIcon(t.n)}</div>
+      </div>
       <div class="page">Página ${t.page}</div>
       <h4>${t.title}</h4>
       ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br>${x[1]}</div>`).join("")}
@@ -740,7 +1048,11 @@ function render(dateKey){
   });
 
   buildDateMenu();
-  requestAnimationFrame(animateUpdatedContent);
+  requestAnimationFrame(()=>{
+    animateUpdatedContent();
+    observeReveals();
+    observeTapeFocus();
+  });
 }
 
 function getRegisteredDates(){
@@ -804,33 +1116,73 @@ function moveDay(delta){
   render(dates[nextIdx]);
 }
 
+
+let calendarCursor=null;
+function visibleMonthRange(){
+  const dates=getVisibleDates();
+  return {min:dates[0].slice(0,7),max:dates[dates.length-1].slice(0,7)};
+}
+function monthShift(key,delta){
+  const [y,m]=key.split("-").map(Number);
+  const d=new Date(y,m-1+delta,1,12);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+}
 function buildDateMenu(){
-  const menu = document.getElementById("dateMenu");
-  const dates = getVisibleDates();
+  const menu=document.getElementById("dateMenu");
+  const dates=getVisibleDates();
+  const dateSet=new Set(dates);
+  menu.classList.add("calendar-panel");
+  if(!calendarCursor) calendarCursor=(window.currentDateKey || dates[dates.length-1]).slice(0,7);
 
-  menu.innerHTML = dates.map(k=>{
-    const d = data[k];
-    const dt = new Date(k+"T12:00:00");
-    const short = dt.toLocaleDateString("pt-BR",{day:"2-digit",month:"2-digit",year:"numeric"});
-    const weekday = dt.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".","");
-    return `<button class="date-option ${k===window.currentDateKey ? "active" : ""}" data-date="${k}">
-      <span>${short}</span>
-      <small>${weekday} • ${d.celebration}</small>
-    </button>`;
-  }).join("");
+  const [year,month]=calendarCursor.split("-").map(Number);
+  const range=visibleMonthRange();
+  if(calendarCursor<range.min) calendarCursor=range.min;
+  if(calendarCursor>range.max) calendarCursor=range.max;
 
-  menu.querySelectorAll(".date-option").forEach(btn=>{
+  const first=new Date(year,month-1,1,12);
+  const daysInMonth=new Date(year,month,0,12).getDate();
+  const startMonday=(first.getDay()+6)%7;
+  const title=first.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+  const today=brasiliaTodayKey();
+
+  let cells="";
+  for(let i=0;i<startMonday;i++) cells+='<span class="calendar-empty"></span>';
+  for(let day=1;day<=daysInMonth;day++){
+    const key=year+"-"+String(month).padStart(2,"0")+"-"+String(day).padStart(2,"0");
+    const available=dateSet.has(key);
+    const cls=["calendar-day",available?"":"unavailable",key===window.currentDateKey?"active":"",key===today?"today":""].filter(Boolean).join(" ");
+    cells+=available
+      ? '<button class="'+cls+'" data-date="'+key+'" type="button">'+day+'</button>'
+      : '<span class="'+cls+'">'+day+'</span>';
+  }
+
+  menu.innerHTML=
+    '<div class="calendar-head">'+
+      '<button class="calendar-nav" id="calendarPrev" type="button" '+(calendarCursor<=range.min?'disabled':'')+'>‹</button>'+
+      '<strong>'+title+'</strong>'+
+      '<button class="calendar-nav" id="calendarNext" type="button" '+(calendarCursor>=range.max?'disabled':'')+'>›</button>'+
+    '</div>'+
+    '<div class="calendar-week"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>'+
+    '<div class="calendar-grid">'+cells+'</div>'+
+    '<div class="calendar-footer"><span>Dias disponíveis</span><span>'+dates.length+' data(s)</span></div>';
+
+  menu.querySelectorAll(".calendar-day[data-date]").forEach(btn=>{
     btn.addEventListener("click",()=>{
       render(btn.dataset.date);
-      menu.hidden = true;
+      menu.hidden=true;
     });
   });
-
+  document.getElementById("calendarPrev")?.addEventListener("click",()=>{calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();});
+  document.getElementById("calendarNext")?.addEventListener("click",()=>{calendarCursor=monthShift(calendarCursor,1);buildDateMenu();});
   updateNavButtons();
 }
 
 document.getElementById("datePickerBtn").addEventListener("click",()=>{
   const menu = document.getElementById("dateMenu");
+  if(menu.hidden){
+    calendarCursor=(window.currentDateKey || getVisibleDates().at(-1)).slice(0,7);
+    buildDateMenu();
+  }
   menu.hidden = !menu.hidden;
 });
 
@@ -875,6 +1227,50 @@ if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
   document.addEventListener("touchmove",e=>updateTouchActive(e.touches[0]),{passive:true});
   document.addEventListener("touchend",clearTouchActive,{passive:true});
   document.addEventListener("touchcancel",clearTouchActive,{passive:true});
+}
+
+
+document.getElementById("copyQuickBtn")?.addEventListener("click",()=>copyQuickSeparation(true));
+document.getElementById("shareQuickBtn")?.addEventListener("click",shareCurrent);
+document.getElementById("todayBtn")?.addEventListener("click",()=>{
+  const dates=getVisibleDates();
+  const today=brasiliaTodayKey();
+  render(dates.includes(today)?today:dates[dates.length-1]);
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.getElementById("printQuickBtn")?.addEventListener("click",()=>window.print());
+
+function setCelebrationMode(on){
+  document.body.classList.toggle("celebration-mode",on);
+  if(on) window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
+document.getElementById("celebrationModeExit")?.addEventListener("click",()=>setCelebrationMode(false));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")setCelebrationMode(false);});
+
+function updateTodayButton(){
+  const btn=document.getElementById("todayBtn");
+  if(!btn) return;
+  btn.disabled=window.currentDateKey===brasiliaTodayKey();
+}
+const originalRender=render;
+render=function(dateKey){
+  originalRender(dateKey);
+  updateTodayButton();
+};
+
+function updateMobileHeader(){
+  document.body.classList.toggle("mobile-scrolled",window.scrollY>90);
+}
+window.addEventListener("scroll",updateMobileHeader,{passive:true});
+updateMobileHeader();
+
+updateTodayButton();
+formatLastUpdate();
+setupInstallButton();
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
 
 const backToTop = document.getElementById("backToTop");
