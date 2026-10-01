@@ -86,3 +86,16 @@ Sempre que houver qualquer alteração no site:
 - enviar ao usuário o link público do GitHub Pages;
 - gerar e enviar também uma cópia HTML atualizada e autossuficiente para abrir diretamente no ChatGPT;
 - manter essa cópia coerente com a versão desktop e mobile publicada.
+
+
+## Regra permanente: site, mobile e app sempre juntos
+
+Toda alteração futura deve ser tratada como uma única entrega para **site + versão desktop + versão mobile + app/PWA instalado**.
+
+Após qualquer modificação:
+- publicar a alteração no GitHub Pages;
+- conferir a responsividade no mobile;
+- garantir que o app/PWA instalado busque a versão mais recente quando estiver online;
+- preservar o funcionamento offline usando a última versão válida em cache;
+- atualizar o mecanismo de cache/service worker quando necessário;
+- só considerar a alteração concluída depois que a versão publicada estiver disponível.
