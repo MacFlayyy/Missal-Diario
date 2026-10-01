@@ -732,7 +732,7 @@
           <div class="meta-item"><span>Grau litúrgico</span><strong id="grade">—</strong></div>
           <div class="meta-item"><span>Tempo litúrgico</span><strong id="season">—</strong></div>
           <div class="meta-item"><span>Cor litúrgica</span><strong id="colorName">—</strong></div>
-          <div class="meta-item"><span>Ciclo ferial</span><strong id="cycle">—</strong></div>
+          <div class="meta-item"><span id="cycleLabel">Ciclo ferial</span><strong id="cycle">—</strong></div>
           <div class="meta-item meta-wide"><span>Observação litúrgica</span><strong id="liturgicalNote">Carregando...</strong></div>
         </div>
         <div class="note" id="note">Carregando a separação disponível...</div>
@@ -968,7 +968,7 @@ function buildDetailedCopyText(dateKey){
   lines.push("**Grau litúrgico:** "+(d.grade||"—")+"\\");
   lines.push("**Tempo litúrgico:** "+(d.season||"—")+"\\");
   lines.push("**Cor litúrgica:** "+(d.color||"—")+"\\");
-  if(d.cycle) lines.push("**Ciclo ferial:** "+d.cycle+"\\");
+  if(d.cycle) lines.push("**"+cycleLabelFor(dateKey,d)+":** "+d.cycle+"\\");
   if(d.liturgicalYear) lines.push("**Ano litúrgico:** "+d.liturgicalYear+"\\");
   if(d.liturgicalNote||d.note){
     lines.push("**Observação:** "+(d.liturgicalNote||d.note)+"     "+citation);
@@ -1162,7 +1162,7 @@ async function buildShareImageBlob(){
   y+=215;
   const infoRows=[
     ["Dia do Santo(a)",d.saint||"—"],
-    ["Ciclo ferial",d.cycle||"—"],
+    [cycleLabelFor(window.currentDateKey,d),d.cycle||"—"],
     ["Separação rápida",d.quick||"—"]
   ];
 
@@ -1298,6 +1298,14 @@ function animateUpdatedContent(){
 }
 
 
+function cycleLabelFor(dateKey,d){
+  const value=String(d?.cycle || "").trim();
+  if(/\bAno\s*[ABC]\b/i.test(value) || d?.cycleType === "dominical") return "Ciclo dominical";
+  if(/\bAno\s*(I|II)\b/i.test(value) || d?.cycleType === "ferial") return "Ciclo ferial";
+  const dt=new Date(dateKey+"T12:00:00");
+  return dt.getDay() === 0 ? "Ciclo dominical" : "Ciclo ferial";
+}
+
 function formatDetailLabel(label){
   const isSuggestion = /•\s*sugestão/i.test(label);
   const clean = label.replace(/\s*•\s*sugestão/ig, "").trim();
@@ -1335,6 +1343,7 @@ function render(dateKey){
   document.getElementById("grade").textContent = d.grade;
   document.getElementById("season").textContent = d.season;
   document.getElementById("colorName").textContent = d.color;
+  document.getElementById("cycleLabel").textContent = cycleLabelFor(dateKey,d);
   document.getElementById("cycle").textContent = d.cycle || "—";
   document.getElementById("liturgicalNote").textContent = d.liturgicalNote || "—";
   document.getElementById("colorSide").textContent = d.color;
