@@ -1061,12 +1061,36 @@ async function copyQuickSeparation(showFeedback){
   }
 }
 
+function loadImage(src){
+  return new Promise(function(resolve,reject){
+    const img=new Image();
+    img.onload=function(){resolve(img);};
+    img.onerror=reject;
+    img.src=src;
+  });
+}
+
+function drawInstagramMark(ctx,x,y,size,color){
+  ctx.save();
+  ctx.strokeStyle=color;
+  ctx.lineWidth=Math.max(2,size*0.08);
+  roundRectPath(ctx,x,y,size,size,size*0.28);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x+size*0.5,y+size*0.5,size*0.18,0,Math.PI*2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x+size*0.76,y+size*0.24,size*0.05,0,Math.PI*2);
+  ctx.fillStyle=color;
+  ctx.fill();
+  ctx.restore();
+}
+
 async function shareCurrent(){
   const url=location.href.split("#")[0];
-  const shareText="Acesse o Missal Diário no site/app:\n"+url;
   if(navigator.share){
     try{
-      await navigator.share({title:"Missal Diário",text:shareText,url:url});
+      await navigator.share({url:url});
       return;
     }catch(e){
       if(e && e.name==="AbortError") return;
@@ -1116,301 +1140,209 @@ async function buildShareImageBlob(){
   const d=data[window.currentDateKey];
   if(!d) return null;
 
-  const W=1080;
-  const margin=54;
-  const gap=26;
-  const colW=472;
-  const wine="#7d1722";
-  const wineDark="#5e1019";
-  const cream="#f7f2ea";
-  const paper="#fffdf9";
-  const ink="#241a17";
-  const muted="#6e6158";
-  const line="#ead9dc";
-  const accent=(window.activeLiturgicalPalette&&window.activeLiturgicalPalette.accent)||d.colorHex||"#c8a96a";
-
-  const measureCanvas=document.createElement("canvas");
-  measureCanvas.width=W;
-  measureCanvas.height=10;
-  const mctx=measureCanvas.getContext("2d");
-
-  function linesFor(ctx,text,maxWidth,font){
-    ctx.font=font;
-    const words=String(text||"—").split(/\s+/).filter(Boolean);
-    const lines=[];
-    let lineText="";
-    words.forEach(function(word){
-      const test=lineText ? lineText+" "+word : word;
-      if(lineText && ctx.measureText(test).width>maxWidth){
-        lines.push(lineText);
-        lineText=word;
-      }else{
-        lineText=test;
-      }
-    });
-    if(lineText) lines.push(lineText);
-    return lines.length ? lines : ["—"];
-  }
-
-  function drawLines(ctx,lines,x,y,lineHeight){
-    lines.forEach(function(lineText,idx){
-      ctx.fillText(lineText,x,y+(idx*lineHeight));
-    });
-    return y+(lines.length*lineHeight);
-  }
-
-  function tapeMetrics(t){
-    const titleLines=linesFor(mctx,t.title,colW-48,"700 24px Arial, sans-serif");
-    let detailsHeight=0;
-    const details=t.details||[];
-    details.forEach(function(pair,idx){
-      const value=String(pair[1]||"—").replace(/^“|”$/g,"");
-      const valueLines=linesFor(mctx,value,colW-48,"600 17px Arial, sans-serif");
-      detailsHeight+=24+(valueLines.length*22)+10;
-      if(idx<details.length-1) detailsHeight+=13;
-    });
-    const height=124+(titleLines.length*30)+detailsHeight;
-    return {height:Math.max(190,height),titleLines:titleLines};
-  }
-
-  const tapes=(d.tapes||[]).slice(0,5);
-  const metrics=tapes.map(tapeMetrics);
-  const row1=Math.max(metrics[0]?.height||0,metrics[1]?.height||0);
-  const row2=Math.max(metrics[2]?.height||0,metrics[3]?.height||0);
-  const row3=metrics[4]?.height||0;
-
-  const heroTitleLines=linesFor(mctx,d.celebration,850,"700 36px Arial, sans-serif");
-  const heroH=Math.max(224,126+(heroTitleLines.length*42));
-
-  const obsLines=linesFor(mctx,d.liturgicalNote||d.note||"—",900,"600 21px Arial, sans-serif");
-  const obsH=Math.max(112,70+(obsLines.length*26));
-
-  const topH=184;
-  const infoH=104;
-  const quickH=128;
-  const sectionH=72;
-  const afterHero=26+infoH+18+quickH+18+obsH+sectionH;
-  const tapesH=row1+(row2?gap+row2:0)+(row3?gap+row3:0);
-  const footerH=150;
-  const calculatedH=topH+34+heroH+afterHero+tapesH+footerH+42;
-  const H=Math.max(1920,calculatedH);
-
   const canvas=document.createElement("canvas");
-  canvas.width=W;
-  canvas.height=H;
+  canvas.width=1400;
+  canvas.height=1460;
   const ctx=canvas.getContext("2d");
 
+  const wine="#8c1323";
+  const wineDark="#6f101b";
+  const cream="#f4efe7";
+  const white="#fffdfb";
+  const ink="#261b18";
+  const muted="#72655d";
+  const line="#e4d4d7";
+  const darkCard="#2a2323";
+
+  function liturgicalColor(name){
+    const key=String(name||"").toLowerCase();
+    if(key.includes("verde")) return "#3d7654";
+    if(key.includes("vermelh")) return "#b02234";
+    if(key.includes("rox")) return "#6c4a8f";
+    if(key.includes("rosa") || key.includes("róseo") || key.includes("roseo")) return "#d982a6";
+    if(key.includes("preto")) return "#222222";
+    return "#f7f0d9";
+  }
+
+  function card(x,y,w,h,r,fill){
+    roundRectPath(ctx,x,y,w,h,r);
+    ctx.fillStyle=fill||white;
+    ctx.fill();
+    ctx.strokeStyle=line;
+    ctx.lineWidth=2;
+    ctx.stroke();
+  }
+
+  function metaBox(x,y,w,h,label,value,wide){
+    card(x,y,w,h,16,"#fffaf2");
+    ctx.fillStyle=muted;
+    ctx.font="700 11px Arial, sans-serif";
+    ctx.fillText(label,x+16,y+21);
+    ctx.fillStyle=ink;
+    ctx.font="700 13px Arial, sans-serif";
+    wrapCanvasText(ctx,value,x+16,y+44,w-32,16,wide?2:2);
+  }
+
+  function drawQuickStep(x,y,w,text){
+    roundRectPath(ctx,x,y,w,34,10);
+    ctx.fillStyle="rgba(255,255,255,.12)";
+    ctx.fill();
+    ctx.strokeStyle="rgba(255,255,255,.18)";
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+    ctx.fillStyle="#fff";
+    ctx.font="800 13px Arial, sans-serif";
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+    ctx.fillText(text,x+w/2,y+17);
+    ctx.textAlign="left";
+    ctx.textBaseline="alphabetic";
+  }
+
+  function statusPill(x,y,w,text,official){
+    roundRectPath(ctx,x,y,w,42,13);
+    ctx.fillStyle=official?"#f5fbf7":"#fff8f8";
+    ctx.fill();
+    ctx.strokeStyle=official?"#d8e5dc":"#ead9dc";
+    ctx.lineWidth=2;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x+22,y+21,5,0,Math.PI*2);
+    ctx.fillStyle=official?"#315d45":wine;
+    ctx.fill();
+    ctx.fillStyle=official?"#315d45":wine;
+    ctx.font="800 12px Arial, sans-serif";
+    ctx.fillText(text,x+38,y+26);
+  }
+
   ctx.fillStyle=cream;
-  ctx.fillRect(0,0,W,H);
+  ctx.fillRect(0,0,canvas.width,canvas.height);
 
-  const headerGrad=ctx.createLinearGradient(0,0,W,0);
-  headerGrad.addColorStop(0,wine);
-  headerGrad.addColorStop(1,wineDark);
-  ctx.fillStyle=headerGrad;
-  ctx.fillRect(0,0,W,topH);
-
-  ctx.fillStyle=accent;
-  ctx.fillRect(0,topH-7,W,7);
-
-  ctx.fillStyle="rgba(255,255,255,.09)";
-  ctx.beginPath();ctx.arc(930,18,150,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.arc(1010,130,95,0,Math.PI*2);ctx.fill();
-
-  ctx.fillStyle="#fff";
-  ctx.font="800 48px Arial, sans-serif";
-  ctx.fillText("Missal Diário",64,82);
-  ctx.font="500 24px Arial, sans-serif";
-  ctx.fillText("Separação para compartilhar",64,124);
-  ctx.font="700 18px Arial, sans-serif";
-  ctx.fillStyle="rgba(255,255,255,.82)";
-  ctx.fillText("Missal Romano • celebração do dia",64,156);
-
-  let y=topH+34;
-
-  roundRectPath(ctx,margin,y,W-(margin*2),heroH,28);
-  ctx.fillStyle=paper;ctx.fill();
-  ctx.strokeStyle=line;ctx.lineWidth=2;ctx.stroke();
-
-  ctx.fillStyle=accent;
-  roundRectPath(ctx,margin,y,10,heroH,8);
-  ctx.fill();
-
-  ctx.fillStyle=wine;
-  ctx.font="800 23px Arial, sans-serif";
-  const heading=window.currentDateKey===brasiliaTodayKey()?"Hoje":"Data selecionada";
-  ctx.fillText(heading+" — "+formatSelectedDate(window.currentDateKey),84,y+42);
-
-  ctx.fillStyle=ink;
-  ctx.font="700 36px Arial, sans-serif";
-  const heroBottom=drawLines(ctx,heroTitleLines,84,y+92,42);
-
-  const chips=[
-    d.grade||"—",
-    d.season||"—",
-    d.color||"—"
-  ];
-  let chipX=84;
-  const chipY=Math.min(y+heroH-48,heroBottom+14);
-  chips.forEach(function(chip){
-    ctx.font="700 17px Arial, sans-serif";
-    const cw=Math.ceil(ctx.measureText(chip).width)+28;
-    roundRectPath(ctx,chipX,chipY,cw,34,17);
-    ctx.fillStyle="#f6edef";ctx.fill();
-    ctx.strokeStyle="#ead9dc";ctx.stroke();
-    ctx.fillStyle=wine;ctx.fillText(chip,chipX+14,chipY+23);
-    chipX+=cw+10;
-  });
-
-  y+=heroH+26;
-
-  const half=(W-(margin*2)-18)/2;
-  const info=[
-    ["Dia do Santo(a)",d.saint||"—"],
-    [cycleLabelFor(window.currentDateKey,d),d.cycle||"—"]
-  ];
-  info.forEach(function(row,idx){
-    const x=margin+idx*(half+18);
-    roundRectPath(ctx,x,y,half,infoH,22);
-    ctx.fillStyle="#fff";ctx.fill();
-    ctx.strokeStyle=line;ctx.stroke();
-    ctx.fillStyle=wine;ctx.font="800 17px Arial, sans-serif";ctx.fillText(row[0],x+26,y+30);
-    ctx.fillStyle=ink;ctx.font="700 21px Arial, sans-serif";
-    const rowLines=linesFor(ctx,row[1],half-52,"700 21px Arial, sans-serif");
-    drawLines(ctx,rowLines.slice(0,2),x+26,y+62,24);
-  });
-
-  y+=infoH+18;
-
-  roundRectPath(ctx,margin,y,W-(margin*2),quickH,24);
-  ctx.fillStyle=wine;ctx.fill();
+  const headerX=80, headerY=26, headerW=1240, headerH=138;
+  const grad=ctx.createLinearGradient(headerX,0,headerX+headerW,0);
+  grad.addColorStop(0,wine);
+  grad.addColorStop(1,wineDark);
+  ctx.fillStyle=grad;
+  roundRectPath(ctx,headerX,headerY,headerW,headerH,28); ctx.fill();
   ctx.fillStyle="rgba(255,255,255,.08)";
-  roundRectPath(ctx,margin+10,y+10,W-(margin*2)-20,quickH-20,18);
-  ctx.fill();
-  ctx.fillStyle="#fff";ctx.font="800 18px Arial, sans-serif";
-  ctx.fillText("Separação rápida",84,y+32);
+  ctx.beginPath();ctx.arc(1260,88,112,0,Math.PI*2);ctx.fill();
 
-  const pages=String(d.quick||"").match(/\d+(?:\/\d+)?/g)||[];
-  let qx=84;
-  const qy=y+54;
-  pages.forEach(function(page,idx){
-    ctx.font="800 22px Arial, sans-serif";
-    const bw=Math.max(72,Math.ceil(ctx.measureText(page).width)+28);
-    roundRectPath(ctx,qx,qy,bw,48,15);
-    ctx.fillStyle="rgba(255,255,255,.14)";ctx.fill();
-    ctx.strokeStyle="rgba(255,255,255,.25)";ctx.stroke();
-    ctx.fillStyle="#fff";ctx.fillText(page,qx+14,qy+31);
-    qx+=bw;
-    if(idx<pages.length-1){
-      ctx.font="700 20px Arial, sans-serif";
-      ctx.fillStyle="rgba(255,255,255,.78)";
-      ctx.fillText("→",qx+10,qy+30);
-      qx+=42;
+  try{
+    const logoSrc=document.querySelector(".mark img")?.src || "";
+    if(logoSrc){
+      const logo=await loadImage(logoSrc);
+      ctx.save();roundRectPath(ctx,112,52,72,72,18);ctx.clip();ctx.drawImage(logo,112,52,72,72);ctx.restore();
+      ctx.strokeStyle="rgba(255,255,255,.25)";ctx.lineWidth=2;roundRectPath(ctx,112,52,72,72,18);ctx.stroke();
+    }
+  }catch(e){}
+  ctx.fillStyle="#fff";ctx.font="700 28px Arial, sans-serif";ctx.fillText("Missal Diário",206,84);
+  ctx.font="400 14px Arial, sans-serif";ctx.fillText("Separação do Missal",206,110);
+
+  const heroY=194, heroGap=22;
+  const heroTotal=1240;
+  const mainW=760, sideW=heroTotal-mainW-heroGap;
+  const mainX=80, sideX=mainX+mainW+heroGap;
+  const heroH=620;
+  card(mainX,heroY,mainW,heroH,24);
+  card(sideX,heroY,sideW,heroH,24);
+
+  ctx.beginPath();ctx.arc(mainX+30,heroY+34,6,0,Math.PI*2);ctx.fillStyle="#3d7654";ctx.fill();
+  ctx.fillStyle=muted;ctx.font="700 12px Arial, sans-serif";ctx.fillText("Separação para a celebração de hoje",mainX+45,heroY+39);
+  ctx.fillStyle=wine;ctx.font="800 16px Arial, sans-serif";
+  const weekday=(new Date(window.currentDateKey+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long"})).toUpperCase();
+  ctx.fillText(weekday+" • "+formatSelectedDate(window.currentDateKey),mainX+28,heroY+78);
+
+  ctx.fillStyle=ink;ctx.font="700 38px Arial, sans-serif";
+  const titleBottom=wrapCanvasText(ctx,d.celebration,mainX+28,heroY+126,mainW-56,46,3);
+  ctx.fillStyle=muted;ctx.font="500 18px Arial, sans-serif";
+  ctx.fillText(d.subtitle || ((d.grade||"")+" • "+(d.season||"")),mainX+28,titleBottom+25);
+
+  const metaY=titleBottom+48;
+  const innerW=mainW-56;
+  const metaGap=12;
+  const colW=(innerW-metaGap)/2;
+  const mh=62;
+  metaBox(mainX+28,metaY,colW,mh,"DIA DO SANTO(A)",d.saint||"—");
+  metaBox(mainX+28+colW+metaGap,metaY,colW,mh,"GRAU LITÚRGICO",d.grade||"—");
+  metaBox(mainX+28,metaY+mh+12,colW,mh,"TEMPO LITÚRGICO",d.season||"—");
+  metaBox(mainX+28+colW+metaGap,metaY+mh+12,colW,mh,"COR LITÚRGICA",d.color||"—");
+  metaBox(mainX+28,metaY+(mh+12)*2,colW,mh,cycleLabelFor(window.currentDateKey,d).toUpperCase(),d.cycle||"—");
+  metaBox(mainX+28,metaY+(mh+12)*3,innerW,mh,"OBSERVAÇÃO LITÚRGICA",d.liturgicalNote||"—",true);
+
+  const noteY=heroY+heroH-58;
+  roundRectPath(ctx,mainX+28,noteY,innerW,34,10);ctx.fillStyle="#fff8e9";ctx.fill();
+  ctx.fillStyle="#5c5249";ctx.font="500 11px Arial, sans-serif";
+  wrapCanvasText(ctx,d.note||d.liturgicalNote||"—",mainX+42,noteY+21,innerW-28,14,1);
+
+  ctx.fillStyle=wine;ctx.font="800 16px Arial, sans-serif";ctx.fillText("ESCOLHER DATA",sideX+24,heroY+38);
+  card(sideX+24,heroY+58,44,44,12);
+  ctx.fillStyle=wine;ctx.font="700 24px Arial, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("‹",sideX+46,heroY+80);
+  ctx.textAlign="left";ctx.textBaseline="alphabetic";
+  card(sideX+78,heroY+58,sideW-156,44,12);
+  ctx.fillStyle=ink;ctx.font="700 14px Arial, sans-serif";ctx.textAlign="center";ctx.fillText(formatSelectedDate(window.currentDateKey),sideX+sideW/2,heroY+85);
+  ctx.textAlign="left";
+  ctx.fillStyle=wine;ctx.font="700 14px Arial, sans-serif";ctx.fillText("▾",sideX+sideW-94,heroY+84);
+  card(sideX+sideW-68,heroY+58,44,44,12);
+  ctx.fillStyle="#d9cdcf";ctx.font="700 24px Arial, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("›",sideX+sideW-46,heroY+80);
+  ctx.textAlign="left";ctx.textBaseline="alphabetic";
+
+  card(sideX+24,heroY+120,sideW-48,76,16);
+  ctx.beginPath();ctx.arc(sideX+48,heroY+158,14,0,Math.PI*2);ctx.fillStyle=liturgicalColor(d.color);ctx.fill();ctx.strokeStyle="#efe6d3";ctx.lineWidth=4;ctx.stroke();
+  ctx.fillStyle=muted;ctx.font="500 14px Arial, sans-serif";ctx.fillText("Cor do dia",sideX+72,heroY+151);
+  ctx.fillStyle=ink;ctx.font="700 16px Arial, sans-serif";ctx.fillText(d.color||"—",sideX+72,heroY+176);
+
+  const official=sourceIsOfficial(d);
+  statusPill(sideX+24,heroY+208,sideW-48,official?"Folheto oficial aplicado":"Separação pelo Missal",official);
+
+  const quickY=heroY+264;
+  roundRectPath(ctx,sideX+24,quickY,sideW-48,126,16);ctx.fillStyle=darkCard;ctx.fill();
+  ctx.fillStyle="#fff";ctx.font="500 13px Arial, sans-serif";ctx.fillText("Separação rápida",sideX+42,quickY+26);
+  const pages=String(d.quick||"").split(/\s*→\s*/g).map(function(x){return x.trim();}).filter(Boolean);
+  const widths=pages.map(function(pg){return pg.length>4?66:44;});
+  const arrows=pages.length>1?(pages.length-1)*22:0;
+  const total=widths.reduce(function(a,b){return a+b;},0)+arrows;
+  let qx=sideX+24+((sideW-48)-total)/2;
+  const qy=quickY+56;
+  pages.forEach(function(pg,i){
+    drawQuickStep(qx,qy,widths[i],pg);qx+=widths[i];
+    if(i<pages.length-1){ctx.fillStyle="#d6cfcf";ctx.font="700 16px Arial, sans-serif";ctx.fillText("→",qx+5,qy+22);qx+=22;}
+  });
+
+  const sectionY=heroY+heroH+62;
+  ctx.fillStyle=ink;ctx.font="700 44px Arial, sans-serif";ctx.fillText("Marcações do Missal",80,sectionY);
+  ctx.fillStyle=wine;ctx.fillRect(80,sectionY+16,70,5);
+  ctx.fillStyle=muted;ctx.font="500 11px Arial, sans-serif";ctx.textAlign="right";ctx.fillText(d.source||"Separação pelo Missal Romano",1320,sectionY-4);ctx.textAlign="left";
+
+  const gridY=sectionY+44;
+  const gap=14;
+  const tapeW=(1240-gap*4)/5;
+  const tapeH=300;
+  (d.tapes||[]).slice(0,5).forEach(function(t,i){
+    const x=80+i*(tapeW+gap);
+    card(x,gridY,tapeW,tapeH,20);
+    roundRectPath(ctx,x,gridY,10,tapeH,20);ctx.fillStyle=wine;ctx.fill();
+    ctx.beginPath();ctx.arc(x+40,gridY+38,26,0,Math.PI*2);ctx.fillStyle=wine;ctx.fill();
+    ctx.fillStyle="#fff";ctx.font="800 20px Arial, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(t.n),x+40,gridY+38);ctx.textAlign="left";ctx.textBaseline="alphabetic";
+    ctx.fillStyle=muted;ctx.font="700 11px Arial, sans-serif";ctx.fillText("PÁGINA "+t.page,x+22,gridY+86);
+    ctx.fillStyle=ink;ctx.font="700 16px Arial, sans-serif";
+    const titleEnd=wrapCanvasText(ctx,t.title,x+22,gridY+114,tapeW-44,20,4);
+    let dy=titleEnd+18;
+    (t.details||[]).slice(0,2).forEach(function(pair){
+      const meta=labelWithSuggestion(pair[0]);
+      ctx.fillStyle=muted;ctx.font="700 10px Arial, sans-serif";
+      const labelEnd=wrapCanvasText(ctx,meta.clean.toUpperCase()+":",x+22,dy,tapeW-44,12,2);
+      ctx.fillStyle=muted;ctx.font="600 11px Arial, sans-serif";
+      dy=wrapCanvasText(ctx,String(pair[1]),x+22,labelEnd+5,tapeW-44,14,2)+11;
+    });
+    if(t.suggestion || (t.details||[]).some(function(p){return /sugestão/i.test(String(p[0]));})){
+      roundRectPath(ctx,x+22,gridY+tapeH-30,72,20,10);ctx.fillStyle="#fff8e9";ctx.fill();ctx.strokeStyle="#e1d2ab";ctx.lineWidth=1.5;ctx.stroke();
+      ctx.fillStyle="#8f7440";ctx.font="700 10px Arial, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("Sugestão",x+58,gridY+tapeH-20);ctx.textAlign="left";ctx.textBaseline="alphabetic";
     }
   });
-  if(!pages.length){
-    ctx.fillStyle="#fff";ctx.font="700 22px Arial, sans-serif";
-    ctx.fillText(d.quick||"—",84,qy+31);
-  }
 
-  y+=quickH+18;
-
-  roundRectPath(ctx,margin,y,W-(margin*2),obsH,22);
-  ctx.fillStyle="#fff";ctx.fill();
-  ctx.strokeStyle=line;ctx.stroke();
-  ctx.fillStyle=wine;ctx.font="800 18px Arial, sans-serif";
-  ctx.fillText("Observação litúrgica",84,y+30);
-  ctx.fillStyle=ink;ctx.font="600 21px Arial, sans-serif";
-  drawLines(ctx,obsLines,84,y+62,26);
-
-  y+=obsH+sectionH;
-  ctx.fillStyle=ink;ctx.font="800 30px Arial, sans-serif";
-  ctx.fillText("Marcações do Missal",margin,y-22);
-  ctx.fillStyle=accent;
-  roundRectPath(ctx,margin,y-10,92,5,3);ctx.fill();
-
-  function drawTapeCard(t,metric,x,top,w,h){
-    roundRectPath(ctx,x,top,w,h,24);
-    ctx.fillStyle="#fff";ctx.fill();
-    ctx.strokeStyle=line;ctx.lineWidth=2;ctx.stroke();
-
-    ctx.fillStyle=accent;
-    roundRectPath(ctx,x,top,8,h,7);ctx.fill();
-
-    ctx.fillStyle=wine;
-    roundRectPath(ctx,x+22,top+20,46,46,13);ctx.fill();
-    ctx.fillStyle="#fff";ctx.font="800 22px Arial, sans-serif";
-    ctx.textAlign="center";ctx.fillText(String(t.n),x+45,top+50);ctx.textAlign="left";
-
-    ctx.fillStyle=muted;ctx.font="800 17px Arial, sans-serif";
-    ctx.fillText("pág. "+t.page,x+84,top+48);
-
-    if(t.suggestion){
-      ctx.font="800 13px Arial, sans-serif";
-      const sw=92;
-      roundRectPath(ctx,x+w-sw-22,top+24,sw,30,15);
-      ctx.fillStyle="#fff6ea";ctx.fill();
-      ctx.strokeStyle="#ead7b5";ctx.stroke();
-      ctx.fillStyle="#8a6420";ctx.fillText("SUGESTÃO",x+w-sw-10,top+44);
-    }
-
-    ctx.fillStyle=ink;ctx.font="700 24px Arial, sans-serif";
-    let cy=drawLines(ctx,metric.titleLines,x+24,top+96,30)+10;
-
-    (t.details||[]).forEach(function(pair,detailIndex){
-      const label=labelWithSuggestion(pair[0]);
-      ctx.fillStyle=wine;ctx.font="800 15px Arial, sans-serif";
-      const labelText=label.clean+(label.isSuggestion?" • sugestão":"");
-      ctx.fillText(labelText.toUpperCase(),x+24,cy);
-      cy+=24;
-
-      const value=String(pair[1]||"—").replace(/^“|”$/g,"");
-      const valueLines=linesFor(ctx,value,w-48,"600 17px Arial, sans-serif");
-      ctx.fillStyle=muted;ctx.font="600 17px Arial, sans-serif";
-      cy=drawLines(ctx,valueLines,x+24,cy,22)+10;
-
-      if(detailIndex<(t.details||[]).length-1){
-        ctx.strokeStyle="#f0e5e2";ctx.lineWidth=1;
-        ctx.beginPath();ctx.moveTo(x+24,cy);ctx.lineTo(x+w-24,cy);ctx.stroke();
-        cy+=13;
-      }
-    });
-  }
-
-  let tapeY=y;
-  if(tapes[0]) drawTapeCard(tapes[0],metrics[0],margin,tapeY,colW,row1);
-  if(tapes[1]) drawTapeCard(tapes[1],metrics[1],margin+colW+gap,tapeY,colW,row1);
-  tapeY+=row1;
-
-  if(row2){
-    tapeY+=gap;
-    if(tapes[2]) drawTapeCard(tapes[2],metrics[2],margin,tapeY,colW,row2);
-    if(tapes[3]) drawTapeCard(tapes[3],metrics[3],margin+colW+gap,tapeY,colW,row2);
-    tapeY+=row2;
-  }
-
-  if(row3){
-    tapeY+=gap;
-    if(tapes[4]) drawTapeCard(tapes[4],metrics[4],margin,tapeY,colW,row3);
-    tapeY+=row3;
-  }
-
-  const footerY=H-footerH+26;
-  ctx.strokeStyle="#e2d3ce";ctx.lineWidth=1;
-  ctx.beginPath();ctx.moveTo(margin,footerY-20);ctx.lineTo(W-margin,footerY-20);ctx.stroke();
-
-  ctx.fillStyle=wine;ctx.font="800 18px Arial, sans-serif";
-  ctx.fillText("macflayyy.github.io/Missal-Diario/",margin,footerY+10);
-  ctx.textAlign="right";
-  ctx.fillText("Criado por Ronielly Macflay",W-margin,footerY+10);
-  ctx.textAlign="left";
-
-  ctx.fillStyle=muted;ctx.font="600 15px Arial, sans-serif";
-  const sourceText=d.source||"Missal Romano CNBB 2023";
-  const sourceLines=linesFor(ctx,"Fonte: "+sourceText,W-(margin*2),"600 15px Arial, sans-serif");
-  drawLines(ctx,sourceLines.slice(0,2),margin,footerY+42,21);
-
-  ctx.fillStyle=muted;ctx.font="700 14px Arial, sans-serif";
-  ctx.fillText("Atualização automática diária às 05:00 • Brasília",margin,footerY+94);
+  const footerY=1412;
+  drawInstagramMark(ctx,610,footerY-20,24,wine);
+  ctx.fillStyle=wine;ctx.font="700 18px Arial, sans-serif";ctx.fillText("@macflayyy",644,footerY);
 
   return new Promise(function(resolve){canvas.toBlob(resolve,"image/png");});
 }
@@ -1430,11 +1362,7 @@ async function shareCurrentImage(){
     const file=new File([blob],name,{type:"image/png"});
 
     if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
-      await navigator.share({
-        title:"Missal Diário",
-        text:"Imagem da separação do Missal Diário",
-        files:[file]
-      });
+      await navigator.share({files:[file]});
       return;
     }
 
