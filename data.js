@@ -86,5 +86,27 @@ window.MISSAL_DATA = {
     ],
     "quick": "430 → 814 → 506 → 536 → 587",
     "cycle": "Ano II"
+  },
+  "2026-10-01": {
+    "label": "Quinta-feira • 01/10/2026",
+    "celebration": "Santa Teresa do Menino Jesus, virgem e doutora da Igreja",
+    "subtitle": "Tempo Comum",
+    "saint": "Santa Teresa do Menino Jesus",
+    "grade": "Memória",
+    "season": "Tempo Comum",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Santa Teresa do Menino Jesus é celebrada hoje como Memória.",
+    "liturgicalNote": "Santa Teresa do Menino Jesus é celebrada hoje como Memória.",
+    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "tapes": [
+      {"n":1,"page":"430 / 434","title":"Ritos Iniciais","details":[["Saudação A • sugestão","“A graça de nosso Senhor Jesus Cristo...”"],["Ato Penitencial — Segunda fórmula, 2ª opção • sugestão","“No início desta celebração eucarística...”"]],"suggestion":true},
+      {"n":2,"page":"816","title":"Santa Teresa do Menino Jesus, virgem e doutora da Igreja","details":[["Formulário","Missa do dia"]]},
+      {"n":3,"page":"506","title":"Prefácio dos Santos Doutores da Igreja I","details":[["Título","Os Doutores da Igreja, reflexo da sabedoria"],["Uso","Sugestão."]],"suggestion":true},
+      {"n":4,"page":"536","title":"Oração Eucarística II","details":[["Aclamação • sugestão","“Mistério da fé!”"],["Resposta","“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"]],"suggestion":true},
+      {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão, aplicada aqui à celebração de Santa Teresa do Menino Jesus."]],"suggestion":true}
+    ],
+    "quick": "430/434 → 816 → 506 → 536 → 587",
+    "cycle": "Ano II"
   }
 };
