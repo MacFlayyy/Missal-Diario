@@ -723,19 +723,19 @@
     <section class="hero">
       <div class="card hero-main">
         <div class="today-kicker"><span class="today-dot"></span><span id="contextText">Separação para a celebração de hoje</span></div>
-        <div class="eyebrow" id="dateLabel">Domingo • 04/10/2026</div>
-        <h2 id="celebration">27º Domingo do Tempo Comum</h2>
-        <p class="subtitle" id="subtitle">Ano A • Tempo Comum</p>
+        <div class="eyebrow" id="dateLabel">Carregando data...</div>
+        <h2 id="celebration">Carregando celebração...</h2>
+        <p class="subtitle" id="subtitle">Aguarde um instante</p>
 
         <div class="meta">
-          <div class="meta-item"><span>Dia do Santo(a)</span><strong id="saint">São Francisco de Assis</strong></div>
-          <div class="meta-item"><span>Grau litúrgico</span><strong id="grade">Domingo do Tempo Comum</strong></div>
-          <div class="meta-item"><span>Tempo litúrgico</span><strong id="season">Tempo Comum</strong></div>
-          <div class="meta-item"><span>Cor litúrgica</span><strong id="colorName">Verde</strong></div>
+          <div class="meta-item"><span>Dia do Santo(a)</span><strong id="saint">—</strong></div>
+          <div class="meta-item"><span>Grau litúrgico</span><strong id="grade">—</strong></div>
+          <div class="meta-item"><span>Tempo litúrgico</span><strong id="season">—</strong></div>
+          <div class="meta-item"><span>Cor litúrgica</span><strong id="colorName">—</strong></div>
           <div class="meta-item"><span>Ciclo ferial</span><strong id="cycle">—</strong></div>
-          <div class="meta-item meta-wide"><span>Observação litúrgica</span><strong id="liturgicalNote">Memória de São Francisco de Assis omitida por coincidir com o domingo.</strong></div>
+          <div class="meta-item meta-wide"><span>Observação litúrgica</span><strong id="liturgicalNote">Carregando...</strong></div>
         </div>
-        <div class="note" id="note">A memória de São Francisco de Assis é omitida neste ano porque coincide com o domingo.</div>
+        <div class="note" id="note">Carregando a separação disponível...</div>
       </div>
 
       <aside class="card side">
@@ -743,15 +743,15 @@
         <div class="date-control">
           <button class="nav-btn" id="prevBtn" aria-label="Dia anterior">‹</button>
           <button class="date-picker-btn" id="datePickerBtn" type="button">
-            <span id="datePickerLabel">04/10/2026</span>
+            <span id="datePickerLabel">Hoje</span>
             <span class="calendar-icon">▾</span>
           </button>
           <button class="nav-btn" id="nextBtn" aria-label="Próximo dia">›</button>
         </div>
         <div class="date-menu" id="dateMenu" hidden></div>
         <div class="color-chip">
-          <div class="dot" id="colorDot" style="background:#3b6f50"></div>
-          <div><small style="color:var(--muted)">Cor do dia</small><br><strong id="colorSide">Verde</strong></div>
+          <div class="dot" id="colorDot" style="background:#c8a96a"></div>
+          <div><small style="color:var(--muted)">Cor do dia</small><br><strong id="colorSide">—</strong></div>
         </div>
         <div class="source-status" id="sourceStatus" aria-live="polite">
           <span class="source-status-dot"></span>
@@ -760,7 +760,7 @@
 
         <div class="quick">
           <small>Separação rápida</small>
-          <strong id="quickSep" class="sr-only">430 → 409 → 477 → 545 → 585</strong>
+          <strong id="quickSep" class="sr-only">—</strong>
           <div class="quick-steps" id="quickSteps" aria-label="Separação rápida"></div>
         </div>
 
@@ -927,138 +927,163 @@ function observeTapeFocus(){
 }
 
 function formatSelectedDate(dateKey){
-  const [year,month,day]=(dateKey||"").split("-");
-  return year && month && day ? \`${day}/${month}/${year}\` : dateKey;
+  const parts=String(dateKey||"").split("-");
+  return parts.length===3 ? parts[2]+"/"+parts[1]+"/"+parts[0] : String(dateKey||"");
 }
 
 function detailMap(tape){
-  return Object.fromEntries((tape?.details || []).map(([k,v])=>[String(k||""), String(v||"")]));
+  return Object.fromEntries((tape && tape.details ? tape.details : []).map(function(pair){
+    return [String(pair[0]||""),String(pair[1]||"")];
+  }));
 }
 
 function labelWithSuggestion(label){
   const txt=String(label||"");
   const isSuggestion=/•\s*sugestão/i.test(txt);
   const clean=txt.replace(/\s*•\s*sugestão/ig,"").trim();
-  return {clean,isSuggestion};
+  return {clean:clean,isSuggestion:isSuggestion};
 }
 
-function sentenceFromUsage(text){
-  const raw=String(text||"").trim();
+function sentenceFromUsage(value){
+  const raw=String(value||"").trim();
   if(!raw) return "";
   if(/^sugest[aã]o[,.]?/i.test(raw)){
     const rest=raw.replace(/^sugest[aã]o[,.]?\s*/i,"").trim();
-    return \`*(sugestão)*${rest ? `. ${rest}` : `.`}\`;
+    return "*(sugestão)*"+(rest ? ". "+rest : ".");
   }
-  return raw.endsWith(".") ? raw : raw + ".";
+  return raw.endsWith(".") ? raw : raw+".";
 }
 
-function buildDetailedCopyText(dateKey=window.currentDateKey){
+function buildDetailedCopyText(dateKey){
+  dateKey=dateKey||window.currentDateKey;
   const d=data[dateKey];
-  if(!d) return document.getElementById("quickSep")?.textContent?.trim() || "";
+  if(!d) return "";
   const citation="missal-romano-2023-pdf-4";
-  const isToday=dateKey===brasiliaTodayKey();
   const lines=[];
-  lines.push(\`### ${isToday ? "Hoje" : "Data selecionada"} — ${formatSelectedDate(dateKey)}\`,"");
-  lines.push(\`**Celebração:** ${d.celebration}\\\\\`);
-  lines.push(\`**Dia do Santo(a):** ${d.saint || "—"}\\\\\`);
-  lines.push(\`**Grau litúrgico:** ${d.grade || "—"}\\\\\`);
-  lines.push(\`**Tempo litúrgico:** ${d.season || "—"}\\\\\`);
-  lines.push(\`**Cor litúrgica:** ${d.color || "—"}\\\\\`);
-  if(d.cycle) lines.push(\`**Ciclo ferial:** ${d.cycle}\\\\\`);
-  if(d.liturgicalYear) lines.push(\`**Ano litúrgico:** ${d.liturgicalYear}\\\\\`);
-  if(d.liturgicalNote || d.note) lines.push(\`**Observação:** ${d.liturgicalNote || d.note}     ${citation}\`);
+  const heading=dateKey===brasiliaTodayKey() ? "Hoje" : "Data selecionada";
+
+  lines.push("### "+heading+" — "+formatSelectedDate(dateKey),"");
+  lines.push("**Celebração:** "+(d.celebration||"—")+"\\");
+  lines.push("**Dia do Santo(a):** "+(d.saint||"—")+"\\");
+  lines.push("**Grau litúrgico:** "+(d.grade||"—")+"\\");
+  lines.push("**Tempo litúrgico:** "+(d.season||"—")+"\\");
+  lines.push("**Cor litúrgica:** "+(d.color||"—")+"\\");
+  if(d.cycle) lines.push("**Ciclo ferial:** "+d.cycle+"\\");
+  if(d.liturgicalYear) lines.push("**Ano litúrgico:** "+d.liturgicalYear+"\\");
+  if(d.liturgicalNote||d.note){
+    lines.push("**Observação:** "+(d.liturgicalNote||d.note)+"     "+citation);
+  }
   lines.push("");
 
-  (d.tapes || []).forEach(t=>{
+  (d.tapes||[]).forEach(function(t){
     const info=detailMap(t);
-    const titleSub=info["Título"] ? \` — “${info["Título"]}”\` : "";
-    const page=\`${t.page}\`;
+    const page=String(t.page||"—");
 
     if(t.n===1){
-      lines.push(\`**Fita 1 — pág. ${page} — ${t.title}**\`,"");
-      (t.details||[]).forEach(([label,value])=>{
-        const {clean,isSuggestion}=labelWithSuggestion(label);
-        lines.push(\`- **${clean}**${isSuggestion ? " *(sugestão)*" : ""}: ${value}     ${citation}\`);
+      lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
+      (t.details||[]).forEach(function(pair){
+        const meta=labelWithSuggestion(pair[0]);
+        lines.push("- **"+meta.clean+"**"+(meta.isSuggestion?" *(sugestão)*":"")+": "+pair[1]+"     "+citation);
       });
       lines.push("");
       return;
     }
 
     if(t.n===2){
-      lines.push(\`**Fita 2 — pág. ${page} — ${t.title}**     ${citation}\`,"");
+      lines.push("**Fita 2 — pág. "+page+" — "+t.title+"**     "+citation,"");
       return;
     }
 
     if(t.n===3){
+      let title="**Fita 3 — pág. "+page+" — "+t.title;
+      if(info["Título"]) title+=" — “"+info["Título"]+"”";
+      title+="**";
       const usage=sentenceFromUsage(info["Uso"]);
-      let line=\`**Fita 3 — pág. ${page} — ${t.title}${titleSub}**\`;
-      if(usage) line += \` ${usage}\`;
-      line += \`     ${citation}\`;
-      lines.push(line,"");
+      if(usage) title+=" "+usage;
+      lines.push(title+"     "+citation,"");
       return;
     }
 
     if(t.n===4){
-      let line=\`**Fita 4 — pág. ${page} — ${t.title}**\`;
-      if(t.suggestion) line += " *(sugestão)*.";
-      line += \`     ${citation}\`;
-      lines.push(line,"");
-      (t.details||[]).forEach(([label,value])=>{
-        const {clean,isSuggestion}=labelWithSuggestion(label);
-        lines.push(\`- **${clean}:** ${value}${isSuggestion ? " *(sugestão)*" : ""}\`);
+      let title="**Fita 4 — pág. "+page+" — "+t.title+"**";
+      if(t.suggestion) title+=" *(sugestão)*.";
+      lines.push(title+"     "+citation,"");
+      (t.details||[]).forEach(function(pair){
+        const meta=labelWithSuggestion(pair[0]);
+        lines.push("- **"+meta.clean+":** "+pair[1]+(meta.isSuggestion?" *(sugestão)*":""));
       });
       lines.push("");
       return;
     }
 
     if(t.n===5){
+      let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
-      let line=\`**Fita 5 — pág. ${page} — ${t.title}**\`;
-      if(usage) line += \` ${usage}\`;
-      line += \`     ${citation}\`;
-      lines.push(line,"");
+      if(usage) title+=" "+usage;
+      lines.push(title+"     "+citation,"");
       return;
     }
 
-    lines.push(\`**Fita ${t.n} — pág. ${page} — ${t.title}**     ${citation}\`,"");
+    lines.push("**Fita "+t.n+" — pág. "+page+" — "+t.title+"**     "+citation,"");
   });
 
-  lines.push(\`**Separação rápida:** **${d.quick || "—"}**\`);
+  lines.push("**Separação rápida:** **"+(d.quick||"—")+"**");
   return lines.join("\n");
 }
 
-async function copyQuickSeparation(showFeedback=true){
+async function writeClipboard(value){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    await navigator.clipboard.writeText(value);
+    return;
+  }
+  const ta=document.createElement("textarea");
+  ta.value=value;
+  ta.style.position="fixed";
+  ta.style.opacity="0";
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  document.execCommand("copy");
+  ta.remove();
+}
+
+async function copyQuickSeparation(showFeedback){
   const value=buildDetailedCopyText();
   if(!value) return;
-  try{
-    await navigator.clipboard.writeText(value);
-  }catch(e){
-    const ta=document.createElement("textarea");ta.value=value;document.body.appendChild(ta);ta.select();
-    document.execCommand("copy");ta.remove();
-  }
+  try{ await writeClipboard(value); }catch(e){}
   if(showFeedback){
     const btn=document.getElementById("copyQuickBtn");
-    if(btn){const old=btn.innerHTML;btn.innerHTML="✓ <span>Copiado completo</span>";setTimeout(()=>btn.innerHTML=old,1400);}
+    if(btn){
+      const old=btn.innerHTML;
+      btn.innerHTML="✓ <span>Copiado completo</span>";
+      setTimeout(function(){btn.innerHTML=old;},1400);
+    }
   }
 }
 
 async function shareCurrent(){
-  const text="Acesse o Missal Diário no site/app:\n" + location.href;
+  const url=location.href.split("#")[0];
+  const shareText="Acesse o Missal Diário no site/app:\n"+url;
   if(navigator.share){
-    try{await navigator.share({title:"Missal Diário",text,url:location.href});}catch(e){}
-  }else{
-    try{await navigator.clipboard.writeText(location.href);}catch(e){}
-    alert("Link do site/app copiado para compartilhar.");
+    try{
+      await navigator.share({title:"Missal Diário",text:shareText,url:url});
+      return;
+    }catch(e){
+      if(e && e.name==="AbortError") return;
+    }
   }
+  try{ await writeClipboard(url); }catch(e){}
+  alert("Link do site/app copiado para compartilhar.");
 }
 
-function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines=99){
+function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
+  maxLines=maxLines||99;
   const words=String(text||"").split(/\s+/).filter(Boolean);
+  const lines=[];
   let line="";
-  let lines=[];
-  words.forEach(word=>{
-    const test=line ? line + " " + word : word;
-    if(ctx.measureText(test).width > maxWidth && line){
+  words.forEach(function(word){
+    const test=line ? line+" "+word : word;
+    if(line && ctx.measureText(test).width>maxWidth){
       lines.push(line);
       line=word;
     }else{
@@ -1066,13 +1091,14 @@ function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines=99){
     }
   });
   if(line) lines.push(line);
+
+  let visible=lines;
   if(lines.length>maxLines){
-    lines=lines.slice(0,maxLines);
-    const last=lines[lines.length-1];
-    lines[lines.length-1]= last.length>3 ? last.replace(/[\s\S]{0,3}$/,"") + "…" : last + "…";
+    visible=lines.slice(0,maxLines);
+    visible[visible.length-1]=visible[visible.length-1].replace(/\s+\S*$/,"")+"…";
   }
-  lines.forEach((ln,idx)=>ctx.fillText(ln,x,y + idx*lineHeight));
-  return y + lines.length*lineHeight;
+  visible.forEach(function(ln,idx){ctx.fillText(ln,x,y+idx*lineHeight);});
+  return y+visible.length*lineHeight;
 }
 
 function roundRectPath(ctx,x,y,w,h,r){
@@ -1089,129 +1115,154 @@ function roundRectPath(ctx,x,y,w,h,r){
 async function buildShareImageBlob(){
   const d=data[window.currentDateKey];
   if(!d) return null;
+
   const canvas=document.createElement("canvas");
   canvas.width=1080;
   canvas.height=1350;
-  canvas.className="share-helper-canvas";
   const ctx=canvas.getContext("2d");
-  const palette={wine:"#7d1722",cream:"#f7f2ea",ink:"#241a17",muted:"#6e6158",line:"#ead9dc",card:"#fffdf9"};
+  const wine="#7d1722";
+  const cream="#f7f2ea";
+  const ink="#241a17";
+  const muted="#6e6158";
+  const line="#ead9dc";
 
-  ctx.fillStyle=palette.cream;
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  const grad=ctx.createLinearGradient(0,0,canvas.width,0);
+  ctx.fillStyle=cream;
+  ctx.fillRect(0,0,1080,1350);
+
+  const grad=ctx.createLinearGradient(0,0,1080,0);
   grad.addColorStop(0,"#7d1722");
   grad.addColorStop(1,"#5e1019");
   ctx.fillStyle=grad;
-  ctx.fillRect(0,0,canvas.width,170);
-  ctx.fillStyle="rgba(255,255,255,.08)";
-  ctx.beginPath();ctx.arc(930,95,140,0,Math.PI*2);ctx.fill();
-  ctx.beginPath();ctx.arc(150,20,80,0,Math.PI*2);ctx.fill();
+  ctx.fillRect(0,0,1080,170);
 
   ctx.fillStyle="#fff";
   ctx.font="700 46px Arial, sans-serif";
   ctx.fillText("Missal Diário",64,82);
   ctx.font="400 24px Arial, sans-serif";
-  ctx.fillText("Imagem pronta para WhatsApp e redes sociais",64,122);
+  ctx.fillText("Separação para compartilhar",64,122);
 
-  let y=220;
-  roundRectPath(ctx,54,y,972,180,28);
-  ctx.fillStyle=palette.card; ctx.fill();
-  ctx.strokeStyle=palette.line; ctx.lineWidth=2; ctx.stroke();
-  ctx.fillStyle=palette.wine;
+  let y=218;
+  roundRectPath(ctx,54,y,972,185,28);
+  ctx.fillStyle="#fffdf9";ctx.fill();
+  ctx.strokeStyle=line;ctx.lineWidth=2;ctx.stroke();
+
+  ctx.fillStyle=wine;
   ctx.font="800 24px Arial, sans-serif";
-  ctx.fillText(\`${window.currentDateKey===brasiliaTodayKey() ? "Hoje" : "Data selecionada"} — ${formatSelectedDate(window.currentDateKey)}\`,84,y+42);
-  ctx.fillStyle=palette.ink;
+  const heading=window.currentDateKey===brasiliaTodayKey()?"Hoje":"Data selecionada";
+  ctx.fillText(heading+" — "+formatSelectedDate(window.currentDateKey),84,y+42);
+
+  ctx.fillStyle=ink;
   ctx.font="700 34px Arial, sans-serif";
-  let yy=wrapCanvasText(ctx,d.celebration,84,y+88,860,40,2);
-  ctx.fillStyle=palette.muted;
+  let ty=wrapCanvasText(ctx,d.celebration,84,y+88,850,40,2);
+
+  ctx.fillStyle=muted;
   ctx.font="600 22px Arial, sans-serif";
-  ctx.fillText(\`${d.grade || "—"} • ${d.season || "—"} • ${d.color || "—"}\`,84,yy+18);
-  ctx.fillStyle=palette.wine;
-  ctx.font="700 20px Arial, sans-serif";
-  ctx.fillText("Separação rápida",760,y+44);
-  ctx.font="800 24px Arial, sans-serif";
-  wrapCanvasText(ctx,d.quick || "—",760,y+82,210,28,3);
+  ctx.fillText((d.grade||"—")+" • "+(d.season||"—")+" • "+(d.color||"—"),84,ty+17);
 
-  y+=208;
-  const chips=[
-    ["Dia do Santo(a)", d.saint || "—"],
-    ["Ciclo ferial", d.cycle || "—"],
-    ["Observação", d.liturgicalNote || d.note || "—"]
+  y+=215;
+  const infoRows=[
+    ["Dia do Santo(a)",d.saint||"—"],
+    ["Ciclo ferial",d.cycle||"—"],
+    ["Separação rápida",d.quick||"—"]
   ];
-  let chipY=y;
-  chips.forEach((chip,idx)=>{
-    const h=idx===2?94:74;
-    roundRectPath(ctx,54,chipY,972,h,24);
-    ctx.fillStyle="#fff"; ctx.fill();
-    ctx.strokeStyle=palette.line; ctx.stroke();
-    ctx.fillStyle=palette.wine; ctx.font="700 18px Arial, sans-serif";
-    ctx.fillText(chip[0],84,chipY+30);
-    ctx.fillStyle=palette.ink; ctx.font="600 22px Arial, sans-serif";
-    wrapCanvasText(ctx,chip[1],84,chipY+58,910,26,idx===2?2:1);
-    chipY += h + 14;
-  });
-  y=chipY+10;
 
-  const cards=(d.tapes||[]).slice(0,5);
-  const positions=[[54,y],[554,y],[54,y+210],[554,y+210],[54,y+420]];
-  cards.forEach((t,idx)=>{
-    const [x0,y0]=positions[idx];
-    roundRectPath(ctx,x0,y0,472,180,24);
-    ctx.fillStyle="#fff"; ctx.fill();
-    ctx.strokeStyle=palette.line; ctx.stroke();
-    ctx.fillStyle=palette.wine;
-    roundRectPath(ctx,x0+18,y0+16,42,42,12); ctx.fill();
-    ctx.fillStyle="#fff"; ctx.font="800 22px Arial, sans-serif"; ctx.fillText(String(t.n),x0+34,y0+43);
-    ctx.fillStyle=palette.muted; ctx.font="700 18px Arial, sans-serif"; ctx.fillText(\`pág. ${t.page}\`,x0+78,y0+40);
-    ctx.fillStyle=palette.ink; ctx.font="700 22px Arial, sans-serif";
-    let ty=wrapCanvasText(ctx,t.title,x0+24,y0+88,424,27,2);
-    ctx.fillStyle=palette.muted; ctx.font="600 17px Arial, sans-serif";
-    const lines=(t.details||[]).slice(0,2).map(([lab,val])=> \`${labelWithSuggestion(lab).clean}: ${String(val).replace(/^“|”$/g,"")}\`);
-    wrapCanvasText(ctx,lines.join(" • "),x0+24,ty+10,424,22,3);
+  infoRows.forEach(function(row){
+    roundRectPath(ctx,54,y,972,72,22);
+    ctx.fillStyle="#fff";ctx.fill();
+    ctx.strokeStyle=line;ctx.stroke();
+    ctx.fillStyle=wine;ctx.font="700 18px Arial, sans-serif";ctx.fillText(row[0],84,y+28);
+    ctx.fillStyle=ink;ctx.font="600 21px Arial, sans-serif";
+    wrapCanvasText(ctx,row[1],84,y+54,900,25,1);
+    y+=86;
   });
 
-  ctx.fillStyle=palette.wine;
+  roundRectPath(ctx,54,y,972,95,22);
+  ctx.fillStyle="#fff";ctx.fill();
+  ctx.strokeStyle=line;ctx.stroke();
+  ctx.fillStyle=wine;ctx.font="700 18px Arial, sans-serif";ctx.fillText("Observação",84,y+28);
+  ctx.fillStyle=ink;ctx.font="600 20px Arial, sans-serif";
+  wrapCanvasText(ctx,d.liturgicalNote||d.note||"—",84,y+56,900,24,2);
+  y+=116;
+
+  const positions=[[54,y],[554,y],[54,y+196],[554,y+196],[54,y+392]];
+  (d.tapes||[]).slice(0,5).forEach(function(t,idx){
+    const pos=positions[idx];
+    roundRectPath(ctx,pos[0],pos[1],472,166,22);
+    ctx.fillStyle="#fff";ctx.fill();
+    ctx.strokeStyle=line;ctx.stroke();
+
+    ctx.fillStyle=wine;
+    roundRectPath(ctx,pos[0]+18,pos[1]+16,42,42,12);
+    ctx.fill();
+    ctx.fillStyle="#fff";ctx.font="800 22px Arial, sans-serif";
+    ctx.fillText(String(t.n),pos[0]+34,pos[1]+43);
+
+    ctx.fillStyle=muted;ctx.font="700 18px Arial, sans-serif";
+    ctx.fillText("pág. "+t.page,pos[0]+78,pos[1]+40);
+
+    ctx.fillStyle=ink;ctx.font="700 21px Arial, sans-serif";
+    const titleBottom=wrapCanvasText(ctx,t.title,pos[0]+24,pos[1]+86,424,26,2);
+
+    const brief=(t.details||[]).slice(0,1).map(function(pair){
+      return labelWithSuggestion(pair[0]).clean+": "+String(pair[1]).replace(/^“|”$/g,"");
+    }).join(" • ");
+    ctx.fillStyle=muted;ctx.font="600 16px Arial, sans-serif";
+    wrapCanvasText(ctx,brief,pos[0]+24,titleBottom+8,424,20,2);
+  });
+
+  ctx.fillStyle=wine;
   ctx.font="700 18px Arial, sans-serif";
-  ctx.fillText("Site/app: macflayyy.github.io/Missal-Diario/",54,1300);
+  ctx.fillText("macflayyy.github.io/Missal-Diario/",54,1305);
   ctx.textAlign="right";
-  ctx.fillText("Criado por Ronielly Macflay",1026,1300);
+  ctx.fillText("Criado por Ronielly Macflay",1026,1305);
   ctx.textAlign="left";
 
-  return await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+  return new Promise(function(resolve){canvas.toBlob(resolve,"image/png");});
 }
 
 async function shareCurrentImage(){
   const btn=document.getElementById("imageShareBtn");
-  const old=btn ? btn.innerHTML : "";
-  if(btn){btn.classList.add("generating");btn.innerHTML="⏳ <span>Gerando imagem</span>";}
+  const old=btn?btn.innerHTML:"";
+  if(btn){
+    btn.classList.add("generating");
+    btn.innerHTML="⏳ <span>Gerando imagem</span>";
+  }
+
   try{
     const blob=await buildShareImageBlob();
     if(!blob) throw new Error("Sem dados");
-    const datePart=(window.currentDateKey || "missal").replace(/[^\d-]/g,"");
-    const file=new File([blob],\`missal-diario-${datePart}.png\`,{type:"image/png"});
-    if(navigator.canShare && navigator.canShare({files:[file]})){
+    const name="missal-diario-"+(window.currentDateKey||"hoje")+".png";
+    const file=new File([blob],name,{type:"image/png"});
+
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
       await navigator.share({
         title:"Missal Diário",
         text:"Imagem da separação do Missal Diário",
         files:[file]
       });
-    }else{
-      const url=URL.createObjectURL(blob);
-      const a=document.createElement("a");
-      a.href=url;
-      a.download=file.name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=>URL.revokeObjectURL(url),1500);
-      alert("Imagem gerada. Se o compartilhamento não abrir automaticamente, a imagem foi baixada para você enviar no WhatsApp ou nas redes sociais.");
+      return;
     }
-  }catch(err){
-    alert("Não foi possível gerar a imagem agora. Tente novamente.");
+
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url;
+    a.download=name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){URL.revokeObjectURL(url);},1500);
+  }catch(e){
+    if(!(e && e.name==="AbortError")){
+      alert("Não foi possível gerar a imagem agora. Tente novamente.");
+    }
   }finally{
-    if(btn){btn.classList.remove("generating");btn.innerHTML=old;}
+    if(btn){
+      btn.classList.remove("generating");
+      btn.innerHTML=old;
+    }
   }
 }
+
 let installPromptEvent=null;
 function isIos(){
   return /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -1257,9 +1308,9 @@ function render(dateKey){
   const d = data[dateKey] || {
     label:new Date(dateKey+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}),
     celebration:"Celebração ainda não cadastrada",
-    subtitle:"Prévia do protótipo",
+    subtitle:"Aguardando dados da celebração",
     saint:"—", grade:"—", season:"—", color:"—", colorHex:"#c8a96a", liturgicalNote:"—",
-    note:"Esta data ainda não está cadastrada nesta demonstração. Na versão automática, os dados serão gerados diariamente.",
+    note:"Esta data ainda não está disponível.",
     source:"Data ainda não cadastrada",
     quick:"—",
     tapes:[
@@ -1336,23 +1387,17 @@ function brasiliaTodayKey(){
 }
 
 function getAvailableThrough(){
-  const today = brasiliaTodayKey();
-  const statusDate = window.MISSAL_STATUS?.availableThrough || "";
-  // Segurança extra: mesmo que o status esteja errado, nunca exibe além de hoje.
-  if (!statusDate) return "";
+  const today=brasiliaTodayKey();
+  const statusDate=window.MISSAL_STATUS?.availableThrough || today;
   return statusDate < today ? statusDate : today;
 }
 
 function getVisibleDates(){
-  const limit = getAvailableThrough();
-  const all = getRegisteredDates();
-
-  // Se ainda não houve atualização válida hoje, ficam disponíveis somente
-  // as datas anteriores já liberadas pelo último ciclo.
-  const visible = all.filter(k => !limit || k <= limit);
-
-  // Fallback seguro para evitar tela vazia em uma instalação nova.
-  return visible.length ? visible : [all[0]];
+  const today=brasiliaTodayKey();
+  const limit=getAvailableThrough();
+  return getRegisteredDates().filter(function(k){
+    return k <= today && k <= limit;
+  });
 }
 
 function updateNavButtons(){
