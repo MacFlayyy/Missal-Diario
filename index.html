@@ -1537,7 +1537,25 @@ formatLastUpdate();
 setupInstallButton();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
+  let swReloading=false;
+
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{
+    if(swReloading) return;
+    swReloading=true;
+    location.reload();
+  });
+
+  window.addEventListener("load",()=>{
+    navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"})
+      .then(reg=>{
+        reg.update();
+        window.addEventListener("focus",()=>reg.update());
+        document.addEventListener("visibilitychange",()=>{
+          if(!document.hidden) reg.update();
+        });
+      })
+      .catch(()=>{});
+  });
 }
 
 const backToTop = document.getElementById("backToTop");
