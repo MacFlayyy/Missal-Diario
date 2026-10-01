@@ -352,6 +352,74 @@
       *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
     }
 
+  
+    /* Ajustes finos solicitados */
+    .hero{grid-template-columns:1.25fr .75fr}
+
+    .quick{
+      padding:14px 14px 15px;
+      background:linear-gradient(135deg,#2b2724,#211d1b);
+      overflow:visible
+    }
+    .quick::after{display:none!important}
+    .quick-steps{
+      gap:3px;
+      overflow:visible;
+      justify-content:space-between;
+      width:100%;
+      padding:0;
+      margin-top:10px
+    }
+    .quick-step{
+      min-width:30px;
+      height:30px;
+      padding:0 4px;
+      border-radius:9px;
+      font-size:11px;
+      flex:0 1 auto;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:none
+    }
+    .quick-arrow{
+      font-size:9px;
+      flex:0 0 auto;
+      color:#bfb3a9
+    }
+
+    .tape{
+      border-color:color-mix(in srgb,var(--liturgical) 24%,#e6ddd0)
+    }
+    .tape::before{
+      width:7px;
+      background:var(--liturgical)
+    }
+    .tape-no{
+      background:var(--liturgical);
+      color:#fff;
+      box-shadow:0 8px 18px var(--liturgical-glow), inset 0 0 0 1px rgba(0,0,0,.08)
+    }
+    .section-title h3::after{background:var(--liturgical)}
+    .page{color:#5f554d}
+
+    .instagram-logo{
+      width:16px;
+      height:16px;
+      flex:0 0 16px;
+      display:block
+    }
+
+    @media(max-width:950px){
+      .hero{grid-template-columns:1fr}
+      .quick-step{min-width:36px;height:34px;font-size:12px}
+      .quick-arrow{font-size:10px}
+    }
+    @media(max-width:620px){
+      .quick{padding:14px 13px 15px}
+      .quick-steps{gap:5px}
+      .quick-step{min-width:36px;height:34px;padding:0 6px}
+    }
+
   </style>
 </head>
 <body>
@@ -426,7 +494,14 @@
       <div class="footer-credit">Site criado por Ronielly Macflay</div>
       <div class="footer-contact">
         <a class="footer-link" href="mailto:macflay.contact@gmail.com"><span class="footer-icon">✉</span> macflay.contact@gmail.com</a>
-        <a class="footer-link" href="https://www.instagram.com/macflayyy/" target="_blank" rel="noopener noreferrer"><span class="footer-icon">◎</span> @macflayyy</a>
+        <a class="footer-link" href="https://www.instagram.com/macflayyy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @macflayyy">
+          <svg class="instagram-logo" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4.25" fill="none" stroke="currentColor" stroke-width="2"/>
+            <circle cx="17.4" cy="6.7" r="1.2" fill="currentColor"/>
+          </svg>
+          @macflayyy
+        </a>
       </div>
       <div class="footer-auto">
         Atualização automática ativada: às 05:00 o novo Missal é atualizado, revisado, corrigido automaticamente se necessário e então publicado.
@@ -442,14 +517,14 @@ const data = window.MISSAL_DATA;
 
 
 const liturgicalPalettes = {
-  verde:    {accent:"#3b6f50", dot:"#3b6f50", soft:"rgba(59,111,80,.14)",  deep:"#315d45", glow:"rgba(59,111,80,.24)"},
-  branco:   {accent:"#c8a96a", dot:"#fffdf7", soft:"rgba(200,169,106,.14)",deep:"#80662f", glow:"rgba(200,169,106,.26)"},
-  vermelho: {accent:"#a3343f", dot:"#a3343f", soft:"rgba(163,52,63,.13)",  deep:"#7d1f29", glow:"rgba(163,52,63,.24)"},
-  roxo:     {accent:"#6b4f7b", dot:"#6b4f7b", soft:"rgba(107,79,123,.14)", deep:"#563d66", glow:"rgba(107,79,123,.24)"},
-  violeta:  {accent:"#6b4f7b", dot:"#6b4f7b", soft:"rgba(107,79,123,.14)", deep:"#563d66", glow:"rgba(107,79,123,.24)"},
-  preto:    {accent:"#484143", dot:"#2e292a", soft:"rgba(72,65,67,.12)",    deep:"#332e2f", glow:"rgba(72,65,67,.20)"},
-  roseo:    {accent:"#c9798d", dot:"#c9798d", soft:"rgba(201,121,141,.16)",deep:"#9f5669", glow:"rgba(201,121,141,.26)"},
-  rosa:     {accent:"#c9798d", dot:"#c9798d", soft:"rgba(201,121,141,.16)",deep:"#9f5669", glow:"rgba(201,121,141,.26)"}
+  verde:    {accent:"#2f6347", dot:"#2f6347", soft:"rgba(47,99,71,.16)",   deep:"#244e38", glow:"rgba(47,99,71,.30)"},
+  branco:   {accent:"#9a7325", dot:"#fffdf7", soft:"rgba(154,115,37,.16)", deep:"#72541b", glow:"rgba(154,115,37,.30)"},
+  vermelho: {accent:"#8f2631", dot:"#8f2631", soft:"rgba(143,38,49,.15)",  deep:"#6f1d26", glow:"rgba(143,38,49,.30)"},
+  roxo:     {accent:"#5a3f6d", dot:"#5a3f6d", soft:"rgba(90,63,109,.16)",  deep:"#432f52", glow:"rgba(90,63,109,.30)"},
+  violeta:  {accent:"#5a3f6d", dot:"#5a3f6d", soft:"rgba(90,63,109,.16)",  deep:"#432f52", glow:"rgba(90,63,109,.30)"},
+  preto:    {accent:"#2f2b2c", dot:"#2f2b2c", soft:"rgba(47,43,44,.14)",   deep:"#211e1f", glow:"rgba(47,43,44,.26)"},
+  roseo:    {accent:"#a95870", dot:"#a95870", soft:"rgba(169,88,112,.17)", deep:"#804255", glow:"rgba(169,88,112,.30)"},
+  rosa:     {accent:"#a95870", dot:"#a95870", soft:"rgba(169,88,112,.17)", deep:"#804255", glow:"rgba(169,88,112,.30)"}
 };
 
 function normalizeColorName(value){
