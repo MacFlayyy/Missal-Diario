@@ -1162,14 +1162,14 @@ async function buildShareImageBlob(){
   function tapeMetrics(t){
     const titleLines=linesFor(mctx,t.title,colW-48,"700 24px Arial, sans-serif");
     let detailsHeight=0;
-    (t.details||[]).forEach(function(pair){
-      const label=labelWithSuggestion(pair[0]);
+    const details=t.details||[];
+    details.forEach(function(pair,idx){
       const value=String(pair[1]||"—").replace(/^“|”$/g,"");
       const valueLines=linesFor(mctx,value,colW-48,"600 17px Arial, sans-serif");
-      detailsHeight+=22+(valueLines.length*22)+12;
-      if(label.isSuggestion) detailsHeight+=2;
+      detailsHeight+=24+(valueLines.length*22)+10;
+      if(idx<details.length-1) detailsHeight+=13;
     });
-    const height=84+(titleLines.length*30)+detailsHeight+22;
+    const height=124+(titleLines.length*30)+detailsHeight;
     return {height:Math.max(190,height),titleLines:titleLines};
   }
 
