@@ -560,6 +560,14 @@
       box-shadow:0 8px 18px rgba(61,44,34,.09)
     }
     .utility-btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
+    .utility-btn span{line-height:1.15;text-align:center}
+    .utility-btn.generating{opacity:.75;pointer-events:none}
+    .share-helper-canvas{position:fixed;left:-9999px;top:-9999px;pointer-events:none}
+    @media(max-width:620px){
+      .side-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .utility-btn span{font-size:10.5px}
+    }
+
     .last-update{margin-top:5px;color:#eadfe0;font-weight:700}
     .tape-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
     .tape-icon{
@@ -758,10 +766,10 @@
 
         <div class="side-actions">
           <button class="utility-btn" id="copyQuickBtn" type="button" title="Copiar separação rápida">⧉ <span>Copiar</span></button>
-          <button class="utility-btn" id="shareQuickBtn" type="button" title="Compartilhar separação">↗ <span>Compartilhar</span></button>
+          <button class="utility-btn" id="shareQuickBtn" type="button" title="Compartilhar o site ou app">↗ <span>Compartilhar site/app</span></button>
           <button class="utility-btn" id="todayBtn" type="button" title="Voltar para hoje">⌂ <span>Hoje</span></button>
           <button class="utility-btn" id="celebrationModeBtn" type="button" title="Abrir modo celebração">▣ <span>Modo celebração</span></button>
-          <button class="utility-btn" id="printQuickBtn" type="button" title="Imprimir ou salvar em PDF">⌑ <span>Imprimir / PDF</span></button>
+          <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais">🖼 <span>Imagem para compartilhar</span></button>
           <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário">＋ <span>Instalar app</span></button>
         </div>
       </aside>
@@ -918,8 +926,109 @@ function observeTapeFocus(){
   document.querySelectorAll(".tape").forEach(el=>tapeFocusObserver.observe(el));
 }
 
+function formatSelectedDate(dateKey){
+  const [year,month,day]=(dateKey||"").split("-");
+  return year && month && day ? \`${day}/${month}/${year}\` : dateKey;
+}
+
+function detailMap(tape){
+  return Object.fromEntries((tape?.details || []).map(([k,v])=>[String(k||""), String(v||"")]));
+}
+
+function labelWithSuggestion(label){
+  const txt=String(label||"");
+  const isSuggestion=/•\s*sugestão/i.test(txt);
+  const clean=txt.replace(/\s*•\s*sugestão/ig,"").trim();
+  return {clean,isSuggestion};
+}
+
+function sentenceFromUsage(text){
+  const raw=String(text||"").trim();
+  if(!raw) return "";
+  if(/^sugest[aã]o[,.]?/i.test(raw)){
+    const rest=raw.replace(/^sugest[aã]o[,.]?\s*/i,"").trim();
+    return \`*(sugestão)*${rest ? `. ${rest}` : `.`}\`;
+  }
+  return raw.endsWith(".") ? raw : raw + ".";
+}
+
+function buildDetailedCopyText(dateKey=window.currentDateKey){
+  const d=data[dateKey];
+  if(!d) return document.getElementById("quickSep")?.textContent?.trim() || "";
+  const citation="missal-romano-2023-pdf-4";
+  const isToday=dateKey===brasiliaTodayKey();
+  const lines=[];
+  lines.push(\`### ${isToday ? "Hoje" : "Data selecionada"} — ${formatSelectedDate(dateKey)}\`,"");
+  lines.push(\`**Celebração:** ${d.celebration}\\\\\`);
+  lines.push(\`**Dia do Santo(a):** ${d.saint || "—"}\\\\\`);
+  lines.push(\`**Grau litúrgico:** ${d.grade || "—"}\\\\\`);
+  lines.push(\`**Tempo litúrgico:** ${d.season || "—"}\\\\\`);
+  lines.push(\`**Cor litúrgica:** ${d.color || "—"}\\\\\`);
+  if(d.cycle) lines.push(\`**Ciclo ferial:** ${d.cycle}\\\\\`);
+  if(d.liturgicalYear) lines.push(\`**Ano litúrgico:** ${d.liturgicalYear}\\\\\`);
+  if(d.liturgicalNote || d.note) lines.push(\`**Observação:** ${d.liturgicalNote || d.note}     ${citation}\`);
+  lines.push("");
+
+  (d.tapes || []).forEach(t=>{
+    const info=detailMap(t);
+    const titleSub=info["Título"] ? \` — “${info["Título"]}”\` : "";
+    const page=\`${t.page}\`;
+
+    if(t.n===1){
+      lines.push(\`**Fita 1 — pág. ${page} — ${t.title}**\`,"");
+      (t.details||[]).forEach(([label,value])=>{
+        const {clean,isSuggestion}=labelWithSuggestion(label);
+        lines.push(\`- **${clean}**${isSuggestion ? " *(sugestão)*" : ""}: ${value}     ${citation}\`);
+      });
+      lines.push("");
+      return;
+    }
+
+    if(t.n===2){
+      lines.push(\`**Fita 2 — pág. ${page} — ${t.title}**     ${citation}\`,"");
+      return;
+    }
+
+    if(t.n===3){
+      const usage=sentenceFromUsage(info["Uso"]);
+      let line=\`**Fita 3 — pág. ${page} — ${t.title}${titleSub}**\`;
+      if(usage) line += \` ${usage}\`;
+      line += \`     ${citation}\`;
+      lines.push(line,"");
+      return;
+    }
+
+    if(t.n===4){
+      let line=\`**Fita 4 — pág. ${page} — ${t.title}**\`;
+      if(t.suggestion) line += " *(sugestão)*.";
+      line += \`     ${citation}\`;
+      lines.push(line,"");
+      (t.details||[]).forEach(([label,value])=>{
+        const {clean,isSuggestion}=labelWithSuggestion(label);
+        lines.push(\`- **${clean}:** ${value}${isSuggestion ? " *(sugestão)*" : ""}\`);
+      });
+      lines.push("");
+      return;
+    }
+
+    if(t.n===5){
+      const usage=sentenceFromUsage(info["Uso"]);
+      let line=\`**Fita 5 — pág. ${page} — ${t.title}**\`;
+      if(usage) line += \` ${usage}\`;
+      line += \`     ${citation}\`;
+      lines.push(line,"");
+      return;
+    }
+
+    lines.push(\`**Fita ${t.n} — pág. ${page} — ${t.title}**     ${citation}\`,"");
+  });
+
+  lines.push(\`**Separação rápida:** **${d.quick || "—"}**\`);
+  return lines.join("\n");
+}
+
 async function copyQuickSeparation(showFeedback=true){
-  const value=document.getElementById("quickSep")?.textContent?.trim() || "";
+  const value=buildDetailedCopyText();
   if(!value) return;
   try{
     await navigator.clipboard.writeText(value);
@@ -929,22 +1038,180 @@ async function copyQuickSeparation(showFeedback=true){
   }
   if(showFeedback){
     const btn=document.getElementById("copyQuickBtn");
-    if(btn){const old=btn.innerHTML;btn.innerHTML="✓ <span>Copiado</span>";setTimeout(()=>btn.innerHTML=old,1300);}
+    if(btn){const old=btn.innerHTML;btn.innerHTML="✓ <span>Copiado completo</span>";setTimeout(()=>btn.innerHTML=old,1400);}
   }
 }
 
 async function shareCurrent(){
-  const d=data[window.currentDateKey];
-  const quick=document.getElementById("quickSep")?.textContent?.trim() || "";
-  const text=(d?.celebration || "Missal Diário")+"\nSeparação: "+quick;
+  const text="Acesse o Missal Diário no site/app:\n" + location.href;
   if(navigator.share){
     try{await navigator.share({title:"Missal Diário",text,url:location.href});}catch(e){}
   }else{
-    await copyQuickSeparation(false);
-    alert("Separação copiada. Você pode colar no WhatsApp, Telegram ou onde quiser.");
+    try{await navigator.clipboard.writeText(location.href);}catch(e){}
+    alert("Link do site/app copiado para compartilhar.");
   }
 }
 
+function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines=99){
+  const words=String(text||"").split(/\s+/).filter(Boolean);
+  let line="";
+  let lines=[];
+  words.forEach(word=>{
+    const test=line ? line + " " + word : word;
+    if(ctx.measureText(test).width > maxWidth && line){
+      lines.push(line);
+      line=word;
+    }else{
+      line=test;
+    }
+  });
+  if(line) lines.push(line);
+  if(lines.length>maxLines){
+    lines=lines.slice(0,maxLines);
+    const last=lines[lines.length-1];
+    lines[lines.length-1]= last.length>3 ? last.replace(/[\s\S]{0,3}$/,"") + "…" : last + "…";
+  }
+  lines.forEach((ln,idx)=>ctx.fillText(ln,x,y + idx*lineHeight));
+  return y + lines.length*lineHeight;
+}
+
+function roundRectPath(ctx,x,y,w,h,r){
+  const rr=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr,y);
+  ctx.arcTo(x+w,y,x+w,y+h,rr);
+  ctx.arcTo(x+w,y+h,x,y+h,rr);
+  ctx.arcTo(x,y+h,x,y,rr);
+  ctx.arcTo(x,y,x+w,y,rr);
+  ctx.closePath();
+}
+
+async function buildShareImageBlob(){
+  const d=data[window.currentDateKey];
+  if(!d) return null;
+  const canvas=document.createElement("canvas");
+  canvas.width=1080;
+  canvas.height=1350;
+  canvas.className="share-helper-canvas";
+  const ctx=canvas.getContext("2d");
+  const palette={wine:"#7d1722",cream:"#f7f2ea",ink:"#241a17",muted:"#6e6158",line:"#ead9dc",card:"#fffdf9"};
+
+  ctx.fillStyle=palette.cream;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  const grad=ctx.createLinearGradient(0,0,canvas.width,0);
+  grad.addColorStop(0,"#7d1722");
+  grad.addColorStop(1,"#5e1019");
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,canvas.width,170);
+  ctx.fillStyle="rgba(255,255,255,.08)";
+  ctx.beginPath();ctx.arc(930,95,140,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(150,20,80,0,Math.PI*2);ctx.fill();
+
+  ctx.fillStyle="#fff";
+  ctx.font="700 46px Arial, sans-serif";
+  ctx.fillText("Missal Diário",64,82);
+  ctx.font="400 24px Arial, sans-serif";
+  ctx.fillText("Imagem pronta para WhatsApp e redes sociais",64,122);
+
+  let y=220;
+  roundRectPath(ctx,54,y,972,180,28);
+  ctx.fillStyle=palette.card; ctx.fill();
+  ctx.strokeStyle=palette.line; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle=palette.wine;
+  ctx.font="800 24px Arial, sans-serif";
+  ctx.fillText(\`${window.currentDateKey===brasiliaTodayKey() ? "Hoje" : "Data selecionada"} — ${formatSelectedDate(window.currentDateKey)}\`,84,y+42);
+  ctx.fillStyle=palette.ink;
+  ctx.font="700 34px Arial, sans-serif";
+  let yy=wrapCanvasText(ctx,d.celebration,84,y+88,860,40,2);
+  ctx.fillStyle=palette.muted;
+  ctx.font="600 22px Arial, sans-serif";
+  ctx.fillText(\`${d.grade || "—"} • ${d.season || "—"} • ${d.color || "—"}\`,84,yy+18);
+  ctx.fillStyle=palette.wine;
+  ctx.font="700 20px Arial, sans-serif";
+  ctx.fillText("Separação rápida",760,y+44);
+  ctx.font="800 24px Arial, sans-serif";
+  wrapCanvasText(ctx,d.quick || "—",760,y+82,210,28,3);
+
+  y+=208;
+  const chips=[
+    ["Dia do Santo(a)", d.saint || "—"],
+    ["Ciclo ferial", d.cycle || "—"],
+    ["Observação", d.liturgicalNote || d.note || "—"]
+  ];
+  let chipY=y;
+  chips.forEach((chip,idx)=>{
+    const h=idx===2?94:74;
+    roundRectPath(ctx,54,chipY,972,h,24);
+    ctx.fillStyle="#fff"; ctx.fill();
+    ctx.strokeStyle=palette.line; ctx.stroke();
+    ctx.fillStyle=palette.wine; ctx.font="700 18px Arial, sans-serif";
+    ctx.fillText(chip[0],84,chipY+30);
+    ctx.fillStyle=palette.ink; ctx.font="600 22px Arial, sans-serif";
+    wrapCanvasText(ctx,chip[1],84,chipY+58,910,26,idx===2?2:1);
+    chipY += h + 14;
+  });
+  y=chipY+10;
+
+  const cards=(d.tapes||[]).slice(0,5);
+  const positions=[[54,y],[554,y],[54,y+210],[554,y+210],[54,y+420]];
+  cards.forEach((t,idx)=>{
+    const [x0,y0]=positions[idx];
+    roundRectPath(ctx,x0,y0,472,180,24);
+    ctx.fillStyle="#fff"; ctx.fill();
+    ctx.strokeStyle=palette.line; ctx.stroke();
+    ctx.fillStyle=palette.wine;
+    roundRectPath(ctx,x0+18,y0+16,42,42,12); ctx.fill();
+    ctx.fillStyle="#fff"; ctx.font="800 22px Arial, sans-serif"; ctx.fillText(String(t.n),x0+34,y0+43);
+    ctx.fillStyle=palette.muted; ctx.font="700 18px Arial, sans-serif"; ctx.fillText(\`pág. ${t.page}\`,x0+78,y0+40);
+    ctx.fillStyle=palette.ink; ctx.font="700 22px Arial, sans-serif";
+    let ty=wrapCanvasText(ctx,t.title,x0+24,y0+88,424,27,2);
+    ctx.fillStyle=palette.muted; ctx.font="600 17px Arial, sans-serif";
+    const lines=(t.details||[]).slice(0,2).map(([lab,val])=> \`${labelWithSuggestion(lab).clean}: ${String(val).replace(/^“|”$/g,"")}\`);
+    wrapCanvasText(ctx,lines.join(" • "),x0+24,ty+10,424,22,3);
+  });
+
+  ctx.fillStyle=palette.wine;
+  ctx.font="700 18px Arial, sans-serif";
+  ctx.fillText("Site/app: macflayyy.github.io/Missal-Diario/",54,1300);
+  ctx.textAlign="right";
+  ctx.fillText("Criado por Ronielly Macflay",1026,1300);
+  ctx.textAlign="left";
+
+  return await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+}
+
+async function shareCurrentImage(){
+  const btn=document.getElementById("imageShareBtn");
+  const old=btn ? btn.innerHTML : "";
+  if(btn){btn.classList.add("generating");btn.innerHTML="⏳ <span>Gerando imagem</span>";}
+  try{
+    const blob=await buildShareImageBlob();
+    if(!blob) throw new Error("Sem dados");
+    const datePart=(window.currentDateKey || "missal").replace(/[^\d-]/g,"");
+    const file=new File([blob],\`missal-diario-${datePart}.png\`,{type:"image/png"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({
+        title:"Missal Diário",
+        text:"Imagem da separação do Missal Diário",
+        files:[file]
+      });
+    }else{
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement("a");
+      a.href=url;
+      a.download=file.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),1500);
+      alert("Imagem gerada. Se o compartilhamento não abrir automaticamente, a imagem foi baixada para você enviar no WhatsApp ou nas redes sociais.");
+    }
+  }catch(err){
+    alert("Não foi possível gerar a imagem agora. Tente novamente.");
+  }finally{
+    if(btn){btn.classList.remove("generating");btn.innerHTML=old;}
+  }
+}
 let installPromptEvent=null;
 function isIos(){
   return /iphone|ipad|ipod/i.test(navigator.userAgent);
@@ -1232,13 +1499,13 @@ if(window.matchMedia("(hover: none) and (pointer: coarse)").matches){
 
 document.getElementById("copyQuickBtn")?.addEventListener("click",()=>copyQuickSeparation(true));
 document.getElementById("shareQuickBtn")?.addEventListener("click",shareCurrent);
+document.getElementById("imageShareBtn")?.addEventListener("click",shareCurrentImage);
 document.getElementById("todayBtn")?.addEventListener("click",()=>{
   const dates=getVisibleDates();
   const today=brasiliaTodayKey();
   render(dates.includes(today)?today:dates[dates.length-1]);
   window.scrollTo({top:0,behavior:"smooth"});
 });
-document.getElementById("printQuickBtn")?.addEventListener("click",()=>window.print());
 
 function setCelebrationMode(on){
   document.body.classList.toggle("celebration-mode",on);
@@ -1270,7 +1537,7 @@ formatLastUpdate();
 setupInstallButton();
 
 if("serviceWorker" in navigator){
-  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(()=>{}));
 }
 
 const backToTop = document.getElementById("backToTop");
