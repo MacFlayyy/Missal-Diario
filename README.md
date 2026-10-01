@@ -67,3 +67,14 @@ As sugestões continuam identificadas como `(sugestão)`.
 
 O site não mantém datas futuras pré-cadastradas. A partir de 30/09/2026, cada novo dia é analisado às 05:00 (horário de Brasília), adicionado ao `data.js` e publicado. Os dias anteriores permanecem como histórico; datas futuras não ficam disponíveis.
 
+
+
+## Regra de responsividade
+
+Toda alteração visual, estrutural ou de navegação feita no site deve ser aplicada e conferida também na versão mobile. Nenhuma melhoria deve ser considerada concluída apenas no layout de computador.
+
+Ao alterar o site:
+- manter o comportamento e a identidade visual consistentes entre desktop e celular;
+- ajustar tamanhos, espaçamentos, quebras de linha, botões, cartões e animações para telas menores;
+- verificar se nenhum texto, número, botão ou elemento fica cortado, sobreposto ou fora da tela no mobile;
+- preservar boa legibilidade e facilidade de toque no celular.
