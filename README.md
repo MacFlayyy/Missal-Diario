@@ -78,3 +78,11 @@ Ao alterar o site:
 - ajustar tamanhos, espaçamentos, quebras de linha, botões, cartões e animações para telas menores;
 - verificar se nenhum texto, número, botão ou elemento fica cortado, sobreposto ou fora da tela no mobile;
 - preservar boa legibilidade e facilidade de toque no celular.
+
+
+## Entrega após alterações
+
+Sempre que houver qualquer alteração no site:
+- enviar ao usuário o link público do GitHub Pages;
+- gerar e enviar também uma cópia HTML atualizada e autossuficiente para abrir diretamente no ChatGPT;
+- manter essa cópia coerente com a versão desktop e mobile publicada.
