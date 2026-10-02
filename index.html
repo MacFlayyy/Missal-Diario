@@ -835,6 +835,85 @@
       body.celebration-mode{padding-bottom:0}
     }
 
+  
+    /* Modernização premium — etapa 2 */
+    .header-live{
+      display:flex;align-items:center;gap:10px;
+      min-width:190px;padding:10px 13px;border-radius:15px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.08);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .header-live-dot{
+      width:9px;height:9px;border-radius:50%;
+      background:#9ed6ad;box-shadow:0 0 0 5px rgba(158,214,173,.12);
+      flex:0 0 auto;
+    }
+    .header-live strong{display:block;font-size:11px;line-height:1.15;color:#fff}
+    .header-live small{display:block;margin-top:3px;font-size:10px;line-height:1.2;color:#eadfe0}
+    .side{align-self:start}
+    @media(min-width:951px){
+      .side{position:sticky;top:126px}
+    }
+
+    .calendar-day{
+      position:relative;
+      overflow:visible;
+    }
+    .calendar-liturgical-dot{
+      position:absolute;
+      left:50%;bottom:3px;transform:translateX(-50%);
+      width:4px;height:4px;border-radius:50%;
+      background:var(--day-color,#c8a96a);
+      box-shadow:0 0 0 1px rgba(255,255,255,.75);
+      pointer-events:none;
+    }
+    .calendar-day.active .calendar-liturgical-dot{
+      background:#fff;box-shadow:none;
+    }
+    .calendar-day.today:not(.active){
+      background:rgba(125,23,34,.035);
+    }
+    .calendar-footer{
+      flex-wrap:wrap;
+    }
+    .calendar-legend{
+      width:100%;display:flex;align-items:center;gap:6px;
+      padding-top:3px;font-size:9px;color:var(--muted);
+    }
+    .calendar-legend i{
+      width:5px;height:5px;border-radius:50%;background:var(--wine);display:block;
+    }
+
+    .tape::after{
+      content:"FITA " attr(data-tape);
+      position:absolute;right:17px;top:55px;
+      font-size:9px;font-weight:900;letter-spacing:.13em;color:#a39194;
+    }
+    .tape .page{
+      box-shadow:0 4px 13px rgba(125,23,34,.05);
+    }
+    .tape .detail{
+      background:linear-gradient(90deg,rgba(125,23,34,.025),transparent);
+      border-radius:0 8px 8px 0;
+      padding-left:8px;
+    }
+    .source{
+      background:
+        linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,253,248,.95)),
+        var(--paper);
+    }
+
+    @media(max-width:620px){
+      .topbar{gap:13px}
+      .header-live{
+        width:100%;min-width:0;padding:9px 11px;border-radius:13px;
+      }
+      body.mobile-scrolled .header-live{display:none}
+      .calendar-liturgical-dot{bottom:2px;width:4px;height:4px}
+      .tape::after{right:16px;top:54px}
+    }
+
   </style>
 </head>
 <body>
@@ -845,6 +924,13 @@
         <div>
           <h1>Missal Diário</h1>
           <p>Separação do Missal</p>
+        </div>
+      </div>
+      <div class="header-live" aria-label="Status da atualização">
+        <span class="header-live-dot"></span>
+        <div>
+          <strong>Missal atualizado</strong>
+          <small id="headerUpdateText">Verificando atualização...</small>
         </div>
       </div>
     </header>
@@ -1061,7 +1147,10 @@ function formatLastUpdate(){
     .format(dt);
   const time=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",hour:"2-digit",minute:"2-digit"}).format(dt);
   const date=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",year:"numeric"}).format(dt);
-  target.textContent=localKey===today ? "Última atualização: hoje às "+time : "Última atualização: "+date+" às "+time;
+  const pretty=localKey===today ? "Última atualização: hoje às "+time : "Última atualização: "+date+" às "+time;
+  target.textContent=pretty;
+  const headerTarget=document.getElementById("headerUpdateText");
+  if(headerTarget) headerTarget.textContent=localKey===today ? "Hoje às "+time : date+" às "+time;
 }
 
 let revealObserver=null;
@@ -1644,6 +1733,7 @@ function render(dateKey){
   d.tapes.forEach(t=>{
     const el = document.createElement("article");
     el.className = "card tape";
+    el.dataset.tape = String(t.n);
     el.innerHTML = `
       <div class="tape-top">
         <div class="tape-no">${t.n}</div>
@@ -1731,6 +1821,23 @@ function monthShift(key,delta){
   const d=new Date(y,m-1+delta,1,12);
   return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
 }
+function calendarColorForDate(key){
+  const d=data[key];
+  if(!d) return "#c8a96a";
+  const name=normalizeColorName(d.color);
+  if(name.includes("verde")) return "#2f6347";
+  if(name.includes("branc")) return "#9a7325";
+  if(name.includes("vermelh")) return "#8f2631";
+  if(name.includes("rox") || name.includes("violet")) return "#5a3f6d";
+  if(name.includes("pret")) return "#2f2b2c";
+  if(name.includes("rose") || name.includes("rosa")) return "#a95870";
+  return d.colorHex || "#c8a96a";
+}
+function calendarTitleForDate(key){
+  const d=data[key];
+  return d ? [formatSelectedDate(key),d.celebration].filter(Boolean).join(" — ") : formatSelectedDate(key);
+}
+
 function buildDateMenu(){
   const menu=document.getElementById("dateMenu");
   const dates=getVisibleDates();
@@ -1756,7 +1863,7 @@ function buildDateMenu(){
     const available=dateSet.has(key);
     const cls=["calendar-day",available?"":"unavailable",key===window.currentDateKey?"active":"",key===today?"today":""].filter(Boolean).join(" ");
     cells+=available
-      ? '<button class="'+cls+'" data-date="'+key+'" type="button">'+day+'</button>'
+      ? '<button class="'+cls+'" data-date="'+key+'" type="button" title="'+calendarTitleForDate(key).replace(/"/g,"&quot;")+'" style="--day-color:'+calendarColorForDate(key)+'">'+day+'<span class="calendar-liturgical-dot"></span></button>'
       : '<span class="'+cls+'">'+day+'</span>';
   }
 
@@ -1768,7 +1875,7 @@ function buildDateMenu(){
     '</div>'+
     '<div class="calendar-week"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>'+
     '<div class="calendar-grid">'+cells+'</div>'+
-    '<div class="calendar-footer"><span>Dias disponíveis</span><span>'+dates.length+' data(s)</span></div>';
+    '<div class="calendar-footer"><span>Dias disponíveis</span><span>'+dates.length+' data(s)</span><span class="calendar-legend"><i></i> ponto = cor litúrgica do dia</span></div>';
 
   menu.querySelectorAll(".calendar-day[data-date]").forEach(btn=>{
     btn.addEventListener("click",()=>{
