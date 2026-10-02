@@ -481,6 +481,35 @@
       }
     }
 
+    /* A separação rápida pode ter páginas em intervalo (ex.: 817–818).
+       No mobile, deixa a linha rolar horizontalmente em vez de cortar a última marcação. */
+    @media(max-width:620px){
+      .quick{overflow:hidden}
+      .quick-steps{
+        justify-content:flex-start;
+        gap:5px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        padding:0 2px 5px;
+        scroll-padding-inline:2px;
+        scrollbar-width:none;
+        -webkit-overflow-scrolling:touch;
+      }
+      .quick-steps::-webkit-scrollbar{display:none}
+      .quick-step{
+        width:auto;
+        min-width:36px;
+        max-width:none;
+        padding:0 6px;
+        flex:0 0 auto;
+      }
+      .quick-arrow{
+        width:auto;
+        min-width:10px;
+        flex:0 0 auto;
+      }
+    }
+
     @media(hover:none) and (pointer:coarse){
       .tape.touch-active{
         transform:translateY(-5px) scale(.995);
