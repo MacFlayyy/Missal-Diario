@@ -1203,6 +1203,14 @@ function formatSelectedDate(dateKey){
   return parts.length===3 ? parts[2]+"/"+parts[1]+"/"+parts[0] : String(dateKey||"");
 }
 
+function formatCelebrationModeDate(dateKey){
+  const dt=new Date(String(dateKey||"")+"T12:00:00");
+  if(Number.isNaN(dt.getTime())) return formatSelectedDate(dateKey);
+  const weekday=new Intl.DateTimeFormat("pt-BR",{weekday:"long"}).format(dt);
+  const displayWeekday=weekday ? weekday.charAt(0).toUpperCase()+weekday.slice(1) : "";
+  return displayWeekday+" • "+formatSelectedDate(dateKey);
+}
+
 function detailMap(tape){
   return Object.fromEntries((tape && tape.details ? tape.details : []).map(function(pair){
     return [String(pair[0]||""),String(pair[1]||"")];
@@ -1729,7 +1737,7 @@ function render(dateKey){
   document.getElementById("subtitle").textContent = d.subtitle;
   const celebrationModeDate=document.getElementById("celebrationModeDate");
   const celebrationModeTitle=document.getElementById("celebrationModeTitle");
-  if(celebrationModeDate) celebrationModeDate.textContent=formatSelectedDate(dateKey);
+  if(celebrationModeDate) celebrationModeDate.textContent=formatCelebrationModeDate(dateKey);
   if(celebrationModeTitle) celebrationModeTitle.textContent=d.celebration;
   document.getElementById("saint").textContent = d.saint;
   document.getElementById("grade").textContent = d.grade;
