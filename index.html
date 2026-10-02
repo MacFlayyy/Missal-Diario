@@ -2113,14 +2113,35 @@ function sundayKeyForLeaflet(){
   return wd===0 ? today : addDaysKey(today,7-wd);
 }
 
+function isMobileLeafletDevice(){
+  const ua=String(navigator.userAgent || "");
+  return window.matchMedia("(max-width: 700px)").matches || /Android|iPhone|iPad|iPod|Mobile/i.test(ua);
+}
+
 function getDominicalLeafletUrl(){
   const sundayKey=sundayKeyForLeaflet();
   const statusDate=String(window.MISSAL_STATUS?.sundayLeafletDate || "");
-  const statusUrl=String(window.MISSAL_STATUS?.sundayLeafletUrl || "");
-  if(statusDate===sundayKey && /^https:\/\//i.test(statusUrl)) return statusUrl;
-  const sundayData=data[sundayKey];
-  const dataUrl=String(sundayData?.leafletUrl || sundayData?.folhetoUrl || "");
-  if(/^https:\/\//i.test(dataUrl)) return dataUrl;
+  const desktopUrl=String(window.MISSAL_STATUS?.sundayLeafletDesktopUrl || "");
+  const mobileUrl=String(window.MISSAL_STATUS?.sundayLeafletMobileUrl || "");
+  const legacyUrl=String(window.MISSAL_STATUS?.sundayLeafletUrl || "");
+  const sundayData=data[sundayKey] || {};
+  const dataDesktop=String(sundayData.leafletDesktopUrl || sundayData.folhetoDesktopUrl || "");
+  const dataMobile=String(sundayData.leafletMobileUrl || sundayData.folhetoMobileUrl || "");
+  const mobile=isMobileLeafletDevice();
+
+  if(statusDate===sundayKey){
+    const preferred=mobile ? mobileUrl : desktopUrl;
+    if(/^https:\/\//i.test(preferred)) return preferred;
+    const alternate=mobile ? desktopUrl : mobileUrl;
+    if(/^https:\/\//i.test(alternate)) return alternate;
+    if(/^https:\/\//i.test(legacyUrl)) return legacyUrl;
+  }
+
+  const dataPreferred=mobile ? dataMobile : dataDesktop;
+  if(/^https:\/\//i.test(dataPreferred)) return dataPreferred;
+  const dataAlternate=mobile ? dataDesktop : dataMobile;
+  if(/^https:\/\//i.test(dataAlternate)) return dataAlternate;
+
   return "https://arqbrasilia.com.br/o-povo-de-deus-2/";
 }
 
