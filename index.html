@@ -1007,6 +1007,16 @@
       .desktop-leaflet-btn{display:none}
     }
 
+  
+    /* Estado neutro da navegação mobile */
+    @media(max-width:620px){
+      .mobile-nav button{background:transparent;color:#655b54}
+      .mobile-nav button:active{
+        background:#f7edef;
+        color:var(--wine);
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1124,7 +1134,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v15H6z"/><path d="M9 4.5v6l3-1.8 3 1.8v-6"/></svg>
       <span>Marcações</span>
     </button>
-    <button type="button" id="mobileCelebrationBtn" class="primary" aria-label="Abrir modo celebração">
+    <button type="button" id="mobileCelebrationBtn" aria-label="Abrir modo celebração">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 8.5h6M8.5 12h7M9 15.5h6"/></svg>
       <span>Celebração</span>
     </button>
