@@ -992,6 +992,21 @@
       body.celebration-mode .mobile-more-sheet{display:none!important}
     }
 
+  
+    .desktop-leaflet-btn{
+      grid-column:1 / -1;
+      border-color:#e1c9cd;
+      background:linear-gradient(135deg,#fffaf8,#fff4f5);
+      color:var(--wine);
+    }
+    .desktop-leaflet-btn:hover{
+      background:#fff0f2;
+      border-color:#cfadb3;
+    }
+    @media(max-width:620px){
+      .desktop-leaflet-btn{display:none}
+    }
+
   </style>
 </head>
 <body>
@@ -1063,6 +1078,7 @@
           <button class="utility-btn" id="celebrationModeBtn" type="button" title="Abrir modo celebração"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 8.5h6"/><path d="M8.5 12h7"/><path d="M9 15.5h6"/></svg><span>Modo celebração</span></button>
           <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M6.5 16l4.2-4.2 2.8 2.8 2.2-2.2 2.8 3.6"/></svg><span>Imagem para compartilhar</span></button>
           <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10"/><path d="M8.5 11l3.5 3.5 3.5-3.5"/><path d="M5 17.5h14"/></svg><span>Instalar app</span></button>
+          <button class="utility-btn desktop-leaflet-btn" id="desktopLeafletBtn" type="button" title="Abrir folheto dominical"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h8l4 4v12.4H6z"/><path d="M14 3.8v4h4"/><path d="M9 12h6M9 15.5h6"/></svg><span>Folheto dominical</span></button>
         </div>
       </aside>
     </section>
@@ -2101,6 +2117,8 @@ function getDominicalLeafletUrl(){
 function openDominicalLeaflet(){
   window.open(getDominicalLeafletUrl(),"_blank","noopener,noreferrer");
 }
+
+document.getElementById("desktopLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
 
 function setMoreMenu(open){
   const sheet=document.getElementById("mobileMoreSheet");
