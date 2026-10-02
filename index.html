@@ -150,9 +150,6 @@
     .tape::before{
       content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--wine)
     }
-    .tape-no{
-      width:34px;height:34px;border-radius:50%;background:var(--wine);color:#fff;display:grid;place-items:center;font-weight:800
-    }
     .page{
       margin-top:14px;font-size:12px;text-transform:uppercase;color:var(--muted);letter-spacing:.08em;font-weight:800
     }
@@ -291,12 +288,6 @@
       border-color:color-mix(in srgb,var(--liturgical) 34%,#e6ddd0)
     }
     .tape:hover::before{width:9px}
-    .tape-no{
-      background:var(--liturgical);
-      box-shadow:0 7px 18px var(--liturgical-glow);
-      transition:transform .25s ease,background .35s ease,box-shadow .35s ease
-    }
-    .tape:hover .tape-no{transform:scale(1.08) rotate(-3deg)}
     .section-title h3::after{
       content:"";display:block;width:42px;height:3px;border-radius:999px;
       margin-top:7px;background:var(--liturgical)
@@ -401,11 +392,6 @@
       width:7px;
       background:var(--liturgical)
     }
-    .tape-no{
-      background:var(--liturgical);
-      color:#fff;
-      box-shadow:0 8px 18px var(--liturgical-glow), inset 0 0 0 1px rgba(0,0,0,.08)
-    }
     .section-title h3::after{background:var(--liturgical)}
     .page{color:#5f554d}
 
@@ -435,11 +421,6 @@
     .tape::before{
       width:7px;
       background:var(--wine) !important;
-    }
-    .tape-no{
-      background:var(--wine) !important;
-      color:#fff !important;
-      box-shadow:0 8px 18px rgba(125,23,34,.24) !important;
     }
     .tape:hover{
       border-color:#d7b6bb !important;
@@ -587,7 +568,6 @@
       border-color:#d7b6bb!important
     }
     .tape.in-focus::before{width:9px}
-    .tape.in-focus .tape-no{transform:scale(1.07)}
     .reveal{opacity:0;transform:translateY(18px)}
     .reveal.is-visible{
       opacity:1;transform:translateY(0);
@@ -870,12 +850,6 @@
     .calendar-legend i{
       width:5px;height:5px;border-radius:50%;background:var(--wine);display:block;
     }
-
-    .tape::after{
-      content:"FITA " attr(data-tape);
-      position:absolute;right:17px;top:55px;
-      font-size:9px;font-weight:900;letter-spacing:.13em;color:#a39194;
-    }
     .tape .page{
       box-shadow:0 4px 13px rgba(125,23,34,.05);
     }
@@ -893,7 +867,6 @@
     @media(max-width:620px){
       .topbar{gap:13px}
       .calendar-liturgical-dot{bottom:2px;width:4px;height:4px}
-      .tape::after{right:16px;top:54px}
     }
 
   
@@ -910,6 +883,13 @@
       vertical-align:1px;
     }
     .sunday-preview-note strong{font-weight:900}
+
+  
+    /* Fitas sem numeração visível */
+    .tape-top{justify-content:flex-end}
+    @media(max-width:620px){
+      .tape-top{justify-content:flex-end}
+    }
 
   </style>
 </head>
@@ -1722,10 +1702,8 @@ function render(dateKey){
   d.tapes.forEach(t=>{
     const el = document.createElement("article");
     el.className = "card tape";
-    el.dataset.tape = String(t.n);
     el.innerHTML = `
       <div class="tape-top">
-        <div class="tape-no">${t.n}</div>
         <div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div>
       </div>
       <div class="page">Página ${t.page}</div>
