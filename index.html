@@ -1241,7 +1241,10 @@ function tapeIconSvg(t){
   if(n===4 || title.includes("oração eucarística") || title.includes("oracao eucaristica")){
     return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4.5h8"/><path d="M10 4.5v3a2 2 0 0 1-2 2h0a4 4 0 0 0 4 4 4 4 0 0 0 4-4h0a2 2 0 0 1-2-2v-3"/><path d="M12 13.5v5"/><path d="M8.5 18.5h7"/></svg>`;
   }
-  if(n===5 || title.includes("bênção") || title.includes("bencao")){
+  if(n===5 || title.includes("rito da comunhão") || title.includes("rito da comunhao")){
+    return `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.3"/><path d="M8.7 7.5h6.6"/><path d="M12 4.2v6.6"/><path d="M7.5 14.5h9"/><path d="M9 14.5v1.8a3 3 0 0 0 6 0v-1.8"/><path d="M12 19.3v1.2"/></svg>`;
+  }
+  if(n===6 || title.includes("bênção") || title.includes("bencao")){
     return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v8"/><path d="M8 8.5h8"/><path d="M7 19.5c1.5-2.2 3.2-3.3 5-3.3s3.5 1.1 5 3.3"/><path d="M12 2.8v1.4"/></svg>`;
   }
   return `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2" class="fill"/></svg>`;
@@ -1403,6 +1406,14 @@ function buildDetailedCopyText(dateKey){
 
     if(t.n===5){
       let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
+      const usage=sentenceFromUsage(info["Uso"]);
+      if(usage) title+=" "+usage;
+      lines.push(title+"     "+citation,"");
+      return;
+    }
+
+    if(t.n===6){
+      let title="**Fita 6 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
       lines.push(title+"     "+citation,"");
@@ -1827,7 +1838,8 @@ function render(dateKey){
       {n:2,page:"—",title:"Missa do dia",details:[["Status","Aguardando geração diária"]]},
       {n:3,page:"—",title:"Prefácio",details:[["Status","Aguardando geração diária"]]},
       {n:4,page:"—",title:"Oração Eucarística",details:[["Status","Aguardando geração diária"]]},
-      {n:5,page:"—",title:"Bênção",details:[["Status","Aguardando geração diária"]]}
+      {n:5,page:"569",title:"Rito da Comunhão",details:[["Uso","Sempre após a Oração Eucarística."]]},
+      {n:6,page:"—",title:"Bênção",details:[["Status","Aguardando geração diária"]]}
     ]
   };
 
