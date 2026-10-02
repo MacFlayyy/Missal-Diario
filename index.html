@@ -561,6 +561,9 @@
     }
     .utility-btn:disabled{opacity:.45;cursor:default;transform:none;box-shadow:none}
     .utility-btn span{line-height:1.15;text-align:center}
+    .utility-btn svg{width:16px;height:16px;display:block;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+    .utility-btn .spin{animation:utilitySpin 1s linear infinite}
+    @keyframes utilitySpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
     .utility-btn.generating{opacity:.75;pointer-events:none}
     .share-helper-canvas{position:fixed;left:-9999px;top:-9999px;pointer-events:none}
     @media(max-width:620px){
@@ -771,7 +774,7 @@
           <button class="utility-btn" id="shareQuickBtn" type="button" title="Compartilhar o site ou app">↗ <span>Compartilhar site/app</span></button>
           <button class="utility-btn" id="todayBtn" type="button" title="Voltar para hoje">⌂ <span>Hoje</span></button>
           <button class="utility-btn" id="celebrationModeBtn" type="button" title="Abrir modo celebração">▣ <span>Modo celebração</span></button>
-          <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais">🖼 <span>Imagem para compartilhar</span></button>
+          <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M6.5 16l4.2-4.2 2.8 2.8 2.2-2.2 2.8 3.6"/></svg><span>Imagem para compartilhar</span></button>
           <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário">＋ <span>Instalar app</span></button>
         </div>
       </aside>
@@ -1365,7 +1368,7 @@ async function shareCurrentImage(){
   const old=btn?btn.innerHTML:"";
   if(btn){
     btn.classList.add("generating");
-    btn.innerHTML="⏳ <span>Gerando imagem</span>";
+    btn.innerHTML=`<svg class="spin" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v6h-6"/></svg><span>Gerando imagem</span>`;
   }
 
   try{
