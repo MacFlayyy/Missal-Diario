@@ -1,0 +1,41 @@
+name: Verificação de segurança
+
+on:
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Alertar alteração externa em arquivos críticos
+        shell: bash
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          CHANGED="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+          echo "$CHANGED"
+
+          if [ "${{ github.event.pull_request.user.login }}" != "MacFlayyy" ]; then
+            if echo "$CHANGED" | grep -Eq '^(index\.html|data\.js|status\.js|sw\.js|manifest\.webmanifest|scripts/|\.github/workflows/)'; then
+              echo "::error::Este PR externo altera arquivos críticos do Missal Diário. Revise manualmente antes de aceitar."
+              exit 1
+            fi
+          fi
+
+      - name: Procurar credenciais expostas
+        shell: bash
+        run: |
+          if grep -RIE             'gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,}|AKIA[0-9A-Z]{16}'             . --exclude-dir=.git; then
+            echo "::error::Foi encontrado um padrão que pode ser uma credencial exposta."
+            exit 1
+          fi
+          echo "Nenhum padrão comum de credencial encontrado."
