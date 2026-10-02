@@ -73,6 +73,17 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
+        "page": "569",
+        "title": "Rito da Comunhão",
+        "details": [
+          [
+            "Uso",
+            "Sempre após a Oração Eucarística."
+          ]
+        ]
+      },
+      {
+        "n": 6,
         "page": "587",
         "title": "Bênção Solene — Na festa de um Santo",
         "details": [
@@ -84,7 +95,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 814 → 506 → 536 → 587",
+    "quick": "430 → 814 → 506 → 536 → 569 → 587",
     "cycle": "Ano II"
   },
   "2026-10-01": {
@@ -161,6 +172,17 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
+        "page": "569",
+        "title": "Rito da Comunhão",
+        "details": [
+          [
+            "Uso",
+            "Sempre após a Oração Eucarística."
+          ]
+        ]
+      },
+      {
+        "n": 6,
         "page": "587",
         "title": "Bênção Solene — Na festa de um Santo",
         "details": [
@@ -172,7 +194,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430/434 → 816 → 506 → 536 → 587",
+    "quick": "430 / 434 → 816 → 506 → 536 → 569 → 587",
     "cycle": "Ano II"
   },
   "2026-10-02": {
@@ -244,6 +266,17 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
+        "page": "569",
+        "title": "Rito da Comunhão",
+        "details": [
+          [
+            "Uso",
+            "Sempre após a Oração Eucarística."
+          ]
+        ]
+      },
+      {
+        "n": 6,
         "page": "585",
         "title": "Bênção Solene — Tempo Comum VI (2Ts 2,16-17)",
         "details": [
@@ -255,7 +288,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430/434 → 817–818 → 818 → 536 → 585",
+    "quick": "430 / 434 → 817–818 → 818 → 536 → 569 → 585",
     "cycle": "Ano II"
   }
 };
