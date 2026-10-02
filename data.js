@@ -100,13 +100,162 @@ window.MISSAL_DATA = {
     "liturgicalNote": "Santa Teresa do Menino Jesus é celebrada hoje como Memória.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
-      {"n":1,"page":"430 / 434","title":"Ritos Iniciais","details":[["Saudação A • sugestão","“A graça de nosso Senhor Jesus Cristo...”"],["Ato Penitencial — Segunda fórmula, 2ª opção • sugestão","“No início desta celebração eucarística...”"]],"suggestion":true},
-      {"n":2,"page":"816","title":"Santa Teresa do Menino Jesus, virgem e doutora da Igreja","details":[["Formulário","Missa do dia"]]},
-      {"n":3,"page":"506","title":"Prefácio dos Santos Doutores da Igreja I","details":[["Título","Os Doutores da Igreja, reflexo da sabedoria"],["Uso","Sugestão."]],"suggestion":true},
-      {"n":4,"page":"536","title":"Oração Eucarística II","details":[["Aclamação • sugestão","“Mistério da fé!”"],["Resposta","“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"]],"suggestion":true},
-      {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão, aplicada aqui à celebração de Santa Teresa do Menino Jesus."]],"suggestion":true}
+      {
+        "n": 1,
+        "page": "430 / 434",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "“A graça de nosso Senhor Jesus Cristo...”"
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "“No início desta celebração eucarística...”"
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "816",
+        "title": "Santa Teresa do Menino Jesus, virgem e doutora da Igreja",
+        "details": [
+          [
+            "Formulário",
+            "Missa do dia"
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "506",
+        "title": "Prefácio dos Santos Doutores da Igreja I",
+        "details": [
+          [
+            "Título",
+            "Os Doutores da Igreja, reflexo da sabedoria"
+          ],
+          [
+            "Uso",
+            "Sugestão."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 4,
+        "page": "536",
+        "title": "Oração Eucarística II",
+        "details": [
+          [
+            "Aclamação • sugestão",
+            "“Mistério da fé!”"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 5,
+        "page": "587",
+        "title": "Bênção Solene — Na festa de um Santo",
+        "details": [
+          [
+            "Uso",
+            "Sugestão, aplicada aqui à celebração de Santa Teresa do Menino Jesus."
+          ]
+        ],
+        "suggestion": true
+      }
     ],
     "quick": "430/434 → 816 → 506 → 536 → 587",
+    "cycle": "Ano II"
+  },
+  "2026-10-02": {
+    "label": "Sexta-feira • 02/10/2026",
+    "celebration": "Santos Anjos da Guarda",
+    "subtitle": "Tempo Comum",
+    "saint": "Santos Anjos da Guarda",
+    "grade": "Memória",
+    "season": "Tempo Comum",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Os Santos Anjos da Guarda são celebrados hoje como Memória.",
+    "liturgicalNote": "Memória dos Santos Anjos da Guarda.",
+    "source": "Missal Romano CNBB 2023 • sugestões onde indicado",
+    "tapes": [
+      {
+        "n": 1,
+        "page": "430 / 434",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "“A graça de nosso Senhor Jesus Cristo...”"
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "“No início desta celebração eucarística...”"
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "817–818",
+        "title": "Santos Anjos da Guarda",
+        "details": [
+          [
+            "Formulário",
+            "Missa do dia"
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "818",
+        "title": "Prefácio — A glorificação de Deus pela veneração dos Anjos",
+        "details": [
+          [
+            "Uso",
+            "Prefácio próprio da celebração."
+          ]
+        ]
+      },
+      {
+        "n": 4,
+        "page": "536",
+        "title": "Oração Eucarística II",
+        "details": [
+          [
+            "Aclamação • sugestão",
+            "“Mistério da fé!”"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 5,
+        "page": "585",
+        "title": "Bênção Solene — Tempo Comum VI (2Ts 2,16-17)",
+        "details": [
+          [
+            "Uso",
+            "Sugestão, adequada ao Tempo Comum."
+          ]
+        ],
+        "suggestion": true
+      }
+    ],
+    "quick": "430/434 → 817–818 → 818 → 536 → 585",
     "cycle": "Ano II"
   }
 };
