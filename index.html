@@ -1702,18 +1702,16 @@ async function buildShareImageBlob(){
   ctx.fillStyle=muted;ctx.font="500 11px Arial, sans-serif";ctx.textAlign="right";ctx.fillText(d.source||"Separação pelo Missal Romano",1320,sectionY-4);ctx.textAlign="left";
 
   const gridY=sectionY+44;
-  const gap=14;
-  const tapeW=(1240-gap*4)/5;
+  const gap=12;
+  const tapeW=(1240-gap*5)/6;
   const tapeH=300;
-  (d.tapes||[]).slice(0,5).forEach(function(t,i){
+  (d.tapes||[]).slice(0,6).forEach(function(t,i){
     const x=80+i*(tapeW+gap);
     card(x,gridY,tapeW,tapeH,20);
     roundRectPath(ctx,x,gridY,10,tapeH,20);ctx.fillStyle=wine;ctx.fill();
-    ctx.beginPath();ctx.arc(x+40,gridY+38,26,0,Math.PI*2);ctx.fillStyle=wine;ctx.fill();
-    ctx.fillStyle="#fff";ctx.font="800 20px Arial, sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(t.n),x+40,gridY+38);ctx.textAlign="left";ctx.textBaseline="alphabetic";
-    ctx.fillStyle=muted;ctx.font="700 11px Arial, sans-serif";ctx.fillText("PÁGINA "+t.page,x+22,gridY+86);
-    ctx.fillStyle=ink;ctx.font="700 16px Arial, sans-serif";
-    const titleEnd=wrapCanvasText(ctx,t.title,x+22,gridY+114,tapeW-44,20,4);
+    ctx.fillStyle=muted;ctx.font="700 10px Arial, sans-serif";ctx.fillText("PÁGINA "+t.page,x+22,gridY+44);
+    ctx.fillStyle=ink;ctx.font="700 15px Arial, sans-serif";
+    const titleEnd=wrapCanvasText(ctx,t.title,x+22,gridY+72,tapeW-44,19,4);
     let dy=titleEnd+18;
     (t.details||[]).slice(0,2).forEach(function(pair){
       const meta=labelWithSuggestion(pair[0]);
