@@ -16,10 +16,12 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.actor == 'MacFlayyy'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
