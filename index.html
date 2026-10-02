@@ -837,20 +837,6 @@
 
   
     /* Modernização premium — etapa 2 */
-    .header-live{
-      display:flex;align-items:center;gap:10px;
-      min-width:190px;padding:10px 13px;border-radius:15px;
-      border:1px solid rgba(255,255,255,.15);
-      background:rgba(255,255,255,.08);
-      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-    }
-    .header-live-dot{
-      width:9px;height:9px;border-radius:50%;
-      background:#9ed6ad;box-shadow:0 0 0 5px rgba(158,214,173,.12);
-      flex:0 0 auto;
-    }
-    .header-live strong{display:block;font-size:11px;line-height:1.15;color:#fff}
-    .header-live small{display:block;margin-top:3px;font-size:10px;line-height:1.2;color:#eadfe0}
     .side{align-self:start}
     @media(min-width:951px){
       .side{position:sticky;top:126px}
@@ -906,10 +892,6 @@
 
     @media(max-width:620px){
       .topbar{gap:13px}
-      .header-live{
-        width:100%;min-width:0;padding:9px 11px;border-radius:13px;
-      }
-      body.mobile-scrolled .header-live{display:none}
       .calendar-liturgical-dot{bottom:2px;width:4px;height:4px}
       .tape::after{right:16px;top:54px}
     }
@@ -926,14 +908,7 @@
           <p>Separação do Missal</p>
         </div>
       </div>
-      <div class="header-live" aria-label="Status da atualização">
-        <span class="header-live-dot"></span>
-        <div>
-          <strong>Missal atualizado</strong>
-          <small id="headerUpdateText">Verificando atualização...</small>
-        </div>
-      </div>
-    </header>
+</header>
 
     <section class="hero">
       <div class="card hero-main">
@@ -1149,8 +1124,6 @@ function formatLastUpdate(){
   const date=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",year:"numeric"}).format(dt);
   const pretty=localKey===today ? "Última atualização: hoje às "+time : "Última atualização: "+date+" às "+time;
   target.textContent=pretty;
-  const headerTarget=document.getElementById("headerUpdateText");
-  if(headerTarget) headerTarget.textContent=localKey===today ? "Hoje às "+time : date+" às "+time;
 }
 
 let revealObserver=null;
