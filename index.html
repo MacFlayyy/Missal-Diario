@@ -896,6 +896,21 @@
       .tape::after{right:16px;top:54px}
     }
 
+  
+    /* Prévia dominical disponível aos sábados */
+    .sunday-preview-note{
+      margin-top:10px;padding:9px 11px;border-radius:12px;
+      border:1px solid #ead9dc;background:#fff8f8;
+      color:#6f2630;font-size:11px;line-height:1.4;
+    }
+    .sunday-preview-note span{
+      display:inline-block;width:7px;height:7px;border-radius:50%;
+      margin-right:7px;background:var(--wine);
+      box-shadow:0 0 0 4px rgba(125,23,34,.08);
+      vertical-align:1px;
+    }
+    .sunday-preview-note strong{font-weight:900}
+
   </style>
 </head>
 <body>
@@ -939,6 +954,7 @@
           <button class="nav-btn" id="nextBtn" aria-label="Próximo dia">›</button>
         </div>
         <div class="date-menu" id="dateMenu" hidden></div>
+        <div class="sunday-preview-note" id="sundayPreviewNote" hidden><span></span><strong>Domingo disponível</strong> — Missa dominical já preparada.</div>
         <div class="color-chip">
           <div class="dot" id="colorDot" style="background:#c8a96a"></div>
           <div><small style="color:var(--muted)">Cor do dia</small><br><strong id="colorSide">—</strong></div>
@@ -1747,12 +1763,39 @@ function getAvailableThrough(){
   return statusDate < today ? statusDate : today;
 }
 
+function addDaysKey(key,days){
+  const [y,m,d]=String(key).split("-").map(Number);
+  const dt=new Date(Date.UTC(y,m-1,d+days));
+  return dt.getUTCFullYear()+"-"+String(dt.getUTCMonth()+1).padStart(2,"0")+"-"+String(dt.getUTCDate()).padStart(2,"0");
+}
+
+function weekdayForKey(key){
+  const [y,m,d]=String(key).split("-").map(Number);
+  return new Date(Date.UTC(y,m-1,d)).getUTCDay();
+}
+
+function getSundayPreview(){
+  const today=brasiliaTodayKey();
+  if(weekdayForKey(today)!==6) return null;
+  const expected=addDaysKey(today,1);
+  const configured=String(window.MISSAL_STATUS?.sundayPreview || "");
+  return configured===expected && data[expected] ? expected : null;
+}
+
 function getVisibleDates(){
   const today=brasiliaTodayKey();
   const limit=getAvailableThrough();
+  const sundayPreview=getSundayPreview();
   return getRegisteredDates().filter(function(k){
-    return k <= today && k <= limit;
+    const normallyAvailable=k <= today && k <= limit;
+    return normallyAvailable || k===sundayPreview;
   });
+}
+
+function updateSundayPreviewNote(){
+  const note=document.getElementById("sundayPreviewNote");
+  if(!note) return;
+  note.hidden=!getSundayPreview();
 }
 
 function updateNavButtons(){
@@ -1881,10 +1924,10 @@ document.addEventListener("click",(e)=>{
 document.getElementById("prevBtn").addEventListener("click",()=>moveDay(-1));
 document.getElementById("nextBtn").addEventListener("click",()=>moveDay(1));
 
-// Ao abrir o site, mostra a data mais recente que já foi liberada.
-// Às 00h do novo dia ele ainda mostrará o dia anterior.
-// Depois que a rotina das 05h terminar e atualizar status.js,
-// o novo dia passa a ficar disponível.
+// Ao abrir o site, mostra hoje como data principal quando estiver liberado.
+// Aos sábados, o domingo seguinte também pode ficar disponível para seleção,
+// mas o sábado continua aberto por padrão. No domingo, após a liberação das 05h,
+// o domingo passa a ser a data principal.
 const visibleDates = getVisibleDates();
 const todayKey = brasiliaTodayKey();
 const initialKey = visibleDates.includes(todayKey)
@@ -1960,6 +2003,7 @@ const originalRender=render;
 render=function(dateKey){
   originalRender(dateKey);
   updateTodayButton();
+  updateSundayPreviewNote();
 };
 
 function updateMobileHeader(){
@@ -1968,7 +2012,17 @@ function updateMobileHeader(){
 window.addEventListener("scroll",updateMobileHeader,{passive:true});
 updateMobileHeader();
 
+const loadedBrasiliaDay=brasiliaTodayKey();
+function refreshIfBrasiliaDayChanged(){
+  if(brasiliaTodayKey()!==loadedBrasiliaDay) location.reload();
+}
+window.addEventListener("focus",refreshIfBrasiliaDayChanged);
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden) refreshIfBrasiliaDayChanged();
+});
+
 updateTodayButton();
+updateSundayPreviewNote();
 formatLastUpdate();
 setupInstallButton();
 
