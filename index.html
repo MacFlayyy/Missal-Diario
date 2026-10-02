@@ -891,6 +891,47 @@
       .tape-top{justify-content:flex-end}
     }
 
+  
+    .celebration-context{display:none}
+    body.celebration-mode .celebration-context{
+      display:block;
+      max-width:860px;
+      margin:0 auto 14px;
+      padding:18px 20px;
+      text-align:center;
+      border:1px solid #ead9dc;
+      border-radius:20px;
+      background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,250,243,.96));
+      box-shadow:0 12px 28px rgba(61,44,34,.08);
+    }
+    .celebration-context-date{
+      color:var(--wine);
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+    }
+    .celebration-context h2{
+      margin:7px auto 0;
+      max-width:760px;
+      color:var(--ink);
+      font-size:28px;
+      line-height:1.12;
+      letter-spacing:-.025em;
+      text-wrap:balance;
+    }
+    @media(max-width:620px){
+      body.celebration-mode .celebration-context{
+        margin-top:54px;
+        margin-bottom:10px;
+        padding:15px 14px;
+        border-radius:17px;
+      }
+      .celebration-context-date{font-size:10.5px}
+      .celebration-context h2{font-size:22px;line-height:1.15}
+      body.celebration-mode .quick{margin-top:0}
+    }
+
   </style>
 </head>
 <body>
@@ -942,6 +983,11 @@
         <div class="source-status" id="sourceStatus" aria-live="polite">
           <span class="source-status-dot"></span>
           <span id="sourceStatusText">Separação pelo Missal</span>
+        </div>
+
+        <div class="celebration-context" id="celebrationContext" aria-live="polite">
+          <div class="celebration-context-date" id="celebrationModeDate">—</div>
+          <h2 id="celebrationModeTitle">—</h2>
         </div>
 
         <div class="quick">
@@ -1680,6 +1726,10 @@ function render(dateKey){
   document.getElementById("dateLabel").textContent = d.label;
   document.getElementById("celebration").textContent = d.celebration;
   document.getElementById("subtitle").textContent = d.subtitle;
+  const celebrationModeDate=document.getElementById("celebrationModeDate");
+  const celebrationModeTitle=document.getElementById("celebrationModeTitle");
+  if(celebrationModeDate) celebrationModeDate.textContent=formatSelectedDate(dateKey);
+  if(celebrationModeTitle) celebrationModeTitle.textContent=d.celebration;
   document.getElementById("saint").textContent = d.saint;
   document.getElementById("grade").textContent = d.grade;
   document.getElementById("season").textContent = d.season;
