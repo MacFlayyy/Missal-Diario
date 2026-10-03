@@ -156,10 +156,9 @@ def repair_entry(entry):
         2: {"n":2,"page":"—","title":"Missa do dia","details":[["Formulário","Missa do dia"]]},
         3: {"n":3,"page":"509","title":"Prefácio Comum I","details":[],"suggestion":True},
         4: {"n":4,"page":"536","title":"Oração Eucarística II","details":[],"suggestion":True},
-        5: {"n":5,"page":"569","title":"Rito da Comunhão","details":[["Uso","Sempre após a Oração Eucarística."]]},
-        6: {"n":6,"page":"585","title":"Bênção Solene — Tempo Comum VI","details":[],"suggestion":True},
+        5: {"n":5,"page":"585","title":"Bênção Solene — Tempo Comum VI","details":[],"suggestion":True},
     }
-    for n in range(1,7):
+    for n in range(1,6):
         if n not in by_n:
             tapes.append(defaults[n].copy())
             by_n[n] = tapes[-1]
@@ -243,26 +242,14 @@ def repair_entry(entry):
         fixes.append("Oração Eucarística corrigida automaticamente.")
     ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
 
-    # Fita 5 — Rito da Comunhão: é fixa e vem sempre após a Oração Eucarística.
+    # Fita 5 — Bênção
     f5 = by_n[5]
-    if str(f5.get("page","")).strip() != "569" or "rito da comunhão" not in str(f5.get("title","")).lower():
-        f5["page"] = "569"
-        f5["title"] = "Rito da Comunhão"
-        f5["details"] = [["Uso","Sempre após a Oração Eucarística."]]
-        f5.pop("suggestion", None)
-        fixes.append("Rito da Comunhão corrigido para a página 569.")
-    else:
-        f5["details"] = [["Uso","Sempre após a Oração Eucarística."]]
-        f5.pop("suggestion", None)
-
-    # Fita 6 — Bênção
-    f6 = by_n[6]
-    if not is_valid_page(f6.get("page")) or "bênção" not in str(f6.get("title","")).lower():
+    if not is_valid_page(f5.get("page")) or "bênção" not in str(f5.get("title","")).lower():
         p, title = infer_blessing(entry)
-        f6["page"] = p
-        f6["title"] = title
-        f6["details"] = [["Uso","Sugestão automática revisada"]]
-        f6["suggestion"] = True
+        f5["page"] = p
+        f5["title"] = title
+        f5["details"] = [["Uso","Sugestão automática revisada"]]
+        f5["suggestion"] = True
         fixes.append("Bênção corrigida automaticamente.")
 
     # Reconstrói separação rápida SEMPRE, evitando inconsistência.
