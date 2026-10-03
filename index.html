@@ -1298,7 +1298,90 @@
       }
     }
 
-  </style>
+  
+
+    /* Correção definitiva: Separação rápida sem cortes */
+    .quick{
+      overflow:visible !important;
+    }
+    .quick-steps,
+    body.celebration-mode .quick-steps{
+      width:100% !important;
+      max-width:100% !important;
+      margin:10px 0 0 !important;
+      padding:0 !important;
+      overflow:visible !important;
+      justify-content:space-between !important;
+      gap:2px !important;
+    }
+    .quick-item,
+    body.celebration-mode .quick-item{
+      min-width:0 !important;
+      gap:2px !important;
+      flex:0 1 auto !important;
+    }
+    .quick-step,
+    body.celebration-mode .quick-step{
+      min-width:30px !important;
+      width:auto !important;
+      max-width:none !important;
+      height:31px !important;
+      padding:0 4px !important;
+      font-size:9.5px !important;
+      white-space:nowrap !important;
+      flex:0 1 auto !important;
+    }
+    .quick-arrow,
+    body.celebration-mode .quick-arrow{
+      width:6px !important;
+      min-width:6px !important;
+      flex:0 0 6px !important;
+      margin:0 !important;
+      font-size:8px !important;
+    }
+    @media(max-width:620px){
+      .quick{
+        padding-left:10px !important;
+        padding-right:10px !important;
+      }
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        gap:1px !important;
+      }
+      .quick-item,
+      body.celebration-mode .quick-item{
+        gap:1px !important;
+      }
+      .quick-step,
+      body.celebration-mode .quick-step{
+        min-width:28px !important;
+        height:30px !important;
+        padding:0 3px !important;
+        font-size:9px !important;
+      }
+      .quick-arrow,
+      body.celebration-mode .quick-arrow{
+        width:5px !important;
+        min-width:5px !important;
+        flex-basis:5px !important;
+        font-size:7px !important;
+      }
+    }
+    @media(max-width:340px){
+      .quick-step,
+      body.celebration-mode .quick-step{
+        min-width:26px !important;
+        padding:0 2px !important;
+        font-size:8px !important;
+      }
+      .quick-arrow,
+      body.celebration-mode .quick-arrow{
+        width:4px !important;
+        min-width:4px !important;
+        flex-basis:4px !important;
+      }
+    }
+</style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
   <!-- End Cloudflare Web Analytics -->
