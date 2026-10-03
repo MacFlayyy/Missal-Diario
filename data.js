@@ -260,8 +260,8 @@ window.MISSAL_DATA = {
   }
 ,
   "2026-10-03": {
-    "label":"Sábado • 03/10/2026","celebration":"Celebração própria de 3 de outubro","subtitle":"Tempo Comum",
-    "saint":"Protomártires do Brasil","grade":"Memória","season":"Tempo Comum","color":"Vermelha","colorHex":"#9f2d2d",
+    "label":"Sábado • 03/10/2026","celebration":"Santos André de Soveral, Ambrósio Francisco Ferro, presbíteros, Mateus Moreira, leigo, e companheiros mártires","subtitle":"Tempo Comum",
+    "saint":"Santos André de Soveral, Ambrósio Francisco Ferro, Mateus Moreira e companheiros mártires","grade":"Memória","season":"Tempo Comum","color":"Vermelha","colorHex":"#9f2d2d",
     "note":"Memória litúrgica celebrada neste dia.","liturgicalNote":"Memória litúrgica celebrada neste dia.",
     "source":"Missal Romano CNBB 2023 • sugestões onde indicado","cycle":"Ano II",
     "tapes":[
