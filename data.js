@@ -258,4 +258,32 @@ window.MISSAL_DATA = {
     "quick": "430 / 434 → 817–818 → 818 → 536 → 585",
     "cycle": "Ano II"
   }
+,
+  "2026-10-03": {
+    "label":"Sábado • 03/10/2026","celebration":"Celebração própria de 3 de outubro","subtitle":"Tempo Comum",
+    "saint":"Protomártires do Brasil","grade":"Memória","season":"Tempo Comum","color":"Vermelha","colorHex":"#9f2d2d",
+    "note":"Memória litúrgica celebrada neste dia.","liturgicalNote":"Memória litúrgica celebrada neste dia.",
+    "source":"Missal Romano CNBB 2023 • sugestões onde indicado","cycle":"Ano II",
+    "tapes":[
+      {"n":1,"page":"430","title":"Ritos Iniciais","details":[["Saudação A • sugestão","A graça de nosso Senhor Jesus Cristo..."],["Ato Penitencial — Segunda fórmula, 2ª opção • sugestão","No início desta celebração eucarística..."]],"suggestion":true},
+      {"n":2,"page":"819","title":"Missa do dia","details":[["Formulário","Memória própria"]]},
+      {"n":3,"page":"502","title":"Prefácio próprio para esta celebração","details":[["Uso","Sugestão adequada à celebração"]],"suggestion":true},
+      {"n":4,"page":"536","title":"Oração Eucarística II","details":[["Aclamação • sugestão","Mistério da fé!"]],"suggestion":true},
+      {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão adequada à celebração"]],"suggestion":true}
+    ],"quick":"430 → 819 → 502 → 536 → 587"
+  },
+  "2026-10-04": {
+    "label":"Domingo • 04/10/2026","celebration":"27º Domingo do Tempo Comum","subtitle":"Ano A • Tempo Comum",
+    "saint":"São Francisco de Assis","grade":"Domingo do Tempo Comum","season":"Tempo Comum","color":"Verde","colorHex":"#3b6f50",
+    "note":"A memória de São Francisco de Assis é omitida neste ano porque coincide com o domingo.",
+    "liturgicalNote":"Memória de São Francisco de Assis omitida por coincidir com o domingo.",
+    "source":"Folheto oficial O Povo de Deus • Arquidiocese de Brasília","cycle":"Ano A",
+    "tapes":[
+      {"n":1,"page":"430","title":"Ritos Iniciais","details":[["Saudação A","A graça de nosso Senhor Jesus Cristo..."],["Ato Penitencial — Segunda fórmula, 3ª opção","De coração contrito e humilde..."]]},
+      {"n":2,"page":"409","title":"27º Domingo do Tempo Comum","details":[["Formulário","Missa do dia"]]},
+      {"n":3,"page":"477","title":"Prefácio dos Domingos do Tempo Comum IV","details":[["Título","A história da salvação"]]},
+      {"n":4,"page":"545","title":"Oração Eucarística III","details":[["Aclamação","Mistério da fé para a salvação do mundo!"]]},
+      {"n":5,"page":"585","title":"Bênção Solene — Tempo Comum VI","details":[["Indicação","Conforme o folheto"]]}
+    ],"quick":"430 → 409 → 477 → 545 → 585"
+  }
 };
