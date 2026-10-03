@@ -1412,6 +1412,39 @@
       }
     }
 
+
+    /* Barra mobile em cápsula — visual inspirado na navegação moderna do iOS */
+    @media(max-width:620px){
+      body{padding-bottom:96px}
+      .mobile-nav{
+        left:18px !important;
+        right:18px !important;
+        bottom:max(12px,env(safe-area-inset-bottom)) !important;
+        gap:3px !important;
+        padding:8px 9px !important;
+        border-radius:999px !important;
+        background:rgba(255,253,248,.90) !important;
+        border:1px solid rgba(125,23,34,.11) !important;
+        box-shadow:0 14px 38px rgba(61,20,25,.18),inset 0 1px 0 rgba(255,255,255,.82) !important;
+        backdrop-filter:blur(24px) saturate(1.18) !important;
+        -webkit-backdrop-filter:blur(24px) saturate(1.18) !important;
+      }
+      .mobile-nav button{
+        min-height:58px !important;
+        border-radius:999px !important;
+        padding:7px 4px !important;
+        gap:5px !important;
+        transition:background .18s ease,color .18s ease,transform .14s ease !important;
+      }
+      .mobile-nav button:active{
+        background:rgba(125,23,34,.10) !important;
+      }
+      .mobile-nav svg{
+        width:21px !important;
+        height:21px !important;
+      }
+    }
+
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
