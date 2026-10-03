@@ -1381,6 +1381,37 @@
         flex-basis:4px !important;
       }
     }
+
+    /* Centralização das setas entre as marcações — normal e modo celebração */
+    .quick-steps,
+    body.celebration-mode .quick-steps{
+      display:grid !important;
+      grid-template-columns:max-content minmax(14px,1fr) max-content minmax(14px,1fr) max-content minmax(14px,1fr) max-content minmax(14px,1fr) max-content !important;
+      align-items:center !important;
+      gap:0 !important;
+      justify-content:stretch !important;
+    }
+    .quick-item,
+    body.celebration-mode .quick-item{
+      display:contents !important;
+    }
+    .quick-arrow,
+    body.celebration-mode .quick-arrow{
+      width:auto !important;
+      min-width:0 !important;
+      margin:0 !important;
+      justify-self:center !important;
+      text-align:center !important;
+      flex:none !important;
+    }
+    @media(max-width:620px){
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        grid-template-columns:max-content minmax(10px,1fr) max-content minmax(10px,1fr) max-content minmax(10px,1fr) max-content minmax(10px,1fr) max-content !important;
+        overflow:visible !important;
+      }
+    }
+
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
@@ -2307,7 +2338,8 @@ function getVisibleDates(){
 function updateSundayPreviewNote(){
   const note=document.getElementById("sundayPreviewNote");
   if(!note) return;
-  note.hidden=!getSundayPreview();
+  const sundayPreview=getSundayPreview();
+  note.hidden=!sundayPreview || window.currentDateKey===sundayPreview;
 }
 
 function updateNavButtons(){
