@@ -2079,13 +2079,24 @@ async function buildShareImageBlob(){
   ctx.fillStyle="#fff";ctx.font="500 13px Arial, sans-serif";ctx.fillText("Separação rápida",sideX+42,quickY+26);
   const pages=String(d.quick||"").split(/\s*→\s*/g).map(function(x){return x.trim();}).filter(Boolean);
   const widths=pages.map(function(pg){return pg.length>4?66:44;});
-  const arrows=pages.length>1?(pages.length-1)*22:0;
-  const total=widths.reduce(function(a,b){return a+b;},0)+arrows;
-  let qx=sideX+24+((sideW-48)-total)/2;
+  const quickInnerX=sideX+42;
+  const quickInnerW=sideW-84;
+  const boxesTotal=widths.reduce(function(a,b){return a+b;},0);
+  const between=pages.length>1 ? Math.max(24,(quickInnerW-boxesTotal)/(pages.length-1)) : 0;
+  let qx=quickInnerX;
   const qy=quickY+56;
   pages.forEach(function(pg,i){
-    drawQuickStep(qx,qy,widths[i],pg);qx+=widths[i];
-    if(i<pages.length-1){ctx.fillStyle="#d6cfcf";ctx.font="700 16px Arial, sans-serif";ctx.fillText("→",qx+5,qy+22);qx+=22;}
+    drawQuickStep(qx,qy,widths[i],pg);
+    qx+=widths[i];
+    if(i<pages.length-1){
+      ctx.fillStyle="#d6cfcf";
+      ctx.font="700 16px Arial, sans-serif";
+      ctx.textAlign="center";
+      ctx.textBaseline="alphabetic";
+      ctx.fillText("→",qx+(between/2),qy+22);
+      ctx.textAlign="left";
+      qx+=between;
+    }
   });
 
   const sectionY=heroY+heroH+62;
