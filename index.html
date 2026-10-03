@@ -1166,6 +1166,61 @@
       }
     }
 
+
+    /* Ajuste de espaçamento das setas da Separação rápida */
+    .quick-steps,
+    body.celebration-mode .quick-steps{
+      gap:4px;
+    }
+    .quick-item,
+    body.celebration-mode .quick-item{
+      gap:3px;
+    }
+    .quick-arrow,
+    body.celebration-mode .quick-arrow{
+      width:9px;
+      min-width:9px;
+      flex:0 0 9px;
+      margin:0;
+    }
+
+    @media(max-width:620px){
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        gap:3px;
+      }
+      .quick-item,
+      body.celebration-mode .quick-item{
+        gap:3px;
+      }
+      .quick-arrow,
+      body.celebration-mode .quick-arrow{
+        width:8px;
+        min-width:8px;
+        flex:0 0 8px;
+        margin:0;
+        font-size:8px;
+      }
+    }
+
+    @media(max-width:340px){
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        gap:2px;
+      }
+      .quick-item,
+      body.celebration-mode .quick-item{
+        gap:2px;
+      }
+      .quick-arrow,
+      body.celebration-mode .quick-arrow{
+        width:7px;
+        min-width:7px;
+        flex:0 0 7px;
+        margin:0;
+      }
+    }
+
   </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
