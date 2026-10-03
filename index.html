@@ -1221,6 +1221,83 @@
       }
     }
 
+
+    /* Ajuste final: espaçamento equilibrado e centralização da Separação rápida */
+    .quick-steps{
+      gap:6px;
+    }
+    .quick-item{
+      gap:5px;
+    }
+    .quick-arrow{
+      width:10px;
+      min-width:10px;
+      flex:0 0 10px;
+      margin:0;
+    }
+
+    body.celebration-mode .quick-steps{
+      justify-content:center;
+      gap:7px;
+    }
+    body.celebration-mode .quick-item{
+      gap:6px;
+    }
+    body.celebration-mode .quick-arrow{
+      width:11px;
+      min-width:11px;
+      flex:0 0 11px;
+      margin:0;
+    }
+
+    @media(max-width:620px){
+      .quick small,
+      body.celebration-mode .quick small{
+        display:block;
+        text-align:center;
+      }
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        width:fit-content;
+        max-width:100%;
+        margin:10px auto 0;
+        justify-content:flex-start;
+        gap:5px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        padding:0 3px 5px;
+      }
+      .quick-item,
+      body.celebration-mode .quick-item{
+        gap:5px;
+      }
+      .quick-arrow,
+      body.celebration-mode .quick-arrow{
+        width:9px;
+        min-width:9px;
+        flex:0 0 9px;
+        margin:0;
+        font-size:8px;
+      }
+      body.celebration-mode .quick{
+        width:100%;
+        max-width:100%;
+        margin-left:auto;
+        margin-right:auto;
+      }
+    }
+
+    @media(max-width:340px){
+      .quick-steps,
+      body.celebration-mode .quick-steps{
+        gap:4px;
+      }
+      .quick-item,
+      body.celebration-mode .quick-item{
+        gap:4px;
+      }
+    }
+
   </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
