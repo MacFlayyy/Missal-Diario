@@ -345,10 +345,10 @@ def update_entry(entry, text, url):
         changed = True
 
     n = norm(text)
-    fita6 = next((x for x in entry["tapes"] if x["n"] == 6), None)
-    if fita6 and "bencao solene" in n:
-        fita6["details"] = [["Indicação","O folheto traz bênção solene"]]
-        fita6.pop("suggestion", None)
+    fita5 = next((x for x in entry["tapes"] if x["n"] == 5), None)
+    if fita5 and "bencao solene" in n:
+        fita5["details"] = [["Indicação","O folheto traz bênção solene"]]
+        fita5.pop("suggestion", None)
         changed = True
 
     if changed:
