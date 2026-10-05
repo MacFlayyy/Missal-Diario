@@ -53,12 +53,32 @@ def save_data(data):
 
 def save_status(key):
     now = datetime.now(TZ)
+
+    # Preserva os dados do folheto dominical gravados por update_folheto.py.
+    existing = {}
+    if STATUS_FILE.exists():
+        try:
+            existing = load_js_object(STATUS_FILE, "window.MISSAL_STATUS")
+        except Exception:
+            existing = {}
+
     payload = {
         "availableThrough": key,
         "lastSuccessfulUpdateAt": now.isoformat(timespec="seconds"),
         "timezone": "America/Sao_Paulo",
         "validation": "reviewed-and-corrected",
     }
+
+    for field in (
+        "sundayLeafletDate",
+        "sundayLeafletDesktopUrl",
+        "sundayLeafletMobileUrl",
+        "sundayLeafletUrl",
+    ):
+        value = existing.get(field)
+        if value:
+            payload[field] = value
+
     STATUS_FILE.write_text(
         "window.MISSAL_STATUS = " +
         json.dumps(payload, ensure_ascii=False, indent=2) +
