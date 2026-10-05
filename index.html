@@ -3373,7 +3373,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v50";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v51";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4285,7 +4285,7 @@ if("serviceWorker" in navigator){
   });
 
   window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js?v=50",{updateViaCache:"none"})
+    navigator.serviceWorker.register("./sw.js?v=51",{updateViaCache:"none"})
       .then(reg=>{
         reg.update();
         window.addEventListener("focus",()=>reg.update());
