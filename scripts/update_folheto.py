@@ -439,22 +439,21 @@ def main():
             if not key:
                 continue
 
-            # O Povo de Deus é usado principalmente nos domingos.
             dt = date.fromisoformat(key)
-            if dt.weekday() != 6:
-                continue
-
             variant = leaflet_variant(url)
-            bucket = discovered_leaflets.setdefault(key, {})
-            # Mantém uma URL por variante; PDFs específicos de celular/desktop
-            # têm prioridade sobre uma URL genérica.
-            if variant not in bucket:
-                bucket[variant] = url
+
+            # Guarda todos os folhetos datados encontrados, inclusive de dias
+            # de semana. O mapa dominical usado como fallback continua separado.
+            if dt.weekday() == 6:
+                bucket = discovered_leaflets.setdefault(key, {})
+                if variant not in bucket:
+                    bucket[variant] = url
 
             print(f"[folheto] {key} ({variant}): {url}")
 
-            # A URL do folheto pode ser usada no botão mesmo antes de a data
-            # litúrgica correspondente existir em data.js.
+            # Se a data já existe no site, salva o link direto do folheto.
+            # Isso permite que um folheto especial de segunda a sábado tenha
+            # prioridade somente no próprio dia.
             if key not in data:
                 continue
 
@@ -468,6 +467,8 @@ def main():
                 entry[url_field] = url
                 changed_any = True
 
+            # Quando houver folheto oficial para qualquer dia cadastrado,
+            # aplica também as escolhas reconhecidas à separação desse dia.
             if update_entry(entry, text, url):
                 changed_any = True
         except Exception as e:
