@@ -459,12 +459,14 @@ def main():
                 continue
 
             entry = data[key]
-            if variant == "mobile":
-                entry["folhetoMobileUrl"] = url
-            elif variant == "desktop":
-                entry["folhetoDesktopUrl"] = url
-            else:
-                entry["folhetoUrl"] = url
+            url_field = (
+                "folhetoMobileUrl" if variant == "mobile"
+                else "folhetoDesktopUrl" if variant == "desktop"
+                else "folhetoUrl"
+            )
+            if entry.get(url_field) != url:
+                entry[url_field] = url
+                changed_any = True
 
             if update_entry(entry, text, url):
                 changed_any = True
