@@ -92,18 +92,75 @@ def save_data(data):
         encoding="utf-8"
     )
 
-def save_status():
-    """Libera o dia somente depois que esta execução terminou com sucesso."""
-    now = datetime.now(ZoneInfo("America/Sao_Paulo"))
-    payload = {
-        "availableThrough": now.strftime("%Y-%m-%d"),
-        "lastSuccessfulUpdateAt": now.isoformat(timespec="seconds"),
-        "timezone": "America/Sao_Paulo",
-    }
+def load_status():
+    if not STATUS_FILE.exists():
+        return {}
+    raw = STATUS_FILE.read_text(encoding="utf-8")
+    m = re.search(r"window\.MISSAL_STATUS\s*=\s*(\{.*\})\s*;\s*$", raw, re.S)
+    if not m:
+        return {}
+    try:
+        return json.loads(m.group(1))
+    except Exception:
+        return {}
+
+def save_leaflet_status(key, urls):
+    """Salva o folheto semanal escolhido sem apagar o status diário."""
+    status = load_status()
+    status["sundayLeafletDate"] = key
+
+    desktop = str(urls.get("desktop") or urls.get("generic") or urls.get("mobile") or "")
+    mobile = str(urls.get("mobile") or urls.get("generic") or urls.get("desktop") or "")
+
+    if desktop:
+        status["sundayLeafletDesktopUrl"] = desktop
+    if mobile:
+        status["sundayLeafletMobileUrl"] = mobile
+
+    preferred = mobile or desktop
+    if preferred:
+        status["sundayLeafletUrl"] = preferred
+
     STATUS_FILE.write_text(
-        "window.MISSAL_STATUS = " + json.dumps(payload, ensure_ascii=False, indent=2) + ";\n",
+        "window.MISSAL_STATUS = " + json.dumps(status, ensure_ascii=False, indent=2) + ";\n",
         encoding="utf-8"
     )
+
+def leaflet_variant(url):
+    name = norm(url.rsplit("/", 1)[-1])
+    if any(x in name for x in ["versao-celular", "versao celular", "celular", "mobile"]):
+        return "mobile"
+    if any(x in name for x in ["prova-final", "prova final", "final"]):
+        return "desktop"
+    return "generic"
+
+def target_sunday(today=None):
+    today = today or datetime.now(ZoneInfo("America/Sao_Paulo")).date()
+    return today + timedelta(days=(6 - today.weekday()) % 7)
+
+def choose_week_leaflet(discovered):
+    """
+    Regra semanal:
+    - usa o folheto do domingo que encerra a semana, se já estiver publicado;
+    - enquanto ele não existir, mantém o domingo anterior mais recente;
+    - após o domingo passar, esse mesmo folheto vira o fallback até o próximo sair.
+    """
+    target = target_sunday()
+    eligible = []
+    for key in discovered:
+        try:
+            dt = date.fromisoformat(key)
+        except Exception:
+            continue
+        if dt <= target:
+            eligible.append(dt)
+
+    if not eligible:
+        return None, None
+
+    chosen = target if target in eligible else max(eligible)
+    key = chosen.isoformat()
+    return key, discovered.get(key)
 
 def candidate_months():
     # Busca o mês atual, o anterior e os próximos dois meses; isso cobre folhetos
@@ -370,6 +427,7 @@ def main():
             print(f"[aviso] Falha ao listar {y}/{m:02d}: {e}")
 
     changed_any = False
+    discovered_leaflets = {}
     seen = set()
     for url in pdfs:
         if url in seen:
@@ -378,14 +436,37 @@ def main():
         try:
             text = pdf_text(url)
             key = parse_date(text)
-            if not key or key not in data:
+            if not key:
                 continue
+
             # O Povo de Deus é usado principalmente nos domingos.
             dt = date.fromisoformat(key)
             if dt.weekday() != 6:
                 continue
-            print(f"[folheto] {key}: {url}")
-            if update_entry(data[key], text, url):
+
+            variant = leaflet_variant(url)
+            bucket = discovered_leaflets.setdefault(key, {})
+            # Mantém uma URL por variante; PDFs específicos de celular/desktop
+            # têm prioridade sobre uma URL genérica.
+            if variant not in bucket:
+                bucket[variant] = url
+
+            print(f"[folheto] {key} ({variant}): {url}")
+
+            # A URL do folheto pode ser usada no botão mesmo antes de a data
+            # litúrgica correspondente existir em data.js.
+            if key not in data:
+                continue
+
+            entry = data[key]
+            if variant == "mobile":
+                entry["folhetoMobileUrl"] = url
+            elif variant == "desktop":
+                entry["folhetoDesktopUrl"] = url
+            else:
+                entry["folhetoUrl"] = url
+
+            if update_entry(entry, text, url):
                 changed_any = True
         except Exception as e:
             print(f"[aviso] Falha em {url}: {e}")
@@ -395,6 +476,17 @@ def main():
         print("Dados atualizados.")
     else:
         print("Nenhuma alteração necessária nos dados.")
+
+    leaflet_key, leaflet_urls = choose_week_leaflet(discovered_leaflets)
+    if leaflet_key and leaflet_urls:
+        save_leaflet_status(leaflet_key, leaflet_urls)
+        target = target_sunday().isoformat()
+        if leaflet_key == target:
+            print(f"[folheto-semanal] Folheto da semana disponível: {leaflet_key}")
+        else:
+            print(f"[folheto-semanal] Folheto da semana ainda indisponível; mantendo {leaflet_key}.")
+    else:
+        print("[folheto-semanal] Nenhum folheto válido encontrado; status anterior preservado.")
 
     print("Atualização de dados concluída. Aguardando validação antes da publicação.")
 
