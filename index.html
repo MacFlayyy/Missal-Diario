@@ -3373,7 +3373,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v55";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v56";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -3539,18 +3539,18 @@ async function buildShareImageBlob(){
   ctx.shadowOffsetY=10;
   const quickBg=ctx.createLinearGradient(pad,quickY,pad+cardW,quickY+quickH);
   quickBg.addColorStop(0,"#fffdf9");
-  quickBg.addColorStop(1,"#f8ecee");
+  quickBg.addColorStop(1,"#f2efeb");
   roundRectPath(ctx,pad,quickY,cardW,quickH,20);
   ctx.fillStyle=quickBg;
   ctx.fill();
   ctx.restore();
 
   // Borda clara e faixa superior vinho/cor litúrgica/dourado, como no site.
-  strokeRound(pad,quickY,cardW,quickH,20,"rgba(125,23,34,.18)",1);
+  strokeRound(pad,quickY,cardW,quickH,20,"rgba(90,80,72,.16)",1);
   const quickTop=ctx.createLinearGradient(pad,0,pad+cardW,0);
-  quickTop.addColorStop(0,wine);
-  quickTop.addColorStop(.55,liturgical);
-  quickTop.addColorStop(1,"#c8a96a");
+  quickTop.addColorStop(0,"#6f675f");
+  quickTop.addColorStop(.55,"#8b8178");
+  quickTop.addColorStop(1,"#b3aaa1");
   ctx.save();
   roundRectPath(ctx,pad,quickY,cardW,quickH,20);
   ctx.clip();
@@ -3562,7 +3562,7 @@ async function buildShareImageBlob(){
   ctx.font="900 11px Arial, sans-serif";
   const quickLabel="SEPARAÇÃO RÁPIDA";
   const labelW=ctx.measureText(quickLabel).width+28;
-  fillRound(pad+(cardW-labelW)/2,quickY+18,labelW,30,15,wine);
+  fillRound(pad+(cardW-labelW)/2,quickY+18,labelW,30,15,"#4a4541");
   ctx.fillStyle="#fff";
   ctx.textAlign="center";
   ctx.textBaseline="middle";
@@ -3585,8 +3585,8 @@ async function buildShareImageBlob(){
     ctx.shadowOffsetY=5;
     fillRound(qx,qy,w,42,12,"#fff");
     ctx.restore();
-    strokeRound(qx,qy,w,42,12,"rgba(125,23,34,.18)",1);
-    ctx.fillStyle=wine;
+    strokeRound(qx,qy,w,42,12,"rgba(90,80,72,.18)",1);
+    ctx.fillStyle="#403a36";
     ctx.font="900 17px Arial, sans-serif";
     ctx.textAlign="center";
     ctx.textBaseline="middle";
@@ -4372,4 +4372,20 @@ updateBackToTop();
 .source-status.official::before{
   background:#8b8178 !important;
 }
+</style>
+
+<style id="quick-neutral-v56">
+.quick,
+body.celebration-mode .quick,
+.prepare-missal-sequence{
+  background:linear-gradient(145deg,#34302d,#252220) !important;
+  box-shadow:0 14px 30px rgba(45,38,34,.15) !important;
+}
+.quick small{color:rgba(255,255,255,.68) !important}
+.quick-step{
+  background:rgba(255,255,255,.96) !important;
+  border-color:rgba(255,255,255,.15) !important;
+  color:#403a36 !important;
+}
+.quick-arrow{color:rgba(255,255,255,.58) !important}
 </style>
