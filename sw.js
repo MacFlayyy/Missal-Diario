@@ -1,4 +1,4 @@
-const CACHE_NAME = "missal-diario-v45";
+const CACHE_NAME = "missal-diario-v46";
 const SHELL = [
   "./",
   "./index.html",
