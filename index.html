@@ -2656,6 +2656,9 @@ document.getElementById("shareQuickBtn")?.addEventListener("click",shareCurrent)
 document.getElementById("imageShareBtn")?.addEventListener("click",shareCurrentImage);
 
 const prepareLabels=["Ritos Iniciais","Missa do dia","Prefácio","Oração Eucarística","Bênção Solene"];
+function prepareEscapeHtml(value){
+  return String(value ?? "").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+}
 function setPrepareMissal(open){
   const overlay=document.getElementById("prepareMissalOverlay");
   if(!overlay) return;
@@ -2670,7 +2673,7 @@ function setPrepareMissal(open){
     pages.innerHTML=prepareLabels.map((label,index)=>{
       const tape=tapes[index] || {};
       const page=String(tape.page || "—");
-      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+escapeHtml(page)+'</strong><span>'+escapeHtml(label)+'</span></div>';
+      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(label)+'</span></div>';
     }).join("");
     overlay.hidden=false;
     document.body.classList.add("prepare-missal-open");
