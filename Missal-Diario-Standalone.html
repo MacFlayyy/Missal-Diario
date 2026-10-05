@@ -3683,6 +3683,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v50";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4594,7 +4595,7 @@ if(location.protocol !== "file:" && "serviceWorker" in navigator){
   });
 
   window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"})
+    navigator.serviceWorker.register("./sw.js?v=50",{updateViaCache:"none"})
       .then(reg=>{
         reg.update();
         window.addEventListener("focus",()=>reg.update());
