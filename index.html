@@ -1695,6 +1695,36 @@
       }
     }
 
+
+    /* Correção final — centralização da Separação rápida no Modo Celebração */
+    body.celebration-mode .quick{
+      display:flex !important;
+      flex-direction:column;
+      align-items:center !important;
+      text-align:center !important;
+    }
+    body.celebration-mode .quick small{
+      align-self:center !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+      text-align:center !important;
+    }
+    body.celebration-mode .quick-steps{
+      width:max-content !important;
+      max-width:100% !important;
+      align-self:center !important;
+      justify-content:center !important;
+      margin-left:auto !important;
+      margin-right:auto !important;
+    }
+    @media(max-width:620px){
+      body.celebration-mode .quick-steps{
+        width:max-content !important;
+        max-width:100% !important;
+        justify-content:center !important;
+      }
+    }
+
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
