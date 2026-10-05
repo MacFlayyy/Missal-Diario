@@ -3436,6 +3436,7 @@ function isMobileLeafletDevice(){
 
 function getDominicalLeafletUrl(){
   const mobile=isMobileLeafletDevice();
+  const today=brasiliaTodayKey();
   const targetSunday=sundayKeyForLeaflet();
 
   function directUrl(item){
@@ -3469,8 +3470,14 @@ function getDominicalLeafletUrl(){
     return "";
   }
 
-  // 1) Se o folheto do domingo desta semana já estiver disponível,
-  // ele sempre tem prioridade.
+  // 1) Um folheto próprio do dia atual tem prioridade absoluta.
+  // Ele vale somente naquele dia; ao virar a data, a seleção volta para
+  // a lógica dominical normal.
+  const todayDataUrl=directUrl(data[today] || null);
+  if(todayDataUrl) return todayDataUrl;
+
+  // 2) Se o folheto do domingo desta semana já estiver disponível,
+  // ele tem prioridade sobre o domingo anterior.
   const targetData=data[targetSunday] || null;
   const targetDataUrl=directUrl(targetData);
   if(targetDataUrl) return targetDataUrl;
@@ -3481,7 +3488,7 @@ function getDominicalLeafletUrl(){
     if(currentWeekUrl) return currentWeekUrl;
   }
 
-  // 2) Se ainda não saiu, usa o domingo anterior mais recente.
+  // 3) Se ainda não saiu, usa o domingo anterior mais recente.
   // Depois que o domingo passa, ele continua sendo o fallback até
   // o folheto do próximo domingo ser publicado.
   if(statusDate && statusDate < targetSunday){
@@ -3489,7 +3496,7 @@ function getDominicalLeafletUrl(){
     if(previousUrl) return previousUrl;
   }
 
-  // 3) Reserva: procura nos dados o folheto mais recente que não seja
+  // 4) Reserva: procura nos dados o folheto mais recente que não seja
   // posterior ao domingo-alvo da semana atual.
   const registeredDates=Object.keys(data || {})
     .filter(key=>key<=targetSunday)
