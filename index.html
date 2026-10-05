@@ -1451,6 +1451,82 @@
       }
     }
 
+
+    /* Preparar o Missal — visão rápida das cinco marcações */
+    .prepare-missal-btn{
+      grid-column:1 / -1;border-color:#dcc1c5;background:linear-gradient(135deg,#fffaf7,#fff1f3);color:var(--wine)
+    }
+    .prepare-missal-overlay{
+      position:fixed;inset:0;z-index:140;display:flex;align-items:center;justify-content:center;
+      padding:24px;background:rgba(31,20,19,.52);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)
+    }
+    .prepare-missal-overlay[hidden]{display:none!important}
+    .prepare-missal-dialog{
+      width:min(1040px,100%);max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);overflow:auto;
+      border-radius:30px;padding:26px;background:#fffdf8;border:1px solid rgba(125,23,34,.13);
+      box-shadow:0 30px 90px rgba(48,18,22,.34)
+    }
+    .prepare-missal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+    .prepare-missal-kicker{display:block;color:var(--wine);font-size:11px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+    .prepare-missal-head h2{margin:5px 0 4px;font-size:30px;line-height:1.05;color:var(--ink)}
+    .prepare-missal-head p{margin:0;color:var(--muted);font-size:14px;font-weight:700}
+    .prepare-missal-close{
+      width:42px;height:42px;flex:0 0 42px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--wine);
+      font-size:25px;line-height:1;cursor:pointer
+    }
+    .prepare-missal-date{margin-top:16px;font-size:12px;font-weight:800;color:var(--muted)}
+    .prepare-missal-pages{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
+    .prepare-missal-page{
+      position:relative;min-width:0;padding:18px 12px 16px;border:1px solid var(--line);border-radius:20px;
+      background:linear-gradient(180deg,#fff,#fff9f3);text-align:center;overflow:hidden
+    }
+    .prepare-missal-page::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--liturgical,var(--wine))}
+    .prepare-missal-number{
+      display:inline-flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;
+      background:var(--liturgical-soft,#f4e4e6);color:var(--liturgical-deep,var(--wine));font-size:11px;font-weight:900
+    }
+    .prepare-missal-page strong{display:block;margin-top:12px;font-size:27px;line-height:1;color:var(--wine);letter-spacing:-.02em;word-break:break-word}
+    .prepare-missal-page span:last-child{display:block;margin-top:9px;font-size:10.5px;line-height:1.25;font-weight:800;color:var(--muted)}
+    .prepare-missal-sequence{
+      margin-top:16px;padding:14px 16px;border-radius:16px;background:#f7f0e7;text-align:center
+    }
+    .prepare-missal-sequence span{display:block;font-size:9.5px;font-weight:900;text-transform:uppercase;letter-spacing:.10em;color:var(--muted)}
+    .prepare-missal-sequence strong{display:block;margin-top:5px;font-size:18px;color:var(--wine);letter-spacing:.035em}
+    .prepare-missal-done{
+      display:block;margin:16px auto 0;min-width:150px;padding:12px 20px;border:0;border-radius:999px;
+      background:linear-gradient(135deg,var(--wine),#5d111a);color:#fff;font-weight:900;cursor:pointer;
+      box-shadow:0 10px 24px rgba(83,18,27,.20)
+    }
+    body.prepare-missal-open{overflow:hidden}
+    @media(max-width:620px){
+      .mobile-more-grid .prepare-action{
+        grid-column:1 / -1;min-height:58px;flex-direction:row;gap:9px;background:linear-gradient(135deg,#fff8f7,#f9edef);
+        color:var(--wine);border-color:#dec2c7;font-size:11px
+      }
+      .mobile-more-grid .prepare-action svg{width:21px;height:21px}
+      .prepare-missal-overlay{
+        align-items:stretch;padding:0;background:#fffdf8;backdrop-filter:none;-webkit-backdrop-filter:none
+      }
+      .prepare-missal-dialog{
+        width:100%;height:100vh;height:100dvh;max-height:none;border:0;border-radius:0;box-shadow:none;overflow:auto;
+        padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(18px + env(safe-area-inset-bottom,0px))
+      }
+      .prepare-missal-head h2{font-size:26px}
+      .prepare-missal-head p{font-size:12.5px;line-height:1.35}
+      .prepare-missal-date{margin-top:11px}
+      .prepare-missal-pages{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+      .prepare-missal-page{
+        min-height:62px;padding:9px 12px;display:grid;grid-template-columns:30px minmax(78px,.72fr) 1.35fr;
+        align-items:center;gap:9px;text-align:left;border-radius:16px
+      }
+      .prepare-missal-page::before{top:0;bottom:0;left:0;right:auto;width:4px;height:auto}
+      .prepare-missal-number{width:26px;height:26px}
+      .prepare-missal-page strong{margin:0;font-size:23px;text-align:center}
+      .prepare-missal-page span:last-child{margin:0;font-size:10.5px;line-height:1.2;text-align:left}
+      .prepare-missal-sequence{margin-top:12px;padding:11px 10px}
+      .prepare-missal-sequence strong{font-size:15px;line-height:1.35}
+      .prepare-missal-done{margin-top:12px;width:100%;min-height:46px}
+    }
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
@@ -1523,6 +1599,7 @@
           <button class="utility-btn" id="shareQuickBtn" type="button" title="Compartilhar o site ou app"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 5.5h4.5V10"/><path d="M18.5 5.5l-8 8"/><path d="M10 7.5H7A2.5 2.5 0 0 0 4.5 10v7A2.5 2.5 0 0 0 7 19.5h7a2.5 2.5 0 0 0 2.5-2.5v-3"/></svg><span>Compartilhar site/app</span></button>
           <button class="utility-btn" id="todayBtn" type="button" title="Voltar para hoje"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10.5L12 4l7.5 6.5"/><path d="M7.5 9.5v9h9v-9"/></svg><span>Hoje</span></button>
           <button class="utility-btn" id="celebrationModeBtn" type="button" title="Abrir modo celebração"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 8.5h6"/><path d="M8.5 12h7"/><path d="M9 15.5h6"/></svg><span>Modo celebração</span></button>
+          <button class="utility-btn prepare-missal-btn" id="prepareMissalBtn" type="button" title="Abrir preparação rápida do Missal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v15H6z"/><path d="M9 4.5v6l3-1.8 3 1.8v-6"/><path d="M9 14.5h6M9 17h4"/></svg><span>Preparar o Missal</span></button>
           <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M6.5 16l4.2-4.2 2.8 2.8 2.2-2.2 2.8 3.6"/></svg><span>Imagem para compartilhar</span></button>
           <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10"/><path d="M8.5 11l3.5 3.5 3.5-3.5"/><path d="M5 17.5h14"/></svg><span>Instalar app</span></button>
           <button class="utility-btn desktop-leaflet-btn" id="desktopLeafletBtn" type="button" title="Abrir folheto dominical"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h8l4 4v12.4H6z"/><path d="M14 3.8v4h4"/><path d="M9 12h6M9 15.5h6"/></svg><span>Folheto dominical</span></button>
@@ -1593,6 +1670,7 @@
       <button type="button" id="mobileMoreClose" aria-label="Fechar mais opções">×</button>
     </div>
     <div class="mobile-more-grid">
+      <button type="button" class="prepare-action" data-action="prepare"><svg viewBox="0 0 24 24"><path d="M6 4.5h12v15H6z"/><path d="M9 4.5v6l3-1.8 3 1.8v-6"/><path d="M9 14.5h6M9 17h4"/></svg><span>Preparar o Missal</span></button>
       <button type="button" data-action="copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="10.5" height="10.5" rx="2"/><rect x="4.5" y="4.5" width="10.5" height="10.5" rx="2"/></svg><span>Copiar</span></button>
       <button type="button" data-action="image"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M6.5 16l4.2-4.2 2.8 2.8 2.2-2.2 2.8 3.6"/></svg><span>Gerar imagem</span></button>
       <button type="button" data-action="calendar"><svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14" rx="2.5"/><path d="M8 3.8v3.4M16 3.8v3.4M4 9h16"/></svg><span>Calendário</span></button>
@@ -1601,6 +1679,26 @@
       <button type="button" data-action="install"><svg viewBox="0 0 24 24"><path d="M12 4.5v10"/><path d="M8.5 11l3.5 3.5 3.5-3.5"/><path d="M5 17.5h14"/></svg><span>Instalar app</span></button>
     </div>
   </section>
+
+  <div class="prepare-missal-overlay" id="prepareMissalOverlay" hidden>
+    <section class="prepare-missal-dialog" role="dialog" aria-modal="true" aria-labelledby="prepareMissalTitle">
+      <header class="prepare-missal-head">
+        <div>
+          <span class="prepare-missal-kicker">Preparação rápida</span>
+          <h2 id="prepareMissalTitle">Preparar o Missal</h2>
+          <p id="prepareMissalCelebration">—</p>
+        </div>
+        <button class="prepare-missal-close" id="prepareMissalClose" type="button" aria-label="Fechar preparação do Missal">×</button>
+      </header>
+      <div class="prepare-missal-date" id="prepareMissalDate">—</div>
+      <div class="prepare-missal-pages" id="prepareMissalPages"></div>
+      <div class="prepare-missal-sequence">
+        <span>Separação rápida</span>
+        <strong id="prepareMissalQuick">—</strong>
+      </div>
+      <button class="prepare-missal-done" id="prepareMissalDone" type="button">Pronto</button>
+    </section>
+  </div>
 
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
@@ -2557,6 +2655,37 @@ document.getElementById("copyQuickBtn")?.addEventListener("click",()=>copyQuickS
 document.getElementById("shareQuickBtn")?.addEventListener("click",shareCurrent);
 document.getElementById("imageShareBtn")?.addEventListener("click",shareCurrentImage);
 
+const prepareLabels=["Ritos Iniciais","Missa do dia","Prefácio","Oração Eucarística","Bênção Solene"];
+function setPrepareMissal(open){
+  const overlay=document.getElementById("prepareMissalOverlay");
+  if(!overlay) return;
+  if(open){
+    const d=data[window.currentDateKey];
+    if(!d) return;
+    document.getElementById("prepareMissalCelebration").textContent=d.celebration || "Celebração";
+    document.getElementById("prepareMissalDate").textContent=d.label || window.currentDateKey || "";
+    document.getElementById("prepareMissalQuick").textContent=d.quick || "—";
+    const pages=document.getElementById("prepareMissalPages");
+    const tapes=Array.isArray(d.tapes)?d.tapes:[];
+    pages.innerHTML=prepareLabels.map((label,index)=>{
+      const tape=tapes[index] || {};
+      const page=String(tape.page || "—");
+      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+escapeHtml(page)+'</strong><span>'+escapeHtml(label)+'</span></div>';
+    }).join("");
+    overlay.hidden=false;
+    document.body.classList.add("prepare-missal-open");
+    document.getElementById("prepareMissalClose")?.focus();
+  }else{
+    overlay.hidden=true;
+    document.body.classList.remove("prepare-missal-open");
+  }
+}
+
+document.getElementById("prepareMissalBtn")?.addEventListener("click",()=>setPrepareMissal(true));
+document.getElementById("prepareMissalClose")?.addEventListener("click",()=>setPrepareMissal(false));
+document.getElementById("prepareMissalDone")?.addEventListener("click",()=>setPrepareMissal(false));
+document.getElementById("prepareMissalOverlay")?.addEventListener("click",e=>{if(e.target===e.currentTarget)setPrepareMissal(false);});
+
 function scrollToMarkings(){
   const target=document.getElementById("tapes") || document.querySelector(".section-title");
   target?.scrollIntoView({behavior:"smooth",block:"start"});
@@ -2630,6 +2759,7 @@ document.getElementById("mobileMoreSheet")?.querySelectorAll("[data-action]").fo
   btn.addEventListener("click",()=>{
     const action=btn.dataset.action;
     setMoreMenu(false);
+    if(action==="prepare") setPrepareMissal(true);
     if(action==="copy") document.getElementById("copyQuickBtn")?.click();
     if(action==="image") document.getElementById("imageShareBtn")?.click();
     if(action==="calendar"){
@@ -2657,7 +2787,7 @@ function setCelebrationMode(on){
 }
 document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
 document.getElementById("celebrationModeExit")?.addEventListener("click",()=>setCelebrationMode(false));
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){setMoreMenu(false);setCelebrationMode(false);}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){setPrepareMissal(false);setMoreMenu(false);setCelebrationMode(false);}});
 
 function updateTodayButton(){
   const btn=document.getElementById("todayBtn");
