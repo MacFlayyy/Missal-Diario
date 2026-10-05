@@ -3373,7 +3373,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v51";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v52";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4284,8 +4284,21 @@ if("serviceWorker" in navigator){
     location.reload();
   });
 
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js?v=51",{updateViaCache:"none"})
+  window.addEventListener("load",async()=>{
+    // Limpa explicitamente versões antigas do Missal Diário para impedir
+    // que a geração antiga da imagem continue presa no PWA/iOS.
+    if("caches" in window){
+      try{
+        const keys=await caches.keys();
+        await Promise.all(
+          keys
+            .filter(key=>key.startsWith("missal-diario-") && key!=="missal-diario-v52")
+            .map(key=>caches.delete(key))
+        );
+      }catch(e){}
+    }
+
+    navigator.serviceWorker.register("./sw.js?v=52",{updateViaCache:"none"})
       .then(reg=>{
         reg.update();
         window.addEventListener("focus",()=>reg.update());
