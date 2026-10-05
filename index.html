@@ -1725,6 +1725,167 @@
       }
     }
 
+
+    /* Padronização — Separação rápida igual ao Modo Celebração em todas as áreas */
+    .quick,
+    body.celebration-mode .quick,
+    .prepare-missal-sequence{
+      position:relative !important;
+      display:flex !important;
+      flex-direction:column !important;
+      align-items:center !important;
+      text-align:center !important;
+      padding:18px 18px 17px !important;
+      border-radius:20px !important;
+      background:linear-gradient(135deg,#fffdf9 0%,#f8ecee 100%) !important;
+      border:1px solid color-mix(in srgb,var(--wine) 28%,#eadfd6) !important;
+      box-shadow:0 14px 34px rgba(78,20,28,.10) !important;
+      color:var(--ink) !important;
+      overflow:hidden !important;
+      isolation:isolate;
+    }
+    .quick{margin-top:14px !important}
+    body.celebration-mode .quick{
+      max-width:860px !important;
+      margin:0 auto 22px !important;
+    }
+    .prepare-missal-sequence{
+      width:100%;
+      max-width:860px;
+      margin:16px auto 0 !important;
+    }
+    .quick::before,
+    body.celebration-mode .quick::before,
+    .prepare-missal-sequence::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:4px;
+      background:linear-gradient(90deg,var(--wine),var(--liturgical),var(--gold));
+      z-index:0;
+    }
+    .quick::after,
+    body.celebration-mode .quick::after{display:none !important}
+    .quick > small,
+    body.celebration-mode .quick > small,
+    .prepare-missal-sequence > span:first-child{
+      position:relative !important;
+      z-index:1;
+      display:block !important;
+      width:max-content !important;
+      max-width:100%;
+      align-self:center !important;
+      margin:0 auto !important;
+      padding:6px 11px !important;
+      border-radius:999px !important;
+      background:var(--wine) !important;
+      color:#fff !important;
+      font-size:10px !important;
+      font-weight:900 !important;
+      letter-spacing:.11em !important;
+      line-height:1 !important;
+      text-transform:uppercase !important;
+      box-shadow:0 6px 16px rgba(78,20,28,.14);
+    }
+    .quick #quickSep,
+    body.celebration-mode .quick #quickSep,
+    #prepareMissalQuick{
+      display:none !important;
+    }
+    .quick .quick-steps,
+    body.celebration-mode .quick .quick-steps,
+    .prepare-missal-sequence .quick-steps{
+      position:relative;
+      z-index:1;
+      display:flex !important;
+      width:max-content !important;
+      max-width:100% !important;
+      align-self:center !important;
+      align-items:center !important;
+      justify-content:center !important;
+      flex-wrap:wrap !important;
+      gap:7px 4px !important;
+      margin:13px auto 0 !important;
+      padding:0 !important;
+      overflow:visible !important;
+    }
+    .quick .quick-item,
+    body.celebration-mode .quick .quick-item,
+    .prepare-missal-sequence .quick-item{
+      display:inline-flex !important;
+      align-items:center !important;
+      justify-content:center !important;
+      gap:4px !important;
+      flex:0 0 auto !important;
+      min-width:0 !important;
+    }
+    .quick .quick-step,
+    body.celebration-mode .quick .quick-step,
+    .prepare-missal-sequence .quick-step{
+      width:auto !important;
+      min-width:50px !important;
+      height:40px !important;
+      padding:0 11px !important;
+      border-radius:12px !important;
+      display:grid !important;
+      place-items:center !important;
+      background:#fff !important;
+      border:1px solid color-mix(in srgb,var(--wine) 22%,#eadfd6) !important;
+      box-shadow:0 5px 14px rgba(78,20,28,.07) !important;
+      color:var(--wine) !important;
+      font-size:13px !important;
+      font-weight:900 !important;
+      line-height:1 !important;
+      white-space:nowrap !important;
+    }
+    .quick .quick-arrow,
+    body.celebration-mode .quick .quick-arrow,
+    .prepare-missal-sequence .quick-arrow{
+      width:auto !important;
+      min-width:0 !important;
+      flex:0 0 auto !important;
+      color:var(--liturgical-deep) !important;
+      font-size:13px !important;
+      font-weight:900 !important;
+      opacity:.72;
+    }
+    @media(max-width:620px){
+      .quick,
+      body.celebration-mode .quick,
+      .prepare-missal-sequence{
+        padding:16px 10px 14px !important;
+        border-radius:18px !important;
+      }
+      body.celebration-mode .quick{margin:0 auto 14px !important}
+      .prepare-missal-sequence{margin-top:14px !important}
+      .quick > small,
+      body.celebration-mode .quick > small,
+      .prepare-missal-sequence > span:first-child{
+        font-size:9px !important;
+        padding:6px 10px !important;
+      }
+      .quick .quick-steps,
+      body.celebration-mode .quick .quick-steps,
+      .prepare-missal-sequence .quick-steps{
+        gap:7px 3px !important;
+        margin-top:11px !important;
+      }
+      .quick .quick-step,
+      body.celebration-mode .quick .quick-step,
+      .prepare-missal-sequence .quick-step{
+        min-width:42px !important;
+        height:36px !important;
+        padding:0 8px !important;
+        border-radius:11px !important;
+        font-size:11.5px !important;
+      }
+      .quick .quick-arrow,
+      body.celebration-mode .quick .quick-arrow,
+      .prepare-missal-sequence .quick-arrow{
+        font-size:10px !important;
+      }
+    }
+
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
@@ -1892,7 +2053,8 @@
       <div class="prepare-missal-pages" id="prepareMissalPages"></div>
       <div class="prepare-missal-sequence">
         <span>Separação rápida</span>
-        <strong id="prepareMissalQuick">—</strong>
+        <strong id="prepareMissalQuick" class="sr-only">—</strong>
+        <div class="quick-steps prepare-quick-steps" id="prepareMissalQuickSteps" aria-label="Separação rápida"></div>
       </div>
       <button class="prepare-missal-done" id="prepareMissalDone" type="button">Pronto</button>
     </section>
@@ -1940,26 +2102,26 @@ function applyLiturgicalColor(name,fallbackHex){
   return palette;
 }
 
-function renderQuickSteps(value){
-  const wrap = document.getElementById("quickSteps");
-  if(!wrap) return;
-
+function quickStepsMarkup(value){
   const pages = String(value || "")
     .split(/\s*→\s*/)
     .map(page => page.trim())
     .filter(Boolean);
 
-  if(!pages.length){
-    wrap.innerHTML = '<span class="quick-step">—</span>';
-    return;
-  }
+  if(!pages.length) return '<span class="quick-step">—</span>';
 
-  wrap.innerHTML = pages.map((page,i) =>
+  return pages.map((page,i) =>
     '<span class="quick-item">' +
       '<span class="quick-step" title="Marcação '+(i+1)+'">'+page+'</span>' +
       (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
     '</span>'
   ).join("");
+}
+
+function renderQuickSteps(value){
+  const wrap = document.getElementById("quickSteps");
+  if(!wrap) return;
+  wrap.innerHTML = quickStepsMarkup(value);
 }
 
 
@@ -2866,6 +3028,8 @@ function setPrepareMissal(open){
     document.getElementById("prepareMissalCelebration").textContent=d.celebration || "Celebração";
     document.getElementById("prepareMissalDate").textContent=d.label || window.currentDateKey || "";
     document.getElementById("prepareMissalQuick").textContent=d.quick || "—";
+    const prepareQuickSteps=document.getElementById("prepareMissalQuickSteps");
+    if(prepareQuickSteps) prepareQuickSteps.innerHTML=quickStepsMarkup(d.quick);
     const pages=document.getElementById("prepareMissalPages");
     const tapes=Array.isArray(d.tapes)?d.tapes:[];
     pages.innerHTML=prepareLabels.map((label,index)=>{
