@@ -285,5 +285,19 @@ window.MISSAL_DATA = {
       {"n":4,"page":"545","title":"Oração Eucarística III","details":[["Aclamação","Mistério da fé para a salvação do mundo!"]]},
       {"n":5,"page":"585","title":"Bênção Solene — Tempo Comum VI","details":[["Indicação","Conforme o folheto"]]}
     ],"quick":"430 → 409 → 477 → 545 → 585"
+  },
+  "2026-10-05": {
+    "label":"Segunda-feira • 05/10/2026","celebration":"São Benedito, o Negro, religioso","subtitle":"Tempo Comum",
+    "saint":"São Benedito, o Negro","grade":"Memória","season":"Tempo Comum","color":"Branca","colorHex":"#f7f1df",
+    "note":"Memória própria do calendário do Brasil.","liturgicalNote":"Memória de São Benedito, o Negro, celebrada neste dia.",
+    "source":"Missal Romano CNBB 2023 • sugestões onde indicado","cycle":"Ano II",
+    "tapes":[
+      {"n":1,"page":"430","title":"Ritos Iniciais","details":[["Saudação A • sugestão","A graça de nosso Senhor Jesus Cristo..."],["Ato Penitencial — Segunda fórmula, 2ª opção • sugestão","No início desta celebração eucarística..."]],"suggestion":true},
+      {"n":2,"page":"821","title":"São Benedito, o Negro, religioso","details":[["Formulário","Missa do dia • memória própria"]]},
+      {"n":3,"page":"508","title":"Prefácio das Santas Virgens e Religiosos","details":[["Título","O sinal da vida consagrada a Deus"],["Uso","Sugestão; o Missal permite este prefácio também nas memórias dos Santos Religiosos."]],"suggestion":true},
+      {"n":4,"page":"536","title":"Oração Eucarística II","details":[["Aclamação • sugestão","Mistério da fé!"],["Resposta","Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"]],"suggestion":true},
+      {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão adequada à celebração."]],"suggestion":true}
+    ],
+    "quick":"430 → 821 → 508 → 536 → 587"
   }
 };
