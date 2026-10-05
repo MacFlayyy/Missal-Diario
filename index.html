@@ -1443,6 +1443,12 @@
         width:21px !important;
         height:21px !important;
       }
+      /* Mantém o botão de voltar ao topo acima da cápsula de navegação no mobile. */
+      .back-to-top{
+        right:18px !important;
+        bottom:calc(max(12px, env(safe-area-inset-bottom)) + 86px) !important;
+        z-index:90;
+      }
     }
 
 </style>
