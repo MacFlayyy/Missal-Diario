@@ -3373,7 +3373,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v52";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v53";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4275,7 +4275,20 @@ updateSundayPreviewNote();
 formatLastUpdate();
 setupInstallButton();
 
+// v53: o site funciona sem Service Worker para evitar HTML/JS antigo preso no PWA.
 if("serviceWorker" in navigator){
+  window.addEventListener("load",async()=>{
+    try{
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(reg=>reg.unregister()));
+      if("caches" in window){
+        const keys=await caches.keys();
+        await Promise.all(keys.filter(key=>key.startsWith("missal-diario-")).map(key=>caches.delete(key)));
+      }
+    }catch(e){}
+  });
+}
+if(false && "serviceWorker" in navigator){
   let swReloading=false;
 
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
