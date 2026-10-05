@@ -1527,6 +1527,59 @@
       .prepare-missal-sequence strong{font-size:15px;line-height:1.35}
       .prepare-missal-done{margin-top:12px;width:100%;min-height:46px}
     }
+
+    /* Separação rápida unificada — mesmo visual de "Preparar o Missal" */
+    .quick{
+      margin-top:16px !important;
+      padding:14px 16px !important;
+      border-radius:16px !important;
+      background:#f7f0e7 !important;
+      color:var(--ink) !important;
+      text-align:center !important;
+      border:0 !important;
+      box-shadow:none !important;
+      overflow:visible !important;
+    }
+    .quick small{
+      display:block !important;
+      color:var(--muted) !important;
+      font-size:9.5px !important;
+      font-weight:900 !important;
+      text-transform:uppercase !important;
+      letter-spacing:.10em !important;
+    }
+    .quick strong{
+      display:block !important;
+      margin-top:5px !important;
+      color:var(--wine) !important;
+      font-size:18px !important;
+      line-height:1.35 !important;
+      letter-spacing:.035em !important;
+      white-space:normal !important;
+      overflow-wrap:anywhere;
+    }
+    .quick-steps{display:none !important}
+    body.celebration-mode .quick{
+      max-width:860px;
+      margin:0 auto 20px !important;
+      padding:14px 16px !important;
+      border-radius:16px !important;
+    }
+    body.celebration-mode .quick small{font-size:9.5px !important}
+    body.celebration-mode .quick strong{font-size:18px !important}
+    @media(max-width:620px){
+      .quick,
+      body.celebration-mode .quick{
+        padding:11px 10px !important;
+        border-radius:16px !important;
+      }
+      body.celebration-mode .quick{margin:54px auto 14px !important}
+      .quick strong,
+      body.celebration-mode .quick strong{
+        font-size:15px !important;
+        line-height:1.35 !important;
+      }
+    }
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
@@ -1590,8 +1643,8 @@
 
         <div class="quick">
           <small>Separação rápida</small>
-          <strong id="quickSep" class="sr-only">—</strong>
-          <div class="quick-steps" id="quickSteps" aria-label="Separação rápida"></div>
+          <strong id="quickSep">—</strong>
+          <div class="quick-steps" id="quickSteps" aria-hidden="true"></div>
         </div>
 
         <div class="side-actions">
