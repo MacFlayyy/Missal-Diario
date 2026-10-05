@@ -3839,41 +3839,72 @@ async function buildShareImageBlob(){
   metaBox(pad+26+col,metaY+92,col-18,82,cycleLabelFor(window.currentDateKey,d),d.cycle||"—");
   metaBox(pad+26+col*2,metaY+92,col-18,82,"Observação",d.liturgicalNote||"—");
 
-  // Separação rápida: cartões individuais, SEM setas na imagem.
-  const quickY=660, quickH=130;
+  // Separação rápida: mesmo modelo visual do site, SEM setas somente na imagem.
+  const quickY=660, quickH=142;
+
   ctx.save();
-  ctx.shadowColor="rgba(84,20,29,.16)";
-  ctx.shadowBlur=24;
-  ctx.shadowOffsetY=8;
-  const qgrad=ctx.createLinearGradient(pad,quickY,pad+cardW,quickY+quickH);
-  qgrad.addColorStop(0,"#6d1522");
-  qgrad.addColorStop(1,"#3f0f17");
-  roundRectPath(ctx,pad,quickY,cardW,quickH,25);
-  ctx.fillStyle=qgrad;
+  ctx.shadowColor="rgba(78,20,28,.10)";
+  ctx.shadowBlur=28;
+  ctx.shadowOffsetY=10;
+  const quickBg=ctx.createLinearGradient(pad,quickY,pad+cardW,quickY+quickH);
+  quickBg.addColorStop(0,"#fffdf9");
+  quickBg.addColorStop(1,"#f8ecee");
+  roundRectPath(ctx,pad,quickY,cardW,quickH,20);
+  ctx.fillStyle=quickBg;
   ctx.fill();
   ctx.restore();
 
-  ctx.fillStyle="rgba(255,255,255,.70)";
-  ctx.font="800 12px Arial, sans-serif";
-  ctx.fillText("SEPARAÇÃO RÁPIDA",pad+24,quickY+29);
+  // Borda clara e faixa superior vinho/cor litúrgica/dourado, como no site.
+  strokeRound(pad,quickY,cardW,quickH,20,"rgba(125,23,34,.18)",1);
+  const quickTop=ctx.createLinearGradient(pad,0,pad+cardW,0);
+  quickTop.addColorStop(0,wine);
+  quickTop.addColorStop(.55,liturgical);
+  quickTop.addColorStop(1,"#c8a96a");
+  ctx.save();
+  roundRectPath(ctx,pad,quickY,cardW,quickH,20);
+  ctx.clip();
+  ctx.fillStyle=quickTop;
+  ctx.fillRect(pad,quickY,cardW,4);
+  ctx.restore();
 
+  // Etiqueta central vinho.
+  ctx.font="900 11px Arial, sans-serif";
+  const quickLabel="SEPARAÇÃO RÁPIDA";
+  const labelW=ctx.measureText(quickLabel).width+28;
+  fillRound(pad+(cardW-labelW)/2,quickY+18,labelW,30,15,wine);
+  ctx.fillStyle="#fff";
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.fillText(quickLabel,canvas.width/2,quickY+33);
+
+  // Mesmos cartões brancos dos números do site. Na imagem, sem as setas.
   const pages=String(d.quick||"—").split(/\s*→\s*/).map(x=>x.trim()).filter(Boolean);
-  const usableW=cardW-48;
+  ctx.font="900 17px Arial, sans-serif";
   const quickGap=12;
-  const quickW=Math.min(132,(usableW-quickGap*(pages.length-1))/Math.max(1,pages.length));
-  const totalQuick=quickW*pages.length+quickGap*Math.max(0,pages.length-1);
+  const quickWidths=pages.map(pg=>Math.max(64,ctx.measureText(pg).width+30));
+  const totalQuick=quickWidths.reduce((a,b)=>a+b,0)+quickGap*Math.max(0,pages.length-1);
   let qx=pad+(cardW-totalQuick)/2;
-  pages.forEach(pg=>{
-    fillRound(qx,quickY+50,quickW,52,15,"rgba(255,255,255,.97)");
+  const qy=quickY+70;
+
+  pages.forEach((pg,i)=>{
+    const w=quickWidths[i];
+    ctx.save();
+    ctx.shadowColor="rgba(78,20,28,.07)";
+    ctx.shadowBlur=14;
+    ctx.shadowOffsetY=5;
+    fillRound(qx,qy,w,42,12,"#fff");
+    ctx.restore();
+    strokeRound(qx,qy,w,42,12,"rgba(125,23,34,.18)",1);
     ctx.fillStyle=wine;
-    ctx.font="800 22px Arial, sans-serif";
+    ctx.font="900 17px Arial, sans-serif";
     ctx.textAlign="center";
     ctx.textBaseline="middle";
-    ctx.fillText(pg,qx+quickW/2,quickY+76);
-    ctx.textAlign="left";
-    ctx.textBaseline="alphabetic";
-    qx+=quickW+quickGap;
+    ctx.fillText(pg,qx+w/2,qy+21);
+    qx+=w+quickGap;
   });
+
+  ctx.textAlign="left";
+  ctx.textBaseline="alphabetic";
 
   // Marcações em cards modernos empilhados para leitura no celular.
   const sectionY=835;
