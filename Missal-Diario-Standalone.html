@@ -3435,28 +3435,33 @@ function isMobileLeafletDevice(){
 }
 
 function getDominicalLeafletUrl(){
-  const sundayKey=sundayKeyForLeaflet();
-  const statusDate=String(window.MISSAL_STATUS?.sundayLeafletDate || "");
-  const desktopUrl=String(window.MISSAL_STATUS?.sundayLeafletDesktopUrl || "");
-  const mobileUrl=String(window.MISSAL_STATUS?.sundayLeafletMobileUrl || "");
-  const legacyUrl=String(window.MISSAL_STATUS?.sundayLeafletUrl || "");
-  const sundayData=data[sundayKey] || {};
-  const dataDesktop=String(sundayData.leafletDesktopUrl || sundayData.folhetoDesktopUrl || "");
-  const dataMobile=String(sundayData.leafletMobileUrl || sundayData.folhetoMobileUrl || "");
   const mobile=isMobileLeafletDevice();
 
-  if(statusDate===sundayKey){
-    const preferred=mobile ? mobileUrl : desktopUrl;
-    if(/^https:\/\//i.test(preferred)) return preferred;
-    const alternate=mobile ? desktopUrl : mobileUrl;
-    if(/^https:\/\//i.test(alternate)) return alternate;
-    if(/^https:\/\//i.test(legacyUrl)) return legacyUrl;
-  }
+  // Sempre prioriza o último folheto direto já confirmado no status,
+  // mesmo que o folheto do próximo domingo ainda não tenha sido publicado.
+  const statusDesktop=String(window.MISSAL_STATUS?.sundayLeafletDesktopUrl || "");
+  const statusMobile=String(window.MISSAL_STATUS?.sundayLeafletMobileUrl || "");
+  const statusLegacy=String(window.MISSAL_STATUS?.sundayLeafletUrl || "");
 
-  const dataPreferred=mobile ? dataMobile : dataDesktop;
-  if(/^https:\/\//i.test(dataPreferred)) return dataPreferred;
-  const dataAlternate=mobile ? dataDesktop : dataMobile;
-  if(/^https:\/\//i.test(dataAlternate)) return dataAlternate;
+  const statusPreferred=mobile ? statusMobile : statusDesktop;
+  if(/^https:\/\//i.test(statusPreferred)) return statusPreferred;
+
+  const statusAlternate=mobile ? statusDesktop : statusMobile;
+  if(/^https:\/\//i.test(statusAlternate)) return statusAlternate;
+
+  if(/^https:\/\//i.test(statusLegacy)) return statusLegacy;
+
+  // Reserva: procura o folheto mais recente já registrado nos dados do site.
+  const registeredDates=Object.keys(data || {}).sort().reverse();
+  for(const key of registeredDates){
+    const item=data[key] || {};
+    const dataDesktop=String(item.leafletDesktopUrl || item.folhetoDesktopUrl || "");
+    const dataMobile=String(item.leafletMobileUrl || item.folhetoMobileUrl || "");
+    const preferred=mobile ? dataMobile : dataDesktop;
+    if(/^https:\/\//i.test(preferred)) return preferred;
+    const alternate=mobile ? dataDesktop : dataMobile;
+    if(/^https:\/\//i.test(alternate)) return alternate;
+  }
 
   return "https://arqbrasilia.com.br/o-povo-de-deus-2/";
 }
