@@ -32,6 +32,9 @@ jobs:
       - name: Revisar e corrigir o Missal antes de publicar
         run: python scripts/validate_daily.py
 
+      - name: Atualizar versão HTML do ChatGPT
+        run: python scripts/build_standalone.py
+
       - name: Salvar alterações, se houver
         run: |
           if git diff --quiet; then
@@ -40,6 +43,6 @@ jobs:
           fi
           git config user.name "Missal Diário Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data.js status.js
+          git add data.js status.js Missal-Diario-Standalone.html
           git commit -m "Atualiza Missal Diário"
           git push
