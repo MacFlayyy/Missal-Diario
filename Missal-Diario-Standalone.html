@@ -2819,6 +2819,9 @@
     }
 
 </style>
+  <!-- Cloudflare Web Analytics -->
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
+  <!-- End Cloudflare Web Analytics -->
 </head>
 <body>
   <div class="shell">
@@ -3296,7 +3299,6 @@ window.MISSAL_DATA = {
     "quick":"430 → 821 → 508 → 536 → 587"
   }
 };
-
 </script>
 <script>
 window.MISSAL_STATUS = {
@@ -3307,7 +3309,6 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf"
 };
-
 </script>
 <script>
 const data = window.MISSAL_DATA;
@@ -3683,7 +3684,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v51";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v53";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4585,7 +4586,20 @@ updateSundayPreviewNote();
 formatLastUpdate();
 setupInstallButton();
 
-if(location.protocol !== "file:" && "serviceWorker" in navigator){
+// v53: o site funciona sem Service Worker para evitar HTML/JS antigo preso no PWA.
+if(false && "serviceWorker" in navigator){
+  window.addEventListener("load",async()=>{
+    try{
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(reg=>reg.unregister()));
+      if("caches" in window){
+        const keys=await caches.keys();
+        await Promise.all(keys.filter(key=>key.startsWith("missal-diario-")).map(key=>caches.delete(key)));
+      }
+    }catch(e){}
+  });
+}
+if(false && "serviceWorker" in navigator){
   let swReloading=false;
 
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
@@ -4594,8 +4608,21 @@ if(location.protocol !== "file:" && "serviceWorker" in navigator){
     location.reload();
   });
 
-  window.addEventListener("load",()=>{
-    navigator.serviceWorker.register("./sw.js?v=51",{updateViaCache:"none"})
+  window.addEventListener("load",async()=>{
+    // Limpa explicitamente versões antigas do Missal Diário para impedir
+    // que a geração antiga da imagem continue presa no PWA/iOS.
+    if("caches" in window){
+      try{
+        const keys=await caches.keys();
+        await Promise.all(
+          keys
+            .filter(key=>key.startsWith("missal-diario-") && key!=="missal-diario-v52")
+            .map(key=>caches.delete(key))
+        );
+      }catch(e){}
+    }
+
+    navigator.serviceWorker.register("./sw.js?v=52",{updateViaCache:"none"})
       .then(reg=>{
         reg.update();
         window.addEventListener("focus",()=>reg.update());
