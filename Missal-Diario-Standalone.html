@@ -3436,31 +3436,69 @@ function isMobileLeafletDevice(){
 
 function getDominicalLeafletUrl(){
   const mobile=isMobileLeafletDevice();
+  const targetSunday=sundayKeyForLeaflet();
 
-  // Sempre prioriza o último folheto direto já confirmado no status,
-  // mesmo que o folheto do próximo domingo ainda não tenha sido publicado.
-  const statusDesktop=String(window.MISSAL_STATUS?.sundayLeafletDesktopUrl || "");
-  const statusMobile=String(window.MISSAL_STATUS?.sundayLeafletMobileUrl || "");
-  const statusLegacy=String(window.MISSAL_STATUS?.sundayLeafletUrl || "");
+  function directUrl(item){
+    if(!item) return "";
+    const desktop=String(
+      item.sundayLeafletDesktopUrl ||
+      item.leafletDesktopUrl ||
+      item.folhetoDesktopUrl ||
+      ""
+    );
+    const mobileUrl=String(
+      item.sundayLeafletMobileUrl ||
+      item.leafletMobileUrl ||
+      item.folhetoMobileUrl ||
+      ""
+    );
+    const generic=String(
+      item.sundayLeafletUrl ||
+      item.leafletUrl ||
+      item.folhetoUrl ||
+      ""
+    );
 
-  const statusPreferred=mobile ? statusMobile : statusDesktop;
-  if(/^https:\/\//i.test(statusPreferred)) return statusPreferred;
-
-  const statusAlternate=mobile ? statusDesktop : statusMobile;
-  if(/^https:\/\//i.test(statusAlternate)) return statusAlternate;
-
-  if(/^https:\/\//i.test(statusLegacy)) return statusLegacy;
-
-  // Reserva: procura o folheto mais recente já registrado nos dados do site.
-  const registeredDates=Object.keys(data || {}).sort().reverse();
-  for(const key of registeredDates){
-    const item=data[key] || {};
-    const dataDesktop=String(item.leafletDesktopUrl || item.folhetoDesktopUrl || "");
-    const dataMobile=String(item.leafletMobileUrl || item.folhetoMobileUrl || "");
-    const preferred=mobile ? dataMobile : dataDesktop;
+    const preferred=mobile ? mobileUrl : desktop;
     if(/^https:\/\//i.test(preferred)) return preferred;
-    const alternate=mobile ? dataDesktop : dataMobile;
+
+    const alternate=mobile ? desktop : mobileUrl;
     if(/^https:\/\//i.test(alternate)) return alternate;
+
+    if(/^https:\/\//i.test(generic)) return generic;
+    return "";
+  }
+
+  // 1) Se o folheto do domingo desta semana já estiver disponível,
+  // ele sempre tem prioridade.
+  const targetData=data[targetSunday] || null;
+  const targetDataUrl=directUrl(targetData);
+  if(targetDataUrl) return targetDataUrl;
+
+  const statusDate=String(window.MISSAL_STATUS?.sundayLeafletDate || "");
+  if(statusDate===targetSunday){
+    const currentWeekUrl=directUrl(window.MISSAL_STATUS);
+    if(currentWeekUrl) return currentWeekUrl;
+  }
+
+  // 2) Se ainda não saiu, usa o domingo anterior mais recente.
+  // Depois que o domingo passa, ele continua sendo o fallback até
+  // o folheto do próximo domingo ser publicado.
+  if(statusDate && statusDate < targetSunday){
+    const previousUrl=directUrl(window.MISSAL_STATUS);
+    if(previousUrl) return previousUrl;
+  }
+
+  // 3) Reserva: procura nos dados o folheto mais recente que não seja
+  // posterior ao domingo-alvo da semana atual.
+  const registeredDates=Object.keys(data || {})
+    .filter(key=>key<=targetSunday)
+    .sort()
+    .reverse();
+
+  for(const key of registeredDates){
+    const url=directUrl(data[key]);
+    if(url) return url;
   }
 
   return "https://arqbrasilia.com.br/o-povo-de-deus-2/";
