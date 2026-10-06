@@ -3683,7 +3683,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v56";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v57";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -3849,18 +3849,18 @@ async function buildShareImageBlob(){
   ctx.shadowOffsetY=10;
   const quickBg=ctx.createLinearGradient(pad,quickY,pad+cardW,quickY+quickH);
   quickBg.addColorStop(0,"#fffdf9");
-  quickBg.addColorStop(1,"#f2efeb");
+  quickBg.addColorStop(1,"#f7e9eb");
   roundRectPath(ctx,pad,quickY,cardW,quickH,20);
   ctx.fillStyle=quickBg;
   ctx.fill();
   ctx.restore();
 
   // Borda clara e faixa superior vinho/cor litúrgica/dourado, como no site.
-  strokeRound(pad,quickY,cardW,quickH,20,"rgba(90,80,72,.16)",1);
+  strokeRound(pad,quickY,cardW,quickH,20,"rgba(125,23,34,.12)",1);
   const quickTop=ctx.createLinearGradient(pad,0,pad+cardW,0);
-  quickTop.addColorStop(0,"#6f675f");
-  quickTop.addColorStop(.55,"#8b8178");
-  quickTop.addColorStop(1,"#b3aaa1");
+  quickTop.addColorStop(0,"#7d1722");
+  quickTop.addColorStop(.55,"#a94a57");
+  quickTop.addColorStop(1,"#d7a8ae");
   ctx.save();
   roundRectPath(ctx,pad,quickY,cardW,quickH,20);
   ctx.clip();
@@ -3872,7 +3872,7 @@ async function buildShareImageBlob(){
   ctx.font="900 11px Arial, sans-serif";
   const quickLabel="SEPARAÇÃO RÁPIDA";
   const labelW=ctx.measureText(quickLabel).width+28;
-  fillRound(pad+(cardW-labelW)/2,quickY+18,labelW,30,15,"#4a4541");
+  fillRound(pad+(cardW-labelW)/2,quickY+18,labelW,30,15,"#7d1722");
   ctx.fillStyle="#fff";
   ctx.textAlign="center";
   ctx.textBaseline="middle";
@@ -3895,8 +3895,8 @@ async function buildShareImageBlob(){
     ctx.shadowOffsetY=5;
     fillRound(qx,qy,w,42,12,"#fff");
     ctx.restore();
-    strokeRound(qx,qy,w,42,12,"rgba(90,80,72,.18)",1);
-    ctx.fillStyle="#403a36";
+    strokeRound(qx,qy,w,42,12,"rgba(125,23,34,.14)",1);
+    ctx.fillStyle="#7d1722";
     ctx.font="900 17px Arial, sans-serif";
     ctx.textAlign="center";
     ctx.textBaseline="middle";
@@ -4698,4 +4698,25 @@ body.celebration-mode .quick,
   color:#403a36 !important;
 }
 .quick-arrow{color:rgba(255,255,255,.58) !important}
+</style>
+
+<style id="quick-soft-wine-v57">
+/* Separação rápida: identidade vinho suave, sem parecer cor litúrgica. */
+.quick,
+body.celebration-mode .quick,
+.prepare-missal-sequence{
+  background:linear-gradient(145deg,#fffaf9,#f7e9eb) !important;
+  border:1px solid rgba(125,23,34,.12) !important;
+  box-shadow:0 12px 26px rgba(84,20,29,.08) !important;
+}
+.quick small{
+  color:#756861 !important;
+}
+.quick-step{
+  background:#fff !important;
+  border:1px solid rgba(125,23,34,.14) !important;
+  color:#7d1722 !important;
+  box-shadow:0 5px 12px rgba(84,20,29,.06) !important;
+}
+.quick-arrow{color:rgba(125,23,34,.38) !important}
 </style>
