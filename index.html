@@ -3373,7 +3373,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v57";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v58";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4409,4 +4409,12 @@ body.celebration-mode .quick,
   box-shadow:0 5px 12px rgba(84,20,29,.06) !important;
 }
 .quick-arrow{color:rgba(125,23,34,.38) !important}
+</style>
+
+<style id="quick-home-white-text-v58">
+/* Página principal: textos da Separação rápida em branco. */
+body:not(.celebration-mode) .quick small,
+body:not(.celebration-mode) .quick .quick-arrow{
+  color:#fff !important;
+}
 </style>
