@@ -4301,49 +4301,21 @@ setupInstallButton();
 
 // v53: o site funciona sem Service Worker para evitar HTML/JS antigo preso no PWA.
 if("serviceWorker" in navigator){
-  window.addEventListener("load",async()=>{
-    try{
-      const regs=await navigator.serviceWorker.getRegistrations();
-      await Promise.all(regs.map(reg=>reg.unregister()));
-      if("caches" in window){
-        const keys=await caches.keys();
-        await Promise.all(keys.filter(key=>key.startsWith("missal-diario-")).map(key=>caches.delete(key)));
-      }
-    }catch(e){}
-  });
-}
-if(false && "serviceWorker" in navigator){
   let swReloading=false;
-
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
     if(swReloading) return;
     swReloading=true;
     location.reload();
   });
-
   window.addEventListener("load",async()=>{
-    // Limpa explicitamente versões antigas do Missal Diário para impedir
-    // que a geração antiga da imagem continue presa no PWA/iOS.
-    if("caches" in window){
-      try{
-        const keys=await caches.keys();
-        await Promise.all(
-          keys
-            .filter(key=>key.startsWith("missal-diario-") && key!=="missal-diario-v52")
-            .map(key=>caches.delete(key))
-        );
-      }catch(e){}
-    }
-
-    navigator.serviceWorker.register("./sw.js?v=52",{updateViaCache:"none"})
-      .then(reg=>{
-        reg.update();
-        window.addEventListener("focus",()=>reg.update());
-        document.addEventListener("visibilitychange",()=>{
-          if(!document.hidden) reg.update();
-        });
-      })
-      .catch(()=>{});
+    try{
+      const reg=await navigator.serviceWorker.register("./sw.js?v=60",{updateViaCache:"none"});
+      await reg.update();
+      window.addEventListener("focus",()=>reg.update());
+      document.addEventListener("visibilitychange",()=>{
+        if(!document.hidden) reg.update();
+      });
+    }catch(e){}
   });
 }
 
@@ -4418,3 +4390,12 @@ body:not(.celebration-mode) .quick .quick-arrow{
   color:#fff !important;
 }
 </style>
+
+<script id="pwa-refresh-v60">
+/* Ao voltar ao app, recarrega a página se uma versão nova do site já estiver disponível. */
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden && navigator.onLine){
+    fetch("./index.html?app-refresh="+Date.now(),{cache:"no-store"}).catch(()=>{});
+  }
+});
+</script>
