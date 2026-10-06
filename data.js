@@ -299,5 +299,27 @@ window.MISSAL_DATA = {
       {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão adequada à celebração."]],"suggestion":true}
     ],
     "quick":"430 → 821 → 508 → 536 → 587"
+  },
+  "2026-10-06": {
+    "label":"Terça-feira • 06/10/2026",
+    "celebration":"Santa Faustina Kowalska, virgem",
+    "subtitle":"27ª Semana do Tempo Comum • Ano II",
+    "saint":"Santa Faustina Kowalska",
+    "grade":"Memória facultativa",
+    "season":"Tempo Comum",
+    "color":"Branca",
+    "colorHex":"#f7f1df",
+    "note":"Memória facultativa de Santa Faustina Kowalska. No calendário ferial, a 27ª Semana do Tempo Comum é verde.",
+    "liturgicalNote":"Memória facultativa celebrada em 6 de outubro; formulário próprio no Missal Romano.",
+    "source":"Missal Romano CNBB 2023 • sugestões onde indicado",
+    "cycle":"Ano II",
+    "tapes":[
+      {"n":1,"page":"430","title":"Ritos Iniciais","details":[["Saudação A • sugestão","A graça de nosso Senhor Jesus Cristo..."],["Ato Penitencial — Segunda fórmula, 2ª opção • sugestão","No início desta celebração eucarística..."]],"suggestion":true},
+      {"n":2,"page":"823 / 939 ou 952","title":"Santa Faustina Kowalska, virgem","details":[["Formulário","Próprio de Santa Faustina; completar com o Comum das Virgens ou das Santas Mulheres, religiosas."]]},
+      {"n":3,"page":"508","title":"Prefácio das Santas Virgens e Religiosos","details":[["Título","O sinal da vida consagrada a Deus"],["Uso","Sugestão adequada à memória facultativa."]],"suggestion":true},
+      {"n":4,"page":"536","title":"Oração Eucarística II","details":[["Aclamação • sugestão","Mistério da fé!"],["Resposta","Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"]],"suggestion":true},
+      {"n":5,"page":"587","title":"Bênção Solene — Na festa de um Santo","details":[["Uso","Sugestão adequada à celebração."]],"suggestion":true}
+    ],
+    "quick":"430 → 823 / 939 ou 952 → 508 → 536 → 587"
   }
 };
