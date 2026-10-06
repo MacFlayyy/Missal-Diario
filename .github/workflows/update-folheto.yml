@@ -2,13 +2,17 @@ name: Atualizar Missal Diário
 
 on:
   workflow_dispatch:
+  schedule:
+    # GitHub Actions usa UTC. 07:45 UTC = 04:45 em Brasília (UTC-3).
+    # Prepara e valida antes das 05:00; o site libera o dia às 05:00.
+    - cron: "45 7 * * *"
 
 permissions:
   contents: read
 
 jobs:
   update:
-    if: github.actor == 'MacFlayyy'
+    if: github.event_name == 'schedule' || github.actor == 'MacFlayyy'
     permissions:
       contents: write
     runs-on: ubuntu-latest
