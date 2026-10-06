@@ -3683,7 +3683,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v58";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v61";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -4709,3 +4709,13 @@ document.addEventListener("visibilitychange",()=>{
   }
 });
 </script>
+
+<style id="quick-arrow-contrast-v61">
+/* Setas da Separação rápida: contraste suficiente sobre o fundo claro. */
+body:not(.celebration-mode) .quick .quick-arrow,
+body.celebration-mode .quick .quick-arrow,
+.prepare-missal-sequence .quick-arrow{
+  color:#a12a38 !important;
+  opacity:.82 !important;
+}
+</style>
