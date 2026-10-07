@@ -1,0 +1,26 @@
+name: Exportar HTML para ChatGPT
+
+on:
+  push:
+    paths:
+      - "Missal-Diario-Standalone.html"
+      - ".github/workflows/export-chatgpt.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Empacotar HTML completo
+        uses: actions/upload-artifact@v4
+        with:
+          name: Missal-Diario-ChatGPT-Completo
+          path: Missal-Diario-Standalone.html
+          if-no-files-found: error
+          retention-days: 7
