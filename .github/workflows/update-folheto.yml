@@ -3,9 +3,11 @@ name: Atualizar Missal Diário
 on:
   workflow_dispatch:
   schedule:
-    # GitHub Actions usa UTC. 07:45 UTC = 04:45 em Brasília (UTC-3).
-    # Prepara e valida antes das 05:00; o site libera o dia às 05:00.
-    - cron: "45 7 * * *"
+    # GitHub Actions usa UTC. Rodadas redundantes preparam o dia antes das 05:00.
+    # O site mantém o conteúdo bloqueado até 05:00 em Brasília.
+    - cron: "45 6 * * *"  # 03:45 Brasília
+    - cron: "15 7 * * *"  # 04:15 Brasília
+    - cron: "45 7 * * *"  # 04:45 Brasília
 
 permissions:
   contents: read
