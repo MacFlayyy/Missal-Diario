@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Missal Diário</title>
+  <!-- Versão standalone: dados e status incorporados no próprio HTML -->
   <meta name="theme-color" content="#7d1722" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -4633,7 +4634,7 @@ formatLastUpdate();
 setupInstallButton();
 
 // v53: o site funciona sem Service Worker para evitar HTML/JS antigo preso no PWA.
-if("serviceWorker" in navigator){
+if(false && "serviceWorker" in navigator){
   let swReloading=false;
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
     if(swReloading) return;
