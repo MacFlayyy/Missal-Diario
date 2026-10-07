@@ -3870,10 +3870,22 @@ function brasiliaTodayKey(){
   return `${p.year}-${p.month}-${p.day}`;
 }
 
+function brasiliaClockParts(){
+  const parts=new Intl.DateTimeFormat("en-CA",{
+    timeZone:"America/Sao_Paulo",
+    year:"numeric",month:"2-digit",day:"2-digit",
+    hour:"2-digit",minute:"2-digit",second:"2-digit",
+    hourCycle:"h23"
+  }).formatToParts(new Date());
+  return Object.fromEntries(parts.map(x=>[x.type,x.value]));
+}
+
 function getAvailableThrough(){
   const today=brasiliaTodayKey();
-  const statusDate=window.MISSAL_STATUS?.availableThrough || today;
-  return statusDate < today ? statusDate : today;
+  const p=brasiliaClockParts();
+  const releaseLimit=Number(p.hour)<5 ? addDaysKey(today,-1) : today;
+  const statusDate=window.MISSAL_STATUS?.availableThrough || releaseLimit;
+  return statusDate < releaseLimit ? statusDate : releaseLimit;
 }
 
 function addDaysKey(key,days){
@@ -4286,13 +4298,44 @@ window.addEventListener("scroll",updateMobileHeader,{passive:true});
 updateMobileHeader();
 
 const loadedBrasiliaDay=brasiliaTodayKey();
+const loadedBeforeDailyRelease=Number(brasiliaClockParts().hour)<5;
+
 function refreshIfBrasiliaDayChanged(){
   if(brasiliaTodayKey()!==loadedBrasiliaDay) location.reload();
 }
-window.addEventListener("focus",refreshIfBrasiliaDayChanged);
-document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden) refreshIfBrasiliaDayChanged();
+
+function refreshAtDailyRelease(){
+  if(loadedBeforeDailyRelease && Number(brasiliaClockParts().hour)>=5){
+    location.reload();
+  }
+}
+
+async function refreshIfDailyStatusAdvanced(){
+  if(Number(brasiliaClockParts().hour)<5 || !navigator.onLine) return;
+  try{
+    const res=await fetch("./status.js?daily-check="+Date.now(),{cache:"no-store"});
+    if(!res.ok) return;
+    const raw=await res.text();
+    const today=brasiliaTodayKey();
+    if(raw.includes('"availableThrough": "'+today+'"') &&
+       window.MISSAL_STATUS?.availableThrough!==today){
+      location.reload();
+    }
+  }catch(e){}
+}
+
+window.addEventListener("focus",()=>{
+  refreshIfBrasiliaDayChanged();
+  refreshIfDailyStatusAdvanced();
 });
+document.addEventListener("visibilitychange",()=>{
+  if(!document.hidden){
+    refreshIfBrasiliaDayChanged();
+    refreshIfDailyStatusAdvanced();
+  }
+});
+setInterval(refreshAtDailyRelease,1000);
+setInterval(refreshIfDailyStatusAdvanced,60000);
 
 updateTodayButton();
 updateSundayPreviewNote();
@@ -4309,7 +4352,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=60",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=63",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
@@ -4391,7 +4434,7 @@ body:not(.celebration-mode) .quick .quick-arrow{
 }
 </style>
 
-<script id="pwa-refresh-v60">
+<script id="pwa-refresh-v63">
 /* Ao voltar ao app, recarrega a página se uma versão nova do site já estiver disponível. */
 document.addEventListener("visibilitychange",()=>{
   if(!document.hidden && navigator.onLine){
