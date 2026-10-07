@@ -26,6 +26,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
 STATUS_FILE = ROOT / "status.js"
+SEED_FILE = ROOT / "calendar_seed.json"
 TZ = ZoneInfo("America/Sao_Paulo")
 
 VALID_COLORS = {
@@ -62,9 +63,16 @@ def save_status(key):
         except Exception:
             existing = {}
 
+    already_current = existing.get("availableThrough") == key
+    last_update = (
+        existing.get("lastSuccessfulUpdateAt")
+        if already_current and existing.get("lastSuccessfulUpdateAt")
+        else now.isoformat(timespec="seconds")
+    )
+
     payload = {
         "availableThrough": key,
-        "lastSuccessfulUpdateAt": now.isoformat(timespec="seconds"),
+        "lastSuccessfulUpdateAt": last_update,
         "timezone": "America/Sao_Paulo",
         "validation": "reviewed-and-corrected",
     }
@@ -301,29 +309,36 @@ def main():
 
     print(f"Revisando o Missal de {today_key} antes da publicação...")
 
-    # Se a data atual estiver cadastrada, corrige e publica.
-    if today_key in data:
-        fixes = repair_entry(data[today_key])
-        save_data(data)
-        save_status(today_key)
+    # Se a data sumiu de data.js, recupera automaticamente do calendário-base.
+    if today_key not in data:
+        if not SEED_FILE.exists():
+            raise RuntimeError(
+                f"Data {today_key} ausente e calendar_seed.json não existe. "
+                "A publicação foi interrompida para não fingir sucesso."
+            )
 
-        if fixes:
-            print("Correções automáticas realizadas:")
-            for item in fixes:
-                print(f"- {item}")
-        else:
-            print("Nenhuma correção necessária.")
+        seed = json.loads(SEED_FILE.read_text(encoding="utf-8"))
+        if today_key not in seed:
+            raise RuntimeError(
+                f"Data {today_key} ausente em data.js e no calendário-base. "
+                "A publicação foi interrompida para revisão."
+            )
 
-        print(f"Data {today_key} revisada e liberada para publicação.")
-        return
+        data[today_key] = seed[today_key]
+        print(f"Data {today_key} recuperada automaticamente do calendário-base.")
 
-    # O calendário do projeto atual vai até 31/12/2026.
-    # Se chegar uma data ainda não cadastrada, não inventa uma Missa nova.
-    # Mantém a última data válida publicada, mas o workflow segue vivo.
-    existing = sorted(data)
-    last = existing[-1] if existing else ""
-    print(f"Data {today_key} ainda não está cadastrada. Última data disponível: {last}.")
-    print("Nenhum dado litúrgico foi inventado.")
+    fixes = repair_entry(data[today_key])
+    save_data(data)
+    save_status(today_key)
+
+    if fixes:
+        print("Correções automáticas realizadas:")
+        for item in fixes:
+            print(f"- {item}")
+    else:
+        print("Nenhuma correção necessária.")
+
+    print(f"Data {today_key} revisada e liberada para publicação.")
 
 if __name__ == "__main__":
     main()
