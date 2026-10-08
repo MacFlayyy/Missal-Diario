@@ -2819,10 +2819,26 @@
     }
 
 
-    /* Os indicadores litúrgicos acompanham a cor da celebração selecionada. */
+    /* Cartões de informação seguem a cor litúrgica; separação rápida permanece branca e vinho. */
     #colorName,#colorSide{color:var(--liturgical-deep)!important}
-    .meta-item:nth-child(4){
-      box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 25%,transparent)!important;
+    .hero-main .meta-item{
+      background:linear-gradient(135deg,
+        color-mix(in srgb,var(--liturgical) 16%,#fff),
+        color-mix(in srgb,var(--liturgical) 7%,#fff))!important;
+      box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 27%,transparent)!important;
+    }
+    .hero-main .meta-item::before{
+      content:"";position:absolute;top:12px;bottom:12px;left:0;width:3px;
+      border-radius:0 6px 6px 0;background:var(--liturgical);pointer-events:none;
+    }
+    .hero-main .meta-item span{color:var(--liturgical-deep)!important}
+    .hero-main .meta-item strong{color:var(--liturgical-deep)!important}
+    .hero-main .meta-item:hover{
+      background:linear-gradient(135deg,
+        color-mix(in srgb,var(--liturgical) 19%,#fff),
+        color-mix(in srgb,var(--liturgical) 10%,#fff))!important;
+      box-shadow:0 8px 22px color-mix(in srgb,var(--liturgical) 12%,transparent),
+        inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 32%,transparent)!important;
     }
     .calendar-day.active{
       background:color-mix(in srgb,var(--day-color,var(--liturgical)) 16%,#fff)!important;
@@ -2836,9 +2852,10 @@
     .quick .quick-step,
     body.celebration-mode .quick .quick-step,
     .prepare-missal-sequence .quick-step{
-      background:color-mix(in srgb,var(--liturgical) 12%,#fff)!important;
-      border-color:color-mix(in srgb,var(--liturgical) 34%,#fff)!important;
-      color:var(--liturgical-deep)!important;
+      background:#fff!important;
+      border:1px solid rgba(125,23,34,.14)!important;
+      color:#7d1722!important;
+      box-shadow:0 5px 12px rgba(84,20,29,.06)!important;
     }
 
 </style>
@@ -11903,6 +11920,7 @@ async function buildShareImageBlob(){
   const styles=getComputedStyle(document.documentElement);
   const wine=(styles.getPropertyValue("--wine")||"#7d1722").trim();
   const liturgical=(styles.getPropertyValue("--liturgical")||d.colorHex||wine).trim();
+  const liturgicalDeep=(styles.getPropertyValue("--liturgical-deep")||wine).trim();
   const ink="#2f2a26";
   const muted="#7b6f66";
   const cream="#f7f4ef";
@@ -11965,12 +11983,18 @@ async function buildShareImageBlob(){
   }
 
   function metaBox(x,y,w,h,label,value){
-    fillRound(x,y,w,h,18,soft);
-    ctx.fillStyle="#92867d";
+    const accentHex=liturgical.replace("#","");
+    const accentRgb=/^[a-f0-9]{6}$/i.test(accentHex)
+      ? [0,2,4].map(i=>parseInt(accentHex.slice(i,i+2),16))
+      : [59,111,80];
+    const accentColor=(opacity)=>"rgba("+accentRgb.join(",")+","+opacity+")";
+    fillRound(x,y,w,h,18,accentColor(.13));
+    strokeRound(x,y,w,h,18,accentColor(.29),1);
+    ctx.fillStyle=liturgicalDeep;
     ctx.font="800 12px Arial, sans-serif";
     ctx.textBaseline="top";
     ctx.fillText(String(label).toUpperCase(),x+16,y+14);
-    drawLines(value,x+16,y+36,w-32,19,2,"700 18px Arial, sans-serif",ink);
+    drawLines(value,x+16,y+36,w-32,19,2,"700 18px Arial, sans-serif",liturgicalDeep);
   }
 
   // Fundo no mesmo clima visual do site moderno.
@@ -12875,7 +12899,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-4",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-5",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
