@@ -3042,7 +3042,7 @@ function normalizeColorName(value){
 }
 
 function applyLiturgicalColor(name,fallbackHex){
-  const normalized = normalizeColorName(name).replace(/\bbranca\b/g,"branco").replace(/\bros[aé]a\b/g,"roseo");
+  const normalized = normalizeColorName(name).replace(/\bbranca\b/g,"branco").replace(/\b(?:rosea|rosa)\b/g,"roseo");
   const key = Object.keys(liturgicalPalettes).find(k => normalized.includes(k));
   const fallback = {
     accent:fallbackHex || "#c8a96a", dot:fallbackHex || "#c8a96a",
