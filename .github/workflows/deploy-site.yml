@@ -1,0 +1,46 @@
+name: Publicar alterações do site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "data.js"
+      - "status.js"
+      - "sw.js"
+      - "manifest.webmanifest"
+      - "app-icon.svg"
+      - "Missal-Diario-Standalone.html"
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    if: github.actor != 'Missal Diário Bot'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
