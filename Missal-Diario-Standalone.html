@@ -2819,26 +2819,29 @@
     }
 
 
-    /* Cartões de informação seguem a cor litúrgica; separação rápida permanece branca e vinho. */
-    #colorName,#colorSide{color:var(--liturgical-deep)!important}
-    .hero-main .meta-item{
-      background:linear-gradient(135deg,
-        color-mix(in srgb,var(--liturgical) 16%,#fff),
-        color-mix(in srgb,var(--liturgical) 7%,#fff))!important;
-      box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 27%,transparent)!important;
+    /* As abas continuam neutras: apenas a bolinha e a sombra refletem a cor litúrgica. */
+    .hero-main .meta-item,
+    .hero-main .meta-item:nth-child(1),
+    .hero-main .meta-item:nth-child(4){
+      background:rgba(247,244,239,.76)!important;
+      box-shadow:
+        inset 0 0 0 1px rgba(96,72,59,.045),
+        0 7px 18px color-mix(in srgb,var(--liturgical) 13%,transparent)!important;
     }
-    .hero-main .meta-item::before{
-      content:"";position:absolute;top:12px;bottom:12px;left:0;width:3px;
-      border-radius:0 6px 6px 0;background:var(--liturgical);pointer-events:none;
+    .hero-main .meta-item::before{content:none!important}
+    .hero-main .meta-item::after{
+      background:var(--liturgical)!important;
+      opacity:.43!important;
+      box-shadow:0 0 0 9px var(--liturgical-soft),0 0 24px var(--liturgical-glow)!important;
     }
-    .hero-main .meta-item span{color:var(--liturgical-deep)!important}
-    .hero-main .meta-item strong{color:var(--liturgical-deep)!important}
-    .hero-main .meta-item:hover{
-      background:linear-gradient(135deg,
-        color-mix(in srgb,var(--liturgical) 19%,#fff),
-        color-mix(in srgb,var(--liturgical) 10%,#fff))!important;
-      box-shadow:0 8px 22px color-mix(in srgb,var(--liturgical) 12%,transparent),
-        inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 32%,transparent)!important;
+    .hero-main .meta-item span{color:#92867d!important}
+    .hero-main .meta-item strong,
+    .hero-main .meta-item #colorName{color:#38312c!important}
+    .hero-main .meta-item:hover,
+    .hero-main .meta-item:nth-child(1):hover,
+    .hero-main .meta-item:nth-child(4):hover{
+      background:rgba(255,255,255,.92)!important;
+      box-shadow:0 10px 25px color-mix(in srgb,var(--liturgical) 20%,transparent)!important;
     }
     .calendar-day.active{
       background:color-mix(in srgb,var(--day-color,var(--liturgical)) 16%,#fff)!important;
@@ -11920,7 +11923,6 @@ async function buildShareImageBlob(){
   const styles=getComputedStyle(document.documentElement);
   const wine=(styles.getPropertyValue("--wine")||"#7d1722").trim();
   const liturgical=(styles.getPropertyValue("--liturgical")||d.colorHex||wine).trim();
-  const liturgicalDeep=(styles.getPropertyValue("--liturgical-deep")||wine).trim();
   const ink="#2f2a26";
   const muted="#7b6f66";
   const cream="#f7f4ef";
@@ -11988,13 +11990,27 @@ async function buildShareImageBlob(){
       ? [0,2,4].map(i=>parseInt(accentHex.slice(i,i+2),16))
       : [59,111,80];
     const accentColor=(opacity)=>"rgba("+accentRgb.join(",")+","+opacity+")";
-    fillRound(x,y,w,h,18,accentColor(.13));
-    strokeRound(x,y,w,h,18,accentColor(.29),1);
-    ctx.fillStyle=liturgicalDeep;
+    ctx.save();
+    ctx.shadowColor=accentColor(.18);
+    ctx.shadowBlur=18;
+    ctx.shadowOffsetY=6;
+    fillRound(x,y,w,h,18,soft);
+    ctx.restore();
+    ctx.save();
+    roundRectPath(ctx,x,y,w,h,18);
+    ctx.clip();
+    ctx.beginPath();
+    ctx.arc(x+w-10,y+h-6,31,0,Math.PI*2);
+    ctx.fillStyle=accentColor(.25);
+    ctx.shadowColor=accentColor(.30);
+    ctx.shadowBlur=14;
+    ctx.fill();
+    ctx.restore();
+    ctx.fillStyle="#92867d";
     ctx.font="800 12px Arial, sans-serif";
     ctx.textBaseline="top";
     ctx.fillText(String(label).toUpperCase(),x+16,y+14);
-    drawLines(value,x+16,y+36,w-32,19,2,"700 18px Arial, sans-serif",liturgicalDeep);
+    drawLines(value,x+16,y+36,w-32,19,2,"700 18px Arial, sans-serif",ink);
   }
 
   // Fundo no mesmo clima visual do site moderno.
@@ -12899,7 +12915,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-5",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-6",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
