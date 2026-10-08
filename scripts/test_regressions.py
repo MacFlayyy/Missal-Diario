@@ -26,6 +26,12 @@ def verify_html(path,standalone=False):
     assert "</head>" in html and "</body>" in html,path
     assert not re.search(r"</html>\s*<(?:style|script)\b",html,re.I),path
     assert "accessibility-and-stability-v65" in html,path
+    assert "layout-regression-fixes-v67" in html,path
+    assert "grid-template-columns:repeat(5,minmax(0,1fr))" in html,path
+    assert "const heroY=160, heroH=475+heroExtra" in html,path
+    assert "const quickY=660+heroExtra" in html,path
+    assert "const sectionY=835+heroExtra" in html,path
+    assert "madrugada de domingo" in html,path
     assert "effectiveLiturgicalColorName" in html,path
     assert 'if(!url){alert("O folheto em PDF' in html,path
     assert 'bottomExit.textContent="Sair do modo celebração"' in html,path
@@ -79,6 +85,10 @@ def check_liturgical_integrity():
     data=read_js_json(DATA,"window.MISSAL_DATA")
     assert data, "Calendário vazio"
     for key,entry in sorted(data.items()):
+        for tape in entry.get("tapes",[]):
+            for row in tape.get("details",[]):
+                if isinstance(row,list) and len(row)>=2:
+                    assert not str(row[1]).strip().endswith(("...","…")), f"{key}: oração truncada"
         date=datetime.date.fromisoformat(key)
         tapes=entry.get("tapes",[])
         assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
@@ -102,6 +112,9 @@ def check_liturgical_integrity():
     spec=importlib.util.spec_from_file_location("validate_daily",ROOT/"scripts"/"validate_daily.py")
     module=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
+    assert module.is_valid_page("817–818"),"Intervalo com en dash não aceito"
+    assert module.is_valid_page("823 / 939 ou 952"),"Alternativas não aceitas"
+    assert not module.is_valid_page("430 texto arbitrário"),"Página sem referência passou"
     sample=copy.deepcopy(data["2026-10-08"])
     before=copy.deepcopy(sample["tapes"][0]["details"])
     module.repair_entry(sample)
