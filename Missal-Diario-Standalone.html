@@ -2865,6 +2865,97 @@
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
   <!-- End Cloudflare Web Analytics -->
+<style id="source-neutral-v55">
+/* Fonte/separação usa identidade neutra; cor litúrgica fica reservada ao dia. */
+.source-status,
+.source-status.official{
+  color:#5f554d !important;
+  background:#f7f4ef !important;
+  border-color:#e6ddd0 !important;
+}
+.source-status::before,
+.source-status.official::before{
+  background:#8b8178 !important;
+}
+</style>
+<style id="quick-neutral-v56">
+.quick,
+body.celebration-mode .quick,
+.prepare-missal-sequence{
+  background:linear-gradient(145deg,#34302d,#252220) !important;
+  box-shadow:0 14px 30px rgba(45,38,34,.15) !important;
+}
+.quick small{color:rgba(255,255,255,.68) !important}
+.quick-step{
+  background:rgba(255,255,255,.96) !important;
+  border-color:rgba(255,255,255,.15) !important;
+  color:#403a36 !important;
+}
+.quick-arrow{color:rgba(255,255,255,.58) !important}
+</style>
+<style id="quick-soft-wine-v57">
+/* Separação rápida: identidade vinho suave, sem parecer cor litúrgica. */
+.quick,
+body.celebration-mode .quick,
+.prepare-missal-sequence{
+  background:linear-gradient(145deg,#fffaf9,#f7e9eb) !important;
+  border:1px solid rgba(125,23,34,.12) !important;
+  box-shadow:0 12px 26px rgba(84,20,29,.08) !important;
+}
+.quick small{
+  color:#756861 !important;
+}
+.quick-step{
+  background:#fff !important;
+  border:1px solid rgba(125,23,34,.14) !important;
+  color:#7d1722 !important;
+  box-shadow:0 5px 12px rgba(84,20,29,.06) !important;
+}
+.quick-arrow{color:rgba(125,23,34,.38) !important}
+</style>
+<style id="quick-home-white-text-v58">
+/* Página principal: textos da Separação rápida em branco. */
+body:not(.celebration-mode) .quick small,
+body:not(.celebration-mode) .quick .quick-arrow{
+  color:#fff !important;
+}
+</style>
+<style id="quick-arrow-contrast-v61">
+/* Setas da Separação rápida: contraste suficiente sobre o fundo claro. */
+body:not(.celebration-mode) .quick .quick-arrow,
+body.celebration-mode .quick .quick-arrow,
+.prepare-missal-sequence .quick-arrow{
+  color:#a12a38 !important;
+  opacity:.82 !important;
+}
+</style>
+<style id="visual-audit-fixes-v64">
+/* Botão Sair: resguardar a data no modo celebração. */
+@media(max-width:620px){
+  body.celebration-mode .celebration-exit{top:max(12px,env(safe-area-inset-top))!important;right:12px!important;height:38px!important;min-width:65px!important;z-index:110!important}
+  body.celebration-mode .celebration-context{padding-top:58px!important}
+}
+/* Sequência rápida: manter os cinco marcadores alinhados sem quebra de linha. */
+.quick .quick-steps,body.celebration-mode .quick .quick-steps,.prepare-missal-sequence .quick-steps{
+  flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;
+  max-width:100%!important;gap:3px!important;padding-bottom:6px!important;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.quick .quick-steps::-webkit-scrollbar,body.celebration-mode .quick .quick-steps::-webkit-scrollbar,.prepare-missal-sequence .quick-steps::-webkit-scrollbar{display:none}
+.quick .quick-item,body.celebration-mode .quick .quick-item,.prepare-missal-sequence .quick-item{flex-shrink:0!important;gap:2px!important}
+@media(max-width:400px){
+  .quick .quick-steps,body.celebration-mode .quick .quick-steps,.prepare-missal-sequence .quick-steps{width:100%!important;justify-content:center!important;gap:1px!important}
+  .quick .quick-step,body.celebration-mode .quick .quick-step,.prepare-missal-sequence .quick-step{height:32px!important;min-width:34px!important;padding:0 5px!important;font-size:11px!important}
+  .quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{width:8px!important;min-width:8px!important;flex-basis:8px!important;font-size:10px!important;margin:0!important}
+}
+@media(max-width:340px){
+  .quick .quick-step,body.celebration-mode .quick .quick-step,.prepare-missal-sequence .quick-step{min-width:31px!important;height:31px!important;padding:0 4px!important;font-size:10px!important}
+  .quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{width:7px!important;min-width:7px!important;flex-basis:7px!important;font-size:10px!important}
+}
+/* Cartões neutros; círculo litúrgico suavizado e com sombra, texto legível. */
+.hero-main .meta-item span{color:#62574f!important}
+.hero-main .meta-item::after{right:-14px!important;bottom:-15px!important;width:39px!important;height:39px!important;opacity:.3!important;box-shadow:0 0 0 5px var(--liturgical-soft),0 0 14px var(--liturgical-glow)!important}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -11911,7 +12002,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v61";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v64";
   const d=data[window.currentDateKey];
   if(!d) return null;
 
@@ -11969,7 +12060,7 @@ async function buildShareImageBlob(){
       }else{
         if(lineText) lines.push(lineText);
         lineText=word;
-        if(lines.length===maxLines-1) break;
+        if(lines.length>=maxLines){lineText="";break;}
       }
     }
     if(lineText && lines.length<maxLines) lines.push(lineText);
@@ -12006,11 +12097,13 @@ async function buildShareImageBlob(){
     ctx.shadowBlur=14;
     ctx.fill();
     ctx.restore();
-    ctx.fillStyle="#92867d";
+    ctx.fillStyle="#64594f";
     ctx.font="800 12px Arial, sans-serif";
     ctx.textBaseline="top";
     ctx.fillText(String(label).toUpperCase(),x+16,y+14);
-    drawLines(value,x+16,y+36,w-32,19,2,"700 18px Arial, sans-serif",ink);
+    const longLabel = /santo/i.test(label);
+    drawLines(value,x+16,y+36,w-32,longLabel?17:19,longLabel?3:2,
+      longLabel?"700 15px Arial, sans-serif":"700 18px Arial, sans-serif",ink);
   }
 
   // Fundo no mesmo clima visual do site moderno.
@@ -12915,7 +13008,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-6",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-7",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
@@ -12934,69 +13027,6 @@ window.addEventListener("scroll",updateBackToTop,{passive:true});
 backToTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
 updateBackToTop();
 </script>
-</body>
-</html>
-
-
-<style id="source-neutral-v55">
-/* Fonte/separação usa identidade neutra; cor litúrgica fica reservada ao dia. */
-.source-status,
-.source-status.official{
-  color:#5f554d !important;
-  background:#f7f4ef !important;
-  border-color:#e6ddd0 !important;
-}
-.source-status::before,
-.source-status.official::before{
-  background:#8b8178 !important;
-}
-</style>
-
-<style id="quick-neutral-v56">
-.quick,
-body.celebration-mode .quick,
-.prepare-missal-sequence{
-  background:linear-gradient(145deg,#34302d,#252220) !important;
-  box-shadow:0 14px 30px rgba(45,38,34,.15) !important;
-}
-.quick small{color:rgba(255,255,255,.68) !important}
-.quick-step{
-  background:rgba(255,255,255,.96) !important;
-  border-color:rgba(255,255,255,.15) !important;
-  color:#403a36 !important;
-}
-.quick-arrow{color:rgba(255,255,255,.58) !important}
-</style>
-
-<style id="quick-soft-wine-v57">
-/* Separação rápida: identidade vinho suave, sem parecer cor litúrgica. */
-.quick,
-body.celebration-mode .quick,
-.prepare-missal-sequence{
-  background:linear-gradient(145deg,#fffaf9,#f7e9eb) !important;
-  border:1px solid rgba(125,23,34,.12) !important;
-  box-shadow:0 12px 26px rgba(84,20,29,.08) !important;
-}
-.quick small{
-  color:#756861 !important;
-}
-.quick-step{
-  background:#fff !important;
-  border:1px solid rgba(125,23,34,.14) !important;
-  color:#7d1722 !important;
-  box-shadow:0 5px 12px rgba(84,20,29,.06) !important;
-}
-.quick-arrow{color:rgba(125,23,34,.38) !important}
-</style>
-
-<style id="quick-home-white-text-v58">
-/* Página principal: textos da Separação rápida em branco. */
-body:not(.celebration-mode) .quick small,
-body:not(.celebration-mode) .quick .quick-arrow{
-  color:#fff !important;
-}
-</style>
-
 <script id="pwa-refresh-v63">
 /* Ao voltar ao app, recarrega a página se uma versão nova do site já estiver disponível. */
 document.addEventListener("visibilitychange",()=>{
@@ -13005,15 +13035,5 @@ document.addEventListener("visibilitychange",()=>{
   }
 });
 </script>
-
-<style id="quick-arrow-contrast-v61">
-/* Setas da Separação rápida: contraste suficiente sobre o fundo claro. */
-body:not(.celebration-mode) .quick .quick-arrow,
-body.celebration-mode .quick .quick-arrow,
-.prepare-missal-sequence .quick-arrow{
-  color:#a12a38 !important;
-  opacity:.82 !important;
-}
-</style>
-
-<!-- chat-export-20261008-3 -->
+</body>
+</html>
