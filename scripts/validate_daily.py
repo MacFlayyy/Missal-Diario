@@ -52,7 +52,7 @@ def save_data(data):
         encoding="utf-8"
     )
 
-def save_status(key):
+def save_status(key, data):
     now = datetime.now(TZ)
 
     # Preserva os dados do folheto dominical gravados por update_folheto.py.
@@ -76,6 +76,19 @@ def save_status(key):
         "timezone": "America/Sao_Paulo",
         "validation": "reviewed-and-corrected",
     }
+
+    # Aos sábados, deixa o domingo seguinte preparado para liberação
+    # APENAS após 05:00, quando status do sábado já estiver publicado.
+    # O front-end também verifica o horário e availableThrough.
+    if now.weekday() == 5:
+        from datetime import timedelta
+        sunday_key = (now.date() + timedelta(days=1)).isoformat()
+        sunday = data.get(sunday_key)
+        tapes = sunday.get("tapes", []) if isinstance(sunday, dict) else []
+        if (sunday and len(tapes) >= 5
+                and "domingo" in (str(sunday.get("celebration",""))+" "+str(sunday.get("grade",""))).lower()
+                and all(is_valid_page(t.get("page")) for t in tapes[:5])):
+            payload["sundayPreview"] = sunday_key
 
     for field in (
         "sundayLeafletDate",
@@ -329,7 +342,7 @@ def main():
 
     fixes = repair_entry(data[today_key])
     save_data(data)
-    save_status(today_key)
+    save_status(today_key, data)
 
     if fixes:
         print("Correções automáticas realizadas:")
