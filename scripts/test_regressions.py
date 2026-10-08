@@ -185,12 +185,59 @@ console.log("PASSOU fallback PDF: domingo, folheto ferial do próprio dia, statu
     assert p.returncode==0,p.stderr
     print(p.stdout.strip())
 
+
+def check_update_safety():
+    import ast
+    import copy
+    source=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    node=next(n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name=="update_entry")
+    mock={
+        "classify_saudacao":lambda _:"B",
+        "classify_ato":lambda _:"Terceira fórmula, 2ª opção",
+        "detect_missal_page":lambda _:"999",
+        "detect_prefacio":lambda _:None,
+        "detect_eucharistic":lambda _:None,
+        "detect_acclamation":lambda _:None,
+        "norm":lambda value:str(value).lower(),
+    }
+    exec(compile(ast.Module(body=[node],type_ignores=[]),"<update_entry>","exec"),mock)
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    item=copy.deepcopy(data["2026-10-08"])
+    item["tapes"][0]["details"].append(["Outro detalhe","Preservar"])
+    page=item["tapes"][1]["page"]
+    mock["update_entry"](item,"folheto teste","https://example.org/teste.pdf")
+    details=item["tapes"][0]["details"]
+    assert ["Outro detalhe","Preservar"] in details,"Detalhe dos Ritos Iniciais perdido"
+    assert any(str(d[0]).startswith("Saudação B") for d in details),"Saudação detectada não aplicada"
+    assert any(" • sugestão" in str(d[0]) for d in details),"Referência sem texto declarada oficial"
+    assert item["tapes"][1]["page"]==page,"Página da Missa substituída por menção genérica do PDF"
+    assert item["tapes"][0].get("suggestion") is True,"Fita sem texto declarada completa"
+    second=copy.deepcopy(data["2026-10-08"])
+    second["tapes"][0]["details"][0][1]="Texto original completo"
+    mock["update_entry"](second,"folheto teste","https://example.org/teste.pdf")
+    assert second["tapes"][0]["details"][0][0].startswith("Saudação A")
+    assert any(str(d[0]).startswith("Conferência necessária") for d in second["tapes"][0]["details"])
+    print("PASSOU folheto: orações, páginas e observações preservadas")
+
+def check_cache_safety():
+    html=INDEX.read_text(encoding="utf-8")
+    sw=(ROOT/"sw.js").read_text(encoding="utf-8")
+    assert 'k.startsWith("missal-diario-")' in sw
+    assert "prepareEscapeHtml(page)" in html
+    assert "const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);" in html
+    assert "remote[1]!==local[1]" in html
+    for name in ("scripts/update_folheto.py","scripts/bump_daily_version.py"):
+        compile((ROOT/name).read_text(encoding="utf-8"),name,"exec")
+    print("PASSOU proteção de cache, liberação e atualização PWA")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
     check_saturday_preview()
     check_liturgical_integrity()
     check_leaflet_fallback()
+    check_update_safety()
+    check_cache_safety()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

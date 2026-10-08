@@ -165,7 +165,7 @@ def choose_week_leaflet(discovered):
 def candidate_months():
     # Busca o mês atual, o anterior e os próximos dois meses; isso cobre folhetos
     # publicados com antecedência e arquivos colocados no mês anterior.
-    today = date.today()
+    today = datetime.now(ZoneInfo("America/Sao_Paulo")).date()
     months = set()
     for offset in range(-1, 3):
         y, m = today.year, today.month + offset
@@ -332,32 +332,85 @@ def update_entry(entry, text, url):
     oe = detect_eucharistic(text)
     acl = detect_acclamation(text)
 
+
     fita1 = next((x for x in entry["tapes"] if x["n"] == 1), None)
     if fita1 and (saud or ato):
-        old_details = fita1.get("details", [])
-        saud_prayer = next((r[1] for r in old_details if isinstance(r,list) and len(r)>=2 and str(r[0]).startswith("Saudação ")), "“A graça de nosso Senhor Jesus Cristo...”")
-        ato_prayer = next((r[1] for r in old_details if isinstance(r,list) and len(r)>=2 and str(r[0]).startswith("Ato Penitencial —")), "“No início desta celebração eucarística...”")
+        details = fita1.setdefault("details", [])
 
-        # O folheto oficial substitui as sugestões quando a informação foi reconhecida.
-        if saud:
-            saud_label = f"Saudação {saud}"
-        else:
-            old_saud = next((r[0] for r in old_details if isinstance(r,list) and len(r)>=2 and str(r[0]).startswith("Saudação ")), "Saudação A • sugestão")
-            saud_label = old_saud
+        def apply_identification(prefix, detected_label):
+            nonlocal changed
+            if not detected_label:
+                return
+            row = next(
+                (item for item in details
+                 if isinstance(item, list) and len(item) >= 2
+                 and str(item[0]).startswith(prefix)), None
+            )
+            if row is None:
+                return
 
-        if ato:
-            ato_label = f"Ato Penitencial — {ato}"
-        else:
-            old_ato = next((r[0] for r in old_details if isinstance(r,list) and len(r)>=2 and str(r[0]).startswith("Ato Penitencial —")), "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão")
-            ato_label = old_ato
+            previous = str(row[0]).split(" • sugestão")[0].strip()
+            previous_text = str(row[1]).strip()
+            only_reference = (
+                not previous_text or
+                "Consultar o texto integral no Missal Romano" in previous_text or
+                previous_text.endswith(("...", "…"))
+            )
+            exact = previous == detected_label
+            formula_only = (
+                prefix == "Ato Penitencial —" and
+                detected_label in (
+                    "Ato Penitencial — Primeira fórmula",
+                    "Ato Penitencial — Segunda fórmula",
+                    "Ato Penitencial — Terceira fórmula"
+                ) and previous.startswith(detected_label)
+            )
+            if not (exact or formula_only or only_reference):
+                label = "Conferência necessária — " + (
+                    "Saudação" if prefix == "Saudação " else "Ato Penitencial"
+                )
+                warning = (
+                    f"Folheto indica {detected_label}; o texto existente "
+                    "precisa ser conferido no Missal antes de substituir."
+                )
+                existing = next(
+                    (d for d in details if isinstance(d, list) and len(d) >= 2
+                     and d[0] == label), None
+                )
+                if existing is None:
+                    details.append([label, warning])
+                    changed = True
+                elif existing[1] != warning:
+                    existing[1] = warning
+                    changed = True
+                return
 
-        fita1["details"] = [[saud_label, saud_prayer], [ato_label, ato_prayer]]
-        if saud and ato:
-            fita1.pop("suggestion", None)
-        changed = True
+            # Sem opção detectada, não inventar 1ª, 2ª ou 3ª opção.
+            chosen = previous if formula_only and not exact else detected_label
+            # Uma referência ao Missal não é transcrição integral da oração.
+            new_label = chosen + (" • sugestão" if only_reference else "")
+            if row[0] != new_label:
+                row[0] = new_label
+                changed = True
+
+        apply_identification("Saudação ", f"Saudação {saud}" if saud else None)
+        apply_identification("Ato Penitencial —", f"Ato Penitencial — {ato}" if ato else None)
+
+        required = [
+            next((d for d in details if isinstance(d, list) and len(d) >= 2
+                  and str(d[0]).startswith(prefix)), None)
+            for prefix in ("Saudação ", "Ato Penitencial —")
+        ]
+        if (saud and ato and all(required)
+                and all(" • sugestão" not in str(d[0]) for d in required)
+                and not any(str(d[0]).startswith("Conferência necessária")
+                            for d in details if isinstance(d, list) and d)):
+            if fita1.pop("suggestion", None) is not None:
+                changed = True
 
     fita2 = next((x for x in entry["tapes"] if x["n"] == 2), None)
-    if fita2 and missal_page:
+    if fita2 and missal_page and not str(fita2.get("page") or "").strip():
+        # A primeira referência no PDF pode não ser a página da Missa.
         fita2["page"] = missal_page
         changed = True
 

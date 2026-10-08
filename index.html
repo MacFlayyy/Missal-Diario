@@ -3234,8 +3234,8 @@ body.celebration-mode .celebration-exit-footer{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261008"></script>
-<script src="status.js?v=20261008"></script>
+<script src="data.js?v=20261008-15"></script>
+<script src="status.js?v=20261008-15"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -3294,7 +3294,7 @@ function quickStepsMarkup(value){
 
   return pages.map((page,i) =>
     '<span class="quick-item">' +
-      '<span class="quick-step" title="Marcação '+(i+1)+'">'+page+'</span>' +
+      '<span class="quick-step" title="Marcação '+(i+1)+'">'+prepareEscapeHtml(page)+'</span>' +
       (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
     '</span>'
   ).join("");
@@ -4286,7 +4286,7 @@ function getAvailableThrough(){
   const today=brasiliaTodayKey();
   const p=brasiliaClockParts();
   const releaseLimit=Number(p.hour)<5 ? addDaysKey(today,-1) : today;
-  const statusDate=window.MISSAL_STATUS?.availableThrough || releaseLimit;
+  const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);
   return statusDate < releaseLimit ? statusDate : releaseLimit;
 }
 
@@ -4401,10 +4401,10 @@ function buildDateMenu(){
   menu.classList.add("calendar-panel");
   if(!calendarCursor) calendarCursor=(window.currentDateKey || dates[dates.length-1]).slice(0,7);
 
-  const [year,month]=calendarCursor.split("-").map(Number);
   const range=visibleMonthRange();
   if(calendarCursor<range.min) calendarCursor=range.min;
   if(calendarCursor>range.max) calendarCursor=range.max;
+  const [year,month]=calendarCursor.split("-").map(Number);
 
   const first=new Date(year,month-1,1,12);
   const daysInMonth=new Date(year,month,0,12).getDate();
@@ -4811,7 +4811,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-14",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-15",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
@@ -4831,11 +4831,18 @@ backToTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}
 updateBackToTop();
 </script>
 <script id="pwa-refresh-v63">
-/* Ao voltar ao app, recarrega a página se uma versão nova do site já estiver disponível. */
-document.addEventListener("visibilitychange",()=>{
-  if(!document.hidden && navigator.onLine){
-    fetch("./index.html?app-refresh="+Date.now(),{cache:"no-store"}).catch(()=>{});
-  }
+/* Ao voltar ao app, compara a versão publicada em vez de descartar o fetch. */
+document.addEventListener("visibilitychange",async()=>{
+  if(document.hidden || !navigator.onLine) return;
+  try{
+    const res=await fetch("./index.html?app-refresh="+Date.now(),{cache:"no-store"});
+    if(!res.ok) return;
+    const html=await res.text();
+    const remote=html.match(/<script\s+src="data\.js\?v=([^"]+)"\s*><\/script>/i);
+    const localSrc=document.querySelector('script[src^="data.js"]')?.getAttribute("src") || "";
+    const local=localSrc.match(/data\.js\?v=([^&"\s]+)/i);
+    if(remote && local && remote[1]!==local[1]) location.reload();
+  }catch(_error){ /* Sem rede, conserva o último conteúdo funcional. */ }
 });
 </script>
 </body>

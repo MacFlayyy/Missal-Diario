@@ -1,4 +1,4 @@
-const CACHE_NAME = "missal-diario-20261008-14";
+const CACHE_NAME = "missal-diario-20261008-15";
 const SHELL = [
   "./",
   "./index.html",
@@ -18,7 +18,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k.startsWith("missal-diario-") && k !== CACHE_NAME).map(k => caches.delete(k)))
     )
   );
   self.clients.claim();

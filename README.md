@@ -63,9 +63,11 @@ O site mantém o mesmo padrão usado na separação manual:
 
 As sugestões continuam identificadas como `(sugestão)`.
 
-## Atualização diária sem datas pré-cadastradas
+## Cadastro e liberação diária
 
-O site não mantém datas futuras pré-cadastradas. A partir de 30/09/2026, cada novo dia é analisado às 05:00 (horário de Brasília), adicionado ao `data.js` e publicado. Os dias anteriores permanecem como histórico; datas futuras não ficam disponíveis.
+O calendário está pré-cadastrado de 30/09/2026 a 31/12/2026; a automação revisa as datas existentes e publica gradualmente. Não gera páginas do Missal por adivinhação. As datas de 2027 precisarão ser cadastradas e revisadas antes de 01/01/2027.
+
+Execuções antes das 05:00 preparam os dados e o status, enquanto o navegador impede a liberação do novo dia antes das 05:00 de Brasília. A pontualidade do início dos trabalhos agendados pelo GitHub Actions não é garantida; a preparação antecipada reduz o risco.
 
 
 
