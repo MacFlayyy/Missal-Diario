@@ -2992,6 +2992,22 @@ body.celebration-mode .celebration-exit-footer{
   .prepare-missal-sequence .quick-step{font-size:11px!important}
 }
 </style>
+<style id="mobile-touch-accessibility-v66">
+/* Áreas de toque adequadas para os comandos de navegação, sem alterar o visual. */
+#mobileMoreClose{min-width:44px!important;min-height:44px!important;display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:620px){
+ .mobile-nav button{min-height:60px!important;padding-top:7px!important;padding-bottom:7px!important}
+ .mobile-nav button span{font-size:11px!important}
+ #mobileLeafletBtn span{font-size:10.5px!important}
+ .calendar-panel button.calendar-day{min-height:40px!important}
+ .prepare-missal-close{min-width:44px!important;min-height:44px!important}
+ .utility-btn{min-height:42px!important}
+}
+@media(max-width:340px){
+ .mobile-nav button span{font-size:10px!important}
+ #mobileLeafletBtn span{font-size:10px!important}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3371,7 +3387,7 @@ function sentenceFromUsage(value){
 
 function buildDetailedCopyText(dateKey){
   dateKey=dateKey||window.currentDateKey;
-  const d=data[dateKey];
+  const d=getDisplayEntry(dateKey);
   if(!d) return "";
   const citation="missal-romano-2023-pdf-4";
   const lines=[];
@@ -3560,7 +3576,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 
 async function buildShareImageBlob(){
   const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v64";
-  const d=data[window.currentDateKey];
+  const d=getDisplayEntry(window.currentDateKey);
   if(!d) return null;
 
   const canvas=document.createElement("canvas");
@@ -4009,11 +4025,39 @@ function saintDisplayName(d){
 function formatDetailLabel(label){
   const isSuggestion = /•\s*sugestão/i.test(label);
   const clean = label.replace(/\s*•\s*sugestão/ig, "").trim();
-  return `${clean}${isSuggestion ? ' <em class="inline-suggestion">(sugestão)</em>' : ''}`;
+  return `${prepareEscapeHtml(clean)}${isSuggestion ? ' <em class="inline-suggestion">(sugestão)</em>' : ''}`;
+}
+
+function getDisplayEntry(dateKey){
+  const base=data[dateKey];
+  if(!base || dateKey!=="2026-12-24" || dateKey!==brasiliaTodayKey()) return base;
+
+  // 24/12: os formulários da manhã e da Vigília são celebrações distintas.
+  const vigilia=Number(brasiliaClockParts().hour)>=12;
+  const d={...base,tapes:base.tapes.map(t=>({...t,details:t.details.map(row=>[...row])}))};
+  d.celebration=vigilia?"Vigília do Natal do Senhor":"24 de dezembro — Missa da manhã";
+  d.subtitle=vigilia?"Natal • Missa da Vigília":"Advento • 24 de dezembro";
+  d.grade=vigilia?"Solenidade — Missa da Vigília":"Féria privilegiada do Advento";
+  d.season=vigilia?"Natal":"Advento";
+  d.color=vigilia?"Branca":"Roxa";
+  const selection=vigilia
+    ? {2:["126","Missa da Vigília do Natal"],3:["455","Prefácio do Natal do Senhor I"],5:["579","Bênção Solene — Natal"]}
+    : {2:["124","Missa do dia 24 de dezembro"],3:["453","Prefácio do Advento II"],5:["578","Bênção Solene — Advento"]};
+  for(const t of d.tapes){
+    if(selection[t.n]){
+      [t.page,t.title]=selection[t.n];
+      if(t.n===3 || t.n===5) t.details=[["Uso","Sugestão: conferir a escolha no folheto oficial."]];
+    }
+  }
+  d.quick=d.tapes.map(t=>String(t.page)).join(" → ");
+  d.liturgicalNote=vigilia
+    ?"Missa da Vigília de Natal. Conferir indicações do folheto antes da celebração."
+    :"Missa da manhã do dia 24, ainda no Advento. Conferir o folheto.";
+  return d;
 }
 
 function render(dateKey){
-  const d = data[dateKey] || {
+  const d = getDisplayEntry(dateKey) || {
     label:new Date(dateKey+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}),
     celebration:"Celebração ainda não cadastrada",
     subtitle:"Aguardando dados da celebração",
@@ -4069,9 +4113,9 @@ function render(dateKey){
       <div class="tape-top">
         <div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div>
       </div>
-      <div class="page">Página ${t.page}</div>
-      <h4>${t.title}</h4>
-      ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br>${x[1]}</div>`).join("")}
+      <div class="page">Página ${prepareEscapeHtml(t.page)}</div>
+      <h4>${prepareEscapeHtml(t.title)}</h4>
+      ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br>${prepareEscapeHtml(x[1])}</div>`).join("")}
       ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
     `;
     tapes.appendChild(el);
@@ -4328,7 +4372,7 @@ function setPrepareMissal(open){
   if(!overlay) return;
   if(open){
     preparePreviousFocus=document.activeElement;
-    const d=data[window.currentDateKey];
+    const d=getDisplayEntry(window.currentDateKey);
     if(!d) return;
     document.getElementById("prepareMissalCelebration").textContent=d.celebration || "Celebração";
     document.getElementById("prepareMissalDate").textContent=d.label || window.currentDateKey || "";
@@ -4561,6 +4605,13 @@ window.addEventListener("scroll",updateMobileHeader,{passive:true});
 updateMobileHeader();
 
 const loadedBrasiliaDay=brasiliaTodayKey();
+let lastVigiliaMode=brasiliaTodayKey()==="2026-12-24"
+  ? Number(brasiliaClockParts().hour)>=12 : null;
+function refreshChristmasVigil(){
+  if(brasiliaTodayKey()!=="2026-12-24" || window.currentDateKey!=="2026-12-24") return;
+  const evening=Number(brasiliaClockParts().hour)>=12;
+  if(lastVigiliaMode!==evening){lastVigiliaMode=evening;render(window.currentDateKey);}
+}
 const loadedBeforeDailyRelease=Number(brasiliaClockParts().hour)<5;
 
 function refreshIfBrasiliaDayChanged(){
@@ -4599,6 +4650,7 @@ document.addEventListener("visibilitychange",()=>{
 });
 setInterval(refreshAtDailyRelease,1000);
 setInterval(refreshIfDailyStatusAdvanced,60000);
+setInterval(refreshChristmasVigil,30000);
 
 updateTodayButton();
 updateSundayPreviewNote();
@@ -4615,7 +4667,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-9",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-10",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
