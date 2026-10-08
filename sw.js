@@ -1,4 +1,4 @@
-const CACHE_NAME = "missal-diario-20261008-10";
+const CACHE_NAME = "missal-diario-20261008-11";
 const SHELL = [
   "./",
   "./index.html",
@@ -41,7 +41,7 @@ self.addEventListener("fetch", event => {
         return res;
       })
       .catch(async () => {
-        const cached = await caches.match(req);
+        const cached = await caches.match(req, { ignoreSearch: true });
         if (cached) return cached;
         if (req.mode === "navigate") {
           const fallback = await caches.match("./index.html");
