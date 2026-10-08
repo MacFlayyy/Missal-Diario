@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Missal Diário</title>
-<!-- Versão standalone: dados e status incorporados no próprio HTML -->
+  <!-- Versão standalone: dados e status incorporados no próprio HTML -->
   <meta name="theme-color" content="#7d1722" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -3009,6 +3009,42 @@ body.celebration-mode .celebration-exit-footer{
  #mobileLeafletBtn span{font-size:10px!important}
 }
 </style>
+<style id="layout-regression-fixes-v67">
+/* Todas as cinco páginas continuam visíveis, inclusive com alternativas longas. */
+.quick .quick-steps,body.celebration-mode .quick .quick-steps,.prepare-missal-sequence .quick-steps{
+ display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ width:100%!important;max-width:100%!important;gap:clamp(2px,.4vw,6px)!important;
+ justify-items:stretch!important;align-items:stretch!important;
+ justify-content:stretch!important;overflow:visible!important;
+ padding:3px 0 6px!important;margin-inline:auto!important;box-sizing:border-box!important;
+}
+.quick .quick-item,body.celebration-mode .quick .quick-item,.prepare-missal-sequence .quick-item{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 10px!important;
+ gap:1px!important;width:100%!important;min-width:0!important;flex:none!important;align-items:center!important;
+}
+.quick .quick-item:last-child,body.celebration-mode .quick .quick-item:last-child,.prepare-missal-sequence .quick-item:last-child{
+ grid-template-columns:minmax(0,1fr)!important;
+}
+.quick .quick-step,body.celebration-mode .quick .quick-step,.prepare-missal-sequence .quick-step{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ min-width:0!important;width:100%!important;max-width:100%!important;
+ height:auto!important;min-height:40px!important;padding:6px 2px!important;
+ font-size:clamp(9px,1.05vw,14px)!important;line-height:1.15!important;
+ text-align:center!important;overflow-wrap:anywhere!important;white-space:normal!important;box-sizing:border-box!important;
+}
+.quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{
+ display:flex!important;align-items:center!important;justify-content:center!important;
+ width:10px!important;min-width:0!important;font-size:10px!important;margin:0!important;box-sizing:border-box!important;
+}
+@media(max-width:620px){
+ .quick .quick-step,body.celebration-mode .quick .quick-step,.prepare-missal-sequence .quick-step{font-size:clamp(8.5px,2.5vw,12px)!important}
+ .back-to-top{bottom:calc(max(12px,env(safe-area-inset-bottom)) + 94px)!important;width:44px!important;height:44px!important;right:14px!important}
+}
+@media(max-width:360px){
+ .quick .quick-item,body.celebration-mode .quick .quick-item,.prepare-missal-sequence .quick-item{grid-template-columns:minmax(0,1fr) 7px!important}
+ .quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{width:7px!important;font-size:9px!important}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3464,11 +3500,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
@@ -3544,11 +3580,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 3ª opção",
-            "De coração contrito e humilde..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ]
       },
@@ -3620,11 +3656,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
@@ -3708,11 +3744,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
@@ -12085,7 +12121,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v64";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v68";
   const d=getDisplayEntry(window.currentDateKey);
   if(!d) return null;
 
@@ -12204,6 +12240,25 @@ async function buildShareImageBlob(){
       "700 "+size+"px Arial, sans-serif",ink);
   }
 
+  // Estima linhas do título para alargar o painel quando necessário.
+  // O mesmo deslocamento movimenta a sequência rápida e as fitas.
+  function countHeroTitleLines(value){
+    ctx.save();
+    ctx.font="800 43px Arial, sans-serif";
+    let count=1, line="";
+    for(const word of String(value||"").split(/\s+/).filter(Boolean)){
+      const next=line ? line+" "+word : word;
+      if(line && ctx.measureText(next).width>cardW-52){count++;line=word;}
+      else line=next;
+    }
+    ctx.restore();
+    return Math.min(3,count);
+  }
+  const titleLines=countHeroTitleLines(d.celebration);
+  const metaStart=Math.max(160+238,160+106+titleLines*48+70);
+  const heroExtra=Math.max(0,metaStart+92+82+24-(160+475));
+  canvas.height=1700+heroExtra;
+
   // Fundo no mesmo clima visual do site moderno.
   const bg=ctx.createLinearGradient(0,0,0,canvas.height);
   bg.addColorStop(0,"#fbfaf7");
@@ -12247,7 +12302,7 @@ async function buildShareImageBlob(){
   ctx.fillText("Separação do Missal",pad+104,headY+70);
 
   // Hero atual.
-  const heroY=160, heroH=475;
+  const heroY=160, heroH=475+heroExtra;
   shadowCard(pad,heroY,cardW,heroH,30,paper);
   fillRound(pad,heroY+35,5,heroH-70,5,liturgical);
 
@@ -12280,7 +12335,7 @@ async function buildShareImageBlob(){
   metaBox(pad+26+col*2,metaY+92,col-18,82,"Observação",d.liturgicalNote||"—");
 
   // Separação rápida: mesmo modelo visual do site, SEM setas somente na imagem.
-  const quickY=660, quickH=142;
+  const quickY=660+heroExtra, quickH=142;
 
   ctx.save();
   ctx.shadowColor="rgba(78,20,28,.10)";
@@ -12347,7 +12402,7 @@ async function buildShareImageBlob(){
   ctx.textBaseline="alphabetic";
 
   // Marcações em cards modernos empilhados para leitura no celular.
-  const sectionY=835;
+  const sectionY=835+heroExtra;
   ctx.fillStyle=ink;
   ctx.font="800 30px Arial, sans-serif";
   ctx.fillText("Marcações do Missal",pad,sectionY);
@@ -12683,11 +12738,21 @@ function weekdayForKey(key){
 
 function getSundayPreview(){
   const today=brasiliaTodayKey();
-  if(weekdayForKey(today)!==6 || Number(brasiliaClockParts().hour)<5) return null;
-  if(getAvailableThrough()<today) return null;
-  const expected=addDaysKey(today,1);
+  const weekday=weekdayForKey(today);
+  const hour=Number(brasiliaClockParts().hour);
   const configured=String(window.MISSAL_STATUS?.sundayPreview || "");
-  return configured===expected && data[expected] ? expected : null;
+  const published=String(window.MISSAL_STATUS?.availableThrough || "");
+  if(weekday===6){
+    const sunday=addDaysKey(today,1);
+    return hour>=5 && published>=today && configured===sunday &&
+      data[sunday] ? sunday : null;
+  }
+  // A prévia já liberada no sábado permanece acessível na madrugada de domingo.
+  if(weekday===0 && hour<5){
+    const saturday=addDaysKey(today,-1);
+    return configured===today && published>=saturday && data[today] ? today : null;
+  }
+  return null;
 }
 
 function getVisibleDates(){
@@ -13177,7 +13242,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-11",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-12",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
