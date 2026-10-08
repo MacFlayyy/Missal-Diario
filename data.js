@@ -19,11 +19,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -107,11 +107,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -195,11 +195,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -610,11 +610,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -691,7 +691,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Revisado automaticamente às 05:00. Saudação corrigida para Saudação A como sugestão. Ato Penitencial corrigido para fórmula/opção válidas.",
+    "note": "Saudação corrigida para Saudação A como sugestão. Ato Penitencial corrigido para fórmula/opção válidas.",
     "liturgicalNote": "27ª semana do Tempo Comum.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
@@ -702,11 +702,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -801,11 +801,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -893,11 +893,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -985,11 +985,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1055,7 +1055,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 410 → 477 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-10-12": {
     "label": "Segunda-feira • 12/10/2026",
@@ -1077,11 +1077,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1164,11 +1164,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1256,11 +1256,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1348,11 +1348,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1440,11 +1440,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1532,11 +1532,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1624,11 +1624,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1694,7 +1694,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 411 → 477 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-10-19": {
     "label": "Segunda-feira • 19/10/2026",
@@ -1716,11 +1716,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1808,11 +1808,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1900,11 +1900,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -1992,11 +1992,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2084,11 +2084,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2176,11 +2176,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2268,11 +2268,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2338,7 +2338,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 412 → 477 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-10-26": {
     "label": "Segunda-feira • 26/10/2026",
@@ -2360,11 +2360,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2452,11 +2452,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2544,11 +2544,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2636,11 +2636,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2728,11 +2728,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2820,11 +2820,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2912,11 +2912,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -2977,7 +2977,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 842 → 843 → 545 → 587",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-11-02": {
     "label": "Segunda-feira • 02/11/2026",
@@ -2999,11 +2999,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3087,11 +3087,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3179,11 +3179,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3271,11 +3271,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3363,11 +3363,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3455,11 +3455,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3547,11 +3547,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3617,7 +3617,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 414 → 477 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",
@@ -3639,11 +3639,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3726,11 +3726,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3818,11 +3818,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -3910,11 +3910,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4002,11 +4002,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4094,11 +4094,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4186,11 +4186,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4256,7 +4256,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 415 → 477 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-11-16": {
     "label": "Segunda-feira • 16/11/2026",
@@ -4278,11 +4278,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4370,11 +4370,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4462,11 +4462,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4554,11 +4554,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4646,11 +4646,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4738,11 +4738,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4830,11 +4830,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -4895,7 +4895,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 425 → 426 → 545 → 585",
-    "cycle": "—"
+    "cycle": "Ano A"
   },
   "2026-11-23": {
     "label": "Segunda-feira • 23/11/2026",
@@ -4917,11 +4917,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5009,11 +5009,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5101,11 +5101,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5193,11 +5193,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5285,11 +5285,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5377,11 +5377,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5469,11 +5469,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5539,7 +5539,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 96 → 451 → 545 → 578",
-    "cycle": "—"
+    "cycle": "Ano B"
   },
   "2026-11-30": {
     "label": "Segunda-feira • 30/11/2026",
@@ -5561,11 +5561,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5653,11 +5653,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5745,11 +5745,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5837,11 +5837,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -5929,11 +5929,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6021,11 +6021,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6113,11 +6113,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6183,7 +6183,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 103 → 451 → 545 → 578",
-    "cycle": "—"
+    "cycle": "Ano B"
   },
   "2026-12-07": {
     "label": "Segunda-feira • 07/12/2026",
@@ -6205,11 +6205,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6297,11 +6297,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6384,11 +6384,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6476,11 +6476,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6568,11 +6568,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6660,11 +6660,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6747,11 +6747,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6817,7 +6817,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 110 → 451 → 545 → 578",
-    "cycle": "—"
+    "cycle": "Ano B"
   },
   "2026-12-14": {
     "label": "Segunda-feira • 14/12/2026",
@@ -6839,11 +6839,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -6931,11 +6931,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7023,11 +7023,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7115,11 +7115,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7207,11 +7207,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7299,11 +7299,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7391,11 +7391,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7461,7 +7461,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 116 → 453 → 545 → 578",
-    "cycle": "—"
+    "cycle": "Ano B"
   },
   "2026-12-21": {
     "label": "Segunda-feira • 21/12/2026",
@@ -7483,11 +7483,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7575,11 +7575,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7667,11 +7667,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7749,7 +7749,7 @@ window.MISSAL_DATA = {
     "color": "Roxa de manhã / Branca à tarde",
     "colorHex": "#6b4f7b",
     "note": "De manhã usa-se o formulário de 24 de dezembro; à tarde/noite começa a Vigília do Natal.",
-    "liturgicalNote": "De manhã usa-se o formulário de 24 de dezembro; à tarde/noite começa a Vigília do Natal.",
+    "liturgicalNote": "Manhã: Missa do dia 24, Advento, cor roxa. Tarde/noite: Vigília de Natal, cor branca. Escolher o prefácio e a bênção adequados à celebração.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
       {
@@ -7759,11 +7759,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7785,16 +7785,20 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "453",
-        "title": "Prefácio do Advento II",
+        "page": "453 / 455",
+        "title": "Prefácio do Advento II / Prefácio do Natal do Senhor I",
         "details": [
           [
-            "Título",
-            "A dupla espera de Cristo"
+            "Manhã",
+            "Prefácio do Advento II — pág. 453"
+          ],
+          [
+            "Vigília do Natal",
+            "Prefácio do Natal do Senhor I — pág. 455"
           ],
           [
             "Uso",
-            "Sugestão"
+            "Escolher conforme a Missa celebrada; confirmar no folheto."
           ]
         ],
         "suggestion": true
@@ -7821,18 +7825,22 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "578",
-        "title": "Bênção Solene — Advento",
+        "page": "578 / 579",
+        "title": "Bênção Solene — Advento / Natal",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Manhã",
+            "Bênção do Advento — pág. 578 (sugestão)"
+          ],
+          [
+            "Vigília",
+            "Bênção do Natal — pág. 579 (sugestão)"
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 124/126 → 453/455 → 545 → 578/579",
+    "quick": "430 → 124 / 126 → 453 / 455 → 545 → 578 / 579",
     "cycle": "—"
   },
   "2026-12-25": {
@@ -7855,11 +7863,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -7876,6 +7884,10 @@ window.MISSAL_DATA = {
           [
             "Escolha",
             "Use a página conforme o horário da Missa"
+          ],
+          [
+            "Formulários alternativos",
+            "Vigília: pág. 126; Noite: pág. 128; Aurora: pág. 130; Dia: pág. 132. Escolher conforme o horário e a Missa."
           ]
         ]
       },
@@ -7928,7 +7940,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 126/128/130/132 → 455 → 545 → 579",
+    "quick": "430 → 126 / 128 / 130 / 132 → 455 → 545 → 579",
     "cycle": "—"
   },
   "2026-12-26": {
@@ -7951,11 +7963,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -8043,11 +8055,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -8113,7 +8125,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 134 → 455 → 545 → 579",
-    "cycle": "—"
+    "cycle": "Ano B"
   },
   "2026-12-28": {
     "label": "Segunda-feira • 28/12/2026",
@@ -8135,11 +8147,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -8227,11 +8239,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -8319,11 +8331,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
@@ -8411,11 +8423,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "“A graça de nosso Senhor Jesus Cristo...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
+            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
           ]
         ],
         "suggestion": true
