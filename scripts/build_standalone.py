@@ -16,13 +16,15 @@ def main():
     data = DATA.read_text(encoding="utf-8").strip()
     status = STATUS.read_text(encoding="utf-8").strip()
 
-    html = html.replace(
-        '<script src="data.js"></script>',
-        '<script>\n' + data + '\n</script>'
+    html = re.sub(
+        r'<script src="data\\.js(?:\\?[^"]*)?"></script>',
+        '<script>\\n' + data + '\\n</script>',
+        html,
     )
-    html = html.replace(
-        '<script src="status.js"></script>',
-        '<script>\n' + status + '\n</script>'
+    html = re.sub(
+        r'<script src="status\\.js(?:\\?[^"]*)?"></script>',
+        '<script>\\n' + status + '\\n</script>',
+        html,
     )
 
     # Recursos locais do PWA não são necessários no visualizador HTML.
