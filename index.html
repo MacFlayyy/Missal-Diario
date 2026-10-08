@@ -3044,6 +3044,18 @@ body.celebration-mode .celebration-exit-footer{
  .quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{width:7px!important;font-size:9px!important}
 }
 </style>
+<style id="qa-improvements-v69">
+@media(max-width:620px){
+  .back-to-top{width:46px!important;height:46px!important}
+}
+.celebration-choice{margin:10px auto 2px;display:flex;gap:8px;justify-content:center;
+  flex-wrap:wrap;align-items:center;width:100%}
+.celebration-choice[hidden]{display:none!important}
+.celebration-choice button{font:800 12px/1.2 inherit;font-family:inherit;font-size:12px;font-weight:800;
+  border:1px solid rgba(125,23,34,.2);color:var(--wine);border-radius:999px;
+  background:#fffdfa;min-height:42px;padding:10px 14px;cursor:pointer}
+.celebration-choice button[aria-pressed="true"]{background:var(--wine);color:white}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3557,7 +3569,8 @@ function drawInstagramMark(ctx,x,y,size,color){
 }
 
 async function shareCurrent(){
-  const url=location.href.split("#")[0];
+  // Um HTML local/embutido nunca deve compartilhar seu caminho temporário.
+  const url="https://macflayyy.github.io/Missal-Diario/";
   if(navigator.share){
     try{
       await navigator.share({url:url});
@@ -3611,7 +3624,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v68";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v69";
   const d=getDisplayEntry(window.currentDateKey);
   if(!d) return null;
 
@@ -3684,6 +3697,36 @@ async function buildShareImageBlob(){
     return y+lines.length*lineHeight;
   }
 
+  // O desenho do resumo é adaptativo: detalhes completos podem ocupar
+  // quantas linhas forem necessárias sem criar reticências.
+  function fullTextLines(value,maxWidth,font){
+    ctx.save();ctx.font=font;
+    const words=String(value||"—").split(/\s+/).filter(Boolean);
+    const lines=[];let line="";
+    for(const word of words){
+      const candidate=line?line+" "+word:word;
+      if(line && ctx.measureText(candidate).width>maxWidth){
+        lines.push(line);line=word;
+      }else line=candidate;
+    }
+    if(line) lines.push(line);
+    ctx.restore();
+    return lines.length?lines:["—"];
+  }
+  function drawAllLines(value,x,y,maxWidth,lineHeight,font,color){
+    const lines=fullTextLines(value,maxWidth,font);
+    ctx.save();ctx.font=font;ctx.fillStyle=color;ctx.textBaseline="top";
+    lines.forEach((line,i)=>ctx.fillText(line,x,y+i*lineHeight));
+    ctx.restore();
+    return lines.length*lineHeight;
+  }
+  function allTapeDetails(tape){
+    return (tape.details||[]).map(pair=>{
+      const meta=labelWithSuggestion(pair[0]);
+      return meta.clean+": "+String(pair[1]||"");
+    }).join(" • ");
+  }
+
   function metaBox(x,y,w,h,label,value){
     const accentHex=liturgical.replace("#","");
     const accentRgb=/^[a-f0-9]{6}$/i.test(accentHex)
@@ -3747,7 +3790,14 @@ async function buildShareImageBlob(){
   const titleLines=countHeroTitleLines(d.celebration);
   const metaStart=Math.max(160+238,160+106+titleLines*48+70);
   const heroExtra=Math.max(0,metaStart+92+82+24-(160+475));
-  canvas.height=1700+heroExtra;
+  // Pré-calcula cada cartão; evita cortar ritos longos na imagem compartilhada.
+  const imageTapes=(d.tapes||[]).slice(0,5);
+  const tapeHeights=imageTapes.map(t=>{
+    const n=fullTextLines(allTapeDetails(t),cardW-36,"600 14px Arial, sans-serif").length;
+    return Math.max(132,87+18*Math.max(2,n)+18);
+  });
+  const totalTapeHeight=tapeHeights.reduce((sum,height)=>sum+height+12,0);
+  canvas.height=Math.max(1700+heroExtra,835+heroExtra+34+totalTapeHeight+100);
 
   // Fundo no mesmo clima visual do site moderno.
   const bg=ctx.createLinearGradient(0,0,0,canvas.height);
@@ -3905,10 +3955,10 @@ async function buildShareImageBlob(){
   ctx.textAlign="left";
 
   let y=sectionY+34;
-  const tapes=(d.tapes||[]).slice(0,5);
-  const tapeH=132;
+  const tapes=imageTapes;
 
   tapes.forEach((t,i)=>{
+    const tapeH=tapeHeights[i];
     shadowCard(pad,y,cardW,tapeH,21,"rgba(255,255,255,.97)");
     fillRound(pad,y+16,4,tapeH-32,4,wine);
 
@@ -3965,11 +4015,8 @@ async function buildShareImageBlob(){
 
     drawLines(t.title||"—",pad+18,y+54,cardW-90,25,2,"800 23px Arial, sans-serif",ink);
 
-    const details=(t.details||[]).slice(0,2).map(pair=>{
-      const meta=labelWithSuggestion(pair[0]);
-      return meta.clean+": "+String(pair[1]||"");
-    }).join(" • ");
-    drawLines(details,pad+18,y+87,cardW-36,18,2,"600 14px Arial, sans-serif",muted);
+    drawAllLines(allTapeDetails(t),pad+18,y+87,cardW-36,18,
+      "600 14px Arial, sans-serif",muted);
 
     y+=tapeH+12;
   });
@@ -3985,6 +4032,8 @@ async function buildShareImageBlob(){
   ctx.font="700 12px Arial, sans-serif";
   ctx.textAlign="right";
   ctx.fillText("criado por @macflayyy",canvas.width-pad-18,footerY+29);
+  const creditW=ctx.measureText("criado por @macflayyy").width;
+  drawInstagramMark(ctx,canvas.width-pad-28-creditW-18,footerY+17,14,wine);
   ctx.textAlign="left";
 
   return new Promise(resolve=>canvas.toBlob(resolve,"image/png",1));
@@ -4557,7 +4606,7 @@ function getDominicalLeafletUrl(){
   // 3) Se ainda não saiu, usa o domingo anterior mais recente.
   // Depois que o domingo passa, ele continua sendo o fallback até
   // o folheto do próximo domingo ser publicado.
-  if(statusDate && statusDate < targetSunday){
+  if(statusDate && statusDate < targetSunday && weekdayForKey(statusDate)===0){
     const previousUrl=directUrl(window.MISSAL_STATUS);
     if(previousUrl) return previousUrl;
   }
@@ -4570,6 +4619,9 @@ function getDominicalLeafletUrl(){
     .reverse();
 
   for(const key of registeredDates){
+    // Um folheto especial (dia de semana) só vale no próprio dia,
+    // nunca como substituto de um folheto dominical.
+    if(weekdayForKey(key)!==0) continue;
     const url=directUrl(data[key]);
     if(url) return url;
   }
