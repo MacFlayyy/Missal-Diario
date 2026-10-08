@@ -2970,7 +2970,7 @@ body.celebration-mode .celebration-context .celebration-exit{
 body.celebration-mode .celebration-exit-footer{
   display:block!important;width:max-content;max-width:100%;margin:24px auto 36px;
   padding:13px 22px;border:0;border-radius:14px;background:var(--wine);color:#fff;
-  font:800 14px/1.2 inherit;box-shadow:0 8px 20px rgba(78,20,28,.15);
+  font-family:inherit;font-size:14px;font-weight:800;line-height:1.2;box-shadow:0 8px 20px rgba(78,20,28,.15);
 }
 @media(max-width:620px){
   body.celebration-mode .shell{padding-top:10px!important}
@@ -12547,7 +12547,7 @@ function render(dateKey){
   document.getElementById("liturgicalNote").textContent = d.liturgicalNote || "—";
   document.getElementById("colorSide").textContent = d.color;
   document.getElementById("colorDot").style.background = palette.dot || d.colorHex;
-  document.getElementById("note").textContent = d.note;
+  document.getElementById("note").textContent = [d.note,window.MISSAL_STATUS?.calendarWarning].filter(Boolean).join(" ");
   document.getElementById("quickSep").textContent = d.quick;
   renderQuickSteps(d.quick);
   document.getElementById("sourceBadge").textContent = d.source;
@@ -13110,7 +13110,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-8",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-9",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
