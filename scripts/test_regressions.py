@@ -115,6 +115,14 @@ def check_liturgical_integrity():
         pass
     else:
         raise AssertionError("Página da Fita 2 inventada em vez de bloquear publicação")
+    missing=copy.deepcopy(data["2026-10-08"])
+    missing["tapes"]=[t for t in missing["tapes"] if t["n"] != 3]
+    try:
+        module.repair_entry(missing)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("Fita faltante foi recriada com página fictícia")
     print(f"PASSOU integridade litúrgica: {len(data)} datas, ciclos e páginas sem invenções")
 
 def main():
