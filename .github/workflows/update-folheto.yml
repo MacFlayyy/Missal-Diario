@@ -1,44 +1,101 @@
-name: Publicar site no GitHub Pages
+name: Atualizar Missal Diário
 
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
+  schedule:
+    # GitHub Actions usa UTC; Brasília é UTC-3.
+    # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
+    - cron: "0 7 * * *"   # 04:00 Brasília
+    - cron: "30 7 * * *"  # 04:30 Brasília
+    - cron: "50 7 * * *"  # 04:50 Brasília
+    - cron: "0 8 * * *"   # 05:00 Brasília (tentativa principal)
+    - cron: "10 8 * * *"  # 05:10 Brasília
+    - cron: "30 8 * * *"  # 05:30 Brasília
+    - cron: "0 9 * * *"   # 06:00 Brasília
+
+concurrency:
+  group: missal-diario-daily
+  cancel-in-progress: false
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
-
 jobs:
-  deploy:
+  update:
+    if: github.event_name == 'schedule' || github.actor == 'MacFlayyy'
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
+
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Gerar HTML completo a partir do site principal
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Verificar folhetos e atualizar o site
+        run: python scripts/update_folheto.py
+
+      - name: Revisar e liberar o Missal do dia
+        run: python scripts/validate_daily.py
+
+      - name: Atualizar versão diária e evitar cache antigo
+        run: python scripts/bump_daily_version.py
+
+      - name: Atualizar versão HTML completa do ChatGPT
         run: python scripts/build_standalone.py
 
-      - name: Testar HTML, navegação e prévia de domingo
+      - name: Validar tudo antes de publicar
+        run: python scripts/verify_daily.py
+
+      - name: Testar regressões antes da publicação
         run: python scripts/test_regressions.py
 
-      - name: Configurar Pages
+      - name: Salvar alterações no repositório
+        run: |
+          if git diff --quiet; then
+            echo "Arquivos do dia já estavam corretos."
+            exit 0
+          fi
+
+          git config user.name "Missal Diário Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data.js status.js index.html sw.js Missal-Diario-Standalone.html
+          git commit -m "Atualiza Missal Diário automaticamente"
+
+          # Se houve alguma alteração no main enquanto esta execução rodava,
+          # reaplica o commit sobre a versão mais recente antes do push.
+          git pull --rebase origin main
+          git push origin main
+
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Enviar arquivos
+      - name: Preparar arquivos do site
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
 
-      - name: Publicar
+      - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Confirmar publicação pública
+        run: python scripts/check_publication.py
