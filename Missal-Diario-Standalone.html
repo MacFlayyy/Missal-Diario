@@ -12747,8 +12747,9 @@ function getSundayPreview(){
     return hour>=5 && published>=today && configured===sunday &&
       data[sunday] ? sunday : null;
   }
-  // A prévia já liberada no sábado permanece acessível na madrugada de domingo.
-  if(weekday===0 && hour<5){
+  // A prévia já liberada no sábado permanece acessível na madrugada de domingo
+  // e durante eventuais atrasos da atualização dominical após as 05h.
+  if(weekday===0){
     const saturday=addDaysKey(today,-1);
     return configured===today && published>=saturday && data[today] ? today : null;
   }
@@ -13242,7 +13243,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-12",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-13",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
