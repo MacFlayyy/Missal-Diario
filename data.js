@@ -686,7 +686,7 @@ window.MISSAL_DATA = {
     "label": "Quinta-feira • 08/10/2026",
     "celebration": "27ª Semana do Tempo Comum",
     "subtitle": "Tempo Comum",
-    "saint": "—",
+    "saint": "Sem memória litúrgica própria neste dia",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
     "color": "Verde",
