@@ -90,6 +90,19 @@ def save_status(key, data):
                 and all(is_valid_page(t.get("page")) for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
+    # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
+    # Nunca gera páginas do Missal por adivinhação.
+    from datetime import date, timedelta
+    if data:
+        calendar_end = max(data.keys())
+        payload["calendarDataThrough"] = calendar_end
+        if date.fromisoformat(calendar_end) < now.date() + timedelta(days=30):
+            payload["calendarWarning"] = (
+                f"O calendário está cadastrado somente até {calendar_end}. "
+                "Novas datas precisam ser preparadas e revisadas para continuar a publicação."
+            )
+            print("::warning title=Calendário litúrgico próximo do fim::" + payload["calendarWarning"])
+
     for field in (
         "sundayLeafletDate",
         "sundayLeafletDesktopUrl",
