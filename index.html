@@ -3167,7 +3167,7 @@ body.celebration-mode .celebration-exit-footer{
         </a>
       </div>
       <div class="footer-auto">
-        Atualização automática ativada: às 05:00 o novo Missal é atualizado, revisado, corrigido automaticamente se necessário e então publicado.
+        Atualização automática programada para as 05h (horário de Brasília), sujeita à conclusão dos testes e à disponibilidade do GitHub Pages.
         <div class="last-update" id="lastUpdateText"></div>
       </div>
     </div>
@@ -3629,7 +3629,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v69";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v70";
   const d=getDisplayEntry(window.currentDateKey);
   if(!d) return null;
 
@@ -4811,7 +4811,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-13",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-14",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
