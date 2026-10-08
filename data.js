@@ -279,11 +279,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
@@ -359,11 +359,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 3ª opção",
-            "De coração contrito e humilde..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ]
       },
@@ -435,11 +435,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
@@ -523,11 +523,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística..."
+            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
           ]
         ],
         "suggestion": true
