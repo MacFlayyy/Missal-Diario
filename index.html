@@ -2997,8 +2997,8 @@
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js"></script>
-<script src="status.js"></script>
+<script src="data.js?v=20261008"></script>
+<script src="status.js?v=20261008"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -4352,7 +4352,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=64",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
