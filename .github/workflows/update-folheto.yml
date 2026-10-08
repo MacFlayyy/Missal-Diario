@@ -11,14 +11,21 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 jobs:
   update:
     if: github.event_name == 'schedule' || github.actor == 'MacFlayyy'
     permissions:
       contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
@@ -52,3 +59,15 @@ jobs:
           git add data.js status.js Missal-Diario-Standalone.html
           git commit -m "Atualiza Missal Diário"
           git push
+
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Preparar arquivos do site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+
+      - name: Publicar imediatamente no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
