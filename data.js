@@ -691,7 +691,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Saudação corrigida para Saudação A como sugestão. Ato Penitencial corrigido para fórmula/opção válidas.",
+    "note": "Indicações dos Ritos Iniciais apresentadas como sugestões; conferir os textos no Missal Romano e no folheto oficial, quando disponível.",
     "liturgicalNote": "27ª semana do Tempo Comum.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
