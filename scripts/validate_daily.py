@@ -223,8 +223,10 @@ def repair_entry(entry):
     # Fita 1 — nomenclatura usada no site:
     # "Saudação A" e "Ato Penitencial — Segunda fórmula, 2ª opção".
     f1 = by_n[1]
-    f1["page"] = "430"
-    f1["title"] = "Ritos Iniciais"
+    if not is_valid_page(f1.get("page")):
+        raise RuntimeError("Página dos Ritos Iniciais ausente ou inválida.")
+    if not str(f1.get("title","")).strip():
+        raise RuntimeError("Título dos Ritos Iniciais ausente.")
 
     details = f1.get("details", [])
     saud_row = next(
@@ -238,22 +240,20 @@ def repair_entry(entry):
         None
     )
 
-    if saud_row is None or not re.search(r"Saudação\\s+[A-H]", str(saud_row[0]), re.I):
-        saud_row = ["Saudação A • sugestão", "“A graça de nosso Senhor Jesus Cristo...”"]
-        fixes.append("Saudação corrigida para Saudação A como sugestão.")
+    if saud_row is None or not re.search(r"Saudação\s+[A-H]", str(saud_row[0]), re.I):
+        raise RuntimeError("Saudação não identificada: conferir a fórmula indicada no folheto.")
 
     if ato_row is None or not re.search(
-        r"(Primeira|Segunda|Terceira)\\s+fórmula,\\s*\\dª\\s+opção",
+        r"(Primeira|Segunda|Terceira)\s+fórmula(?:,\s*\dª\s+opção)?",
         str(ato_row[0]),
         re.I
     ):
-        ato_row = [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "“No início desta celebração eucarística...”"
-        ]
-        fixes.append("Ato Penitencial corrigido para fórmula/opção válidas.")
+        if not (ato_row and "Invocações alternativas para os diversos tempos" in str(ato_row[0])):
+            raise RuntimeError("Ato Penitencial não identificado: conferir fórmula ou invocações.")
 
-    f1["details"] = [saud_row, ato_row]
+    # Preserva outros detalhes e fórmulas oficiais existentes.
+    # As referências abreviadas são corrigidas no cadastro, nunca inventadas aqui.
+    f1["details"] = details
 
     # Fita 2 — página da Missa do dia deve existir no cadastro.
     # Não inventamos página. Se já houver uma página válida, preservamos.
@@ -262,49 +262,23 @@ def repair_entry(entry):
         f2["title"] = entry.get("celebration","Missa do dia")
         fixes.append("Título da Fita 2 corrigido.")
     if not is_valid_page(f2.get("page")):
-        # Tenta recuperar de um campo conhecido no próprio título/detalhes.
-        text = json.dumps(f2, ensure_ascii=False)
-        m = re.search(r"\b(\d{2,4})\b", text)
-        if m:
-            f2["page"] = m.group(1)
-            fixes.append("Página da Fita 2 recuperada do próprio cadastro.")
-        else:
-            # Último recurso: mantém explícito que precisa do formulário já cadastrado,
-            # mas não cria número falso.
-            f2["page"] = "430"
-            f2["title"] = f"{entry.get('celebration','Missa do dia')} — revisar formulário"
-            f2["details"] = [["Aviso","Página do formulário não foi encontrada; usar o Missal do dia antes da celebração."]]
-            fixes.append("Fita 2 recebeu fallback seguro por ausência de página cadastrada.")
+        raise RuntimeError("Página da Missa do dia inválida: cadastrar a página correta antes de publicar.")
 
     # Fita 3
     f3 = by_n[3]
     if not is_valid_page(f3.get("page")) or "prefácio" not in str(f3.get("title","")).lower():
-        p, title, sub = infer_preface(entry)
-        f3["page"] = p
-        f3["title"] = title
-        f3["details"] = [["Título",sub],["Uso","Sugestão automática revisada"]]
-        f3["suggestion"] = True
-        fixes.append("Prefácio corrigido automaticamente.")
+        raise RuntimeError("Prefácio ausente/inválido: conferir o Missal ou folheto antes de publicar.")
 
     # Fita 4
     f4 = by_n[4]
     if str(f4.get("page","")) not in {"523","536","545","554","564"} or "oração eucarística" not in str(f4.get("title","")).lower():
-        solemn = any(x in str(entry.get("grade","")).lower() for x in ["domingo","festa","solenidade"])
-        f4["page"] = "545" if solemn else "536"
-        f4["title"] = "Oração Eucarística III" if solemn else "Oração Eucarística II"
-        f4["suggestion"] = True
-        fixes.append("Oração Eucarística corrigida automaticamente.")
+        raise RuntimeError("Oração Eucarística ausente/inválida: conferir o folheto.")
     ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
 
     # Fita 5 — Bênção
     f5 = by_n[5]
     if not is_valid_page(f5.get("page")) or "bênção" not in str(f5.get("title","")).lower():
-        p, title = infer_blessing(entry)
-        f5["page"] = p
-        f5["title"] = title
-        f5["details"] = [["Uso","Sugestão automática revisada"]]
-        f5["suggestion"] = True
-        fixes.append("Bênção corrigida automaticamente.")
+        raise RuntimeError("Bênção ausente/inválida: conferir antes de publicar.")
 
     # Reconstrói separação rápida SEMPRE, evitando inconsistência.
     entry["quick"] = " → ".join(
@@ -314,7 +288,7 @@ def repair_entry(entry):
     )
 
     if fixes:
-        note = "Revisado automaticamente às 05:00. " + " ".join(fixes)
+        note = "Conferência automática registrada. " + " ".join(fixes)
         entry["note"] = note
         entry["autoReview"] = {
             "reviewed": True,
