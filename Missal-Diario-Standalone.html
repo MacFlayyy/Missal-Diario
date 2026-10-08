@@ -2818,6 +2818,29 @@
       }
     }
 
+
+    /* Os indicadores litúrgicos acompanham a cor da celebração selecionada. */
+    #colorName,#colorSide{color:var(--liturgical-deep)!important}
+    .meta-item:nth-child(4){
+      box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--liturgical) 25%,transparent)!important;
+    }
+    .calendar-day.active{
+      background:color-mix(in srgb,var(--day-color,var(--liturgical)) 16%,#fff)!important;
+      color:#302a26!important;
+      box-shadow:inset 0 0 0 1.5px var(--day-color,var(--liturgical))!important;
+    }
+    .calendar-day.active .calendar-liturgical-dot{
+      background:var(--day-color,var(--liturgical))!important;
+      box-shadow:0 0 0 1px rgba(255,255,255,.95)!important;
+    }
+    .quick .quick-step,
+    body.celebration-mode .quick .quick-step,
+    .prepare-missal-sequence .quick-step{
+      background:color-mix(in srgb,var(--liturgical) 12%,#fff)!important;
+      border-color:color-mix(in srgb,var(--liturgical) 34%,#fff)!important;
+      color:var(--liturgical-deep)!important;
+    }
+
 </style>
   <!-- Cloudflare Web Analytics -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"cb75642ba0fd461cb190865b8bbc390e"}'></script>
@@ -11514,7 +11537,7 @@ function normalizeColorName(value){
 }
 
 function applyLiturgicalColor(name,fallbackHex){
-  const normalized = normalizeColorName(name);
+  const normalized = normalizeColorName(name).replace(/\bbranca\b/g,"branco").replace(/\bros[aé]a\b/g,"roseo");
   const key = Object.keys(liturgicalPalettes).find(k => normalized.includes(k));
   const fallback = {
     accent:fallbackHex || "#c8a96a", dot:fallbackHex || "#c8a96a",
@@ -12852,7 +12875,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-4",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
