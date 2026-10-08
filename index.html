@@ -2958,6 +2958,40 @@ body.celebration-mode .quick .quick-arrow,
 .hero-main .meta-item span{color:#62574f!important}
 .hero-main .meta-item::after{right:-14px!important;bottom:-15px!important;width:39px!important;height:39px!important;opacity:.3!important;box-shadow:0 0 0 5px var(--liturgical-soft),0 0 14px var(--liturgical-glow)!important}
 </style>
+<style id="accessibility-and-stability-v65">
+/* A saída do modo celebração passa a fazer parte do cabeçalho, nunca cobre as fitas ao rolar. */
+body.celebration-mode .celebration-context{
+  position:relative!important; padding-top:62px!important;
+}
+body.celebration-mode .celebration-context .celebration-exit{
+  display:inline-flex!important; align-items:center;justify-content:center;
+  position:absolute!important;top:13px!important;right:13px!important;bottom:auto!important;
+  min-width:76px!important;height:40px!important;z-index:3!important;
+}
+.celebration-exit-footer{display:none;cursor:pointer}
+body.celebration-mode .celebration-exit-footer{
+  display:block!important;width:max-content;max-width:100%;margin:24px auto 36px;
+  padding:13px 22px;border:0;border-radius:14px;background:var(--wine);color:#fff;
+  font:800 14px/1.2 inherit;box-shadow:0 8px 20px rgba(78,20,28,.15);
+}
+@media(max-width:620px){
+  body.celebration-mode .shell{padding-top:10px!important}
+  body.celebration-mode .celebration-context{padding:58px 16px 18px!important}
+  body.celebration-mode .celebration-context .celebration-exit{
+    top:12px!important;right:12px!important;min-width:76px!important;height:40px!important;
+  }
+  body.celebration-mode .celebration-context-date{font-size:11px!important;letter-spacing:.045em!important}
+  .meta-item span{font-size:10.5px!important}
+  .mobile-nav button{min-height:58px!important}
+  #mobileLeafletBtn span{font-size:10px!important}
+  .quick .quick-step,body.celebration-mode .quick .quick-step,
+  .prepare-missal-sequence .quick-step{font-size:12px!important}
+}
+@media(max-width:340px){
+  .quick .quick-step,body.celebration-mode .quick .quick-step,
+  .prepare-missal-sequence .quick-step{font-size:11px!important}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3152,8 +3186,19 @@ function normalizeColorName(value){
   return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
 }
 
+function effectiveLiturgicalColorName(name,dateKey){
+  const value=normalizeColorName(name);
+  // A escolha da cor é vinculada à celebração; cores opcionais não se tornam róseas por padrão.
+  if(value.includes("roxa") && value.includes("ou rosea")) return "roxo";
+  if(value.includes("roxa de manha") && value.includes("branca a tarde")){
+    const afternoon=dateKey===brasiliaTodayKey() && Number(brasiliaClockParts().hour)>=12;
+    return afternoon ? "branco" : "roxo";
+  }
+  return value.replace(/\bbranca\b/g,"branco").replace(/\b(?:rosea|rosa)\b/g,"roseo");
+}
+
 function applyLiturgicalColor(name,fallbackHex){
-  const normalized = normalizeColorName(name).replace(/\bbranca\b/g,"branco").replace(/\b(?:rosea|rosa)\b/g,"roseo");
+  const normalized = effectiveLiturgicalColorName(name,window.currentDateKey);
   const key = Object.keys(liturgicalPalettes).find(k => normalized.includes(k));
   const fallback = {
     accent:fallbackHex || "#c8a96a", dot:fallbackHex || "#c8a96a",
@@ -3402,9 +3447,8 @@ function buildDetailedCopyText(dateKey){
 }
 
 async function writeClipboard(value){
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    await navigator.clipboard.writeText(value);
-    return;
+  if(navigator.clipboard?.writeText){
+    try{await navigator.clipboard.writeText(value);return true;}catch(_e){/* fallback manual */ }
   }
   const ta=document.createElement("textarea");
   ta.value=value;
@@ -3413,22 +3457,26 @@ async function writeClipboard(value){
   document.body.appendChild(ta);
   ta.focus();
   ta.select();
-  document.execCommand("copy");
-  ta.remove();
+  let copied=false;
+  try{copied=document.execCommand("copy")===true;}finally{ta.remove();}
+  if(!copied) throw new Error("A cópia não foi autorizada.");
+  return true;
 }
 
 async function copyQuickSeparation(showFeedback){
   const value=buildDetailedCopyText();
-  if(!value) return;
-  try{ await writeClipboard(value); }catch(e){}
+  if(!value) return false;
+  let copied=false;
+  try{copied=await writeClipboard(value);}catch(_e){copied=false;}
   if(showFeedback){
     const btn=document.getElementById("copyQuickBtn");
     if(btn){
       const old=btn.innerHTML;
-      btn.innerHTML="✓ <span>Copiado completo</span>";
-      setTimeout(function(){btn.innerHTML=old;},1400);
+      btn.innerHTML=copied ? "✓ <span>Copiado completo</span>" : "Não foi possível copiar";
+      setTimeout(function(){btn.innerHTML=old;},1800);
     }
   }
+  return copied;
 }
 
 function loadImage(src){
@@ -3466,8 +3514,12 @@ async function shareCurrent(){
       if(e && e.name==="AbortError") return;
     }
   }
-  try{ await writeClipboard(url); }catch(e){}
-  alert("Link do site/app copiado para compartilhar.");
+  try{
+    await writeClipboard(url);
+    alert("Link do site/app copiado para compartilhar.");
+  }catch(_e){
+    alert("Não foi possível copiar o link. Use a barra de endereço para compartilhar.");
+  }
 }
 
 function wrapCanvasText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
@@ -3606,9 +3658,24 @@ async function buildShareImageBlob(){
     ctx.font="800 12px Arial, sans-serif";
     ctx.textBaseline="top";
     ctx.fillText(String(label).toUpperCase(),x+16,y+14);
-    const longLabel = /santo/i.test(label);
-    drawLines(value,x+16,y+36,w-32,longLabel?17:19,longLabel?3:2,
-      longLabel?"700 15px Arial, sans-serif":"700 18px Arial, sans-serif",ink);
+    // Ajusta o tamanho da fonte antes de limitar linhas; evita truncar casos longos.
+    const text=String(value||"—"),maxWidth=w-32;
+    const maxLines=4;
+    function fits(size){
+      ctx.font="700 "+size+"px Arial, sans-serif";
+      let lines=1, current="";
+      for(const word of text.split(/\s+/).filter(Boolean)){
+        const test=current?current+" "+word:word;
+        if(ctx.measureText(test).width<=maxWidth){current=test;}
+        else if(!current){return false;}
+        else{lines++;current=word;if(lines>maxLines || ctx.measureText(word).width>maxWidth)return false;}
+      }
+      return true;
+    }
+    let size=17;
+    while(size>9 && !fits(size)) size--;
+    drawLines(text,x+16,y+34,maxWidth,Math.max(11,size+2),maxLines,
+      "700 "+size+"px Arial, sans-serif",ink);
   }
 
   // Fundo no mesmo clima visual do site moderno.
@@ -4062,7 +4129,8 @@ function weekdayForKey(key){
 
 function getSundayPreview(){
   const today=brasiliaTodayKey();
-  if(weekdayForKey(today)!==6) return null;
+  if(weekdayForKey(today)!==6 || Number(brasiliaClockParts().hour)<5) return null;
+  if(getAvailableThrough()<today) return null;
   const expected=addDaysKey(today,1);
   const configured=String(window.MISSAL_STATUS?.sundayPreview || "");
   return configured===expected && data[expected] ? expected : null;
@@ -4127,7 +4195,7 @@ function monthShift(key,delta){
 function calendarColorForDate(key){
   const d=data[key];
   if(!d) return "#c8a96a";
-  const name=normalizeColorName(d.color);
+  const name=effectiveLiturgicalColorName(d.color,key);
   if(name.includes("verde")) return "#2f6347";
   if(name.includes("branc")) return "#9a7325";
   if(name.includes("vermelh")) return "#8f2631";
@@ -4254,10 +4322,12 @@ const prepareLabels=["Ritos Iniciais","Missa do dia","Prefácio","Oração Eucar
 function prepareEscapeHtml(value){
   return String(value ?? "").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
 }
+let preparePreviousFocus=null;
 function setPrepareMissal(open){
   const overlay=document.getElementById("prepareMissalOverlay");
   if(!overlay) return;
   if(open){
+    preparePreviousFocus=document.activeElement;
     const d=data[window.currentDateKey];
     if(!d) return;
     document.getElementById("prepareMissalCelebration").textContent=d.celebration || "Celebração";
@@ -4276,10 +4346,27 @@ function setPrepareMissal(open){
     document.body.classList.add("prepare-missal-open");
     document.getElementById("prepareMissalClose")?.focus();
   }else{
+    if(overlay.hidden) return;
     overlay.hidden=true;
     document.body.classList.remove("prepare-missal-open");
+    if(preparePreviousFocus?.isConnected) preparePreviousFocus.focus();
+    preparePreviousFocus=null;
   }
 }
+
+document.addEventListener("keydown",e=>{
+  const overlay=document.getElementById("prepareMissalOverlay");
+  if(e.key!=="Tab" || !overlay || overlay.hidden) return;
+  const controls=[...overlay.querySelectorAll("button:not([disabled]),a[href],input:not([disabled]),[tabindex='0']")]
+    .filter(el=>el.getClientRects().length>0);
+  if(!controls.length) return;
+  const first=controls[0],last=controls[controls.length-1];
+  if(e.shiftKey && (document.activeElement===first || !overlay.contains(document.activeElement))){
+    e.preventDefault();last.focus();
+  }else if(!e.shiftKey && (document.activeElement===last || !overlay.contains(document.activeElement))){
+    e.preventDefault();first.focus();
+  }
+});
 
 document.getElementById("prepareMissalBtn")?.addEventListener("click",()=>setPrepareMissal(true));
 document.getElementById("prepareMissalClose")?.addEventListener("click",()=>setPrepareMissal(false));
@@ -4329,12 +4416,13 @@ function getDominicalLeafletUrl(){
     );
 
     const preferred=mobile ? mobileUrl : desktop;
-    if(/^https:\/\//i.test(preferred)) return preferred;
+    const isPdf=url=>/^https:\/\//i.test(url) && /\.pdf(?:[?#]|$)/i.test(url);
+    if(isPdf(preferred)) return preferred;
 
     const alternate=mobile ? desktop : mobileUrl;
-    if(/^https:\/\//i.test(alternate)) return alternate;
+    if(isPdf(alternate)) return alternate;
 
-    if(/^https:\/\//i.test(generic)) return generic;
+    if(isPdf(generic)) return generic;
     return "";
   }
 
@@ -4376,11 +4464,13 @@ function getDominicalLeafletUrl(){
     if(url) return url;
   }
 
-  return "https://arqbrasilia.com.br/o-povo-de-deus-2/";
+  return "";
 }
 
 function openDominicalLeaflet(){
-  window.open(getDominicalLeafletUrl(),"_blank","noopener,noreferrer");
+  const url=getDominicalLeafletUrl();
+  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return;}
+  window.open(url,"_blank","noopener,noreferrer");
 }
 
 document.getElementById("desktopLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
@@ -4432,6 +4522,18 @@ document.getElementById("todayBtn")?.addEventListener("click",()=>{
   window.scrollTo({top:0,behavior:"smooth"});
 });
 
+const celebrationContextNode=document.getElementById("celebrationContext");
+const celebrationExitNode=document.getElementById("celebrationModeExit");
+if(celebrationContextNode && celebrationExitNode) celebrationContextNode.prepend(celebrationExitNode);
+const tapesNode=document.getElementById("tapes");
+if(tapesNode){
+  const bottomExit=document.createElement("button");
+  bottomExit.type="button";
+  bottomExit.className="celebration-exit-footer";
+  bottomExit.textContent="Sair do modo celebração";
+  bottomExit.addEventListener("click",()=>setCelebrationMode(false));
+  tapesNode.insertAdjacentElement("afterend",bottomExit);
+}
 function setCelebrationMode(on){
   document.body.classList.toggle("celebration-mode",on);
   if(on) window.scrollTo({top:0,behavior:"smooth"});
@@ -4513,7 +4615,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-7",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261008-8",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
