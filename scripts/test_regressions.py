@@ -33,6 +33,14 @@ def verify_html(path,standalone=False):
     assert "const sectionY=835+heroExtra" in html,path
     assert "madrugada de domingo" in html,path
     assert "effectiveLiturgicalColorName" in html,path
+    assert 'if(weekdayForKey(key)!==0) continue;' in html,path
+    assert 'const url="https://macflayyy.github.io/Missal-Diario/";' in html,path
+    assert "const tapeH=tapeHeights[i]" in html,path
+    assert "drawAllLines(allTapeDetails(t)" in html,path
+    assert "drawInstagramMark(ctx,canvas.width-pad" in html,path
+    assert 'id="dec24MassChoice"' in html,path
+    assert "december24Choice=" in html,path
+    assert "sujeita à conclusão dos testes" in html,path
     assert 'if(!url){alert("O folheto em PDF' in html,path
     assert 'bottomExit.textContent="Sair do modo celebração"' in html,path
     assert 'madrugada de domingo' in html,path
@@ -140,11 +148,49 @@ def check_liturgical_integrity():
         raise AssertionError("Fita faltante foi recriada com página fictícia")
     print(f"PASSOU integridade litúrgica: {len(data)} datas, ciclos e páginas sem invenções")
 
+def check_leaflet_fallback():
+    """Teste executável: PDFs feriais nunca substituem domingos no fallback."""
+    html=INDEX.read_text(encoding="utf-8")
+    start=html.index("function getDominicalLeafletUrl(){")
+    end=html.index("function openDominicalLeaflet(){",start)
+    code=html[start:end]
+    stub=r"""
+const data={
+  "2026-10-05":{folhetoDesktopUrl:"https://example.org/weekday.pdf"}
+};
+const window={MISSAL_STATUS:{}};
+let today="2026-10-08";
+function brasiliaTodayKey(){return today;}
+function weekdayForKey(key){return new Date(key+"T12:00:00Z").getUTCDay();}
+function addDaysKey(key,n){
+  const d=new Date(key+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);
+  return d.toISOString().slice(0,10);
+}
+function sundayKeyForLeaflet(){return "2026-10-11";}
+function isMobileLeafletDevice(){return false;}
+"""
+    checks=r"""
+if(getDominicalLeafletUrl()!=="")throw Error("PDF ferial escolhido como dominical");
+data["2026-10-04"]={folhetoDesktopUrl:"https://example.org/sunday.pdf"};
+if(getDominicalLeafletUrl()!=="https://example.org/sunday.pdf")throw Error("Fallback do domingo anterior falhou");
+data["2026-10-08"]={folhetoDesktopUrl:"https://example.org/special.pdf"};
+if(getDominicalLeafletUrl()!=="https://example.org/special.pdf")throw Error("Folheto especial do próprio dia perdeu prioridade");
+delete data["2026-10-08"];
+window.MISSAL_STATUS={sundayLeafletDate:"2026-10-07",sundayLeafletDesktopUrl:"https://example.org/wrong.pdf"};
+if(getDominicalLeafletUrl()!=="https://example.org/sunday.pdf")throw Error("Status semanal com dia ferial interferiu no domingo");
+console.log("PASSOU fallback PDF: domingo, folheto ferial do próprio dia, status inválido");
+"""
+    p=subprocess.run(["node","-e",stub+"\n"+code+"\n"+checks],
+                     capture_output=True,text=True)
+    assert p.returncode==0,p.stderr
+    print(p.stdout.strip())
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
     check_saturday_preview()
     check_liturgical_integrity()
+    check_leaflet_fallback()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
