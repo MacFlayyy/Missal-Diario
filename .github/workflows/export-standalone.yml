@@ -1,0 +1,26 @@
+name: Exportar HTML completo
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Missal-Diario-Standalone.html"
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+
+      - name: Disponibilizar HTML completo
+        uses: actions/upload-artifact@v4
+        with:
+          name: missal-diario-html-completo
+          path: Missal-Diario-Standalone.html
+          if-no-files-found: error
+          retention-days: 7
