@@ -36,6 +36,7 @@ def verify_html(path,standalone=False):
     assert 'if(!url){alert("O folheto em PDF' in html,path
     assert 'bottomExit.textContent="Sair do modo celebração"' in html,path
     assert 'madrugada de domingo' in html,path
+    assert 'if(weekday===0)' in html,path
     assert 'configured===today && published>=saturday' in html,path
     if standalone:
         assert html.count("window.MISSAL_DATA =")==1, "data.js não incorporado"
