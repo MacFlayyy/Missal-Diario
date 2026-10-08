@@ -2,7 +2,7 @@
 """Falha a automação se o Missal do dia não estiver realmente pronto."""
 
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 import json
 import re
@@ -34,6 +34,12 @@ def main():
         )
     if f'"{today}"' not in standalone:
         errors.append(f"standalone não contém {today}")
+
+    now = datetime.now(TZ)
+    if now.weekday() == 5:
+        next_sunday = (now.date() + timedelta(days=1)).isoformat()
+        if next_sunday in data and status.get("sundayPreview") != next_sunday:
+            errors.append(f"Prévia dominical não foi liberada para {next_sunday}")
 
     if errors:
         raise SystemExit("PUBLICAÇÃO BLOQUEADA:\n- " + "\n- ".join(errors))
