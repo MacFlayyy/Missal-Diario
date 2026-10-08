@@ -186,17 +186,13 @@ def repair_entry(entry):
 
     # Cabeçalho: só corrige campos em branco usando dados coerentes e genéricos.
     if not str(entry.get("celebration","")).strip():
-        entry["celebration"] = "Missa do dia"
-        fixes.append("Celebração preenchida.")
+        raise RuntimeError("Celebração litúrgica não cadastrada.")
     if not str(entry.get("grade","")).strip():
-        entry["grade"] = "Dia de semana"
-        fixes.append("Grau litúrgico preenchido.")
+        raise RuntimeError("Grau litúrgico não cadastrado.")
     if not str(entry.get("season","")).strip():
-        entry["season"] = "Tempo Comum"
-        fixes.append("Tempo litúrgico preenchido.")
+        raise RuntimeError("Tempo litúrgico não cadastrado.")
     if entry.get("color") not in VALID_COLORS:
-        entry["color"] = "Verde" if entry["season"] == "Tempo Comum" else "Roxa"
-        fixes.append("Cor litúrgica corrigida.")
+        raise RuntimeError("Cor litúrgica não reconhecida; confirmar celebração.")
     if not str(entry.get("liturgicalNote","")).strip():
         entry["liturgicalNote"] = "Separação revisada automaticamente antes da publicação."
         fixes.append("Observação litúrgica preenchida.")
@@ -204,20 +200,9 @@ def repair_entry(entry):
     tapes = entry.setdefault("tapes", [])
     by_n = {t.get("n"): t for t in tapes if isinstance(t, dict)}
 
-    # Cria fitas que eventualmente tenham desaparecido.
-    defaults = {
-        1: {"n":1,"page":"430","title":"Ritos Iniciais","details":[]},
-        2: {"n":2,"page":"—","title":"Missa do dia","details":[["Formulário","Missa do dia"]]},
-        3: {"n":3,"page":"509","title":"Prefácio Comum I","details":[],"suggestion":True},
-        4: {"n":4,"page":"536","title":"Oração Eucarística II","details":[],"suggestion":True},
-        5: {"n":5,"page":"585","title":"Bênção Solene — Tempo Comum VI","details":[],"suggestion":True},
-    }
-    for n in range(1,6):
-        if n not in by_n:
-            tapes.append(defaults[n].copy())
-            by_n[n] = tapes[-1]
-            fixes.append(f"Fita {n} recriada.")
-
+    # Não inventa fitas ausentes: qualquer lacuna bloqueia a publicação.
+    if len(tapes) != 5 or set(by_n) != {1, 2, 3, 4, 5}:
+        raise RuntimeError("Cinco fitas numeradas de 1 a 5 devem estar cadastradas e revisadas.")
     tapes.sort(key=lambda x: x.get("n", 99))
 
     # Fita 1 — nomenclatura usada no site:
