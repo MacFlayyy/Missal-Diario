@@ -691,7 +691,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "27ª semana do Tempo Comum.",
+    "note": "Revisado automaticamente às 05:00. Saudação corrigida para Saudação A como sugestão. Ato Penitencial corrigido para fórmula/opção válidas.",
     "liturgicalNote": "27ª semana do Tempo Comum.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
@@ -772,7 +772,14 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 409 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": [
+        "Saudação corrigida para Saudação A como sugestão.",
+        "Ato Penitencial corrigido para fórmula/opção válidas."
+      ]
+    }
   },
   "2026-10-09": {
     "label": "Sexta-feira • 09/10/2026",
