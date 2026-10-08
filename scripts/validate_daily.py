@@ -122,7 +122,7 @@ def save_status(key, data):
 
 def is_valid_page(page):
     p = str(page or "").strip()
-    return bool(re.fullmatch(r"\d{2,4}(?:\s*[-/]\s*\d{2,4})*", p))
+    return bool(re.fullmatch(r"\d{2,4}(?:\s*(?:[-–/]|\bou\b)\s*\d{2,4})*", p, re.I))
 
 def ensure_detail(tape, label, value):
     details = tape.setdefault("details", [])
