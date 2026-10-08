@@ -3,11 +3,18 @@ name: Atualizar Missal Diário
 on:
   workflow_dispatch:
   schedule:
-    # GitHub Actions usa UTC. Rodadas redundantes preparam o dia antes das 05:00.
-    # O site mantém o conteúdo bloqueado até 05:00 em Brasília.
-    - cron: "45 6 * * *"  # 03:45 Brasília
-    - cron: "15 7 * * *"  # 04:15 Brasília
-    - cron: "45 7 * * *"  # 04:45 Brasília
+    # GitHub Actions usa UTC; Brasília é UTC-3.
+    # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
+    - cron: "0 7 * * *"   # 04:00 Brasília
+    - cron: "30 7 * * *"  # 04:30 Brasília
+    - cron: "50 7 * * *"  # 04:50 Brasília
+    - cron: "10 8 * * *"  # 05:10 Brasília
+    - cron: "30 8 * * *"  # 05:30 Brasília
+    - cron: "0 9 * * *"   # 06:00 Brasília
+
+concurrency:
+  group: missal-diario-daily
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -25,10 +32,13 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
+
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Preparar Python
         uses: actions/setup-python@v5
@@ -42,23 +52,34 @@ jobs:
       - name: Verificar folhetos e atualizar o site
         run: python scripts/update_folheto.py
 
-      - name: Revisar e corrigir o Missal antes de publicar
+      - name: Revisar e liberar o Missal do dia
         run: python scripts/validate_daily.py
 
-      - name: Atualizar versão HTML do ChatGPT
+      - name: Atualizar versão diária e evitar cache antigo
+        run: python scripts/bump_daily_version.py
+
+      - name: Atualizar versão HTML completa do ChatGPT
         run: python scripts/build_standalone.py
 
-      - name: Salvar alterações, se houver
+      - name: Validar tudo antes de publicar
+        run: python scripts/verify_daily.py
+
+      - name: Salvar alterações no repositório
         run: |
           if git diff --quiet; then
-            echo "Nenhuma alteração."
+            echo "Arquivos do dia já estavam corretos."
             exit 0
           fi
+
           git config user.name "Missal Diário Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data.js status.js Missal-Diario-Standalone.html
-          git commit -m "Atualiza Missal Diário"
-          git push
+          git add data.js status.js index.html sw.js Missal-Diario-Standalone.html
+          git commit -m "Atualiza Missal Diário automaticamente"
+
+          # Se houve alguma alteração no main enquanto esta execução rodava,
+          # reaplica o commit sobre a versão mais recente antes do push.
+          git pull --rebase origin main
+          git push origin main
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
@@ -68,6 +89,9 @@ jobs:
         with:
           path: "."
 
-      - name: Publicar imediatamente no GitHub Pages
+      - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Confirmar publicação pública
+        run: python scripts/check_publication.py
