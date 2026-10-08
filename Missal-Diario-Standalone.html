@@ -3684,7 +3684,7 @@ window.MISSAL_DATA = {
     "label": "Quinta-feira • 08/10/2026",
     "celebration": "27ª Semana do Tempo Comum",
     "subtitle": "Tempo Comum",
-    "saint": "—",
+    "saint": "Sem memória litúrgica própria neste dia",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
     "color": "Verde",
@@ -11695,7 +11695,7 @@ function buildDetailedCopyText(dateKey){
 
   lines.push("### "+heading+" — "+formatSelectedDate(dateKey),"");
   lines.push("**Celebração:** "+(d.celebration||"—")+"\\");
-  lines.push("**Dia do Santo(a):** "+(d.saint||"—")+"\\");
+  lines.push("**Dia do Santo(a):** "+saintDisplayName(d)+"\\");
   lines.push("**Grau litúrgico:** "+(d.grade||"—")+"\\");
   lines.push("**Tempo litúrgico:** "+(d.season||"—")+"\\");
   lines.push("**Cor litúrgica:** "+(d.color||"—")+"\\");
@@ -12018,7 +12018,7 @@ async function buildShareImageBlob(){
   const metaY=Math.max(heroY+238,titleEnd+70);
   const gap=10;
   const col=(cardW-gap*2)/3;
-  metaBox(pad+26,metaY,col-18,82,"Dia do Santo(a)",d.saint||"—");
+  metaBox(pad+26,metaY,col-18,82,"Dia do Santo(a)",saintDisplayName(d));
   metaBox(pad+26+col,metaY,col-18,82,"Grau litúrgico",d.grade||"—");
   metaBox(pad+26+col*2,metaY,col-18,82,"Tempo litúrgico",d.season||"—");
   metaBox(pad+26,metaY+92,col-18,82,"Cor litúrgica",d.color||"—");
@@ -12273,6 +12273,11 @@ function cycleLabelFor(dateKey,d){
   return dt.getDay() === 0 ? "Ciclo dominical" : "Ciclo ferial";
 }
 
+function saintDisplayName(d){
+  const value=String(d?.saint || "").trim();
+  return (!value || value === "—") ? "Sem memória litúrgica própria neste dia" : value;
+}
+
 function formatDetailLabel(label){
   const isSuggestion = /•\s*sugestão/i.test(label);
   const clean = label.replace(/\s*•\s*sugestão/ig, "").trim();
@@ -12310,7 +12315,7 @@ function render(dateKey){
   const celebrationModeTitle=document.getElementById("celebrationModeTitle");
   if(celebrationModeDate) celebrationModeDate.textContent=formatCelebrationModeDate(dateKey);
   if(celebrationModeTitle) celebrationModeTitle.textContent=d.celebration;
-  document.getElementById("saint").textContent = d.saint;
+  document.getElementById("saint").textContent = saintDisplayName(d);
   document.getElementById("grade").textContent = d.grade;
   document.getElementById("season").textContent = d.season;
   document.getElementById("colorName").textContent = d.color;
