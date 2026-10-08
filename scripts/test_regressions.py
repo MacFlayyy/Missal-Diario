@@ -73,10 +73,55 @@ def check_saturday_preview():
         assert "sundayPreview" not in status,status
     print("PASSOU prévia dominical: sábado sim, domingo não")
 
+def check_liturgical_integrity():
+    import copy
+    import datetime
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    assert data, "Calendário vazio"
+    for key,entry in sorted(data.items()):
+        date=datetime.date.fromisoformat(key)
+        tapes=entry.get("tapes",[])
+        assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
+        assert [t.get("n") for t in tapes]==[1,2,3,4,5],f"{key}: ordem de fitas"
+        expected=" → ".join(str(t.get("page","")).strip() for t in tapes)
+        assert entry.get("quick")==expected,f"{key}: separação rápida difere das fitas"
+        for tape in tapes:
+            assert tape.get("page"),f"{key}: fita sem página"
+            assert str(tape.get("title","")).strip(),f"{key}: fita sem título"
+            for detail in tape.get("details",[]):
+                assert not any(x in str(detail[1]) for x in (
+                    "“A graça de nosso Senhor Jesus Cristo...”",
+                    "“No início desta celebração eucarística...”")), f"{key}: texto abreviado"
+        if date.weekday()==6:
+            assert entry.get("cycle") in {"Ano A","Ano B","Ano C"},f"{key}: ciclo dominical não definido"
+
+    christmas=data["2026-12-24"]
+    assert "/" in christmas["tapes"][2]["page"] and "/" in christmas["tapes"][4]["page"]
+    assert data["2026-12-27"]["cycle"]=="Ano B"
+
+    spec=importlib.util.spec_from_file_location("validate_daily",ROOT/"scripts"/"validate_daily.py")
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    sample=copy.deepcopy(data["2026-10-08"])
+    before=copy.deepcopy(sample["tapes"][0]["details"])
+    module.repair_entry(sample)
+    assert sample["tapes"][0]["details"]==before,"As opções litúrgicas existentes foram modificadas"
+
+    invalid=copy.deepcopy(data["2026-10-08"])
+    invalid["tapes"][1]["page"]="—"
+    try:
+        module.repair_entry(invalid)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("Página da Fita 2 inventada em vez de bloquear publicação")
+    print(f"PASSOU integridade litúrgica: {len(data)} datas, ciclos e páginas sem invenções")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
     check_saturday_preview()
+    check_liturgical_integrity()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
