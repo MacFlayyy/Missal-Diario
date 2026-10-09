@@ -226,7 +226,7 @@ def discover_recent_media():
     return sorted(set(results))
 
 
-def ocr_scanned_folheto(pdf_bytes, max_pages=2):
+def ocr_scanned_folheto(pdf_bytes, max_pages=4):
     """Último recurso para PDFs digitalizados, com OCR português e páginas limitadas."""
     if not shutil.which("pdftoppm") or not shutil.which("tesseract"):
         print("[aviso] OCR não instalado; PDF ficará vinculado sem transcrição automática.")
@@ -742,6 +742,7 @@ def main():
                          or entry.get("folhetoMobileUrl"))
             if not known_url:
                 continue
+            seen.add(known_url)
             try:
                 source = pdf_text(known_url, allow_ocr=True)
                 if update_entry(entry, source, known_url):
@@ -760,6 +761,12 @@ def main():
         seen.add(url)
         filename_key = leaflet_date_from_filename(url)
         if not filename_key or filename_key not in data:
+            continue
+        # Folheto especial de 12/10: usar o modelo das paróquias, não o da Esplanada.
+        if filename_key == "2026-10-12" and "esplanada" in norm(url):
+            continue
+        # Evita OCR duplicado de um rascunho sufixado -1 quando já há PDF final.
+        if url.lower().endswith("-1.pdf") and url[:-6] + ".pdf" in pdfs:
             continue
         distance = (date.fromisoformat(filename_key) - today).days
         if distance < -14 or distance > 35:
