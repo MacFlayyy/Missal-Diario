@@ -101,3 +101,7 @@ Após qualquer modificação:
 - preservar o funcionamento offline usando a última versão válida em cache;
 - atualizar o mecanismo de cache/service worker quando necessário;
 - só considerar a alteração concluída depois que a versão publicada estiver disponível.
+
+## Ritos Iniciais
+
+As fórmulas sugeridas aparecem por escrito com as falas P. e T.; as datas com folheto aguardam conferência do PDF antes de marcar um trecho como transcrição oficial.

@@ -19,11 +19,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -107,11 +107,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -195,11 +195,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -279,11 +279,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -358,14 +358,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "Saudação A • sugestão",
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 3ª opção",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "Ato Penitencial — Segunda fórmula, 3ª opção • sugestão",
+            "P.: De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
-        ]
+        ],
+        "suggestion": true
       },
       {
         "n": 2,
@@ -412,7 +413,10 @@ window.MISSAL_DATA = {
         ]
       }
     ],
-    "quick": "430 → 409 → 477 → 545 → 585"
+    "quick": "430 → 409 → 477 → 545 → 585",
+    "ritesPendingOfficial": true,
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf"
   },
   "2026-10-05": {
     "label": "Segunda-feira • 05/10/2026",
@@ -435,11 +439,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -523,11 +527,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Texto da oração não transcrito neste cadastro. Consultar o Missal Romano na página indicada e, quando disponível, o folheto oficial da celebração."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -610,11 +614,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -702,11 +706,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -801,11 +805,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -897,11 +901,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -989,11 +993,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1081,11 +1085,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1168,11 +1172,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1260,11 +1264,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1352,11 +1356,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1444,11 +1448,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1536,11 +1540,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1628,11 +1632,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1720,11 +1724,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1812,11 +1816,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1904,11 +1908,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -1996,11 +2000,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2088,11 +2092,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2180,11 +2184,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2272,11 +2276,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2364,11 +2368,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2456,11 +2460,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2548,11 +2552,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2640,11 +2644,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2732,11 +2736,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2824,11 +2828,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -2916,11 +2920,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3003,11 +3007,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3091,11 +3095,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3183,11 +3187,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3275,11 +3279,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3367,11 +3371,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3459,11 +3463,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3551,11 +3555,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3643,11 +3647,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3730,11 +3734,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3822,11 +3826,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -3914,11 +3918,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4006,11 +4010,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4098,11 +4102,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4190,11 +4194,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4282,11 +4286,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4374,11 +4378,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4466,11 +4470,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4558,11 +4562,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4650,11 +4654,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4742,11 +4746,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4834,11 +4838,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -4921,11 +4925,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5013,11 +5017,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5105,11 +5109,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5197,11 +5201,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5289,11 +5293,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5381,11 +5385,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5473,11 +5477,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5565,11 +5569,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5657,11 +5661,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5749,11 +5753,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5841,11 +5845,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -5933,11 +5937,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6025,11 +6029,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6117,11 +6121,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6209,11 +6213,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6301,11 +6305,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6388,11 +6392,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6480,11 +6484,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6572,11 +6576,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6664,11 +6668,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6751,11 +6755,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6843,11 +6847,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -6935,11 +6939,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7027,11 +7031,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7119,11 +7123,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7211,11 +7215,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7303,11 +7307,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7395,11 +7399,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7487,11 +7491,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7579,11 +7583,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7671,11 +7675,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7763,11 +7767,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7867,11 +7871,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -7967,11 +7971,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -8059,11 +8063,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -8151,11 +8155,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -8243,11 +8247,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -8335,11 +8339,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true
@@ -8427,11 +8431,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Saudação A • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "Consultar o texto integral no Missal Romano e, quando houver, no folheto oficial."
+            "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
         "suggestion": true

@@ -208,8 +208,8 @@ def check_update_safety():
     mock["update_entry"](item,"folheto teste","https://example.org/teste.pdf")
     details=item["tapes"][0]["details"]
     assert ["Outro detalhe","Preservar"] in details,"Detalhe dos Ritos Iniciais perdido"
-    assert any(str(d[0]).startswith("Saudação B") for d in details),"Saudação detectada não aplicada"
-    assert any(" • sugestão" in str(d[0]) for d in details),"Referência sem texto declarada oficial"
+    assert any(str(d[0]).startswith("Saudação A") for d in details),"Texto pré-existente não preservado"
+    assert any("Conferência necessária" in str(d[0]) for d in details),"Divergência sem aviso"
     assert item["tapes"][1]["page"]==page,"Página da Missa substituída por menção genérica do PDF"
     assert item["tapes"][0].get("suggestion") is True,"Fita sem texto declarada completa"
     second=copy.deepcopy(data["2026-10-08"])
@@ -261,6 +261,21 @@ console.log("PASSOU 24/12: geral, manhã, vigília e horário");
     assert p.returncode==0,p.stderr
     print(p.stdout.strip())
 
+
+def check_rites_texts():
+    from datetime import date
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    assert len(data)>90
+    for key,entry in data.items():
+        rows=entry["tapes"][0]["details"][:2]
+        for row in rows:
+            assert "P.:" in row[1] and "T.:" in row[1],f"{key}: oração não preenchida"
+            assert "Consultar o texto integral" not in row[1]
+    assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
+    assert "2ª opção" in data["2026-10-09"]["tapes"][0]["details"][1][0]
+    assert 'class="detail-text"' in INDEX.read_text(encoding="utf-8")
+    print(f"PASSOU: {len(data)} datas com textos escritos e legíveis no celular")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -270,6 +285,7 @@ def main():
     check_update_safety()
     check_cache_safety()
     check_christmas_choice()
+    check_rites_texts()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

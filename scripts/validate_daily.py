@@ -20,6 +20,7 @@ from __future__ import annotations
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from ritos_texts import apply_rite_suggestions
 import json
 import re
 
@@ -312,6 +313,7 @@ def main():
         data[today_key] = seed[today_key]
         print(f"Data {today_key} recuperada automaticamente do calendário-base.")
 
+    apply_rite_suggestions(data[today_key])
     fixes = repair_entry(data[today_key])
     save_data(data)
     save_status(today_key, data)
