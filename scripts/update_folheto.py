@@ -717,6 +717,168 @@ def update_entry(entry, text, url):
         )
     return changed
 
+
+# O folheto prevalece sobre qualquer sugestão pré-cadastrada. A leitura deve
+# reconhecer as indicações efetivas, inclusive as orações para circunstâncias.
+# Se o PDF não especificar uma fita, ela é marcada "não indicada" em vez de
+# receber uma sugestão disfarçada de indicação oficial.
+LEAFLET_OPENINGS = {
+    "A": "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.",
+    "E": "A vós, irmãos, paz e fé da parte de Deus, o Pai, e do Senhor Jesus Cristo.",
+}
+LEAFLET_ATO_OPENINGS = {
+    "Segunda fórmula, 3ª opção": "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.",
+    "Primeira fórmula, 3ª opção": "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova.",
+    "Primeira fórmula, 2ª opção": "O Senhor Jesus, que nos convida à mesa da Palavra e da Eucaristia, nos chama a segui-lo fielmente.",
+}
+
+def leaflet_compact(value):
+    return re.sub(r"[^a-z0-9]", "", norm(value))
+
+def leaflet_initial_choices(text):
+    sa = leaflet_compact(section(text, "SAUDAÇÃO INICIAL", ["ATO PENITENCIAL"]))
+    at = leaflet_compact(section(text, "ATO PENITENCIAL", ["HINO DO GLÓRIA", "COLETA"]))
+    greeting = None
+    if "agracadenossosenhorjesus" in sa:
+        greeting = "A"
+    elif "avosirmaospazefe" in sa:
+        greeting = "E"
+
+    penitential = None
+    if "decoracaocontritoehumilde" in at:
+        penitential = "Segunda fórmula, 3ª opção"
+    elif "nodiaemquecelebramosavitoriadecristo" in at:
+        penitential = "Primeira fórmula, 3ª opção"
+    elif "osenhorjesusquenosconvida" in at:
+        penitential = "Primeira fórmula, 2ª opção"
+    return greeting, penitential
+
+def leaflet_oe_prefacio(text):
+    c = leaflet_compact(text)
+    if "oracaoeucaristicaparadi" in c and "caminhodaunidade" in c and "p614" in c:
+        return (
+            ("Prefácio próprio — A Igreja a caminho da unidade", "614"),
+            ("Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade", "614"),
+        )
+    if "oracaoeucaristicaiii" in c and "p545" in c:
+        oe = ("Oração Eucarística III", "545")
+    elif "oracaoeucaristicai" in c and "p523" in c:
+        oe = ("Oração Eucarística I", "523")
+    elif "oracaoeucaristicaii" in c and "p536" in c:
+        oe = ("Oração Eucarística II", "536")
+    else:
+        oe = None
+
+    if "prefaciodosdomingosdotempo" in c and "p477" in c:
+        pref = ("Prefácio dos Domingos do Tempo Comum IV", "477")
+    elif "domisteriodemariaedaigreja" in c and "p828" in c:
+        pref = ("Prefácio próprio — Do mistério de Maria e da Igreja", "828")
+    else:
+        detected = detect_prefacio(text)
+        pref = detected if detected and leaflet_compact(detected[0]) in c else None
+    return pref, oe
+
+def update_entry_verified(entry, text, url):
+    """Aplicar somente o que é verificável no folheto e não inventar fitas."""
+    snapshot = json.dumps(entry, ensure_ascii=False, sort_keys=True)
+    # Mantém uma transcrição conferida se o mesmo PDF já foi aplicado.
+    saved_url = entry.get("folhetoDesktopUrl") or entry.get("folhetoUrl")
+    if (entry.get("officialLeafletApplied")
+            and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
+            and saved_url == url):
+        return False
+
+    saud, ato = leaflet_initial_choices(text)
+    pref, oe = leaflet_oe_prefacio(text)
+    acl = detect_acclamation(text)
+    tapes = {t["n"]: t for t in entry["tapes"]}
+
+    t1 = tapes[1]
+    if saud and ato:
+        t1["details"] = [
+            ["Saudação " + saud, LEAFLET_OPENINGS[saud]],
+            ["Ato Penitencial — " + ato, LEAFLET_ATO_OPENINGS[ato]],
+        ]
+        t1["verifiedByFolheto"] = True
+        t1.pop("notIndicated", None)
+    else:
+        t1["details"] = [
+            ["Saudação — a conferir", "Não identificada com segurança na leitura do folheto."],
+            ["Ato Penitencial — a conferir", "Não identificado com segurança na leitura do folheto."],
+        ]
+        t1.pop("verifiedByFolheto", None)
+    t1.pop("suggestion", None)
+
+    t2 = tapes[2]
+    t2["details"] = [["Formulário", "Missa do dia conforme folheto oficial"]]
+    t2["verifiedByFolheto"] = True
+    t2.pop("suggestion", None)
+
+    t3 = tapes[3]
+    if pref:
+        t3["title"], t3["page"] = pref
+        t3["details"] = [["Indicação", "Prefácio indicado no folheto oficial"]]
+        t3["verifiedByFolheto"] = True
+        t3.pop("notIndicated", None)
+    else:
+        t3.update({
+            "title": "Prefácio — não identificado no folheto", "page": "—",
+            "notIndicated": True,
+            "details": [["Indicação", "Prefácio não identificado com segurança no PDF."]],
+        })
+        t3.pop("verifiedByFolheto", None)
+    t3.pop("suggestion", None)
+
+    t4 = tapes[4]
+    if oe:
+        t4["title"], t4["page"] = oe
+        rows = []
+        if acl:
+            rows.append(["Aclamação", acl])
+            response = response_for_acclamation(acl)
+            if response:
+                rows.append(["Resposta", response.strip("“”")])
+        else:
+            rows.append(["Aclamação", "Não identificada no folheto; conferir antes da celebração."])
+        t4["details"] = rows
+        t4["verifiedByFolheto"] = True
+        t4.pop("notIndicated", None)
+    else:
+        t4.update({
+            "title": "Oração Eucarística — não identificada no folheto",
+            "page": "—", "notIndicated": True,
+            "details": [["Indicação", "Oração Eucarística não identificada com segurança no PDF."]],
+        })
+        t4.pop("verifiedByFolheto", None)
+    t4.pop("suggestion", None)
+
+    t5 = tapes[5]
+    t5.update({
+        "page": "—", "title": "Bênção Solene — não indicada no folheto",
+        "notIndicated": True,
+        "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
+    })
+    t5.pop("suggestion", None)
+
+    verified = [n for n, t in tapes.items() if t.get("verifiedByFolheto")]
+    entry["officialVerifiedParts"] = sorted(verified)
+    entry["officialLeafletApplied"] = all(n in verified for n in (1, 2, 3, 4))
+    entry["ritesPendingOfficial"] = not t1.get("verifiedByFolheto", False)
+    entry["source"] = "Folheto oficial O Povo de Deus • Arquidiocese de Brasília"
+    entry["note"] = (
+        "Separação conforme o folheto oficial. As partes não indicadas "
+        "ou não identificadas estão sinalizadas, sem escolhas inventadas."
+    )
+    entry["folhetoUrl"] = url
+    entry["quick"] = " → ".join(
+        str(t["page"]) for t in entry["tapes"] if str(t.get("page", "—")) != "—"
+    )
+    return json.dumps(entry, ensure_ascii=False, sort_keys=True) != snapshot
+
+# Aplicação segura, incluindo quando o PDF não traz todas as indicações.
+update_entry = update_entry_verified
+
+
 def main():
     data = load_data()
     pdfs = []
