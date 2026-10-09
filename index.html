@@ -159,6 +159,10 @@
     }
     .detail b{color:var(--ink)}
     .detail-text{white-space:pre-line;overflow-wrap:anywhere;display:inline;}
+    .rites-official-pdf{display:inline-flex;align-items:center;max-width:100%;margin-top:14px;padding:11px 14px;border:1px solid rgba(125,23,34,.18);border-radius:12px;background:#fff8f4;color:var(--wine);font-size:12px;font-weight:800;text-decoration:none;line-height:1.4;overflow-wrap:anywhere}
+    .rites-official-pdf:hover{text-decoration:underline;background:#fbeded}
+    .rites-official-note{font-size:12px;color:var(--muted);line-height:1.5;margin:8px 0 0}
+
     .inline-suggestion{font-weight:500;color:var(--muted)}
     .suggestion{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:999px;background:#f4ead5;color:#6b5731;font-size:11px;font-weight:700}
     .source{
@@ -3235,8 +3239,8 @@ body.celebration-mode .celebration-exit-footer{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261009-2dd17c232e65"></script>
-<script src="status.js?v=20261009-2dd17c232e65"></script>
+<script src="data.js?v=20261009-ritos-pdf-link"></script>
+<script src="status.js?v=20261009-ritos-pdf-link"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -4247,6 +4251,10 @@ function render(dateKey){
       <div class="page">Página ${prepareEscapeHtml(t.page)}</div>
       <h4>${prepareEscapeHtml(t.title)}</h4>
       ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
+      ${t.n===1 && (d.folhetoDesktopUrl||d.folhetoMobileUrl||d.folhetoUrl) ?
+        `<a class="rites-official-pdf" href="${prepareEscapeHtml(isMobileLeafletDevice() ? (d.folhetoMobileUrl||d.folhetoDesktopUrl||d.folhetoUrl) : (d.folhetoDesktopUrl||d.folhetoUrl||d.folhetoMobileUrl))}" target="_blank" rel="noopener noreferrer">Abrir o texto original no folheto oficial (PDF)</a>` : ""}
+      ${t.n===1 && t.suggestion && (d.folhetoDesktopUrl||d.folhetoMobileUrl||d.folhetoUrl) ?
+        `<p class="rites-official-note">As sugestões acima não substituem o texto do folheto oficial.</p>` : ""}
       ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
     `;
     tapes.appendChild(el);
@@ -4812,7 +4820,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-2dd17c232e65",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-ritos-pdf-link",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
