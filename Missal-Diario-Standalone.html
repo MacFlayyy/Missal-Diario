@@ -12652,7 +12652,7 @@ function formatDetailLabel(label){
   return `${prepareEscapeHtml(clean)}${isSuggestion ? ' <em class="inline-suggestion">(sugestão)</em>' : ''}`;
 }
 
-let december24Choice=null; // null = visão geral ou, no próprio dia, escolha automática por horário.
+let december24Choice=null; // null = automática; "combined" = visão geral explícita.
 function getDisplayEntry(dateKey){
   const base=data[dateKey];
   if(!base || dateKey!=="2026-12-24") return base;
@@ -12660,7 +12660,7 @@ function getDisplayEntry(dateKey){
   const automaticMass=dateKey===brasiliaTodayKey()
     ? (Number(brasiliaClockParts().hour)>=12?"vigil":"morning") : null;
   const selected=december24Choice || automaticMass;
-  if(!selected) return base;
+  if(!selected || selected==="combined") return base;
 
   // Permite escolher explicitamente a Missa: preparação antecipada e exceções de horário.
   const vigilia=selected==="vigil";
@@ -12688,7 +12688,7 @@ function getDisplayEntry(dateKey){
 document.getElementById("dec24MassChoice")?.addEventListener("click",event=>{
   const btn=event.target.closest("button[data-dec24-mass]");
   if(!btn) return;
-  december24Choice=btn.dataset.dec24Mass==="combined"?null:btn.dataset.dec24Mass;
+  december24Choice=btn.dataset.dec24Mass;
   render("2026-12-24");
 });
 
@@ -13267,7 +13267,7 @@ const loadedBrasiliaDay=brasiliaTodayKey();
 let lastVigiliaMode=brasiliaTodayKey()==="2026-12-24"
   ? Number(brasiliaClockParts().hour)>=12 : null;
 function refreshChristmasVigil(){
-  if(brasiliaTodayKey()!=="2026-12-24" || window.currentDateKey!=="2026-12-24") return;
+  if(december24Choice!==null || brasiliaTodayKey()!=="2026-12-24" || window.currentDateKey!=="2026-12-24") return;
   const evening=Number(brasiliaClockParts().hour)>=12;
   if(lastVigiliaMode!==evening){lastVigiliaMode=evening;render(window.currentDateKey);}
 }
