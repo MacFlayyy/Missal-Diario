@@ -3237,8 +3237,8 @@ body.celebration-mode .celebration-exit-footer{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261009-folheto-verificado"></script>
-<script src="status.js?v=20261009-folheto-verificado"></script>
+<script src="data.js?v=20261009-sugestoes-pontuais"></script>
+<script src="status.js?v=20261009-sugestoes-pontuais"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -3359,7 +3359,15 @@ function updateSourceStatus(d){
   if(!box || !txt) return;
   const official=sourceIsOfficial(d);
   box.classList.toggle("official",official);
-  txt.textContent=official ? (d.officialLeafletApplied ? "Folheto oficial aplicado" : "Folheto localizado • conferência necessária") : "Separação pelo Missal";
+  const hasSuggestions=Array.isArray(d.tapes) && d.tapes.some(t=>
+    t.suggestion || t.pageSuggestion ||
+    (t.details||[]).some(row=>Array.isArray(row) && row.some(value=>/sugestão/i.test(String(value||""))))
+  );
+  txt.textContent=official
+    ? (d.officialLeafletApplied
+      ? (hasSuggestions ? "Folheto oficial + sugestões pontuais" : "Folheto oficial aplicado")
+      : "Folheto localizado • conferência necessária")
+    : "Separação pelo Missal";
 }
 
 function formatLastUpdate(){
@@ -4814,7 +4822,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-folheto-verificado",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-sugestoes-pontuais",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
