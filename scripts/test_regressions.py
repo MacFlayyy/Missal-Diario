@@ -194,6 +194,7 @@ def check_update_safety():
     mock={
         "classify_saudacao":lambda _:"B",
         "extract_rites_from_leaflet":lambda _: {},
+        "opening_from_folheto":lambda text, kind: text,
         "classify_ato":lambda _:"Terceira fórmula, 2ª opção",
         "detect_missal_page":lambda _:"999",
         "detect_prefacio":lambda _:None,
@@ -270,8 +271,11 @@ def check_rites_texts():
     for key,entry in data.items():
         rows=entry["tapes"][0]["details"][:2]
         for row in rows:
-            assert "P.:" in row[1] and "T.:" in row[1],f"{key}: oração não preenchida"
+            assert row[1].strip(),f"{key}: abertura ausente"
+            assert "P.:" not in row[1] and "T.:" not in row[1], f"{key}: falas adicionais"
+            assert "\\n" not in row[1] and len(row[1]) <= 280, f"{key}: rito ainda longo"
             assert "Consultar o texto integral" not in row[1]
+            assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
     assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
     assert "2ª opção" in data["2026-10-09"]["tapes"][0]["details"][1][0]
     assert 'class="detail-text"' in INDEX.read_text(encoding="utf-8")
@@ -344,6 +348,37 @@ def check_filename_filter_and_ocr():
     assert "ocr_scanned_folheto" in source
     print("PASSOU OCR seletivo: datas corretas e PDF sem data rejeitado")
 
+
+def check_only_openings_from_folheto():
+    import ast
+    import unicodedata
+    source=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    helper=next(n for n in ast.parse(source).body
+                if isinstance(n, ast.FunctionDef) and n.name=="opening_from_folheto")
+    def norm(value):
+        source=unicodedata.normalize("NFD",str(value))
+        source="".join(c for c in source if unicodedata.category(c)!="Mn")
+        return source.lower().strip()
+    ns={"norm":norm}
+    exec(compile(ast.Module(body=[helper],type_ignores=[]),"<opening>","exec"),ns)
+    choose=ns["opening_from_folheto"]
+    greeting=(
+        "P.: Em nome do Pai e do Filho e do Espírito Santo.\\n"
+        "T.: Amém.\\n"
+        "P.: Saudação inicial para todos os participantes presentes hoje.\\n"
+        "T.: Resposta da comunidade."
+    ).replace("\\\\n","\\n")
+    assert choose(greeting,"saudacao")=="Saudação inicial para todos os participantes presentes hoje."
+    act=(
+        "P.: No início da celebração, pedimos perdão e conversão.\\n"
+        "T.: Resposta do povo.\\n"
+        "P.: Continuação do rito que não deve aparecer."
+    ).replace("\\\\n","\\n")
+    assert choose(act,"ato")=="No início da celebração, pedimos perdão e conversão."
+    assert choose("T.: Só a assembleia","ato")==""
+    print("PASSOU: somente a frase inicial de cada rito")
+
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -356,6 +391,7 @@ def main():
     check_rites_texts()
     check_official_leaflet_extraction()
     check_filename_filter_and_ocr()
+    check_only_openings_from_folheto()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
