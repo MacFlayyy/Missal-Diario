@@ -347,7 +347,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
+    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
     "liturgicalNote": "Memória de São Francisco de Assis omitida por coincidir com o domingo.",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "cycle": "Ano A",
@@ -410,18 +410,18 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "—",
-        "title": "Bênção Solene — não indicada no folheto",
+        "page": "585",
+        "title": "Bênção Solene — Tempo Comum VI",
         "details": [
           [
-            "Indicação",
-            "O folheto não apresenta uma bênção solene específica."
+            "Uso",
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
-        "notIndicated": true
+        "suggestion": true
       }
     ],
-    "quick": "430 → 409 → 477 → 545",
+    "quick": "430 → 409 → 477 → 545 → 585",
     "ritesPendingOfficial": false,
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf",
@@ -998,7 +998,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
+    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
     "liturgicalNote": "São João XXIII — memória facultativa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1049,25 +1049,33 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Aclamação",
-            "Não identificada no folheto; conferir antes da celebração"
+            "Mistério da fé! • sugestão"
+          ],
+          [
+            "Resposta",
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
+          ],
+          [
+            "Uso",
+            "Somente a aclamação é sugestão; a Oração Eucarística segue o folheto."
           ]
         ],
         "verifiedByFolheto": true
       },
       {
         "n": 5,
-        "page": "—",
-        "title": "Bênção Solene — não indicada no folheto",
+        "page": "585",
+        "title": "Bênção Solene — Tempo Comum VI",
         "details": [
           [
-            "Indicação",
-            "O folheto não apresenta uma bênção solene específica."
+            "Uso",
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
-        "notIndicated": true
+        "suggestion": true
       }
     ],
-    "quick": "430 → 410 → 614 → 614",
+    "quick": "430 → 410 → 614 → 614 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
@@ -1089,7 +1097,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
+    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
     "liturgicalNote": "Solenidade celebrada neste dia.",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1151,18 +1159,18 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "—",
-        "title": "Bênção Solene — não indicada no folheto",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
-            "Indicação",
-            "O folheto não apresenta uma bênção solene específica."
+            "Uso",
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
-        "notIndicated": true
+        "suggestion": true
       }
     ],
-    "quick": "430 → 826 → 828 → 523",
+    "quick": "430 → 826 → 828 → 523 → 585",
     "cycle": "Ano II",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
