@@ -107,3 +107,9 @@ Após qualquer modificação:
 As sugestões mostram somente a frase da Saudação Inicial e a introdução do Ato Penitencial, sem diálogos, respostas da assembleia nem o restante do rito. Quando o PDF do folheto permite leitura verificada, guarda apenas as respectivas frases iniciais; caso contrário, mantém a sugestão e o acesso ao folheto.
 
 - A rotina de folhetos busca também anexos oficiais pelo catálogo público do WordPress e tenta reler os PDFs oficiais conhecidos que ainda não tenham os dois ritos transcritos. Somente marca os ritos como confirmados quando ambos foram extraídos com seus limites de seção reconhecidos.
+
+## Fonte oficial x sugestões
+
+- **Havendo folheto**: as cinco fitas seguem as escolhas verificadas no PDF O Povo de Deus; não permanecem marcadas como sugestão. Páginas e títulos são corrigidos para o folheto. Onde não houver indicação verificável, aparece **não indicada/no folheto** e não se publica escolha presumida.
+- **Sem folheto**: usar sugestões claramente identificadas; nunca tratar essas sugestões como escolha oficial.
+- A Fita 5 sem bênção solene indicada apresenta **Sem página indicada**, e não sugere que a página da bênção foi solicitada pelo folheto. O botão adicional de abrir PDF nos Ritos Iniciais foi retirado; a funcionalidade geral **Folheto dominical** permanece.
