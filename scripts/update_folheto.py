@@ -362,17 +362,17 @@ def extract_rites_from_leaflet(text):
         return re.sub(r"^\d{1,2}\s*[.):\-–]?\s*", "", s).strip()
 
     greeting = next((i for i,v in enumerate(lines)
-                     if clean_heading(v) == "saudacao inicial"), -1)
+                     if clean_heading(v).startswith("saudacao inicial")), -1)
     if greeting < 0:
         return {}
     penitential = next((i for i in range(greeting + 1, min(len(lines), greeting + 75))
-                        if clean_heading(lines[i]) == "ato penitencial"), -1)
+                        if clean_heading(lines[i]).startswith("ato penitencial")), -1)
     if penitential < 0:
         return {}
     stop_labels = {"hino do gloria", "gloria", "coleta", "liturgia da palavra",
                    "canto do gloria", "hino de louvor", "canto de louvor"}
     end = next((i for i in range(penitential + 1, min(len(lines), penitential + 120))
-                if clean_heading(lines[i]) in stop_labels), -1)
+                if any(clean_heading(lines[i]).startswith(label) for label in stop_labels)), -1)
     if end < 0:
         return {}
 
@@ -412,6 +412,13 @@ def update_entry(entry, text, url):
     oe = detect_eucharistic(text)
     acl = detect_acclamation(text)
     official_rites = extract_rites_from_leaflet(text)
+    if entry.get("ritesPendingOfficial"):
+        print(
+            "[ritos-pdf] Saudação identificada:", saud or "não",
+            "| Ato identificado:", ato or "não",
+            "| Blocos íntegros:",
+            ",".join(f"{name}:{len(block)}" for name, block in official_rites.items()) or "nenhum"
+        )
 
 
     fita1 = next((x for x in entry["tapes"] if x["n"] == 1), None)

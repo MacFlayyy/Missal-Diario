@@ -301,7 +301,7 @@ def check_official_leaflet_extraction():
         "P.: Irmãos e irmãs, reconheçamos nossos pecados nesta celebração.\n"
         "P.: Tende compaixão de nós, Senhor.\n"
         "T.: Porque somos pecadores.\n"
-        "4 HINO DO GLÓRIA\n"
+        "4 HINO DO GLÓRIA – canto próprio\n"
         "P.: Este conteúdo pertence ao hino e não pode ser capturado.\n"
     )
     parsed=ns["extract_rites_from_leaflet"](sample)
