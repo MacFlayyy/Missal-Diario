@@ -462,6 +462,31 @@ def check_folheto_gap_fallbacks():
     print("PASSOU: nenhuma lacuna do folheto sem sugestão e escolhas oficiais preservadas")
 
 
+
+def check_incomplete_leaflet_variant_protection():
+    """Uma versão mobile sem texto não deve apagar a escolha oficial do PDF."""
+    import ast
+    import copy
+    updater=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    node=next(n for n in ast.parse(updater).body if isinstance(n,ast.FunctionDef)
+              and n.name=="update_entry_verified")
+    names={
+        "json":json,
+        "fill_folheto_gaps":lambda entry: False,
+        "leaflet_initial_choices":lambda text: (None,None),
+        "leaflet_oe_prefacio":lambda text: (None,None),
+    }
+    exec(compile(ast.Module(body=[node],type_ignores=[]),"<verified-guard>","exec"),names)
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    item=copy.deepcopy(data["2026-10-04"])
+    before=copy.deepcopy(item)
+    changed=names["update_entry_verified"](item,"", "https://example.org/04_10-Versao-Celular.pdf")
+    assert not changed
+    assert item==before,"PDF alternativo vazio apagou escolhas oficiais"
+    assert item["tapes"][0]["details"][1][0]=="Ato Penitencial — Segunda fórmula, 3ª opção"
+    print("PASSOU: versão alternativa sem texto não sobrescreve o folheto confirmado")
+
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -477,6 +502,7 @@ def main():
     check_only_openings_from_folheto()
     check_verified_leaflet_days()
     check_folheto_gap_fallbacks()
+    check_incomplete_leaflet_variant_protection()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
