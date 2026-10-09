@@ -397,17 +397,69 @@ def check_verified_leaflet_days():
         assert ato in item["tapes"][0]["details"][1][0],day
         assert item["tapes"][2]["page"] == pref,day
         assert item["tapes"][3]["page"] == oe,day
-        assert item["tapes"][4].get("notIndicated") is True
-        assert item["tapes"][4]["page"] == "—"
-        assert "—" not in item["quick"]
-        for tape in item["tapes"]:
-            assert not tape.get("suggestion"),f"{day}: fita marcada sugestão"
-            assert not any("sugestão" in str(row[0]).lower()
-                           for row in tape.get("details", [])),f"{day}: detalhe sugestão"
+        blessing=item["tapes"][4]
+        assert blessing["page"] == "585",day
+        assert blessing.get("suggestion") is True,f"{day}: bênção sem sugestão"
+        assert "sugestão" in blessing["details"][0][1].lower(),day
+        assert "585" in item["quick"],day
+        for tape in item["tapes"][:4]:
+            assert not tape.get("suggestion"),f"{day}: fita oficial marcada como sugestão"
+        if day == "2026-10-11":
+            details=item["tapes"][3]["details"]
+            assert any(row[0]=="Aclamação" and "sugestão" in row[1].lower()
+                       for row in details),"Aclamação não indicada no folheto precisa de sugestão"
+            assert item["tapes"][3].get("verifiedByFolheto"),"Oração Eucarística permanece oficial"
+        else:
+            assert all("sugestão" not in str(row[1]).lower()
+                       for tape in item["tapes"][:4] for row in tape.get("details", []))
     html=INDEX.read_text(encoding="utf-8")
     assert "Abrir o texto original no folheto oficial" not in html
     assert "rites-official-pdf" not in html
-    print("PASSOU folhetos oficiais 04, 11 e 12/10: escolhas e fitas sem sugestões")
+    print("PASSOU folhetos: 4 fitas oficiais, bênção sugerida e aclamação parcial")
+
+
+
+def check_folheto_gap_fallbacks():
+    import copy
+    from ritos_texts import fill_folheto_gaps
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    # Ao reler um folheto, a bênção ausente deve voltar como sugestão.
+    sample=copy.deepcopy(data["2026-10-04"])
+    original=copy.deepcopy(sample["tapes"][:4])
+    sample["tapes"][4].update({
+        "page": "—", "title": "Bênção Solene — não indicada no folheto",
+        "notIndicated": True,
+        "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
+    })
+    sample["tapes"][4].pop("suggestion",None)
+    assert fill_folheto_gaps(sample)
+    assert sample["tapes"][4]["page"]=="585"
+    assert sample["tapes"][4]["suggestion"]
+    assert sample["tapes"][:4]==original
+    assert not fill_folheto_gaps(sample),"Aplicação de sugestões deve ser idempotente"
+
+    # Uma aclamação omitida é sugestão somente nessa linha, não na OE inteira.
+    partial=copy.deepcopy(data["2026-10-11"])
+    partial["tapes"][3]["details"]=[["Aclamação","Não identificada no folheto; conferir antes da celebração"]]
+    assert fill_folheto_gaps(partial)
+    assert partial["tapes"][3]["verifiedByFolheto"]
+    assert not partial["tapes"][3].get("suggestion")
+    assert "sugestão" in partial["tapes"][3]["details"][0][1].lower()
+    assert not fill_folheto_gaps(partial)
+
+    # Mesmo quando o OCR não identifica um prefácio, a referência sugerida deve aparecer.
+    missing=copy.deepcopy(data["2026-10-11"])
+    missing["tapes"][2].update({
+        "title": "Prefácio — não identificado no folheto", "page": "—",
+        "notIndicated": True
+    })
+    missing["tapes"][2].pop("verifiedByFolheto",None)
+    assert fill_folheto_gaps(missing)
+    assert missing["tapes"][2]["page"]=="477"
+    assert missing["tapes"][2]["suggestion"]
+    assert "sugestão" in missing["tapes"][2]["details"][0][1].lower()
+
+    print("PASSOU: nenhuma lacuna do folheto sem sugestão e escolhas oficiais preservadas")
 
 
 def main():
@@ -424,6 +476,7 @@ def main():
     check_filename_filter_and_ocr()
     check_only_openings_from_folheto()
     check_verified_leaflet_days()
+    check_folheto_gap_fallbacks()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
