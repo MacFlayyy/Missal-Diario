@@ -5,9 +5,9 @@ Atualizador automático do Missal Diário.
 - Procura PDFs do "O Povo de Deus" nos diretórios públicos de uploads da
   Arquidiocese de Brasília.
 - Extrai o texto do folheto.
-- Identifica a data e, para domingos já cadastrados em data.js, troca as
-  sugestões pelas escolhas encontradas no folheto quando for possível
-  reconhecê-las com segurança.
+- Identifica as escolhas confirmadas no folheto e preserva-as como oficiais.
+- Sempre sugere, de modo explícito, uma opção para cada parte omitida
+  no folheto (inclusive Bênção Solene e aclamações não especificadas).
 - Não usa API paga nem chave secreta.
 """
 
