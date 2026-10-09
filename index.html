@@ -3235,8 +3235,8 @@ body.celebration-mode .celebration-exit-footer{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261009-ritos-1"></script>
-<script src="status.js?v=20261009-ritos-1"></script>
+<script src="data.js?v=20261009-439f2af16f9a"></script>
+<script src="status.js?v=20261009-439f2af16f9a"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -4812,7 +4812,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-ritos-1",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-439f2af16f9a",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
