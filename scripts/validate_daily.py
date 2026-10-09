@@ -252,25 +252,26 @@ def repair_entry(entry):
 
     # Fita 3
     f3 = by_n[3]
-    if not is_valid_page(f3.get("page")) or "prefácio" not in str(f3.get("title","")).lower():
+    if not (is_valid_page(f3.get("page")) or (f3.get("notIndicated") and f3.get("page") == "—")) or "prefácio" not in str(f3.get("title","")).lower():
         raise RuntimeError("Prefácio ausente/inválido: conferir o Missal ou folheto antes de publicar.")
 
     # Fita 4
     f4 = by_n[4]
-    if str(f4.get("page","")) not in {"523","536","545","554","564"} or "oração eucarística" not in str(f4.get("title","")).lower():
+    if not (str(f4.get("page","")) in {"523","536","545","554","564","614"} or (f4.get("notIndicated") and f4.get("page") == "—")) or "oração eucarística" not in str(f4.get("title","")).lower():
         raise RuntimeError("Oração Eucarística ausente/inválida: conferir o folheto.")
-    ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
+    if not entry.get("officialLeafletApplied"):
+        ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
 
     # Fita 5 — Bênção
     f5 = by_n[5]
-    if not is_valid_page(f5.get("page")) or "bênção" not in str(f5.get("title","")).lower():
+    if not (is_valid_page(f5.get("page")) or (f5.get("notIndicated") and f5.get("page") == "—")) or "bênção" not in str(f5.get("title","")).lower():
         raise RuntimeError("Bênção ausente/inválida: conferir antes de publicar.")
 
     # Reconstrói separação rápida SEMPRE, evitando inconsistência.
     entry["quick"] = " → ".join(
         str(t.get("page","")).strip()
         for t in sorted(tapes, key=lambda x: x.get("n",99))
-        if str(t.get("page","")).strip()
+        if str(t.get("page","")).strip() and str(t.get("page","")).strip() != "—"
     )
 
     if fixes:
