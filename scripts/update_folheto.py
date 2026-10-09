@@ -482,6 +482,9 @@ def extract_rites_from_leaflet(text):
         result["saudacao"] = first
     if second:
         result["ato"] = second
+    if not first or not second:
+        sample = [(i, repr(lines[i][:12])) for i in list(range(greeting+1, min(penitential,greeting+9))) + list(range(penitential+1,min(end,penitential+11)))]
+        print(f"[ritos-ocr] Marcadores das falas: {sample}")
     print(f"[ritos-ocr] linhas=({greeting},{penitential},{end}) falas=({len(first)},{len(second)})")
     return result
 
