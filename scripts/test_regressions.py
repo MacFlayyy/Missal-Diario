@@ -230,6 +230,37 @@ def check_cache_safety():
         compile((ROOT/name).read_text(encoding="utf-8"),name,"exec")
     print("PASSOU proteção de cache, liberação e atualização PWA")
 
+def check_christmas_choice():
+    """Modo geral precisa ser selecionável mesmo em 24/12 à tarde."""
+    html=INDEX.read_text(encoding="utf-8")
+    start=html.index("function getDisplayEntry(dateKey){")
+    end=html.index('document.getElementById("dec24MassChoice")?.addEventListener',start)
+    code=html[start:end]
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    sample=json.dumps(data["2026-12-24"],ensure_ascii=False)
+    stub=(
+        'const data={"2026-12-24":'+sample+'};\n'
+        'let hour=13;\n'
+        'function brasiliaTodayKey(){return "2026-12-24";}\n'
+        'function brasiliaClockParts(){return {hour:String(hour)};}\n'
+        'let december24Choice=null;\n'
+    )
+    checks="""
+if(!/Vigília/.test(getDisplayEntry("2026-12-24").celebration)) throw Error("Seleção automática da tarde falhou");
+december24Choice="combined";
+if(getDisplayEntry("2026-12-24").celebration!==data["2026-12-24"].celebration) throw Error("Visão geral não respeitada");
+hour=10;
+if(getDisplayEntry("2026-12-24").celebration!==data["2026-12-24"].celebration) throw Error("Visão geral trocou pela hora");
+december24Choice="morning";
+if(!/manhã/.test(getDisplayEntry("2026-12-24").celebration)) throw Error("Missa da manhã não respeitada");
+december24Choice="vigil";
+if(!/Vigília/.test(getDisplayEntry("2026-12-24").celebration)) throw Error("Vigília explícita não respeitada");
+console.log("PASSOU 24/12: geral, manhã, vigília e horário");
+"""
+    p=subprocess.run(["node","-e",stub+code+checks],capture_output=True,text=True)
+    assert p.returncode==0,p.stderr
+    print(p.stdout.strip())
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -238,6 +269,7 @@ def main():
     check_leaflet_fallback()
     check_update_safety()
     check_cache_safety()
+    check_christmas_choice()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
