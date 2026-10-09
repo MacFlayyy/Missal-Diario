@@ -55,6 +55,13 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
+      - name: Preparar OCR em português para PDFs digitalizados
+        run: |
+          if ! command -v tesseract >/dev/null || ! tesseract --list-langs 2>/dev/null | grep -qx por; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-por poppler-utils
+          fi
+
       - name: Verificar folhetos e atualizar o site
         run: python scripts/update_folheto.py
 

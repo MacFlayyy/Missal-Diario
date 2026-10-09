@@ -311,6 +311,25 @@ def check_official_leaflet_extraction():
     assert ns["extract_rites_from_leaflet"]("2 SAUDAÇÃO INICIAL\nP.: só uma linha")=={}
     print("PASSOU extração por seção: saudação, penitencial, limites e PDF incompleto")
 
+
+def check_filename_filter_and_ocr():
+    import ast
+    from datetime import date, datetime
+    from zoneinfo import ZoneInfo
+    source=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    func=next(n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef)
+              and n.name=="leaflet_date_from_filename")
+    ns={"re":re,"date":date,"datetime":datetime,"ZoneInfo":ZoneInfo}
+    exec(compile(ast.Module(body=[func],type_ignores=[]),"<filename-date>","exec"),ns)
+    ok=ns["leaflet_date_from_filename"](
+        "https://site.com/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf"
+    )
+    assert ok=="2026-10-04",ok
+    assert ns["leaflet_date_from_filename"]("https://site.com/sem-data.pdf") is None
+    assert "allow_ocr=True" in source
+    assert "ocr_scanned_folheto" in source
+    print("PASSOU OCR seletivo: datas corretas e PDF sem data rejeitado")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -322,6 +341,7 @@ def main():
     check_christmas_choice()
     check_rites_texts()
     check_official_leaflet_extraction()
+    check_filename_filter_and_ocr()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

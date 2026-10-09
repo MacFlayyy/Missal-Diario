@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 from io import BytesIO
 from urllib.parse import urljoin
 import json, re, unicodedata
+import subprocess, tempfile, shutil
 
 import requests
 from bs4 import BeautifulSoup
@@ -225,7 +226,59 @@ def discover_recent_media():
     return sorted(set(results))
 
 
-def pdf_text(url):
+def ocr_scanned_folheto(pdf_bytes, max_pages=2):
+    """Último recurso para PDFs digitalizados, com OCR português e páginas limitadas."""
+    if not shutil.which("pdftoppm") or not shutil.which("tesseract"):
+        print("[aviso] OCR não instalado; PDF ficará vinculado sem transcrição automática.")
+        return ""
+    with tempfile.TemporaryDirectory(prefix="missal_ocr_") as folder:
+        folder = Path(folder)
+        source = folder / "folheto.pdf"
+        source.write_bytes(pdf_bytes)
+        prefix = folder / "pagina"
+        rendered = subprocess.run(
+            ["pdftoppm", "-f", "1", "-l", str(max_pages),
+             "-scale-to", "2000", "-gray", "-png", str(source), str(prefix)],
+            capture_output=True, text=True, timeout=90
+        )
+        if rendered.returncode != 0:
+            print("[aviso] Renderização do PDF para OCR não foi concluída.")
+            return ""
+        texts = []
+        for page_file in sorted(folder.glob("pagina-*.png"))[:max_pages]:
+            scan = subprocess.run(
+                ["tesseract", str(page_file), "stdout", "-l", "por", "--psm", "3"],
+                capture_output=True, text=True, timeout=90
+            )
+            if scan.returncode == 0:
+                texts.append(scan.stdout)
+        result = "\n".join(texts)
+        print(f"[ocr-folheto] páginas={len(texts)} caracteres={len(result)}")
+        return result
+
+
+def leaflet_date_from_filename(url):
+    """Identifica apenas datas completas, sem adivinhar o ano pelo texto da missa."""
+    from urllib.parse import unquote
+    name = unquote(url.split("/", 1)[-1].rsplit("/", 1)[-1])
+    filename = name.lower()
+    if not filename.endswith(".pdf"):
+        return None
+    year_match = re.search(r"/(20\d{2})/\d{2}/", url)
+    year = int(year_match.group(1)) if year_match else datetime.now(ZoneInfo("America/Sao_Paulo")).year
+    for match in re.finditer(r"(?<!\d)([0-3]?\d)[_-]([01]?\d)(?!\d)", filename):
+        day, month = (int(x) for x in match.groups())
+        try:
+            result = date(year, month, day)
+        except ValueError:
+            continue
+        # URLs só são consideradas se houver data exata no calendário do projeto.
+        if date(2026, 9, 30) <= result <= date(2026, 12, 31):
+            return result.isoformat()
+    return None
+
+
+def pdf_text(url, allow_ocr=False):
     r = requests.get(url, headers=UA, timeout=40)
     r.raise_for_status()
     reader = PdfReader(BytesIO(r.content))
@@ -245,6 +298,10 @@ def pdf_text(url):
             min(candidate.count("P.:"), 8)
         )
     text = max((plain, layout), key=lambda x: (score(x), len(x)))
+    if allow_ocr and score(text) < 5:
+        recognized = ocr_scanned_folheto(r.content)
+        if score(recognized) > score(text):
+            text = recognized
     print(
         f"[pdf-extracao] paginas={len(pages)} bytes={len(r.content)} "
         f"texto={len(plain)} layout={len(layout)} "
@@ -634,7 +691,7 @@ def main():
             if not known_url:
                 continue
             try:
-                source = pdf_text(known_url)
+                source = pdf_text(known_url, allow_ocr=True)
                 if update_entry(entry, source, known_url):
                     changed_any = True
                 if date.fromisoformat(key).weekday() == 6:
@@ -642,14 +699,26 @@ def main():
             except Exception as exc:
                 print(f"[aviso] Folheto do dia {key} não foi processado: {exc}")
 
+    # OCR consome recursos: só analisa os folhetos de datas próximas,
+    # identificadas no nome do arquivo, sem varrer todos os PDFs antigos.
+    today = datetime.now(ZoneInfo("America/Sao_Paulo")).date()
     for url in pdfs:
         if url in seen:
             continue
         seen.add(url)
+        filename_key = leaflet_date_from_filename(url)
+        if not filename_key or filename_key not in data:
+            continue
+        distance = (date.fromisoformat(filename_key) - today).days
+        if distance < -14 or distance > 35:
+            continue
         try:
-            text = pdf_text(url)
-            key = parse_date(text)
-            if not key:
+            entry = data[filename_key]
+            already_verified = bool(entry.get("tapes", [{}])[0].get("ritesOfficialUrl"))
+            text = pdf_text(url, allow_ocr=not already_verified)
+            key = parse_date(text) or filename_key
+            if key != filename_key:
+                print(f"[aviso] Data do folheto não coincide com o nome do PDF: {url}")
                 continue
 
             dt = date.fromisoformat(key)
