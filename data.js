@@ -347,9 +347,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "A memória de São Francisco de Assis é omitida neste ano porque coincide com o domingo.",
+    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
     "liturgicalNote": "Memória de São Francisco de Assis omitida por coincidir com o domingo.",
-    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
+    "source": "Atualizado pelo folheto oficial O Povo de Deus",
     "cycle": "Ano A",
     "tapes": [
       {
@@ -362,7 +362,7 @@ window.MISSAL_DATA = {
             "P.: Em nome do Pai e do Filho e do Espírito Santo.\nT.: Amém.\nP.: A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.\nT.: Bendito seja Deus, que nos reuniu no amor de Cristo."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 3ª opção • sugestão",
+            "Ato Penitencial — Segunda fórmula, 3ª opção",
             "P.: De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
           ]
         ],
@@ -416,7 +416,8 @@ window.MISSAL_DATA = {
     "quick": "430 → 409 → 477 → 545 → 585",
     "ritesPendingOfficial": true,
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
-    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf"
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf",
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf"
   },
   "2026-10-05": {
     "label": "Segunda-feira • 05/10/2026",
@@ -982,9 +983,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "São João XXIII — memória facultativa omitida por coincidir com domingo",
+    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
     "liturgicalNote": "São João XXIII — memória facultativa omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Atualizado pelo folheto oficial O Povo de Deus",
     "tapes": [
       {
         "n": 1,
@@ -998,6 +999,10 @@ window.MISSAL_DATA = {
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
             "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
+          ],
+          [
+            "Conferência necessária — Ato Penitencial",
+            "Folheto indica Ato Penitencial — Terceira fórmula; o texto existente precisa ser conferido no Missal antes de substituir."
           ]
         ],
         "suggestion": true
@@ -1063,7 +1068,9 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 410 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf"
   },
   "2026-10-12": {
     "label": "Segunda-feira • 12/10/2026",
@@ -1074,9 +1081,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Solenidade celebrada neste dia.",
+    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
     "liturgicalNote": "Solenidade celebrada neste dia.",
-    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "source": "Atualizado pelo folheto oficial O Povo de Deus",
     "tapes": [
       {
         "n": 1,
@@ -1090,6 +1097,10 @@ window.MISSAL_DATA = {
           [
             "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
             "P.: No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.\n(breve silêncio)\nP.: Tende compaixão de nós, Senhor.\nT.: Porque somos pecadores.\nP.: Manifestai, Senhor, a vossa misericórdia.\nT.: E dai-nos a vossa salvação.\nP.: Deus todo-poderoso tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna.\nT.: Amém.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós.\nP.: Cristo, tende piedade de nós.\nT.: Cristo, tende piedade de nós.\nP.: Senhor, tende piedade de nós.\nT.: Senhor, tende piedade de nós."
+          ],
+          [
+            "Conferência necessária — Ato Penitencial",
+            "Folheto indica Ato Penitencial — Terceira fórmula; o texto existente precisa ser conferido no Missal antes de substituir."
           ]
         ],
         "suggestion": true
@@ -1150,7 +1161,9 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 826 → 828 → 545 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55-1-Povo-Deus-61-12_10_NSra-APARECIDA-Esplanada-PROVA-FINAL-1.pdf"
   },
   "2026-10-13": {
     "label": "Terça-feira • 13/10/2026",
