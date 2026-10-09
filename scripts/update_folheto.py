@@ -302,6 +302,18 @@ def pdf_text(url, allow_ocr=False):
         recognized = ocr_scanned_folheto(r.content)
         if score(recognized) > score(text):
             text = recognized
+    if allow_ocr and "Povo-Deus-61" in url and ("04_10" in url or "11_10" in url or "12_10" in url):
+        lines = [line.strip() for line in text.splitlines() if line.strip()]
+        words = ("saudacao inicial", "ato penitencial", "prefacio", "eucaristica",
+                 "bencao", "misterio da fe", "gloria", "oracao sobre")
+        markers = [i for i, line in enumerate(lines)
+                   if any(word in norm(line) for word in words)]
+        indexes = set()
+        for marker in markers[:20]:
+            indexes.update(range(max(0, marker-1), min(len(lines), marker+7)))
+        print("[auditoria-folheto] nome:", url.rsplit("/", 1)[-1], "linhas:", len(lines))
+        for i in sorted(indexes)[:95]:
+            print(f"[auditoria-linha] {i:03d} {lines[i][:95]}")
     print(
         f"[pdf-extracao] paginas={len(pages)} bytes={len(r.content)} "
         f"texto={len(plain)} layout={len(layout)} "
