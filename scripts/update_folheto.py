@@ -229,8 +229,28 @@ def pdf_text(url):
     r = requests.get(url, headers=UA, timeout=40)
     r.raise_for_status()
     reader = PdfReader(BytesIO(r.content))
-    # O necessário costuma estar nas primeiras páginas, mas OE/bênção podem estar depois.
-    text = "\n".join((p.extract_text() or "") for p in reader.pages)
+    # Layout alternativo para PDFs com colunas ou quebra de linha atípica.
+    pages = list(reader.pages)
+    plain = "\n".join((p.extract_text() or "") for p in pages)
+    try:
+        layout = "\n".join((p.extract_text(extraction_mode="layout") or "") for p in pages)
+    except Exception:
+        layout = ""
+    def score(candidate):
+        raw = norm(candidate)
+        return (
+            int("saudacao inicial" in raw) * 4 +
+            int("ato penitencial" in raw) * 4 +
+            int("hino do gloria" in raw) * 2 +
+            min(candidate.count("P.:"), 8)
+        )
+    text = max((plain, layout), key=lambda x: (score(x), len(x)))
+    print(
+        f"[pdf-extracao] paginas={len(pages)} bytes={len(r.content)} "
+        f"texto={len(plain)} layout={len(layout)} "
+        f"pontuacao={score(text)} saudacao={'saudacao inicial' in norm(text)} "
+        f"ato={'ato penitencial' in norm(text)}"
+    )
     return text
 
 def parse_date(text):
