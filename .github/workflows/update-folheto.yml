@@ -2,6 +2,11 @@ name: Atualizar Missal Diário
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/update_folheto.py"
+      - "scripts/ritos_texts.py"
   schedule:
     # GitHub Actions usa UTC; Brasília é UTC-3.
     # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
@@ -24,7 +29,7 @@ permissions:
 
 jobs:
   update:
-    if: github.event_name == 'schedule' || github.actor == 'MacFlayyy'
+    if: github.event_name == 'schedule' || github.event_name == 'push' || github.actor == 'MacFlayyy'
     permissions:
       contents: write
       pages: write

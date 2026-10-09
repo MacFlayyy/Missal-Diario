@@ -22,6 +22,7 @@ import json, re, unicodedata
 import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
+from ritos_texts import apply_rite_suggestions
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
@@ -195,6 +196,35 @@ def list_pdfs(year, month):
             out.append(href)
     return sorted(set(out))
 
+
+def discover_recent_media():
+    """Consulta também os anexos WordPress, pois /uploads/ pode estar fechado."""
+    results = []
+    for page in range(1, 4):
+        try:
+            response = requests.get(
+                BASE + "/wp-json/wp/v2/media",
+                params={"search": "Povo", "per_page": 100, "page": page},
+                headers=UA, timeout=20
+            )
+            if not response.ok:
+                break
+            records = response.json()
+            if not isinstance(records, list) or not records:
+                break
+            for record in records:
+                url = str(record.get("source_url") or "")
+                if (url.lower().endswith(".pdf") and "2026" in url
+                        and any(term in norm(url) for term in ("povo", "opd"))):
+                    results.append(url)
+            if len(records) < 100:
+                break
+        except Exception as exc:
+            print(f"[aviso] Catálogo de PDFs indisponível: {exc}")
+            break
+    return sorted(set(results))
+
+
 def pdf_text(url):
     r = requests.get(url, headers=UA, timeout=40)
     r.raise_for_status()
@@ -322,6 +352,56 @@ def detect_missal_page(text):
         return None
     return m.group(1) if not m.group(2) else f"{m.group(1)}-{m.group(2)}"
 
+
+def extract_rites_from_leaflet(text):
+    """Lê as falas P./T. nos dois ritos e impede captura de trechos seguintes."""
+    lines = [re.sub(r"\s+", " ", s).strip() for s in text.splitlines()]
+    lines = [s for s in lines if s]
+    def clean_heading(s):
+        s = norm(s)
+        return re.sub(r"^\d{1,2}\s*[.):\-–]?\s*", "", s).strip()
+
+    greeting = next((i for i,v in enumerate(lines)
+                     if clean_heading(v) == "saudacao inicial"), -1)
+    if greeting < 0:
+        return {}
+    penitential = next((i for i in range(greeting + 1, min(len(lines), greeting + 75))
+                        if clean_heading(lines[i]) == "ato penitencial"), -1)
+    if penitential < 0:
+        return {}
+    stop_labels = {"hino do gloria", "gloria", "coleta", "liturgia da palavra",
+                   "canto do gloria", "hino de louvor", "canto de louvor"}
+    end = next((i for i in range(penitential + 1, min(len(lines), penitential + 120))
+                if clean_heading(lines[i]) in stop_labels), -1)
+    if end < 0:
+        return {}
+
+    def make_section(block):
+        paragraphs = []
+        for line in block:
+            if re.match(r"^(?:P\.|T\.|P\s+ou\s+Di[aá]c\.)\s*:", line, re.I):
+                paragraphs.append(line)
+            elif line.startswith("(") and line.endswith(")"):
+                paragraphs.append(line)
+            elif paragraphs:
+                paragraphs[-1] += " " + line
+        result = "\n".join(paragraphs).strip()
+        if not 65 <= len(result) <= 2500:
+            return ""
+        if not re.search(r"(?:^|\n)P\.\s*:", result) or not re.search(r"(?:^|\n)T\.\s*:", result):
+            return ""
+        return result
+
+    found = {}
+    first = make_section(lines[greeting+1:penitential])
+    second = make_section(lines[penitential+1:end])
+    if first:
+        found["saudacao"] = first
+    if second:
+        found["ato"] = second
+    return found
+
+
 def update_entry(entry, text, url):
     changed = False
 
@@ -331,10 +411,41 @@ def update_entry(entry, text, url):
     pref = detect_prefacio(text)
     oe = detect_eucharistic(text)
     acl = detect_acclamation(text)
+    official_rites = extract_rites_from_leaflet(text)
 
 
     fita1 = next((x for x in entry["tapes"] if x["n"] == 1), None)
-    if fita1 and (saud or ato):
+    if fita1 and official_rites:
+        details = fita1.setdefault("details", [])
+        verified = 0
+        for prefix, detected, field in (
+            ("Saudação ", "Saudação " + saud if saud else None, "saudacao"),
+            ("Ato Penitencial — ", "Ato Penitencial — " + ato if ato else None, "ato"),
+        ):
+            block = official_rites.get(field)
+            if not block or not detected:
+                continue
+            row = next((d for d in details if isinstance(d, list) and len(d) >= 2
+                        and str(d[0]).startswith(prefix)), None)
+            if row is None:
+                details.append([detected, block])
+                changed = True
+            elif row[0] != detected or row[1] != block:
+                row[:] = [detected, block]
+                changed = True
+            verified += 1
+        if verified == 2:
+            if fita1.pop("suggestion", None) is not None:
+                changed = True
+            if entry.pop("ritesPendingOfficial", None) is not None:
+                changed = True
+            if fita1.get("ritesOfficialUrl") != url:
+                fita1["ritesOfficialUrl"] = url
+                changed = True
+
+    # Não substituir oração completa por outra fórmula se o PDF não tiver
+    # sido extraído de modo verificável: somente registrar necessidade de conferência.
+    if fita1 and (saud or ato) and not official_rites:
         details = fita1.setdefault("details", [])
 
         def apply_identification(prefix, detected_label):
@@ -479,9 +590,31 @@ def main():
         except Exception as e:
             print(f"[aviso] Falha ao listar {y}/{m:02d}: {e}")
 
+    # Em caso de listagem de arquivos bloqueada, consulta o catálogo oficial.
+    pdfs.extend(discover_recent_media())
     changed_any = False
     discovered_leaflets = {}
     seen = set()
+
+    for key, entry in data.items():
+        if apply_rite_suggestions(entry):
+            changed_any = True
+        # Reconstrói também datas oficiais já conhecidas, especialmente as
+        # que foram cadastradas sem copiar os dois ritos no primeiro momento.
+        if entry.get("ritesPendingOfficial"):
+            known_url = (entry.get("folhetoDesktopUrl") or entry.get("folhetoUrl")
+                         or entry.get("folhetoMobileUrl"))
+            if not known_url:
+                continue
+            try:
+                source = pdf_text(known_url)
+                if update_entry(entry, source, known_url):
+                    changed_any = True
+                if date.fromisoformat(key).weekday() == 6:
+                    discovered_leaflets.setdefault(key, {})[leaflet_variant(known_url)] = known_url
+            except Exception as exc:
+                print(f"[aviso] Folheto do dia {key} não foi processado: {exc}")
+
     for url in pdfs:
         if url in seen:
             continue

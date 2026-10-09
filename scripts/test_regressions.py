@@ -276,6 +276,40 @@ def check_rites_texts():
     assert 'class="detail-text"' in INDEX.read_text(encoding="utf-8")
     print(f"PASSOU: {len(data)} datas com textos escritos e legíveis no celular")
 
+
+def check_official_leaflet_extraction():
+    import ast
+    import unicodedata
+    source=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    nodes=[node for node in ast.parse(source).body if isinstance(node,ast.FunctionDef)
+           and node.name == "extract_rites_from_leaflet"]
+    def normalized(value):
+        s=unicodedata.normalize("NFD", str(value))
+        s="".join(c for c in s if unicodedata.category(c)!="Mn")
+        return " ".join(s.replace("–","-").replace("—","-").lower().split())
+    ns={"re":re, "norm":normalized}
+    exec(compile(ast.Module(body=nodes,type_ignores=[]),"<pdf-sections>","exec"), ns)
+    sample=(
+        "RITOS INICIAIS\n"
+        "2 SAUDAÇÃO INICIAL\n"
+        "P.: Em nome do Pai e do Filho e do Espírito Santo.\n"
+        "T.: Amém.\n"
+        "P.: Que Deus acompanhe esta comunidade na celebração.\n"
+        "T.: Bendito seja Deus.\n"
+        "3 ATO PENITENCIAL\n"
+        "P.: Irmãos e irmãs, reconheçamos nossos pecados nesta celebração.\n"
+        "P.: Tende compaixão de nós, Senhor.\n"
+        "T.: Porque somos pecadores.\n"
+        "4 HINO DO GLÓRIA\n"
+        "P.: Este conteúdo pertence ao hino e não pode ser capturado.\n"
+    )
+    parsed=ns["extract_rites_from_leaflet"](sample)
+    assert "Que Deus acompanhe" in parsed.get("saudacao",""),parsed
+    assert "Porque somos pecadores" in parsed.get("ato",""),parsed
+    assert "Este conteúdo" not in parsed.get("ato",""),parsed
+    assert ns["extract_rites_from_leaflet"]("2 SAUDAÇÃO INICIAL\nP.: só uma linha")=={}
+    print("PASSOU extração por seção: saudação, penitencial, limites e PDF incompleto")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -286,6 +320,7 @@ def main():
     check_cache_safety()
     check_christmas_choice()
     check_rites_texts()
+    check_official_leaflet_extraction()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

@@ -105,3 +105,5 @@ Após qualquer modificação:
 ## Ritos Iniciais
 
 As fórmulas sugeridas aparecem por escrito com as falas P. e T.; as datas com folheto aguardam conferência do PDF antes de marcar um trecho como transcrição oficial.
+
+- A rotina de folhetos busca também anexos oficiais pelo catálogo público do WordPress e tenta reler os PDFs oficiais conhecidos que ainda não tenham os dois ritos transcritos. Somente marca os ritos como confirmados quando ambos foram extraídos com seus limites de seção reconhecidos.
