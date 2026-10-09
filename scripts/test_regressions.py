@@ -363,17 +363,17 @@ def check_only_openings_from_folheto():
     exec(compile(ast.Module(body=[helper],type_ignores=[]),"<opening>","exec"),ns)
     choose=ns["opening_from_folheto"]
     greeting=(
-        "P.: Em nome do Pai e do Filho e do Espírito Santo.\\n"
-        "T.: Amém.\\n"
-        "P.: Saudação inicial para todos os participantes presentes hoje.\\n"
+        "P.: Em nome do Pai e do Filho e do Espírito Santo.\n"
+        "T.: Amém.\n"
+        "P.: Saudação inicial para todos os participantes presentes hoje.\n"
         "T.: Resposta da comunidade."
-    ).replace("\\\\n","\\n")
+    ).replace("\\\n","\n")
     assert choose(greeting,"saudacao")=="Saudação inicial para todos os participantes presentes hoje."
     act=(
-        "P.: No início da celebração, pedimos perdão e conversão.\\n"
-        "T.: Resposta do povo.\\n"
+        "P.: No início da celebração, pedimos perdão e conversão.\n"
+        "T.: Resposta do povo.\n"
         "P.: Continuação do rito que não deve aparecer."
-    ).replace("\\\\n","\\n")
+    ).replace("\\\n","\n")
     assert choose(act,"ato")=="No início da celebração, pedimos perdão e conversão."
     assert choose("T.: Só a assembleia","ato")==""
     print("PASSOU: somente a frase inicial de cada rito")
