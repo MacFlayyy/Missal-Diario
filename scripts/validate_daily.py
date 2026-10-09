@@ -88,7 +88,7 @@ def save_status(key, data):
         tapes = sunday.get("tapes", []) if isinstance(sunday, dict) else []
         if (sunday and len(tapes) >= 5
                 and "domingo" in (str(sunday.get("celebration",""))+" "+str(sunday.get("grade",""))).lower()
-                and all(is_valid_page(t.get("page")) for t in tapes[:5])):
+                and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
     # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
