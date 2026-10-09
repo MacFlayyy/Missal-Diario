@@ -862,7 +862,7 @@ def update_entry_verified(entry, text, url):
             continue
         blessing_mentioned = True
         excerpt = " ".join(normalized_lines[idx:idx+3])
-        m = re.search(r"(?:mr|missal romano)?[.,:\\s-]*p(?:ag)?\\.?\\s*(\\d{3})\\b", excerpt)
+        m = re.search(r"(?:mr|missal romano)?[.,:\s-]*p(?:ag)?\.?\s*(\d{3})\b", excerpt)
         if m:
             blessing_page = m.group(1)
         break
