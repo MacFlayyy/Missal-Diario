@@ -431,52 +431,59 @@ def detect_missal_page(text):
 
 
 def extract_rites_from_leaflet(text):
-    """Lê as falas P./T. nos dois ritos e impede captura de trechos seguintes."""
+    """Extrai as falas P./T. mesmo quando o OCR aproxima títulos e colunas."""
     lines = [re.sub(r"\s+", " ", s).strip() for s in text.splitlines()]
     lines = [s for s in lines if s]
-    def clean_heading(s):
-        s = norm(s)
-        return re.sub(r"^\d{1,2}\s*[.):\-–]?\s*", "", s).strip()
+    normalized = [norm(s) for s in lines]
 
-    greeting = next((i for i,v in enumerate(lines)
-                     if clean_heading(v).startswith("saudacao inicial")), -1)
-    if greeting < 0:
-        return {}
-    penitential = next((i for i in range(greeting + 1, min(len(lines), greeting + 75))
-                        if clean_heading(lines[i]).startswith("ato penitencial")), -1)
-    if penitential < 0:
-        return {}
-    stop_labels = {"hino do gloria", "gloria", "coleta", "liturgia da palavra",
-                   "canto do gloria", "hino de louvor", "canto de louvor"}
-    end = next((i for i in range(penitential + 1, min(len(lines), penitential + 120))
-                if any(clean_heading(lines[i]).startswith(label) for label in stop_labels)), -1)
-    if end < 0:
+    def locate(phrases, start=0, limit=1000):
+        for i in range(start, min(len(lines), start+limit)):
+            if any(phrase in normalized[i] for phrase in phrases):
+                return i
+        return -1
+
+    greeting = locate(("saudacao inicial",), 0)
+    penitential = locate(("ato penitencial",), greeting+1, 170) if greeting >= 0 else -1
+    end = locate(("hino do gloria", "coleta", "hino de louvor",
+                  "liturgia da palavra", "canto do gloria"),
+                 penitential+1, 210) if penitential >= 0 else -1
+
+    if greeting < 0 or penitential < 0 or end < 0:
+        hints = [
+            (i, normalized[i][:38]) for i in range(len(lines))
+            if any(k in normalized[i] for k in
+                   ("saudacao", "penitencial", "gloria", "coleta"))
+        ][:8]
+        print(f"[ritos-ocr] Títulos não delimitados: início={greeting} ato={penitential} fim={end}, pistas={hints}")
         return {}
 
     def make_section(block):
         paragraphs = []
         for line in block:
-            if re.match(r"^(?:P\.|T\.|P\s+ou\s+Di[aá]c\.)\s*:", line, re.I):
-                paragraphs.append(line)
+            # OCR lê tanto "P.:" quanto "P:" e pode adicionar espaços.
+            found = re.match(r"^([PT])\s*[.:;]\s*:?\s*(\S.*)$", line, re.I)
+            if found:
+                paragraphs.append(found.group(1).upper() + ".: " + found.group(2))
             elif line.startswith("(") and line.endswith(")"):
                 paragraphs.append(line)
             elif paragraphs:
                 paragraphs[-1] += " " + line
         result = "\n".join(paragraphs).strip()
-        if not 65 <= len(result) <= 2500:
+        if not 55 <= len(result) <= 3000:
             return ""
-        if not re.search(r"(?:^|\n)P\.\s*:", result) or not re.search(r"(?:^|\n)T\.\s*:", result):
+        if "P.:" not in result or "T.:" not in result:
             return ""
         return result
 
-    found = {}
+    result = {}
     first = make_section(lines[greeting+1:penitential])
     second = make_section(lines[penitential+1:end])
     if first:
-        found["saudacao"] = first
+        result["saudacao"] = first
     if second:
-        found["ato"] = second
-    return found
+        result["ato"] = second
+    print(f"[ritos-ocr] linhas=({greeting},{penitential},{end}) falas=({len(first)},{len(second)})")
+    return result
 
 
 def update_entry(entry, text, url):
@@ -499,7 +506,9 @@ def update_entry(entry, text, url):
 
 
     fita1 = next((x for x in entry["tapes"] if x["n"] == 1), None)
-    if fita1 and official_rites:
+    # Somente o par íntegro permite trocar o texto. Não misturar uma fala
+    # confirmada com uma opção ainda não identificada pela leitura automática.
+    if fita1 and all(official_rites.get(field) for field in ("saudacao", "ato")):
         details = fita1.setdefault("details", [])
         verified = 0
         for prefix, detected, field in (
@@ -507,10 +516,18 @@ def update_entry(entry, text, url):
             ("Ato Penitencial — ", "Ato Penitencial — " + ato if ato else None, "ato"),
         ):
             block = official_rites.get(field)
-            if not block or not detected:
+            if not block:
                 continue
             row = next((d for d in details if isinstance(d, list) and len(d) >= 2
                         and str(d[0]).startswith(prefix)), None)
+            if not detected:
+                # Não supor letra A-H nem opção sem confirmar no texto do PDF.
+                continue
+            if (prefix == "Ato Penitencial — " and "," not in detected
+                    and row is not None):
+                previous = str(row[0]).split(" • ")[0]
+                if previous.startswith(detected + ","):
+                    detected = previous
             if row is None:
                 details.append([detected, block])
                 changed = True
@@ -529,7 +546,7 @@ def update_entry(entry, text, url):
 
     # Não substituir oração completa por outra fórmula se o PDF não tiver
     # sido extraído de modo verificável: somente registrar necessidade de conferência.
-    if fita1 and (saud or ato) and not official_rites:
+    if fita1 and (saud or ato) and not (official_rites.get("saudacao") and official_rites.get("ato")):
         details = fita1.setdefault("details", [])
 
         def apply_identification(prefix, detected_label):

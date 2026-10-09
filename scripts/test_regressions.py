@@ -309,6 +309,20 @@ def check_official_leaflet_extraction():
     assert "Porque somos pecadores" in parsed.get("ato",""),parsed
     assert "Este conteúdo" not in parsed.get("ato",""),parsed
     assert ns["extract_rites_from_leaflet"]("2 SAUDAÇÃO INICIAL\nP.: só uma linha")=={}
+    noisy=(
+        "27º Domingo - RITOS INICIAIS\\n"
+        "2 SAUDAÇÃO INICIAL - MR\\n"
+        "P: Celebrante cumprimenta a assembleia neste dia.\\n"
+        "T: Assembleia responde ao celebrante.\\n"
+        "3 ATO PENITENCIAL - MR\\n"
+        "P: Iniciamos juntos nossa celebração e pedimos o perdão.\\n"
+        "T: A comunidade faz sua resposta penitencial.\\n"
+        "4 HINO DO GLÓRIA - Canto\\n"
+        "P: Esta parte não pode entrar no texto anterior.\\n"
+    ).replace("\\n","\n")
+    noisy_result=ns["extract_rites_from_leaflet"](noisy)
+    assert "P.:" in noisy_result.get("saudacao",""),noisy_result
+    assert "T.:" in noisy_result.get("ato",""),noisy_result
     print("PASSOU extração por seção: saudação, penitencial, limites e PDF incompleto")
 
 
