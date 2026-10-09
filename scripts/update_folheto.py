@@ -787,6 +787,17 @@ def update_entry_verified(entry, text, url):
             and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
             and saved_url == url):
         return fill_folheto_gaps(entry)
+    # Uma segunda versão (ex.: para celular) pode não possuir texto
+    # extraível. Não apagar escolhas verificadas pelo PDF desktop quando
+    # a variante não comprovar TODAS as indicações da celebração.
+    if (entry.get("officialLeafletApplied")
+            and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
+            and saved_url and saved_url != url):
+        candidate_saud, candidate_ato = leaflet_initial_choices(text)
+        candidate_pref, candidate_oe = leaflet_oe_prefacio(text)
+        if not all((candidate_saud, candidate_ato, candidate_pref, candidate_oe)):
+            print("[folheto] Variante incompleta; preservando escolhas oficiais já verificadas:", url)
+            return fill_folheto_gaps(entry)
 
     saud, ato = leaflet_initial_choices(text)
     pref, oe = leaflet_oe_prefacio(text)
