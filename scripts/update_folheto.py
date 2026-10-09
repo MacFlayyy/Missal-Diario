@@ -489,6 +489,26 @@ def extract_rites_from_leaflet(text):
     return result
 
 
+def opening_from_folheto(block, field):
+    """Guarda só a fala inicial, sem respostas, aclamações ou rito completo.
+
+    A transcrição só é usada quando o folheto teve seções identificáveis.
+    A saudação não inclui o sinal da cruz, que pertence ao início anterior.
+    """
+    speeches = []
+    for line in str(block or "").splitlines():
+        if line.startswith("P.: "):
+            sentence = line[4:].strip()
+            if sentence:
+                speeches.append(sentence)
+    if field == "saudacao":
+        speeches = [s for s in speeches if not norm(s).startswith("em nome do pai")]
+    if not speeches:
+        return ""
+    opening = speeches[0]
+    return opening if 15 <= len(opening) <= 280 else ""
+
+
 def update_entry(entry, text, url):
     changed = False
 
@@ -518,7 +538,7 @@ def update_entry(entry, text, url):
             ("Saudação ", "Saudação " + saud if saud else None, "saudacao"),
             ("Ato Penitencial — ", "Ato Penitencial — " + ato if ato else None, "ato"),
         ):
-            block = official_rites.get(field)
+            block = opening_from_folheto(official_rites.get(field), field)
             if not block:
                 continue
             row = next((d for d in details if isinstance(d, list) and len(d) >= 2
