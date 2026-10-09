@@ -110,6 +110,8 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 
 ## Fonte oficial x sugestões
 
-- **Havendo folheto**: as cinco fitas seguem as escolhas verificadas no PDF O Povo de Deus; não permanecem marcadas como sugestão. Páginas e títulos são corrigidos para o folheto. Onde não houver indicação verificável, aparece **não indicada/no folheto** e não se publica escolha presumida.
-- **Sem folheto**: usar sugestões claramente identificadas; nunca tratar essas sugestões como escolha oficial.
-- A Fita 5 sem bênção solene indicada apresenta **Sem página indicada**, e não sugere que a página da bênção foi solicitada pelo folheto. O botão adicional de abrir PDF nos Ritos Iniciais foi retirado; a funcionalidade geral **Folheto dominical** permanece.
+- **Havendo folheto**: cada indicação confirmada do PDF *O Povo de Deus* permanece como oficial. Cada parte **omitida ou não identificada** no folheto recebe uma **sugestão identificada**, com referência de página e título para preparar o Missal.
+- **Sem folheto**: mantém sugestões claramente identificadas, sem fingir que são escolhas oficiais.
+- **Bênção Solene**: quando o folheto não indica, sugerir uma bênção adequada ao tempo/celebração. Nos domingos do Tempo Comum: *Tempo Comum VI*, p.585. Em celebrações marianas: *Bem-aventurada Virgem Maria*, p.585. A seta da separação rápida inclui a página sugerida.
+- **Aclamação da Oração Eucarística**: quando o folheto indica a Oração Eucarística, mas não indica a aclamação, somente a aclamação fica como sugestão. A Oração Eucarística continua identificada como escolha oficial.
+- O botão extra de abrir PDF dentro dos Ritos Iniciais permanece removido; a função geral **Folheto dominical** continua disponível.
