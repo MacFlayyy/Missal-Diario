@@ -23,7 +23,7 @@ import subprocess, tempfile, shutil
 import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
-from ritos_texts import apply_rite_suggestions
+from ritos_texts import apply_rite_suggestions, fill_folheto_gaps, suggested_blessing
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
@@ -786,7 +786,7 @@ def update_entry_verified(entry, text, url):
     if (entry.get("officialLeafletApplied")
             and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
             and saved_url == url):
-        return False
+        return fill_folheto_gaps(entry)
 
     saud, ato = leaflet_initial_choices(text)
     pref, oe = leaflet_oe_prefacio(text)
@@ -852,13 +852,50 @@ def update_entry_verified(entry, text, url):
         t4.pop("verifiedByFolheto", None)
     t4.pop("suggestion", None)
 
+    # Se a bênção solene é mencionada no folheto, a indicação é oficial;
+    # sem número impresso, a página é sugestão e não confirmação.
+    blessing_page = None
+    blessing_mentioned = False
+    normalized_lines = [norm(line) for line in text.splitlines()]
+    for idx, line in enumerate(normalized_lines):
+        if "bencao solene" not in line or len(line) > 160:
+            continue
+        blessing_mentioned = True
+        excerpt = " ".join(normalized_lines[idx:idx+3])
+        m = re.search(r"(?:mr|missal romano)?[.,:\\s-]*p(?:ag)?\\.?\\s*(\\d{3})\\b", excerpt)
+        if m:
+            blessing_page = m.group(1)
+        break
+
     t5 = tapes[5]
-    t5.update({
-        "page": "—", "title": "Bênção Solene — não indicada no folheto",
-        "notIndicated": True,
-        "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
-    })
-    t5.pop("suggestion", None)
+    if blessing_mentioned:
+        if blessing_page:
+            t5.update({
+                "page": blessing_page, "title": "Bênção Solene — conforme o folheto",
+                "details": [["Indicação", "Bênção Solene indicada no folheto oficial."]],
+            })
+            t5.pop("pageSuggestion", None)
+            t5.pop("suggestion", None)
+        else:
+            proposed_page, _ = suggested_blessing(entry)
+            t5.update({
+                "page": proposed_page, "title": "Bênção Solene — conforme o folheto",
+                "details": [["Indicação", "O folheto indica a bênção solene."],
+                            ["Página", "Sugestão de página: número não identificado no folheto."]],
+                "pageSuggestion": True,
+            })
+            t5.pop("suggestion", None)
+        t5["verifiedByFolheto"] = True
+        t5.pop("notIndicated", None)
+    else:
+        t5.update({
+            "page": "—", "title": "Bênção Solene — não indicada no folheto",
+            "notIndicated": True,
+            "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
+        })
+        t5.pop("suggestion", None)
+        t5.pop("verifiedByFolheto", None)
+        t5.pop("pageSuggestion", None)
 
     verified = [n for n, t in tapes.items() if t.get("verifiedByFolheto")]
     entry["officialVerifiedParts"] = sorted(verified)
@@ -870,9 +907,7 @@ def update_entry_verified(entry, text, url):
         "ou não identificadas estão sinalizadas, sem escolhas inventadas."
     )
     entry["folhetoUrl"] = url
-    entry["quick"] = " → ".join(
-        str(t["page"]) for t in entry["tapes"] if str(t.get("page", "—")) != "—"
-    )
+    fill_folheto_gaps(entry)
     return json.dumps(entry, ensure_ascii=False, sort_keys=True) != snapshot
 
 # Aplicação segura, incluindo quando o PDF não traz todas as indicações.
@@ -896,6 +931,9 @@ def main():
 
     for key, entry in data.items():
         if apply_rite_suggestions(entry):
+            changed_any = True
+        # Reaplica sugestões nas lacunas mesmo em folhetos já cadastrados.
+        if fill_folheto_gaps(entry):
             changed_any = True
         # Reconstrói também datas oficiais já conhecidas, especialmente as
         # que foram cadastradas sem copiar os dois ritos no primeiro momento.
