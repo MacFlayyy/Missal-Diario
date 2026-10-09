@@ -193,6 +193,7 @@ def check_update_safety():
     node=next(n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name=="update_entry")
     mock={
         "classify_saudacao":lambda _:"B",
+        "extract_rites_from_leaflet":lambda _: {},
         "classify_ato":lambda _:"Terceira fórmula, 2ª opção",
         "detect_missal_page":lambda _:"999",
         "detect_prefacio":lambda _:None,
