@@ -3237,8 +3237,8 @@ body.celebration-mode .celebration-exit-footer{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261009-ritos-inicio"></script>
-<script src="status.js?v=20261009-ritos-inicio"></script>
+<script src="data.js?v=20261009-folheto-verificado"></script>
+<script src="status.js?v=20261009-folheto-verificado"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -3359,7 +3359,7 @@ function updateSourceStatus(d){
   if(!box || !txt) return;
   const official=sourceIsOfficial(d);
   box.classList.toggle("official",official);
-  txt.textContent=official ? "Folheto oficial aplicado" : "Separação pelo Missal";
+  txt.textContent=official ? (d.officialLeafletApplied ? "Folheto oficial aplicado" : "Folheto localizado • conferência necessária") : "Separação pelo Missal";
 }
 
 function formatLastUpdate(){
@@ -4246,7 +4246,7 @@ function render(dateKey){
       <div class="tape-top">
         <div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div>
       </div>
-      <div class="page">Página ${prepareEscapeHtml(t.page)}</div>
+      <div class="page">${t.notIndicated ? "Sem página indicada" : `Página ${prepareEscapeHtml(t.page)}`}</div>
       <h4>${prepareEscapeHtml(t.title)}</h4>
       ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
       ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
@@ -4814,7 +4814,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-ritos-inicio",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261009-folheto-verificado",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
