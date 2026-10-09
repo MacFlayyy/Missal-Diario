@@ -20,7 +20,7 @@ from __future__ import annotations
 from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from ritos_texts import apply_rite_suggestions
+from ritos_texts import apply_rite_suggestions, fill_folheto_gaps
 import json
 import re
 
@@ -315,6 +315,7 @@ def main():
         print(f"Data {today_key} recuperada automaticamente do calendário-base.")
 
     apply_rite_suggestions(data[today_key])
+    fill_folheto_gaps(data[today_key])
     fixes = repair_entry(data[today_key])
     save_data(data)
     save_status(today_key, data)
