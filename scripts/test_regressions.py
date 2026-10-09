@@ -103,7 +103,7 @@ def check_liturgical_integrity():
         tapes=entry.get("tapes",[])
         assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
         assert [t.get("n") for t in tapes]==[1,2,3,4,5],f"{key}: ordem de fitas"
-        expected=" → ".join(str(t.get("page","")).strip() for t in tapes)
+        expected=" → ".join(str(t.get("page","")).strip() for t in tapes if str(t.get("page","")).strip() not in {"", "—"})
         assert entry.get("quick")==expected,f"{key}: separação rápida difere das fitas"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"
@@ -275,7 +275,10 @@ def check_rites_texts():
             assert "P.:" not in row[1] and "T.:" not in row[1], f"{key}: falas adicionais"
             assert "\\n" not in row[1] and len(row[1]) <= 280, f"{key}: rito ainda longo"
             assert "Consultar o texto integral" not in row[1]
-            assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
+            if entry.get("officialLeafletApplied"):
+                assert "sugestão" not in row[0].lower(), f"{key}: folheto com sugestão"
+            else:
+                assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
     assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
     assert "2ª opção" in data["2026-10-09"]["tapes"][0]["details"][1][0]
     assert 'class="detail-text"' in INDEX.read_text(encoding="utf-8")
@@ -379,6 +382,34 @@ def check_only_openings_from_folheto():
     print("PASSOU: somente a frase inicial de cada rito")
 
 
+
+def check_verified_leaflet_days():
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    expected={
+        "2026-10-04":("Saudação A","Segunda fórmula, 3ª opção","477","545"),
+        "2026-10-11":("Saudação A","Primeira fórmula, 3ª opção","614","614"),
+        "2026-10-12":("Saudação E","Primeira fórmula, 2ª opção","828","523"),
+    }
+    for day,(saud,ato,pref,oe) in expected.items():
+        item=data[day]
+        assert item.get("officialLeafletApplied"),day
+        assert item["tapes"][0]["details"][0][0] == saud,day
+        assert ato in item["tapes"][0]["details"][1][0],day
+        assert item["tapes"][2]["page"] == pref,day
+        assert item["tapes"][3]["page"] == oe,day
+        assert item["tapes"][4].get("notIndicated") is True
+        assert item["tapes"][4]["page"] == "—"
+        assert "—" not in item["quick"]
+        for tape in item["tapes"]:
+            assert not tape.get("suggestion"),f"{day}: fita marcada sugestão"
+            assert not any("sugestão" in str(row[0]).lower()
+                           for row in tape.get("details", [])),f"{day}: detalhe sugestão"
+    html=INDEX.read_text(encoding="utf-8")
+    assert "Abrir o texto original no folheto oficial" not in html
+    assert "rites-official-pdf" not in html
+    print("PASSOU folhetos oficiais 04, 11 e 12/10: escolhas e fitas sem sugestões")
+
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -392,6 +423,7 @@ def main():
     check_official_leaflet_extraction()
     check_filename_filter_and_ocr()
     check_only_openings_from_folheto()
+    check_verified_leaflet_days()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
