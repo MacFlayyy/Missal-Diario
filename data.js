@@ -347,9 +347,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
+    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
     "liturgicalNote": "Memória de São Francisco de Assis omitida por coincidir com o domingo.",
-    "source": "Atualizado pelo folheto oficial O Povo de Deus",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "cycle": "Ano A",
     "tapes": [
       {
@@ -358,15 +358,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
+            "Saudação A",
             "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 3ª opção • sugestão",
+            "Ato Penitencial — Segunda fórmula, 3ª opção",
             "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -375,9 +375,10 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Missa do dia conforme folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -385,10 +386,11 @@ window.MISSAL_DATA = {
         "title": "Prefácio dos Domingos do Tempo Comum IV",
         "details": [
           [
-            "Título",
-            "A história da salvação"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
@@ -398,26 +400,39 @@ window.MISSAL_DATA = {
           [
             "Aclamação",
             "Mistério da fé para a salvação do mundo!"
+          ],
+          [
+            "Resposta",
+            "Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
-        "page": "585",
-        "title": "Bênção Solene — Tempo Comum VI",
+        "page": "—",
+        "title": "Bênção Solene — não indicada no folheto",
         "details": [
           [
             "Indicação",
-            "Conforme o folheto"
+            "O folheto não apresenta uma bênção solene específica."
           ]
-        ]
+        ],
+        "notIndicated": true
       }
     ],
-    "quick": "430 → 409 → 477 → 545 → 585",
-    "ritesPendingOfficial": true,
+    "quick": "430 → 409 → 477 → 545",
+    "ritesPendingOfficial": false,
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Versao-Celular.pdf",
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/09/53-Povo-Deus-61-04_10_27o-Domingo-TC-Prova-Final.pdf",
+    "officialLeafletApplied": true,
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   "2026-10-05": {
     "label": "Segunda-feira • 05/10/2026",
@@ -983,9 +998,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
+    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
     "liturgicalNote": "São João XXIII — memória facultativa omitida por coincidir com domingo",
-    "source": "Atualizado pelo folheto oficial O Povo de Deus",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -993,19 +1008,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
+            "Saudação A",
             "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
-          ],
-          [
-            "Conferência necessária — Ato Penitencial",
-            "Folheto indica Ato Penitencial — Terceira fórmula; o texto existente precisa ser conferido no Missal antes de substituir."
+            "Ato Penitencial — Primeira fórmula, 3ª opção",
+            "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -1014,63 +1025,60 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Missa do dia conforme folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
-        "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV",
+        "page": "614",
+        "title": "Prefácio próprio — A Igreja a caminho da unidade",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
-            "Uso",
-            "Sugestão"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "614",
+        "title": "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
-          ],
-          [
-            "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Não identificada no folheto; conferir antes da celebração"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
-        "page": "585",
-        "title": "Bênção Solene — Tempo Comum VI",
+        "page": "—",
+        "title": "Bênção Solene — não indicada no folheto",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não apresenta uma bênção solene específica."
           ]
         ],
-        "suggestion": true
+        "notIndicated": true
       }
     ],
-    "quick": "430 → 410 → 477 → 545 → 585",
+    "quick": "430 → 410 → 614 → 614",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   "2026-10-12": {
     "label": "Segunda-feira • 12/10/2026",
@@ -1081,9 +1089,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal.",
+    "note": "Separação conforme indicações identificadas no folheto oficial. As partes que não constam no folheto estão identificadas, sem sugestões apresentadas como oficiais.",
     "liturgicalNote": "Solenidade celebrada neste dia.",
-    "source": "Atualizado pelo folheto oficial O Povo de Deus",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -1091,19 +1099,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação E",
+            "A vós, irmãos, paz e fé da parte de Deus, o Pai, e do Senhor Jesus Cristo."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
-          ],
-          [
-            "Conferência necessária — Ato Penitencial",
-            "Folheto indica Ato Penitencial — Terceira fórmula; o texto existente precisa ser conferido no Missal antes de substituir."
+            "Ato Penitencial — Primeira fórmula, 2ª opção",
+            "O Senhor Jesus, que nos convida à mesa da Palavra e da Eucaristia, nos chama a segui-lo fielmente."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -1112,58 +1116,64 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Missa do dia conforme folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
         "page": "828",
-        "title": "Prefácio próprio de Nossa Senhora Aparecida",
+        "title": "Prefácio próprio — Do mistério de Maria e da Igreja",
         "details": [
           [
-            "Uso",
-            "Prefácio dentro do próprio formulário"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "523",
+        "title": "Oração Eucarística I",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
-        "page": "587",
-        "title": "Bênção Solene — Na festa de um Santo",
+        "page": "—",
+        "title": "Bênção Solene — não indicada no folheto",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não apresenta uma bênção solene específica."
           ]
         ],
-        "suggestion": true
+        "notIndicated": true
       }
     ],
-    "quick": "430 → 826 → 828 → 545 → 587",
+    "quick": "430 → 826 → 828 → 523",
     "cycle": "Ano II",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55-1-Povo-Deus-61-12_10_NSra-APARECIDA-Esplanada-PROVA-FINAL-1.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4
+    ]
   },
   "2026-10-13": {
     "label": "Terça-feira • 13/10/2026",
