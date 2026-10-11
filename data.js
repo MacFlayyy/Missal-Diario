@@ -1090,7 +1090,11 @@ window.MISSAL_DATA = {
       2,
       3,
       4
-    ]
+    ],
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-12": {
     "label": "Segunda-feira • 12/10/2026",
