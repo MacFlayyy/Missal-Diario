@@ -1189,7 +1189,11 @@ window.MISSAL_DATA = {
       2,
       3,
       4
-    ]
+    ],
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-13": {
     "label": "Terça-feira • 13/10/2026",
