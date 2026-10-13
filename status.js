@@ -1,6 +1,6 @@
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-12",
-  "lastSuccessfulUpdateAt": "2026-10-12T04:16:44-03:00",
+  "availableThrough": "2026-10-13",
+  "lastSuccessfulUpdateAt": "2026-10-13T04:16:33-03:00",
   "timezone": "America/Sao_Paulo",
   "validation": "reviewed-and-corrected",
   "calendarDataThrough": "2026-12-31",
