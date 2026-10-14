@@ -3066,6 +3066,43 @@ body.celebration-mode .celebration-exit-footer{
   .mobile-nav{padding:7px!important}
 }
 </style>
+<style id="calendar-responsive-v71">
+/* Calendário dimensionado pela viewport: não cortar dias nem ocultar a grade sob a barra inferior. */
+@media (max-width:950px){
+  body.calendar-open::before{
+    content:"";position:fixed;inset:0;z-index:123;
+    background:rgba(40,25,24,.36);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  }
+  .date-menu.calendar-panel:not([hidden]){
+    position:fixed!important;top:50%!important;left:50%!important;right:auto!important;
+    transform:translate(-50%,-50%)!important;z-index:124!important;
+    width:min(400px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;
+    max-height:calc(100dvh - 24px)!important;max-height:calc(100vh - 24px)!important;
+    margin:0!important;padding:12px!important;box-sizing:border-box!important;
+    overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;
+    border-radius:18px!important;box-shadow:0 25px 70px rgba(40,20,20,.3)!important;
+  }
+  .date-menu.calendar-panel .calendar-grid,
+  .date-menu.calendar-panel .calendar-week{
+    grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:3px!important;min-width:0!important;
+  }
+  .date-menu.calendar-panel .calendar-day,
+  .date-menu.calendar-panel .calendar-empty{
+    min-width:0!important;max-width:100%!important;
+    height:36px!important;min-height:0!important;aspect-ratio:auto!important;
+    box-sizing:border-box!important;
+  }
+}
+@media (max-width:350px){
+  .date-menu.calendar-panel:not([hidden]){padding:9px!important}
+  .date-menu.calendar-panel .calendar-grid,.date-menu.calendar-panel .calendar-week{gap:2px!important}
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:34px!important}
+}
+@media (max-height:420px) and (max-width:950px){
+  .date-menu.calendar-panel:not([hidden]){max-height:calc(100dvh - 12px)!important;padding:9px!important}
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:32px!important}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3101,13 +3138,13 @@ body.celebration-mode .celebration-exit-footer{
         <div class="eyebrow">Escolher data</div>
         <div class="date-control">
           <button class="nav-btn" id="prevBtn" aria-label="Dia anterior">‹</button>
-          <button class="date-picker-btn" id="datePickerBtn" type="button">
+          <button class="date-picker-btn" id="datePickerBtn" type="button" aria-expanded="false" aria-controls="dateMenu" aria-haspopup="dialog">
             <span id="datePickerLabel">Hoje</span>
             <span class="calendar-icon">▾</span>
           </button>
           <button class="nav-btn" id="nextBtn" aria-label="Próximo dia">›</button>
         </div>
-        <div class="date-menu" id="dateMenu" hidden></div>
+        <div class="date-menu" id="dateMenu" role="dialog" aria-label="Calendário para escolher a data" hidden></div>
         <div class="sunday-preview-note" id="sundayPreviewNote" hidden><span></span><strong>Domingo disponível</strong> — Missa dominical já preparada.</div>
         <div class="color-chip">
           <div class="dot" id="colorDot" style="background:#c8a96a"></div>
@@ -3478,7 +3515,7 @@ function buildDetailedCopyText(dateKey){
 
   (d.tapes||[]).forEach(function(t){
     const info=detailMap(t);
-    const page=String(t.page||"—");
+    const page=t.pageUnverified ? "a conferir" : (t.notIndicated ? "não indicada" : String(t.page||"—"));
 
     if(t.n===1){
       lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
@@ -3501,6 +3538,7 @@ function buildDetailedCopyText(dateKey){
       title+="**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
+      else if(t.suggestion) title+=" *(sugestão)*";
       lines.push(title+"     ","");
       return;
     }
@@ -3521,6 +3559,7 @@ function buildDetailedCopyText(dateKey){
       let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
+      else if(t.suggestion) title+=" *(sugestão)*";
       lines.push(title+"     ","");
       return;
     }
@@ -3744,10 +3783,14 @@ async function buildShareImageBlob(){
     return lines.length*lineHeight;
   }
   function allTapeDetails(tape){
-    return (tape.details||[]).map(pair=>{
+    const parts=(tape.details||[]).map(pair=>{
       const meta=labelWithSuggestion(pair[0]);
-      return meta.clean+": "+String(pair[1]||"");
-    }).join(" • ");
+      return meta.clean+(meta.isSuggestion?" (sugestão)":"")+": "+String(pair[1]||"");
+    });
+    if(tape.pageUnverified) parts.unshift("Página ainda não conferida no Missal Romano.");
+    if(tape.notIndicated) parts.unshift("O folheto não indica página específica.");
+    if(tape.suggestion && !parts.some(t=>/sugestão/i.test(t))) parts.unshift("Escolha sugerida, não confirmada pelo folheto.");
+    return parts.join(" • ");
   }
 
   function metaBox(x,y,w,h,label,value){
@@ -4027,13 +4070,14 @@ async function buildShareImageBlob(){
     ctx.stroke();
     ctx.restore();
 
-    const pageText=String(t.page||"—").replace(/^Página\s*/i,"");
+    const pageText=t.pageUnverified?"PÁGINA A CONFERIR":
+      (t.notIndicated?"SEM PÁGINA INDICADA":"PÁGINA "+String(t.page||"—").replace(/^Página\s*/i,""));
     ctx.font="800 12px Arial, sans-serif";
-    const pageW=Math.max(92,ctx.measureText("PÁGINA "+pageText).width+22);
+    const pageW=Math.max(92,ctx.measureText(pageText).width+22);
     fillRound(pad+18,y+14,pageW,28,14,"#f6edef");
     ctx.fillStyle=wine;
     ctx.textBaseline="middle";
-    ctx.fillText("PÁGINA "+pageText,pad+30,y+28);
+    ctx.fillText(pageText,pad+30,y+28);
     ctx.textBaseline="alphabetic";
 
     drawLines(t.title||"—",pad+18,y+54,cardW-90,25,2,"800 23px Arial, sans-serif",ink);
@@ -4454,7 +4498,7 @@ function buildDateMenu(){
   menu.querySelectorAll(".calendar-day[data-date]").forEach(btn=>{
     btn.addEventListener("click",()=>{
       render(btn.dataset.date);
-      menu.hidden=true;
+      closeDateMenu();
     });
   });
   document.getElementById("calendarPrev")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();});
@@ -4462,12 +4506,18 @@ function buildDateMenu(){
   updateNavButtons();
 }
 
+function closeDateMenu(){
+  const menu=document.getElementById("dateMenu");
+  menu.hidden=true;
+  document.body.classList.remove("calendar-open");
+  document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
+}
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
 document.addEventListener("keydown",event=>{
   if(event.key!=="Escape") return;
   const calendar=document.getElementById("dateMenu");
   if(calendar && !calendar.hidden){
-    calendar.hidden=true;
+    closeDateMenu();
     document.getElementById("datePickerBtn")?.focus();
   }
 });
@@ -4478,13 +4528,17 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     calendarCursor=(window.currentDateKey || getVisibleDates().at(-1)).slice(0,7);
     buildDateMenu();
   }
-  menu.hidden = !menu.hidden;
+  if(menu.hidden){
+    menu.hidden=false;
+    document.body.classList.add("calendar-open");
+    document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
+  }else closeDateMenu();
 });
 
 document.addEventListener("click",(e)=>{
   const menu = document.getElementById("dateMenu");
   const picker = document.getElementById("datePickerBtn");
-  if(!menu.contains(e.target) && !picker.contains(e.target)) menu.hidden = true;
+  if(!menu.contains(e.target) && !picker.contains(e.target)) closeDateMenu();
 });
 
 document.getElementById("prevBtn").addEventListener("click",()=>moveDay(-1));
@@ -4550,8 +4604,9 @@ function setPrepareMissal(open){
     const tapes=Array.isArray(d.tapes)?d.tapes:[];
     pages.innerHTML=prepareLabels.map((label,index)=>{
       const tape=tapes[index] || {};
-      const page=String(tape.page || "—");
-      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(label)+'</span></div>';
+      const page=tape.pageUnverified?"A conferir":(tape.notIndicated?"Não indicada":String(tape.page || "—"));
+      const labelText=label+(tape.suggestion?" (sugestão)":"");
+      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(labelText)+'</span></div>';
     }).join("");
     overlay.hidden=false;
     document.body.classList.add("prepare-missal-open");
