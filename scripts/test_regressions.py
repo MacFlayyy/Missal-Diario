@@ -25,6 +25,14 @@ def verify_html(path,standalone=False):
     assert html.count("<html")==1 and html.strip().endswith("</html>"),path
     assert "</head>" in html and "</body>" in html,path
     assert not re.search(r"</html>\s*<(?:style|script)\b",html,re.I),path
+    assert "calendar-responsive-v71" in html,path
+    assert "body.calendar-open::before" in html,path
+    assert "function closeDateMenu()" in html,path
+    assert 'aria-expanded="false" aria-controls="dateMenu"' in html,path
+    assert 'max-height:calc(100dvh - 24px)' in html,path
+    assert 'if(tape.pageUnverified) parts.unshift("Página ainda não conferida no Missal Romano.")' in html,path
+    assert 'if(tape.suggestion && !parts.some(t=>/sugestão/i.test(t)))' in html,path
+    assert 'const pageText=t.pageUnverified?"PÁGINA A CONFERIR"' in html,path
     assert "accessibility-and-stability-v65" in html,path
     assert "layout-regression-fixes-v67" in html,path
     assert "grid-template-columns:repeat(5,minmax(0,1fr))" in html,path
