@@ -26,6 +26,15 @@ def verify_html(path,standalone=False):
     assert "</head>" in html and "</body>" in html,path
     assert not re.search(r"</html>\s*<(?:style|script)\b",html,re.I),path
     assert "calendar-responsive-v71" in html,path
+    assert "deep-visual-accessibility-fixes-v73" in html,path
+    assert "const titleBottom=drawLines(t.title" in html,path
+    assert "drawAllLines(allTapeDetails(t),pad+18,titleBottom+8" in html,path
+    assert "titleRows*25" in html,path
+    assert "multi-page-values" in html,path
+    assert 'menu.setAttribute("aria-modal","true")' in html,path
+    assert 'menu.querySelector("#calendarClose")?.focus()' in html,path
+    assert "const selected=december24Choice;" in html,path
+    assert "Seleção automática da tarde falhou" not in html,path
     assert "body.calendar-open::before" in html,path
     assert "function closeDateMenu()" in html,path
     assert 'aria-expanded="false" aria-controls="dateMenu"' in html,path
