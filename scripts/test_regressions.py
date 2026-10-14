@@ -260,7 +260,7 @@ def check_christmas_choice():
         'let december24Choice=null;\n'
     )
     checks="""
-if(!/Vigília/.test(getDisplayEntry("2026-12-24").celebration)) throw Error("Seleção automática da tarde falhou");
+if(getDisplayEntry("2026-12-24").celebration!==data["2026-12-24"].celebration) throw Error("Sem escolha explícita não pode forçar a Vigília");
 december24Choice="combined";
 if(getDisplayEntry("2026-12-24").celebration!==data["2026-12-24"].celebration) throw Error("Visão geral não respeitada");
 hour=10;
