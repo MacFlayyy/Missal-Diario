@@ -4202,7 +4202,7 @@ function animateUpdatedContent(){
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const targets = [document.querySelector(".hero-main"),document.querySelector(".side"),...document.querySelectorAll(".tape")].filter(Boolean);
   targets.forEach((el,i)=>el.animate(
-    [{opacity:.35,transform:"translateY(7px)"},{opacity:1,transform:"translateY(0)"}],
+    [{transform:"translateY(4px)"},{transform:"translateY(0)"}],
     {duration:280+i*24,easing:"cubic-bezier(.2,.7,.2,1)"}
   ));
 }
