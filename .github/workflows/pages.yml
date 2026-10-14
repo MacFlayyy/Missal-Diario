@@ -10,9 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+# A publicação diária e as publicações de código usam a MESMA fila,
+# para não disputar o deployment único do GitHub Pages.
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: missal-diario-pages-deployment
+  cancel-in-progress: false
 
 jobs:
   deploy:
