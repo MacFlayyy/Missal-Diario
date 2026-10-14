@@ -13,8 +13,9 @@ from zoneinfo import ZoneInfo
 import json
 import re
 import unicodedata
-import requests
-from bs4 import BeautifulSoup
+from html.parser import HTMLParser
+from html import unescape
+from urllib.request import urlopen, Request
 from ritos_texts import SAUDACOES, ATO_PENITENCIAL, suggested_blessing, suggested_preface
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -40,18 +41,42 @@ def liturgical_year(day):
     active_year = day.year if day >= advent else day.year-1
     return "Ano " + ("A", "B", "C")[(active_year-2025) % 3]
 
+
+class PublicLiturgyParser(HTMLParser):
+    """Lê o texto de página sem bibliotecas externas ou execução de scripts."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.fragments=[]
+        self.skip=0
+
+    def handle_starttag(self,tag,attrs):
+        if tag in ("script","style","noscript"):
+            self.skip+=1
+
+    def handle_endtag(self,tag):
+        if tag in ("script","style","noscript"):
+            self.skip=max(0,self.skip-1)
+
+    def handle_data(self,value):
+        if not self.skip:
+            value=re.sub(r"\s+"," ",value).strip()
+            if value:
+                self.fragments.append(unescape(value))
+
+
 def read_liturgical_day(day, fetch=None):
     if fetch is None:
         def fetch(url):
-            response = requests.get(url, timeout=24, headers={
-                "User-Agent": "MissalDiario/1.1 (dados liturgicos publicos; contato via GitHub)"})
-            response.raise_for_status()
-            return response.text
+            request=Request(url,headers={
+                "User-Agent":"Mozilla/5.0 (MissalDiario/1.1; data liturgica publica)"})
+            with urlopen(request,timeout=24) as response:
+                return response.read().decode("utf-8",errors="replace")
     html = fetch(daily_url(day))
     if len(html) < 400:
         raise RuntimeError("Fonte diária sem dados suficientes")
-    soup = BeautifulSoup(html, "html.parser")
-    lines = [re.sub(r"\s+", " ", x).strip() for x in soup.stripped_strings]
+    parser=PublicLiturgyParser()
+    parser.feed(html)
+    lines=parser.fragments
     date_label = f"{day.day:02d} de {MONTHS[day.month-1]} de {day.year}"
     page_normalized = simplify(" ".join(lines))
     if simplify(date_label) not in page_normalized:
