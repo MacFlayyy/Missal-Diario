@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/mobile-visual.yml'
+      - 'index.html'
+      - 'data.js'
+      - 'status.js'
       - 'scripts/mobile-visual-audit.cjs'
   workflow_dispatch:
 permissions:
