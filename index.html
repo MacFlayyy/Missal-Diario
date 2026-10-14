@@ -3108,9 +3108,14 @@ body.celebration-mode .celebration-exit-footer{
 body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:none!important}
 .reveal{opacity:1!important;transform:none!important}
 @media(max-width:620px){
+  .quick .quick-steps:has(.multi-page-values),
+  body.celebration-mode .quick .quick-steps:has(.multi-page-values),
+  .prepare-missal-sequence .quick-steps:has(.multi-page-values){
+    grid-template-columns:minmax(0,.85fr) minmax(0,1.8fr) repeat(3,minmax(0,.85fr))!important;
+  }
   .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
   .prepare-missal-sequence .quick-step .multi-page-values{
-    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;
     width:100%;font-size:10px;line-height:1.25;font-variant-numeric:tabular-nums
   }
 }
