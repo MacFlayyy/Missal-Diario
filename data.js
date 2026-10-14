@@ -1381,7 +1381,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 410 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-15": {
     "label": "Quinta-feira • 15/10/2026",

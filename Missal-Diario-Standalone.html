@@ -4622,7 +4622,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 410 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-15": {
     "label": "Quinta-feira • 15/10/2026",
@@ -11795,8 +11799,8 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-13",
-  "lastSuccessfulUpdateAt": "2026-10-13T04:16:33-03:00",
+  "availableThrough": "2026-10-14",
+  "lastSuccessfulUpdateAt": "2026-10-14T04:32:38-03:00",
   "timezone": "America/Sao_Paulo",
   "validation": "reviewed-and-corrected",
   "calendarDataThrough": "2026-12-31",
@@ -13389,7 +13393,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261013-f28efee00b3d",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261014-d2873b031a88",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
