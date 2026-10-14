@@ -3059,6 +3059,13 @@ body.celebration-mode .celebration-exit-footer{
   border:1px solid rgba(125,23,34,.2);color:var(--wine);border-radius:999px;
   background:#fffdfa;min-height:42px;padding:10px 14px;cursor:pointer}
 .celebration-choice button[aria-pressed="true"]{background:var(--wine);color:white}
+/* Auditoria de legibilidade e acessibilidade: foco visível e toque confortável. */
+:where(button, a, [tabindex]):focus-visible{outline:3px solid #c8a96a;outline-offset:3px}
+@media(max-width:620px){
+  .mobile-nav span{font-size:11px!important;line-height:1.15!important}
+  .mobile-nav button{min-height:56px!important;padding:7px 3px!important}
+  .mobile-nav{padding:7px!important}
+}
 </style>
 </head>
 <body>
@@ -12024,7 +12031,6 @@ function buildDetailedCopyText(dateKey){
   dateKey=dateKey||window.currentDateKey;
   const d=getDisplayEntry(dateKey);
   if(!d) return "";
-  const citation="missal-romano-2023-pdf-4";
   const lines=[];
   const heading=dateKey===brasiliaTodayKey() ? "Hoje" : "Data selecionada";
 
@@ -12037,7 +12043,7 @@ function buildDetailedCopyText(dateKey){
   if(d.cycle) lines.push("**"+cycleLabelFor(dateKey,d)+":** "+d.cycle+"\\");
   if(d.liturgicalYear) lines.push("**Ano litúrgico:** "+d.liturgicalYear+"\\");
   if(d.liturgicalNote||d.note){
-    lines.push("**Observação:** "+(d.liturgicalNote||d.note)+"     "+citation);
+    lines.push("**Observação:** "+(d.liturgicalNote||d.note)+"     ");
   }
   lines.push("");
 
@@ -12049,14 +12055,14 @@ function buildDetailedCopyText(dateKey){
       lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
       (t.details||[]).forEach(function(pair){
         const meta=labelWithSuggestion(pair[0]);
-        lines.push("- **"+meta.clean+"**"+(meta.isSuggestion?" *(sugestão)*":"")+": "+pair[1]+"     "+citation);
+        lines.push("- **"+meta.clean+"**"+(meta.isSuggestion?" *(sugestão)*":"")+": "+pair[1]+"     ");
       });
       lines.push("");
       return;
     }
 
     if(t.n===2){
-      lines.push("**Fita 2 — pág. "+page+" — "+t.title+"**     "+citation,"");
+      lines.push("**Fita 2 — pág. "+page+" — "+t.title+"**     ","");
       return;
     }
 
@@ -12066,14 +12072,14 @@ function buildDetailedCopyText(dateKey){
       title+="**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
-      lines.push(title+"     "+citation,"");
+      lines.push(title+"     ","");
       return;
     }
 
     if(t.n===4){
       let title="**Fita 4 — pág. "+page+" — "+t.title+"**";
       if(t.suggestion) title+=" *(sugestão)*.";
-      lines.push(title+"     "+citation,"");
+      lines.push(title+"     ","");
       (t.details||[]).forEach(function(pair){
         const meta=labelWithSuggestion(pair[0]);
         lines.push("- **"+meta.clean+":** "+pair[1]+(meta.isSuggestion?" *(sugestão)*":""));
@@ -12086,11 +12092,11 @@ function buildDetailedCopyText(dateKey){
       let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
-      lines.push(title+"     "+citation,"");
+      lines.push(title+"     ","");
       return;
     }
 
-    lines.push("**Fita "+t.n+" — pág. "+page+" — "+t.title+"**     "+citation,"");
+    lines.push("**Fita "+t.n+" — pág. "+page+" — "+t.title+"**     ","");
   });
 
   lines.push("**Separação rápida:** **"+(d.quick||"—")+"**");
@@ -13393,7 +13399,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261014-d2873b031a88",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261014-8c13378aabfe",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
