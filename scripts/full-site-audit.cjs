@@ -117,6 +117,28 @@ async function run(config){
 }
 (async()=>{
  for(const c of scenarios)await run(c);
+ const pwa={name:'pwa-offline',checks:[]};results.push(pwa);
+ const pwaBrowser=await chromium.launch({headless:true});
+ const pwaContext=await pwaBrowser.newContext({
+   viewport:{width:390,height:844},isMobile:true,hasTouch:true,
+   serviceWorkers:'allow',timezoneId:'America/Sao_Paulo',locale:'pt-BR'
+ });
+ const pwaPage=await pwaContext.newPage();
+ try{
+   await pwaPage.goto(local,{waitUntil:'domcontentloaded',timeout:30000});
+   await pwaPage.waitForFunction(()=>!!navigator.serviceWorker?.controller,{timeout:18000});
+   await pwaPage.waitForTimeout(500);
+   const initial=await pwaPage.locator('#celebration').textContent();
+   mark(pwa,'service-worker-controlling-page',await pwaPage.evaluate(()=>!!navigator.serviceWorker?.controller));
+   await pwaContext.setOffline(true);
+   const offlineRes=await pwaPage.goto(local+'index.html',{waitUntil:'domcontentloaded',timeout:15000});
+   await pwaPage.waitForTimeout(350);
+   const offlineTitle=await pwaPage.locator('#celebration').textContent();
+   mark(pwa,'pwa-offline-page-and-data',offlineRes.status()===200&&offlineTitle.trim()===initial.trim(),
+     {status:offlineRes.status(),initial:initial.trim(),offline:offlineTitle.trim()});
+   await pwaPage.screenshot({path:path.join(ROOT,'pwa-offline.png')});
+ }catch(e){mark(pwa,'offline-run-completed',false,{error:String(e.message).slice(0,500)})}
+ finally{await pwaContext.close();await pwaBrowser.close();}
  const check={name:'public-deployment',checks:[]};results.push(check);
  const browser=await chromium.launch();
  const ctx=await browser.newContext({timezoneId:'America/Sao_Paulo',serviceWorkers:'block'});
