@@ -20,7 +20,7 @@ async function run(config){
  const row={name:config.name,checks:[],errors:[],warnings:[]};results.push(row);
  const browser=await (config.engine==='webkit'?webkit:chromium).launch({headless:true});
  const ctx=await browser.newContext({viewport:{width:config.w,height:config.h},isMobile:config.mobile,hasTouch:config.mobile,
- deviceScaleFactor:2,timezoneId:'America/Sao_Paulo',locale:'pt-BR',serviceWorkers:'allow',acceptDownloads:true,
+ deviceScaleFactor:2,timezoneId:'America/Sao_Paulo',locale:'pt-BR',serviceWorkers:'block',acceptDownloads:true,
  ...(config.engine==='webkit'?{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'}:{})});
  const page=await ctx.newPage();
  page.on('pageerror',e=>{if(!/cloudflareinsights\.com|\/cdn-cgi\/rum/i.test(e.message))row.errors.push(e.message)});
