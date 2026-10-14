@@ -5,11 +5,11 @@ Site preparado para funcionar sem atualização manual.
 ## O que ele faz
 
 - abre automaticamente na data atual (fuso de Brasília);
-- contém as marcações de 30/09/2026 a 31/12/2026;
+- preserva o histórico de 30/09/2026 a 31/12/2026 e gera novas datas automaticamente **no dia da celebração**;
 - usa o Missal Romano CNBB 2023 como base das páginas;
 - mantém marcações futuras como **sugestão** quando ainda não há folheto oficial;
 - verifica automaticamente o site da Arquidiocese de Brasília às 05h, 08h, 11h, 14h, 17h e 20h;
-- quando encontra um novo PDF de **O Povo de Deus**, tenta identificar Saudação, Ato Penitencial, página do formulário, Prefácio, Oração Eucarística, aclamação e presença de bênção solene;
+- quando encontra um novo PDF de **O Povo de Deus**, tenta identificar Saudação, Ato Penitencial, Prefácio, Oração Eucarística, aclamação e presença de bênção solene; a página do formulário não é declarada confirmada se não tiver correspondência verificável no folheto;
 - só grava alterações quando encontrou informação nova.
 
 ## Publicação
@@ -65,7 +65,7 @@ As sugestões continuam identificadas como `(sugestão)`.
 
 ## Cadastro e liberação diária
 
-O calendário está pré-cadastrado de 30/09/2026 a 31/12/2026; a automação revisa as datas existentes e publica gradualmente. Não gera páginas do Missal por adivinhação. As datas de 2027 precisarão ser cadastradas e revisadas antes de 01/01/2027.
+O calendário de 2026 permanece guardado como histórico. **Não é necessário cadastrar antecipadamente o ano de 2027:** antes da atualização diária, `scripts/generate_daily.py` consulta uma referência brasileira de liturgia diária para verificar **data, celebração, tempo e cor litúrgica**. Aos sábados, prepara também o domingo. Depois, `update_folheto.py` procura indicações oficiais e `validate_daily.py` revisa o resultado. A fonte litúrgica online **não fornece páginas do Missal Romano**: quando não houver indicação confiável, a Fita 2 exibirá **Página a conferir** em vez de uma página inventada. Se a consulta do dia falhar, a publicação é bloqueada e as próximas tentativas agendadas poderão recuperá-la.
 
 Execuções antes das 05:00 preparam os dados e o status, enquanto o navegador impede a liberação do novo dia antes das 05:00 de Brasília. A pontualidade do início dos trabalhos agendados pelo GitHub Actions não é garantida; a preparação antecipada reduz o risco.
 
@@ -115,3 +115,13 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - **Bênção Solene**: quando o folheto não indica, sugerir uma bênção adequada ao tempo/celebração. Nos domingos do Tempo Comum: *Tempo Comum VI*, p.585. Em celebrações marianas: *Bem-aventurada Virgem Maria*, p.585. A seta da separação rápida inclui a página sugerida.
 - **Aclamação da Oração Eucarística**: quando o folheto indica a Oração Eucarística, mas não indica a aclamação, somente a aclamação fica como sugestão. A Oração Eucarística continua identificada como escolha oficial.
 - O botão extra de abrir PDF dentro dos Ritos Iniciais permanece removido; a função geral **Folheto dominical** continua disponível.
+
+## Auditoria técnica de 14/10/2026
+
+- A rotina diária gera datas sob demanda; não existe exigência de pré-cadastro anual, mas a identificação das **páginas** do Missal continua condicionada a uma referência conferível.
+- Fonte suplementar utilizada apenas para celebração/tempo/cor: `https://carmosaodomingos.com.br/liturgia` (paróquia que apresenta dados com referência à CNBB). Prioridade das escolhas: folheto oficial `O Povo de Deus` da Arquidiocese.
+- Fitas cuja escolha não consta do folheto recebem **sugestão**, nunca rótulo de indicação oficial. A Fita 2 só é confirmada como página oficial se o código encontrar o mesmo número referenciado no PDF; caso contrário, mostra a necessidade de conferência.
+- O Service Worker armazena no máximo uma cópia por arquivo essencial, independentemente dos parâmetros usados na URL, e ignora PDFs e outros recursos externos.
+- O texto copiado não contém identificadores técnicos internos. O site ganhou foco visível e legendas maiores no menu mobile.
+- A publicação às 05h depende do agendamento GitHub Actions; atrasos externos não podem ser eliminados por software. Há várias execuções programadas de recuperação.
+- Testes estruturais não substituem ensaios visuais e interativos reais no Chrome Android e no Safari iOS; as modificações visuais preservam o design existente.
