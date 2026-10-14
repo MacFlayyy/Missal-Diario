@@ -492,6 +492,14 @@ def check_incomplete_leaflet_variant_protection():
 
 
 
+def check_pending_page_copy():
+    html=INDEX.read_text(encoding="utf-8")
+    assert "existe página do Missal ainda não conferida" in html
+    assert 't.pageUnverified ? "Página a conferir"' in html
+    assert 'return lines.join("\\n").replace(' in html
+    print("PASSOU: páginas sem verificação explícitas também no conteúdo copiado")
+
+
 def check_on_demand_calendar():
     """Valida geração de Janeiro/2027 e prévia de domingo com fonte simulada."""
     from datetime import date
@@ -549,6 +557,7 @@ def main():
     check_folheto_gap_fallbacks()
     check_incomplete_leaflet_variant_protection()
     check_on_demand_calendar()
+    check_pending_page_copy()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
