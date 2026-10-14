@@ -162,8 +162,8 @@ def fill_folheto_gaps(entry):
         t5.pop("suggestion", None)
 
     entry["quick"] = " → ".join(
-        str(t["page"]) for t in entry["tapes"]
-        if str(t.get("page", "—")).strip() not in ("", "—")
+        ("?" if t.get("pageUnverified") else str(t["page"])) for t in entry["tapes"]
+        if str(t.get("page", "—")).strip() not in ("", "—") or t.get("pageUnverified")
     )
     if entry.get("officialLeafletApplied"):
         entry["note"] = (
