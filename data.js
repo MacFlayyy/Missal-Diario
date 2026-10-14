@@ -3720,12 +3720,16 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "851",
-        "title": "Prefácio próprio da Dedicação da Basílica do Latrão",
+        "page": "852",
+        "title": "Prefácio próprio — O mistério da Igreja, esposa de Cristo e templo do Espírito Santo",
         "details": [
           [
+            "Título",
+            "O mistério da Igreja, esposa de Cristo e templo do Espírito Santo"
+          ],
+          [
             "Uso",
-            "No próprio formulário da festa"
+            "Prefácio próprio da Dedicação da Basílica do Latrão."
           ]
         ]
       },
@@ -3762,8 +3766,9 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 850 → 851 → 545 → 588",
-    "cycle": "Ano II"
+    "quick": "430 → 850 → 852 → 545 → 588",
+    "cycle": "Ano II",
+    "missalPageReferenceVerified": true
   },
   "2026-11-10": {
     "label": "Terça-feira • 10/11/2026",
@@ -6378,12 +6383,16 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "872",
-        "title": "Prefácio próprio da Imaculada Conceição",
+        "page": "873",
+        "title": "Prefácio próprio — Do mistério de Maria e da Igreja",
         "details": [
           [
             "Título",
             "Do mistério de Maria e da Igreja"
+          ],
+          [
+            "Uso",
+            "Prefácio próprio da Imaculada Conceição."
           ]
         ]
       },
@@ -6420,8 +6429,9 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 871 → 872 → 545 → 586",
-    "cycle": "—"
+    "quick": "430 → 871 → 873 → 545 → 586",
+    "cycle": "—",
+    "missalPageReferenceVerified": true
   },
   "2026-12-09": {
     "label": "Quarta-feira • 09/12/2026",
