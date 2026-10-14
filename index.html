@@ -4490,6 +4490,7 @@ function buildDateMenu(){
       '<button class="calendar-nav" id="calendarPrev" type="button" '+(calendarCursor<=range.min?'disabled':'')+'>‹</button>'+
       '<strong>'+title+'</strong>'+
       '<button class="calendar-nav" id="calendarNext" type="button" '+(calendarCursor>=range.max?'disabled':'')+'>›</button>'+
+      '<button class="calendar-nav" id="calendarClose" type="button" aria-label="Fechar calendário" title="Fechar calendário">×</button>'+
     '</div>'+
     '<div class="calendar-week"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>'+
     '<div class="calendar-grid">'+cells+'</div>'+
@@ -4503,6 +4504,10 @@ function buildDateMenu(){
   });
   document.getElementById("calendarPrev")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();});
   document.getElementById("calendarNext")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,1);buildDateMenu();});
+  document.getElementById("calendarClose")?.addEventListener("click",()=>{
+    closeDateMenu();
+    document.getElementById("datePickerBtn")?.focus();
+  });
   updateNavButtons();
 }
 
