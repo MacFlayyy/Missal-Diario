@@ -18,8 +18,9 @@ on:
     - cron: "30 8 * * *"  # 05:30 Brasília
     - cron: "0 9 * * *"   # 06:00 Brasília
 
+# Compartilhada com pages.yml: serializa o deploy do atualizador e do site.
 concurrency:
-  group: missal-diario-daily
+  group: missal-diario-pages-deployment
   cancel-in-progress: false
 
 permissions:
