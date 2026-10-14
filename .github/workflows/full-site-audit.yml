@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
     paths:
+      - 'index.html'
+      - 'data.js'
+      - 'status.js'
+      - 'sw.js'
+      - 'scripts/test_regressions.py'
+      - 'scripts/check_publication.py'
       - 'scripts/full-site-audit.cjs'
       - '.github/workflows/full-site-audit.yml'
 permissions:
