@@ -129,6 +129,18 @@ async function run(config){
       title:document.title,date:window.currentDateKey,status:window.MISSAL_STATUS?.availableThrough,token:document.querySelector('script[src^="data.js"]')?.getAttribute('src'),ready:!!window.MISSAL_DATA
    }));
    mark(check,'live-data-and-status',live.ready&&/\d{4}-\d{2}-\d{2}/.test(live.status)&&/\d{4}-\d{2}-\d{2}/.test(live.date),live);
+
+   const pdf=await page.evaluate(()=>getDominicalLeafletUrl());
+   mark(check,'folheto-opens-direct-pdf',/^https:\/\/[^?#]+\.pdf(?:[?#]|$)/i.test(pdf),{url:pdf});
+   try{
+     const response=await ctx.request.head(pdf,{timeout:20000,failOnStatusCode:false});
+     console.log('INFO PDF_HTTPS '+JSON.stringify({status:response.status(),type:response.headers()['content-type'],url:response.url()}));
+     check.pdfHttp={status:response.status(),contentType:response.headers()['content-type']||null};
+   }catch(e){check.pdfHttp={error:String(e).slice(0,250)};console.log('INFO PDF_HTTPS '+JSON.stringify(check.pdfHttp));}
+   const standalone=await ctx.request.get(publicUrl+'Missal-Diario-Standalone.html',{timeout:20000,failOnStatusCode:false});
+   const standaloneText=standalone.ok()?await standalone.text():'';
+   mark(check,'standalone-published-and-self-contained',standalone.ok()&&standaloneText.includes('window.MISSAL_DATA =')&&standaloneText.includes('window.MISSAL_STATUS =')&& !/<script src="(?:data|status)\.js/i.test(standaloneText),{status:standalone.status(),bytes:standaloneText.length});
+
  }catch(e){mark(check,'public-test-completed',false,{error:String(e.message).slice(0,500)});}
  finally{await ctx.close();await browser.close();}
  const summary={when:new Date().toISOString(),results,failures};
