@@ -94,7 +94,8 @@ async function runCase(def) {
       emit(row, 'troca-mes-sem-fechar', true, 'Seta anterior desabilitada no limite de datas');
     }
     await page.screenshot({ path: path.join(out, def.name + '-calendario.png'), fullPage: false });
-    await page.locator('#datePickerBtn').click();
+    await page.locator('#calendarClose').click();
+    emit(row, 'calendario-fecha', !(await page.locator('#dateMenu').isVisible()));
     await page.locator('#mobileCelebrationBtn').click();
     await page.waitForTimeout(200);
     emit(row, 'modo-celebracao-abre', await page.locator('body').evaluate(el => el.classList.contains('celebration-mode')));
