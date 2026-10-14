@@ -166,7 +166,7 @@ def new_entry(info):
     }
     entry["tapes"][2]["page"],entry["tapes"][2]["title"]=suggested_preface(entry)
     entry["tapes"][4]["page"],entry["tapes"][4]["title"]=suggested_blessing(entry)
-    entry["quick"]=" → ".join(t["page"] for t in entry["tapes"])
+    entry["quick"]=" → ".join("?" if t.get("pageUnverified") else t["page"] for t in entry["tapes"])
     return entry
 
 def ensure_dates(data, day, fetch=None):
