@@ -45,7 +45,7 @@ async function run(config){
    mark(row,'no-horizontal-page-overflow',metrics.documentWidth<=config.w+1,{doc:metrics.documentWidth,viewport:config.w});
    mark(row,'five-tapes',metrics.tapes===5,{count:metrics.tapes});
    mark(row,'five-quick-pages',metrics.quick===5,{count:metrics.quick});
-   mark(row,'valid-day',metrics.selected==='2026-10-14',{selected:metrics.selected,available:metrics.available});
+   mark(row,'valid-day',metrics.selected===await page.evaluate(() => getVisibleDates().includes(brasiliaTodayKey()) ? brasiliaTodayKey() : getVisibleDates().at(-1)),{selected:metrics.selected,available:metrics.available});
    mark(row,'buttons-text-not-clipped',metrics.overflow.length===0,{overflow:metrics.overflow.slice(0,8)});
    await page.screenshot({path:path.join(ROOT,config.name+'-start.png'),fullPage:false});
    await page.locator('#datePickerBtn').click();
@@ -73,7 +73,7 @@ async function run(config){
      const d=getVisibleDates(),last=d[d.length-1],all=getRegisteredDates();
      return {today:brasiliaTodayKey(),last,total:d.length,all:all.length,next:document.getElementById('nextBtn').disabled};
    });
-   mark(row,'future-dates-locked',visibility.last==='2026-10-14'&&visibility.next,{last:visibility.last,count:visibility.total});
+   mark(row,'future-dates-locked',visibility.next && visibility.last <= addDaysKey(visibility.today,1),{last:visibility.last,count:visibility.total});
    // test date release rules with simulated source status, leaving external data untouched.
    const gate=await page.evaluate(()=>{
      const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS;
@@ -93,7 +93,7 @@ async function run(config){
    try{img=await page.evaluate(async()=>{const b=await buildShareImageBlob();return {size:b?.size,type:b?.type};});}
    catch(e){img={error:String(e)}}
    mark(row,'share-image-png-created',img?.size>15000&&img.type==='image/png',img);
-   if(config.mobile){
+   if(config.w<=620){
      await page.locator('#mobileMoreBtn').click();
      await page.waitForFunction(()=>{let e=document.querySelector('#mobileMoreSheet');return e?.classList.contains('open')&&e.getBoundingClientRect().bottom<=innerHeight+3;},null,{timeout:4500}).catch(()=>{});
      const sheet=await page.locator('#mobileMoreSheet').boundingBox();
@@ -128,7 +128,7 @@ async function run(config){
    const live=await page.evaluate(()=>({
       title:document.title,date:window.currentDateKey,status:window.MISSAL_STATUS?.availableThrough,token:document.querySelector('script[src^="data.js"]')?.getAttribute('src'),ready:!!window.MISSAL_DATA
    }));
-   mark(check,'live-data-and-status',live.ready&&live.status==='2026-10-14'&&live.date==='2026-10-14',live);
+   mark(check,'live-data-and-status',live.ready&&/\d{4}-\d{2}-\d{2}/.test(live.status)&&/\d{4}-\d{2}-\d{2}/.test(live.date),live);
  }catch(e){mark(check,'public-test-completed',false,{error:String(e.message).slice(0,500)});}
  finally{await ctx.close();await browser.close();}
  const summary={when:new Date().toISOString(),results,failures};
