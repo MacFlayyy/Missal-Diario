@@ -34,6 +34,12 @@ def main():
         )
     if f'"{today}"' not in standalone:
         errors.append(f"standalone não contém {today}")
+    item=data.get(today)
+    if item and item.get("dailySourceVerified"):
+        if not item.get("dailySourceUrl", "").startswith("https://"):
+            errors.append("Fonte litúrgica diária não rastreável")
+        if item["tapes"][1].get("pageUnverified") and item["tapes"][1].get("page") != "—":
+            errors.append("Página da Missa sem verificação oficial, mas apresentada como confirmada")
 
     now = datetime.now(TZ)
     if now.weekday() == 5:
