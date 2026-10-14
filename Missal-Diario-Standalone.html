@@ -3204,7 +3204,7 @@ body.celebration-mode .celebration-exit-footer{
   </nav>
 
   <div class="mobile-more-backdrop" id="mobileMoreBackdrop" hidden></div>
-  <section class="mobile-more-sheet" id="mobileMoreSheet" aria-label="Mais opções" aria-hidden="true">
+  <section class="mobile-more-sheet" id="mobileMoreSheet" inert aria-label="Mais opções" aria-hidden="true">
     <div class="mobile-more-handle"></div>
     <div class="mobile-more-head">
       <div><strong>Mais opções</strong><small>Ferramentas do Missal Diário</small></div>
@@ -13033,6 +13033,14 @@ function buildDateMenu(){
 }
 
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
+document.addEventListener("keydown",event=>{
+  if(event.key!=="Escape") return;
+  const calendar=document.getElementById("dateMenu");
+  if(calendar && !calendar.hidden){
+    calendar.hidden=true;
+    document.getElementById("datePickerBtn")?.focus();
+  }
+});
 
 document.getElementById("datePickerBtn").addEventListener("click",()=>{
   const menu = document.getElementById("dateMenu");
@@ -13256,11 +13264,15 @@ function setMoreMenu(open){
   const backdrop=document.getElementById("mobileMoreBackdrop");
   const trigger=document.getElementById("mobileMoreBtn");
   if(!sheet || !backdrop || !trigger) return;
+  const focusWasInside=sheet.contains(document.activeElement);
   sheet.classList.toggle("open",open);
   backdrop.classList.toggle("open",open);
   sheet.setAttribute("aria-hidden",String(!open));
+  sheet.inert=!open;
   backdrop.hidden=false;
   trigger.setAttribute("aria-expanded",String(open));
+  if(open) document.getElementById("mobileMoreClose")?.focus();
+  else if(focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
