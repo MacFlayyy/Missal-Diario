@@ -21,6 +21,7 @@ from pathlib import Path
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from ritos_texts import apply_rite_suggestions, fill_folheto_gaps
+from generate_daily import ensure_dates
 import json
 import re
 
@@ -88,7 +89,7 @@ def save_status(key, data):
         tapes = sunday.get("tapes", []) if isinstance(sunday, dict) else []
         if (sunday and len(tapes) >= 5
                 and "domingo" in (str(sunday.get("celebration",""))+" "+str(sunday.get("grade",""))).lower()
-                and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") for t in tapes[:5])):
+                and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") or (sunday.get("dailySourceVerified") and t.get("pageUnverified") and t.get("page") == "—") for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
     # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
@@ -97,7 +98,7 @@ def save_status(key, data):
     if data:
         calendar_end = max(data.keys())
         payload["calendarDataThrough"] = calendar_end
-        if date.fromisoformat(calendar_end) < now.date() + timedelta(days=30):
+        if not (ROOT / "scripts" / "generate_daily.py").exists() and date.fromisoformat(calendar_end) < now.date() + timedelta(days=30):
             payload["calendarWarning"] = (
                 f"O calendário está cadastrado somente até {calendar_end}. "
                 "Novas datas precisam ser preparadas e revisadas para continuar a publicação."
@@ -248,7 +249,8 @@ def repair_entry(entry):
         f2["title"] = entry.get("celebration","Missa do dia")
         fixes.append("Título da Fita 2 corrigido.")
     if not is_valid_page(f2.get("page")):
-        raise RuntimeError("Página da Missa do dia inválida: cadastrar a página correta antes de publicar.")
+        if not (entry.get("dailySourceVerified") and f2.get("pageUnverified") and f2.get("page") == "—"):
+            raise RuntimeError("Página da Missa do dia inválida: conferir a página correta antes de publicar.")
 
     # Fita 3
     f3 = by_n[3]
@@ -271,7 +273,7 @@ def repair_entry(entry):
     entry["quick"] = " → ".join(
         str(t.get("page","")).strip()
         for t in sorted(tapes, key=lambda x: x.get("n",99))
-        if str(t.get("page","")).strip() and str(t.get("page","")).strip() != "—"
+        if str(t.get("page","")).strip() and (str(t.get("page","")).strip() != "—" or t.get("pageUnverified"))
     )
 
     if fixes:
@@ -296,7 +298,12 @@ def main():
 
     print(f"Revisando o Missal de {today_key} antes da publicação...")
 
-    # Se a data sumiu de data.js, recupera automaticamente do calendário-base.
+    # A partir de 2027, obtém a celebração e a cor em fonte litúrgica
+    # pública no próprio dia, sem depender de cadastro anual.
+    if today_key not in data:
+        ensure_dates(data, now.date())
+
+    # Fallback somente para registros históricos previamente revisados.
     if today_key not in data:
         if not SEED_FILE.exists():
             raise RuntimeError(
