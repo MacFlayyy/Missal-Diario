@@ -4227,9 +4227,9 @@ function getDisplayEntry(dateKey){
   const base=data[dateKey];
   if(!base || dateKey!=="2026-12-24") return base;
 
-  const automaticMass=dateKey===brasiliaTodayKey()
-    ? (Number(brasiliaClockParts().hour)>=12?"vigil":"morning") : null;
-  const selected=december24Choice || automaticMass;
+  // A escolha depende do horário da celebração da paróquia, não de um meio-dia
+  // arbitrário. Por padrão mostramos as duas possibilidades sem confundir fitas.
+  const selected=december24Choice;
   if(!selected || selected==="combined") return base;
 
   // Permite escolher explicitamente a Missa: preparação antecipada e exceções de horário.
