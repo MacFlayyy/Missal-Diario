@@ -110,7 +110,8 @@ async function runCase(def) {
     emit(row, 'preparar-missal-fecha', !(await page.locator('#prepareMissalOverlay').isVisible()));
     const after = await page.evaluate(() => ({ viewport: innerWidth, scroll: document.documentElement.scrollWidth }));
     emit(row, 'sem-rolagem-horizontal-final', after.scroll <= after.viewport + 2, JSON.stringify(after));
-    emit(row, 'sem-erros-javascript', row.pageErrors.length === 0, row.pageErrors.join(' | ').slice(0, 350));
+    const appErrors = row.pageErrors.filter(msg => !/cloudflareinsights\.com|\/cdn-cgi\/rum/i.test(msg));
+    emit(row, 'sem-erros-javascript', appErrors.length === 0, appErrors.join(' | ').slice(0, 350));
   } catch (e) {
     emit(row, 'execucao', false, String(e.message).slice(0, 750));
     try { await page.screenshot({ path: path.join(out, def.name + '-falha.png'), fullPage: false }); } catch {}
