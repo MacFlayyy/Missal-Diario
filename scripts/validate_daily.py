@@ -76,7 +76,11 @@ def save_status(key, data):
         "availableThrough": key,
         "lastSuccessfulUpdateAt": last_update,
         "timezone": "America/Sao_Paulo",
-        "validation": "reviewed-and-corrected",
+        "validation": (
+            "requires-missal-page-check"
+            if any(t.get("pageUnverified") for t in data.get(key, {}).get("tapes", []))
+            else "reviewed-and-corrected"
+        ),
     }
 
     # Aos sábados, deixa o domingo seguinte preparado para liberação
