@@ -51,7 +51,7 @@ def read_liturgical_day(day, fetch=None):
     if len(html) < 400:
         raise RuntimeError("Fonte diária sem dados suficientes")
     soup = BeautifulSoup(html, "html.parser")
-    lines = [re.sub(r"\\s+", " ", x).strip() for x in soup.stripped_strings]
+    lines = [re.sub(r"\s+", " ", x).strip() for x in soup.stripped_strings]
     date_label = f"{day.day:02d} de {MONTHS[day.month-1]} de {day.year}"
     page_normalized = simplify(" ".join(lines))
     if simplify(date_label) not in page_normalized:
@@ -64,7 +64,7 @@ def read_liturgical_day(day, fetch=None):
     except (ValueError, IndexError) as exc:
         raise RuntimeError("Fonte litúrgica sem celebração/tempo identificável") from exc
     color_match = re.search(
-        r"Cor litúrgica:\\s*(Branco|Branca|Verde|Vermelho|Vermelha|Roxo|Roxa|Róseo|Rósea)",
+        r"Cor litúrgica:\s*(Branco|Branca|Verde|Vermelho|Vermelha|Roxo|Roxa|Róseo|Rósea)",
         " ".join(lines[:90]), re.I)
     if not color_match:
         raise RuntimeError(f"Cor litúrgica de {day} não pôde ser verificada")
@@ -92,7 +92,7 @@ def read_liturgical_day(day, fetch=None):
             ("solenidade","Solenidade"),("festa","Festa"),
             ("memoria","Memória")) if key in raw),None)
         if grade:
-            celebration = re.sub(r",?\\s*(Solenidade|Festa|Memória)(?:,.*)?$", "", celebration, flags=re.I).strip()
+            celebration = re.sub(r",?\s*(Solenidade|Festa|Memória)(?:,.*)?$", "", celebration, flags=re.I).strip()
         elif day.weekday()==6:
             grade = "Domingo"
         else:
@@ -162,7 +162,7 @@ def ensure_dates(data, day, fetch=None):
 def main():
     day=datetime.now(TZ).date()
     text=DATA_FILE.read_text(encoding="utf-8")
-    match=re.search(r"window\\.MISSAL_DATA\\s*=\\s*(\\{.*\\})\\s*;\\s*$",text,re.S)
+    match=re.search(r"window\.MISSAL_DATA\s*=\s*(\{.*\})\s*;\s*$",text,re.S)
     if not match:
         raise RuntimeError("data.js inválido")
     data=json.loads(match.group(1))
@@ -170,7 +170,7 @@ def main():
     if added:
         ordered=dict(sorted(data.items()))
         DATA_FILE.write_text("window.MISSAL_DATA = "+
-            json.dumps(ordered,ensure_ascii=False,indent=2)+";\\n",encoding="utf-8")
+            json.dumps(ordered,ensure_ascii=False,indent=2)+";\n",encoding="utf-8")
     print("[geração diária] "+(", ".join(added) if added else "datas já cadastradas"))
     if day.isoformat() not in data:
         raise RuntimeError("Data de hoje não foi gerada; publicação bloqueada")
