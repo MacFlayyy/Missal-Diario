@@ -1,0 +1,38 @@
+name: Auditoria visual mobile - iPhone e Android
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mobile-visual.yml'
+      - 'scripts/mobile-visual-audit.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  auditar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar Playwright
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium webkit
+      - name: Iniciar site local
+        run: |
+          python3 -m http.server 8765 --bind 127.0.0.1 >/tmp/missal-audit-server.log 2>&1 &
+          sleep 2
+          curl -fsS http://127.0.0.1:8765/index.html >/dev/null
+      - name: Testar visual e interacoes em celulares
+        run: node scripts/mobile-visual-audit.cjs
+      - name: Guardar relatorio e capturas
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-visual-celulares
+          path: mobile-visual-results/
+          if-no-files-found: warn
+          retention-days: 14
