@@ -821,9 +821,30 @@ def update_entry_verified(entry, text, url):
     t1.pop("suggestion", None)
 
     t2 = tapes[2]
-    t2["details"] = [["Formulário", "Missa do dia conforme folheto oficial"]]
-    t2["verifiedByFolheto"] = True
-    t2.pop("suggestion", None)
+    # Um folheto pode mencionar várias páginas do Missal, inclusive as da
+    # Oração Eucarística. Jamais marcar a página da Missa como confirmada
+    # apenas porque o PDF foi localizado.
+    found_page = detect_missal_page(text)
+    registered_page = str(t2.get("page", "")).strip()
+    if (found_page and found_page == registered_page
+            and registered_page.isdigit()):
+        t2["details"] = [["Formulário", "Página da Missa indicada e conferida no folheto oficial."]]
+        t2["verifiedByFolheto"] = True
+        t2.pop("suggestion", None)
+        t2.pop("pageUnverified", None)
+    else:
+        t2["details"] = [[
+            "Página", "Sugestão de referência do Missal; a página da Missa não "
+                      "foi confirmada na leitura do PDF. Conferir antes da celebração."
+        ]]
+        t2.pop("verifiedByFolheto", None)
+        t2["pageUnverified"] = True
+        t2["suggestion"] = True
+        if registered_page == "—":
+            t2["details"][0][1] = (
+                "Página a conferir no Missal Romano CNBB 2023; o folheto não "
+                "permitiu identificar o número com segurança."
+            )
 
     t3 = tapes[3]
     if pref:
