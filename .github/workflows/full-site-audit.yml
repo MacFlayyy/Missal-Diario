@@ -11,6 +11,7 @@ on:
       - 'scripts/test_regressions.py'
       - 'scripts/check_publication.py'
       - 'scripts/full-site-audit.cjs'
+      - 'scripts/deep-visual-audit.cjs'
       - '.github/workflows/full-site-audit.yml'
 permissions:
   contents: read
@@ -34,11 +35,16 @@ jobs:
           curl -fsS http://127.0.0.1:8765/index.html >/dev/null
       - name: Executar auditoria integral
         run: node scripts/full-site-audit.cjs
+      - name: Auditoria aprofundada de animação, datas especiais e acessibilidade
+        if: always()
+        run: node scripts/deep-visual-audit.cjs
       - name: Anexar capturas e relatório
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: auditoria-completa-missal-diario
-          path: full-audit-results/
+          path: |
+            full-audit-results/
+            deep-audit-results/
           if-no-files-found: warn
           retention-days: 14
