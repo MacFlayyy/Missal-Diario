@@ -271,7 +271,7 @@ def repair_entry(entry):
 
     # Reconstrói separação rápida SEMPRE, evitando inconsistência.
     entry["quick"] = " → ".join(
-        str(t.get("page","")).strip()
+        ("?" if t.get("pageUnverified") else str(t.get("page","")).strip())
         for t in sorted(tapes, key=lambda x: x.get("n",99))
         if str(t.get("page","")).strip() and (str(t.get("page","")).strip() != "—" or t.get("pageUnverified"))
     )
