@@ -8,7 +8,7 @@ Site preparado para funcionar sem atualização manual.
 - preserva o histórico de 30/09/2026 a 31/12/2026 e gera novas datas automaticamente **no dia da celebração**;
 - usa o Missal Romano CNBB 2023 como base das páginas;
 - mantém marcações futuras como **sugestão** quando ainda não há folheto oficial;
-- verifica automaticamente o site da Arquidiocese de Brasília às 05h, 08h, 11h, 14h, 17h e 20h;
+- executa verificações diárias às 04h, 04h30, 04h50, 05h, 05h10, 05h30 e 06h (horário de Brasília); o GitHub pode atrasar o início real;
 - quando encontra um novo PDF de **O Povo de Deus**, tenta identificar Saudação, Ato Penitencial, Prefácio, Oração Eucarística, aclamação e presença de bênção solene; a página do formulário não é declarada confirmada se não tiver correspondência verificável no folheto;
 - só grava alterações quando encontrou informação nova.
 
@@ -20,7 +20,7 @@ Este projeto foi preparado para GitHub Pages.
 2. Envie todos estes arquivos para a branch `main`.
 3. Em **Settings → Pages**, selecione **GitHub Actions** como fonte.
 4. O workflow `Publicar site no GitHub Pages` publicará o endereço.
-5. O workflow `Atualizar folheto O Povo de Deus` fará as verificações automaticamente.
+5. O workflow `Atualizar Missal Diário` gera/revisa dados, consulta folhetos e publica o site automaticamente.
 
 Não é necessária chave de API paga.
 
@@ -33,13 +33,13 @@ A leitura automática do folheto usa reconhecimento por texto. Quando o layout d
 - Os dias que já passaram continuam disponíveis para consulta.
 - O dia seguinte não aparece antecipadamente.
 - À meia-noite, o novo dia ainda permanece bloqueado.
-- A rotina automática começa às 05:00 (horário de Brasília).
-- Somente depois que essa rotina termina com sucesso, o arquivo `status.js` é atualizado e o novo dia é liberado.
+- A preparação automática começa antes das 05h, e há tentativas posteriores como recuperação.
+- A rotina pode atualizar `status.js` antes das 05h; o navegador só libera o dia a partir das 05h, caso os dados já tenham sido publicados.
 - A seta para a direita fica desativada quando o usuário já está na data mais recente liberada.
 
-## Revisão e correção antes da publicação das 05:00
+## Revisão automática e tentativas de publicação das 05h
 
-A rotina das 05:00 não bloqueia mais uma data por causa de inconsistências corrigíveis.
+A rotina tenta corrigir inconsistências estruturais comuns, mas bloqueia erros que impedem uma publicação responsável e distingue páginas ainda não conferidas.
 
 A ordem é:
 
@@ -124,4 +124,17 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - O Service Worker armazena no máximo uma cópia por arquivo essencial, independentemente dos parâmetros usados na URL, e ignora PDFs e outros recursos externos.
 - O texto copiado não contém identificadores técnicos internos. O site ganhou foco visível e legendas maiores no menu mobile.
 - A publicação às 05h depende do agendamento GitHub Actions; atrasos externos não podem ser eliminados por software. Há várias execuções programadas de recuperação.
-- Testes estruturais não substituem ensaios visuais e interativos reais no Chrome Android e no Safari iOS; as modificações visuais preservam o design existente.
+- As auditorias com Playwright verificam dimensões de tela Android, WebKit (motor do Safari), desktop e tablet; **emulação não substitui testes em aparelhos físicos**.
+
+
+## Controles adicionais de publicação, responsividade e exportação
+
+- O workflow comum de GitHub Pages recalcula um token de versão baseado no conteúdo, atualiza o Service Worker e gera uma cópia autossuficiente antes do deploy.
+- Após o deploy, `scripts/check_publication.py` compara a **data** e o **token de versão** entre os arquivos locais e a página pública. Um HTTP 200 isolado não basta para considerar a publicação concluída.
+- A auditoria visual mobile roda após modificações relevantes no site; a auditoria completa percorre também tablet, desktop, calendário, modo celebração, cópia, criação de PNG, folheto direto e comportamento offline do PWA.
+- Em larguras de até 950 px, o calendário funciona como painel central com altura limitada e rolagem interna, inclusive com o aparelho deitado.
+- A exportação em imagem e o painel **Preparar o Missal** distinguem escolha sugerida, página ainda não conferida e página não indicada.
+- O status `requires-missal-page-check` significa que a data foi cadastrada, mas uma ou mais páginas do Missal precisam de referência externa. **Não é confirmação litúrgica completa.**
+- Nenhuma execução agendada do GitHub Actions tem garantia de começar exatamente no minuto configurado. Executar antes das 05h reduz o risco de atraso, mas não elimina o risco de falha na plataforma.
+- Não há fonte online confiável de correspondência completa de **todas as páginas** da edição CNBB 2023 do Missal para cada celebração futura. Na ausência de correspondência verificada, o site informa **Página a conferir** em vez de inventar uma referência.
+- O HTML público autossuficiente é acessível pelo arquivo `Missal-Diario-Standalone.html` no próprio GitHub Pages.
