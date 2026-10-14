@@ -71,7 +71,10 @@ async function runCase(def) {
     emit(row, 'subir-ao-topo-acima-menu', back.shown && back.r.bottom < nav.y + 2,
       JSON.stringify({ back: back.r, nav }));
     await page.locator('#mobileMoreBtn').click();
-    await page.waitForTimeout(360);
+    await page.waitForFunction(() => {
+      const el = document.getElementById('mobileMoreSheet');
+      return !!el && el.classList.contains('open') && el.getBoundingClientRect().bottom <= window.innerHeight + 3;
+    }, null, { timeout: 5000 }).catch(() => {});
     const more = await rects(page, '#mobileMoreSheet');
     emit(row, 'menu-mais-abre', await page.locator('#mobileMoreBtn').getAttribute('aria-expanded') === 'true');
     emit(row, 'menu-mais-cabe-na-tela', more.y >= -3 && more.bottom <= def.height + 3, JSON.stringify(more));
