@@ -73,7 +73,7 @@ async function run(config){
      const d=getVisibleDates(),last=d[d.length-1],all=getRegisteredDates();
      return {today:brasiliaTodayKey(),last,total:d.length,all:all.length,next:document.getElementById('nextBtn').disabled};
    });
-   mark(row,'future-dates-locked',visibility.next && visibility.last <= addDaysKey(visibility.today,1),{last:visibility.last,count:visibility.total});
+   mark(row,'future-dates-locked',visibility.next && visibility.last <= new Date(Date.parse(visibility.today+'T00:00:00Z')+86400000).toISOString().slice(0,10),{last:visibility.last,count:visibility.total});
    // test date release rules with simulated source status, leaving external data untouched.
    const gate=await page.evaluate(()=>{
      const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS;
