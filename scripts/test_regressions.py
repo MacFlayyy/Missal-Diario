@@ -103,7 +103,7 @@ def check_liturgical_integrity():
         tapes=entry.get("tapes",[])
         assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
         assert [t.get("n") for t in tapes]==[1,2,3,4,5],f"{key}: ordem de fitas"
-        expected=" → ".join(str(t.get("page","")).strip() for t in tapes if str(t.get("page","")).strip() not in {"", "—"})
+        expected=" → ".join(("?" if t.get("pageUnverified") else str(t.get("page","")).strip()) for t in tapes if str(t.get("page","")).strip() not in {"", "—"} or t.get("pageUnverified"))
         assert entry.get("quick")==expected,f"{key}: separação rápida difere das fitas"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"
@@ -228,7 +228,11 @@ def check_cache_safety():
     assert "prepareEscapeHtml(page)" in html
     assert "const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);" in html
     assert "remote[1]!==local[1]" in html
-    for name in ("scripts/update_folheto.py","scripts/bump_daily_version.py"):
+    assert 'function cacheKey(url)' in sw and 'FILES.has(file)' in sw
+    assert 'await store.put(key,res.clone())' in sw
+    assert 'missal-romano-2023-pdf-4' not in html
+    assert ':focus-visible' in html
+    for name in ("scripts/update_folheto.py","scripts/bump_daily_version.py","scripts/generate_daily.py"):
         compile((ROOT/name).read_text(encoding="utf-8"),name,"exec")
     print("PASSOU proteção de cache, liberação e atualização PWA")
 
@@ -487,6 +491,47 @@ def check_incomplete_leaflet_variant_protection():
     print("PASSOU: versão alternativa sem texto não sobrescreve o folheto confirmado")
 
 
+
+def check_on_demand_calendar():
+    """Valida geração de Janeiro/2027 e prévia de domingo com fonte simulada."""
+    from datetime import date
+    from generate_daily import read_liturgical_day, new_entry, ensure_dates, liturgical_year
+    day=date(2027,1,1)
+    def fake_page(day):
+        months=["janeiro","fevereiro"]
+        name={1:"Santa Maria, Mãe de Deus, Solenidade, Ano B",
+              2:"Sábado, 2 de Janeiro de 2027",
+              3:"Epifania do Senhor, Solenidade, Ano B"}.get(day.day,"")
+        return ("<html><main><h1>Liturgia Diária</h1>"
+                "<p>A Palavra de Deus para hoje, sincronizada com a CNBB.</p>"
+                "<p>Tempo do Natal · Cor litúrgica: Branco</p>"
+                "<strong>"+f"{day.day:02d} de janeiro de {day.year}"+"</strong>"
+                "<p>Tempo</p><div>Tempo do Natal</div>"
+                "<p>Memória/Celebração</p><div>"+name+"</div>"+
+                ("<p>Leituras do dia e evangelho. </p>"*12)+"</main></html>")
+    def mock(url):
+        from urllib.parse import parse_qs, urlsplit
+        key=parse_qs(urlsplit(url).query)["data"][0]
+        return fake_page(date.fromisoformat(key))
+    info=read_liturgical_day(day,fetch=mock)
+    assert info["grade"]=="Solenidade",info
+    assert info["season"]=="Natal" and info["color"]=="Branca",info
+    assert info["cycle"]=="Ano B",info
+    data={}
+    assert ensure_dates(data,day,fetch=mock)==["2027-01-01"]
+    new=data["2027-01-01"]
+    assert new["dailySourceVerified"] and new["dailySourceUrl"].startswith("https://")
+    assert new["tapes"][1]["pageUnverified"] and new["tapes"][1]["page"]=="—"
+    assert "?" in new["quick"] and "—" not in new["quick"]
+    assert new["tapes"][0]["details"][0][0].endswith("sugestão")
+    assert ensure_dates(data,day,fetch=mock)==[], "Data duplicada"
+    assert ensure_dates(data,date(2027,1,2),fetch=mock)==["2027-01-02","2027-01-03"]
+    assert data["2027-01-03"]["cycle"]=="Ano B"
+    assert liturgical_year(date(2027,11,28))=="Ano C"
+    assert liturgical_year(date(2027,11,27))=="Ano B"
+    print("PASSOU 2027 sem calendário pré-cadastrado e com prévia do domingo")
+
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -503,6 +548,7 @@ def main():
     check_verified_leaflet_days()
     check_folheto_gap_fallbacks()
     check_incomplete_leaflet_variant_protection()
+    check_on_demand_calendar()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
