@@ -4693,6 +4693,7 @@ function setMoreMenu(open){
   const backdrop=document.getElementById("mobileMoreBackdrop");
   const trigger=document.getElementById("mobileMoreBtn");
   if(!sheet || !backdrop || !trigger) return;
+  const focusWasInside=sheet.contains(document.activeElement);
   sheet.classList.toggle("open",open);
   backdrop.classList.toggle("open",open);
   sheet.setAttribute("aria-hidden",String(!open));
@@ -4700,7 +4701,7 @@ function setMoreMenu(open){
   backdrop.hidden=false;
   trigger.setAttribute("aria-expanded",String(open));
   if(open) document.getElementById("mobileMoreClose")?.focus();
-  else if(document.activeElement && sheet.contains(document.activeElement)) trigger.focus();
+  else if(focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
