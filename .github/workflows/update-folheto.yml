@@ -84,6 +84,9 @@ jobs:
       - name: Testar regressões antes da publicação
         run: python scripts/test_regressions.py
 
+      - name: Conferir páginas com o índice do Missal Romano 2023
+        run: python scripts/check_missal_references.py
+
       - name: Salvar alterações no repositório
         run: |
           if git diff --quiet; then
