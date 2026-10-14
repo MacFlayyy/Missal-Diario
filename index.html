@@ -3103,6 +3103,22 @@ body.celebration-mode .celebration-exit-footer{
   .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:32px!important}
 }
 </style>
+<style id="deep-visual-accessibility-fixes-v73">
+/* Cabeçalho e dados principais aparecem imediatamente, sem flash branco/desbotado no Safari. */
+body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:none!important}
+.reveal{opacity:1!important;transform:none!important}
+@media(max-width:620px){
+  .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
+  .prepare-missal-sequence .quick-step .multi-page-values{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;
+    width:100%;font-size:10px;line-height:1.25;font-variant-numeric:tabular-nums
+  }
+}
+@media(max-width:340px){
+  .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
+  .prepare-missal-sequence .quick-step .multi-page-values{font-size:9px}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3341,7 +3357,10 @@ function quickStepsMarkup(value){
 
   return pages.map((page,i) =>
     '<span class="quick-item">' +
-      '<span class="quick-step" title="Marcação '+(i+1)+'">'+prepareEscapeHtml(page)+'</span>' +
+      '<span class="quick-step" title="Marcação '+(i+1)+': '+prepareEscapeHtml(page)+'">'+
+        (/^\d+(?:\s*\/\s*\d+){3}$/.test(page)
+          ? '<span class="multi-page-values">'+page.split(/\s*\/\s*/).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
+          : prepareEscapeHtml(page))+'</span>' +
       (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
     '</span>'
   ).join("");
@@ -3860,7 +3879,9 @@ async function buildShareImageBlob(){
   const imageTapes=(d.tapes||[]).slice(0,5);
   const tapeHeights=imageTapes.map(t=>{
     const n=fullTextLines(allTapeDetails(t),cardW-36,"600 14px Arial, sans-serif").length;
-    return Math.max(132,87+18*Math.max(2,n)+18);
+    const titleRows=fullTextLines(t.title||"—",cardW-90,"800 23px Arial, sans-serif").length;
+    // A área descritiva começa DEPOIS do título, inclusive quando ele ocupa 2+ linhas.
+    return Math.max(132,54+titleRows*25+8+18*Math.max(2,n)+18);
   });
   const totalTapeHeight=tapeHeights.reduce((sum,height)=>sum+height+12,0);
   canvas.height=Math.max(1700+heroExtra,835+heroExtra+34+totalTapeHeight+100);
@@ -4080,9 +4101,11 @@ async function buildShareImageBlob(){
     ctx.fillText(pageText,pad+30,y+28);
     ctx.textBaseline="alphabetic";
 
-    drawLines(t.title||"—",pad+18,y+54,cardW-90,25,2,"800 23px Arial, sans-serif",ink);
+    const titleRows=fullTextLines(t.title||"—",cardW-90,"800 23px Arial, sans-serif").length;
+    const titleBottom=drawLines(t.title||"—",pad+18,y+54,cardW-90,25,
+      Math.max(2,titleRows),"800 23px Arial, sans-serif",ink);
 
-    drawAllLines(allTapeDetails(t),pad+18,y+87,cardW-36,18,
+    drawAllLines(allTapeDetails(t),pad+18,titleBottom+8,cardW-36,18,
       "600 14px Arial, sans-serif",muted);
 
     y+=tapeH+12;
@@ -4515,6 +4538,7 @@ const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
 function closeDateMenu(){
   const menu=document.getElementById("dateMenu");
   menu.hidden=true;
+  menu.removeAttribute("aria-modal");
   document.body.classList.remove("calendar-open");
   document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
   // Recoloca o calendário sob o seletor quando ele não estiver aberto.
@@ -4522,8 +4546,20 @@ function closeDateMenu(){
 }
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
 document.addEventListener("keydown",event=>{
-  if(event.key!=="Escape") return;
   const calendar=document.getElementById("dateMenu");
+  if(event.key==="Tab" && calendar && !calendar.hidden &&
+      window.matchMedia("(max-width:950px)").matches){
+    const buttons=[...calendar.querySelectorAll("button:not([disabled])")].filter(el=>el.offsetParent!==null);
+    if(buttons.length){
+      const first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
+      if(event.shiftKey && (active===first || !calendar.contains(active))){
+        event.preventDefault();last.focus();
+      }else if(!event.shiftKey && (active===last || !calendar.contains(active))){
+        event.preventDefault();first.focus();
+      }
+    }
+  }
+  if(event.key!=="Escape") return;
   if(calendar && !calendar.hidden){
     closeDateMenu();
     document.getElementById("datePickerBtn")?.focus();
@@ -4545,6 +4581,10 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     menu.hidden=false;
     document.body.classList.add("calendar-open");
     document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
+    if(window.matchMedia("(max-width:950px)").matches){
+      menu.setAttribute("aria-modal","true");
+      menu.querySelector("#calendarClose")?.focus();
+    }
   }else closeDateMenu();
 });
 
