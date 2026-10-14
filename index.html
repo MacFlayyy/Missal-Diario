@@ -3530,7 +3530,7 @@ function buildDetailedCopyText(dateKey){
 
   if((d.tapes||[]).some(t=>t.pageUnverified)) lines.push("**Atenção:** existe página do Missal ainda não conferida. O sinal ? não representa um número de página.");
   lines.push("**Separação rápida:** **"+(d.quick||"—")+"**");
-  return lines.join("\n").replace(/[ \\t]+$/gm,"");
+  return lines.join("\n").replace(/[ \t]+$/gm,"");
 }
 
 async function writeClipboard(value){
