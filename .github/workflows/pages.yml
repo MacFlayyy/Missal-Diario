@@ -36,6 +36,9 @@ jobs:
       - name: Testar HTML, navegação e prévia de domingo
         run: python scripts/test_regressions.py
 
+      - name: Conferir páginas com o índice do Missal Romano 2023
+        run: python scripts/check_missal_references.py
+
       - name: Configurar Pages
         uses: actions/configure-pages@v5
 
