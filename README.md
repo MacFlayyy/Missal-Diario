@@ -138,3 +138,22 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - Nenhuma execução agendada do GitHub Actions tem garantia de começar exatamente no minuto configurado. Executar antes das 05h reduz o risco de atraso, mas não elimina o risco de falha na plataforma.
 - Não há fonte online confiável de correspondência completa de **todas as páginas** da edição CNBB 2023 do Missal para cada celebração futura. Na ausência de correspondência verificada, o site informa **Página a conferir** em vez de inventar uma referência.
 - O HTML público autossuficiente é acessível pelo arquivo `Missal-Diario-Standalone.html` no próprio GitHub Pages.
+
+
+## Referência do Missal Romano 2023 enviada ao ChatGPT
+
+O exemplar integral do **Missal Romano, terceira edição típica em português (CNBB, 1ª impressão 2023)** enviado pelo responsável foi inspecionado nesta auditoria: **1.270 páginas**. Identificação do arquivo por SHA-256: `2ca10b5555dfb02f636cdd7db815ae198539c9a0b506ab9cdfc85670ea951a62`.
+
+- O documento integral **não está anexado a este repositório público**: trata-se de livro protegido por direitos autorais e sua publicação integral não deve ocorrer sem a permissão do titular. O repositório armazena apenas metadados bibliográficos e as referências necessárias no `missal-reference-index.json`.
+- O verificador `scripts/check_missal_references.py` roda em toda publicação do GitHub Pages e em cada atualização diária. Compara os números de páginas com o índice verificado e com o tipo de fita; bloqueia números fora do índice, seções incompatíveis e separações rápidas divergentes.
+- A conferência do PDF completo pode ser repetida localmente com `MISSAL_ROMANO_PDF=/caminho/para/arquivo.pdf python scripts/check_missal_references.py`. O script confere a integridade criptográfica SHA-256 sem enviar o conteúdo do arquivo para o site.
+- **Duas correções decorrentes de exame direto do PDF:** o prefácio próprio da Dedicação da Basílica do Latrão inicia na **p. 852** (não 851); o da Imaculada Conceição inicia na **p. 873** (não 872).
+- O índice atual cobre páginas usadas nos dados cadastrados e não substitui identificação litúrgica completa para qualquer data futura. Para páginas novas não identificadas, usar **Página a conferir** em vez de apresentar uma referência sem base confirmada.
+
+## Melhorias de interação (outubro de 2026)
+
+- Os cartões da imagem de compartilhamento calculam a altura do título antes de iniciar as descrições, evitando sobreposição em títulos de duas ou mais linhas.
+- No calendário mobile, o foco passa ao comando interno de fechar, com retorno ao seletor de data, controle da tecla Escape e navegação Tab dentro da janela.
+- A tela inicial exibe os dados principais sem transição que os deixe invisíveis no primeiro instante do Safari.
+- Em páginas com quatro alternativas (como o Natal), a separação rápida mobile apresenta os quatro números organizados em uma grade 2×2, preservando os valores.
+- A Missa de **24/12** requer escolha explícita entre manhã, Vigília e visão geral; o sistema não escolhe automaticamente com base no horário das 12h.
