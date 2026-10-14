@@ -4506,11 +4506,14 @@ function buildDateMenu(){
   updateNavButtons();
 }
 
+const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
 function closeDateMenu(){
   const menu=document.getElementById("dateMenu");
   menu.hidden=true;
   document.body.classList.remove("calendar-open");
   document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
+  // Recoloca o calendário sob o seletor quando ele não estiver aberto.
+  if(dateMenuHome && menu.parentElement!==dateMenuHome) dateMenuHome.appendChild(menu);
 }
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
 document.addEventListener("keydown",event=>{
@@ -4529,6 +4532,11 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     buildDateMenu();
   }
   if(menu.hidden){
+    // Elementos ancestrais animados usam transform, o que altera o referencial
+    // de position:fixed. No mobile/tablet, monta o calendário diretamente no body.
+    if(window.matchMedia("(max-width:950px)").matches && menu.parentElement!==document.body){
+      document.body.appendChild(menu);
+    }
     menu.hidden=false;
     document.body.classList.add("calendar-open");
     document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
@@ -4539,6 +4547,9 @@ document.addEventListener("click",(e)=>{
   const menu = document.getElementById("dateMenu");
   const picker = document.getElementById("datePickerBtn");
   if(!menu.contains(e.target) && !picker.contains(e.target)) closeDateMenu();
+});
+window.addEventListener("resize",()=>{
+  if(!document.getElementById("dateMenu").hidden) closeDateMenu();
 });
 
 document.getElementById("prevBtn").addEventListener("click",()=>moveDay(-1));
