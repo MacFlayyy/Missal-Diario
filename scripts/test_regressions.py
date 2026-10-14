@@ -27,6 +27,7 @@ def verify_html(path,standalone=False):
     assert not re.search(r"</html>\s*<(?:style|script)\b",html,re.I),path
     assert "calendar-responsive-v71" in html,path
     assert "deep-visual-accessibility-fixes-v73" in html,path
+    assert '[{opacity:.35,transform:"translateY(7px)"}' not in html,path
     assert "const titleBottom=drawLines(t.title" in html,path
     assert "drawAllLines(allTapeDetails(t),pad+18,titleBottom+8" in html,path
     assert "titleRows*25" in html,path
