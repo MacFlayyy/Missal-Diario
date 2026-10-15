@@ -3328,8 +3328,8 @@ function effectiveLiturgicalColorName(name,dateKey){
   // A escolha da cor é vinculada à celebração; cores opcionais não se tornam róseas por padrão.
   if(value.includes("roxa") && value.includes("ou rosea")) return "roxo";
   if(value.includes("roxa de manha") && value.includes("branca a tarde")){
-    const afternoon=dateKey===brasiliaTodayKey() && Number(brasiliaClockParts().hour)>=12;
-    return afternoon ? "branco" : "roxo";
+    // A cor depende da missa escolhida, nunca do relógio do visitante.
+    return december24Choice==="vigil" ? "branco" : "roxo";
   }
   return value.replace(/\bbranca\b/g,"branco").replace(/\b(?:rosea|rosa)\b/g,"roseo");
 }
@@ -3530,7 +3530,7 @@ function buildDetailedCopyText(dateKey){
   lines.push("**Grau litúrgico:** "+(d.grade||"—")+"\\");
   lines.push("**Tempo litúrgico:** "+(d.season||"—")+"\\");
   lines.push("**Cor litúrgica:** "+(d.color||"—")+"\\");
-  if(d.cycle) lines.push("**"+cycleLabelFor(dateKey,d)+":** "+d.cycle+"\\");
+  if(d.cycle && d.cycle!=="—") lines.push("**"+cycleLabelFor(dateKey,d)+":** "+d.cycle+"\\");
   if(d.liturgicalYear) lines.push("**Ano litúrgico:** "+d.liturgicalYear+"\\");
   if(d.liturgicalNote||d.note){
     lines.push("**Observação:** "+(d.liturgicalNote||d.note)+"     ");
@@ -3963,7 +3963,7 @@ async function buildShareImageBlob(){
   metaBox(pad+26+col,metaY,col-18,82,"Grau litúrgico",d.grade||"—");
   metaBox(pad+26+col*2,metaY,col-18,82,"Tempo litúrgico",d.season||"—");
   metaBox(pad+26,metaY+92,col-18,82,"Cor litúrgica",d.color||"—");
-  metaBox(pad+26+col,metaY+92,col-18,82,cycleLabelFor(window.currentDateKey,d),d.cycle||"—");
+  metaBox(pad+26+col,metaY+92,col-18,82,cycleLabelFor(window.currentDateKey,d),(!d.cycle||d.cycle==="—")?"Não se aplica":d.cycle);
   metaBox(pad+26+col*2,metaY+92,col-18,82,"Observação",d.liturgicalNote||"—");
 
   // Separação rápida: mesmo modelo visual do site, SEM setas somente na imagem.
@@ -4210,6 +4210,7 @@ function animateUpdatedContent(){
 
 function cycleLabelFor(dateKey,d){
   const value=String(d?.cycle || "").trim();
+  if(!value || value==="—") return "Ciclo litúrgico";
   if(/\bAno\s*[ABC]\b/i.test(value) || d?.cycleType === "dominical") return "Ciclo dominical";
   if(/\bAno\s*(I|II)\b/i.test(value) || d?.cycleType === "ferial") return "Ciclo ferial";
   const dt=new Date(dateKey+"T12:00:00");
@@ -4227,7 +4228,7 @@ function formatDetailLabel(label){
   return `${prepareEscapeHtml(clean)}${isSuggestion ? ' <em class="inline-suggestion">(sugestão)</em>' : ''}`;
 }
 
-let december24Choice=null; // null = automática; "combined" = visão geral explícita.
+let december24Choice=null; // null = visão geral; manhã ou vigília somente com escolha explícita.
 function getDisplayEntry(dateKey){
   const base=data[dateKey];
   if(!base || dateKey!=="2026-12-24") return base;
@@ -4303,7 +4304,7 @@ function render(dateKey){
   document.getElementById("season").textContent = d.season;
   document.getElementById("colorName").textContent = d.color;
   document.getElementById("cycleLabel").textContent = cycleLabelFor(dateKey,d);
-  document.getElementById("cycle").textContent = d.cycle || "—";
+  document.getElementById("cycle").textContent = (!d.cycle || d.cycle==="—") ? "Não se aplica" : d.cycle;
   document.getElementById("liturgicalNote").textContent = d.liturgicalNote || "—";
   document.getElementById("colorSide").textContent = d.color;
   document.getElementById("colorDot").style.background = palette.dot || d.colorHex;
@@ -4313,8 +4314,7 @@ function render(dateKey){
   const decChoice=document.getElementById("dec24MassChoice");
   if(decChoice){
     decChoice.hidden=dateKey!=="2026-12-24";
-    const actualChoice=december24Choice || (dateKey===brasiliaTodayKey()
-      ? Number(brasiliaClockParts().hour)>=12?"vigil":"morning" : "combined");
+    const actualChoice=december24Choice || "combined";
     decChoice.querySelectorAll("button[data-dec24-mass]").forEach(btn=>{
       btn.setAttribute("aria-pressed",String(btn.dataset.dec24Mass===actualChoice));
     });
@@ -4895,13 +4895,6 @@ window.addEventListener("scroll",updateMobileHeader,{passive:true});
 updateMobileHeader();
 
 const loadedBrasiliaDay=brasiliaTodayKey();
-let lastVigiliaMode=brasiliaTodayKey()==="2026-12-24"
-  ? Number(brasiliaClockParts().hour)>=12 : null;
-function refreshChristmasVigil(){
-  if(december24Choice!==null || brasiliaTodayKey()!=="2026-12-24" || window.currentDateKey!=="2026-12-24") return;
-  const evening=Number(brasiliaClockParts().hour)>=12;
-  if(lastVigiliaMode!==evening){lastVigiliaMode=evening;render(window.currentDateKey);}
-}
 const loadedBeforeDailyRelease=Number(brasiliaClockParts().hour)<5;
 
 function refreshIfBrasiliaDayChanged(){
@@ -4940,7 +4933,6 @@ document.addEventListener("visibilitychange",()=>{
 });
 setInterval(refreshAtDailyRelease,1000);
 setInterval(refreshIfDailyStatusAdvanced,60000);
-setInterval(refreshChristmasVigil,30000);
 
 updateTodayButton();
 updateSundayPreviewNote();
