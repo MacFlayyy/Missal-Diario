@@ -3236,6 +3236,11 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   }
 }
 </style>
+<style id="screen-reader-and-time-audit-v78">
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;
+ padding:0!important;margin:-1px!important;overflow:hidden!important;
+ clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3250,6 +3255,7 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
 </header>
 
     <main id="mainContent">
+    <div id="dateChangeAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     <section class="hero">
       <div class="card hero-main">
         <div class="today-kicker"><span class="today-dot"></span><span id="contextText">Separação para a celebração de hoje</span></div>
@@ -4385,6 +4391,7 @@ document.getElementById("dec24MassChoice")?.addEventListener("click",event=>{
 });
 
 function render(dateKey){
+  const previousRenderedDate = window.currentDateKey || null;
   const d = getDisplayEntry(dateKey) || {
     label:new Date(dateKey+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"2-digit",year:"numeric"}),
     celebration:"Celebração ainda não cadastrada",
@@ -4411,6 +4418,10 @@ function render(dateKey){
   document.getElementById("dateLabel").textContent = d.label;
   document.getElementById("celebration").textContent = d.celebration;
   document.getElementById("subtitle").textContent = d.subtitle;
+  if(previousRenderedDate && previousRenderedDate !== dateKey){
+    const announcement=document.getElementById("dateChangeAnnouncement");
+    if(announcement) announcement.textContent=d.label+" — "+d.celebration;
+  }
   const celebrationModeDate=document.getElementById("celebrationModeDate");
   const celebrationModeTitle=document.getElementById("celebrationModeTitle");
   if(celebrationModeDate) celebrationModeDate.textContent=formatCelebrationModeDate(dateKey);
@@ -4644,10 +4655,11 @@ function buildDateMenu(){
     btn.addEventListener("click",()=>{
       render(btn.dataset.date);
       closeDateMenu();
+      document.getElementById("datePickerBtn")?.focus();
     });
   });
-  document.getElementById("calendarPrev")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();});
-  document.getElementById("calendarNext")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,1);buildDateMenu();});
+  document.getElementById("calendarPrev")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();document.getElementById("calendarPrev")?.focus();});
+  document.getElementById("calendarNext")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,1);buildDateMenu();document.getElementById("calendarNext")?.focus();});
   document.getElementById("calendarClose")?.addEventListener("click",()=>{
     closeDateMenu();
     document.getElementById("datePickerBtn")?.focus();
@@ -4668,8 +4680,7 @@ function closeDateMenu(){
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
 document.addEventListener("keydown",event=>{
   const calendar=document.getElementById("dateMenu");
-  if(event.key==="Tab" && calendar && !calendar.hidden &&
-      window.matchMedia("(max-width:950px)").matches){
+  if(event.key==="Tab" && calendar && !calendar.hidden){
     const buttons=[...calendar.querySelectorAll("button:not([disabled])")].filter(el=>el.offsetParent!==null);
     if(buttons.length){
       const first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
@@ -4702,10 +4713,8 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     menu.hidden=false;
     document.body.classList.add("calendar-open");
     document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
-    if(window.matchMedia("(max-width:950px)").matches){
-      menu.setAttribute("aria-modal","true");
-      menu.querySelector("#calendarClose")?.focus();
-    }
+    menu.setAttribute("aria-modal","true");
+    menu.querySelector("#calendarClose")?.focus();
   }else closeDateMenu();
 });
 
@@ -5061,7 +5070,17 @@ document.addEventListener("visibilitychange",()=>{
     refreshIfDailyStatusAdvanced();
   }
 });
-setInterval(refreshAtDailyRelease,1000);
+// A transição das 05h é agendada ao segundo, com checagem de segurança
+// após retorno à aba e a cada minuto (evita trabalho por segundo).
+function scheduleNextFiveAMRelease(){
+  if(!loadedBeforeDailyRelease) return;
+  const now=brasiliaClockParts();
+  const elapsed=Number(now.hour)*3600+Number(now.minute)*60+Number(now.second);
+  const untilFive=Math.max(0,(5*3600-elapsed)*1000+120);
+  setTimeout(refreshAtDailyRelease,untilFive);
+}
+scheduleNextFiveAMRelease();
+setInterval(refreshAtDailyRelease,60000);
 setInterval(refreshIfDailyStatusAdvanced,60000);
 
 updateTodayButton();
