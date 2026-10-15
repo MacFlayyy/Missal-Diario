@@ -90,11 +90,15 @@ async function run(config){
        statuses.satBefore=test('2026-10-10',4,'2026-10-10','2026-10-11');
        statuses.satAfter=test('2026-10-10',5,'2026-10-10','2026-10-11');
        statuses.sunBefore=test('2026-10-11',4,'2026-10-10','2026-10-11');
+       statuses.sunEarlyPublished=test('2026-10-11',4,'2026-10-11','2026-10-11');
+       statuses.solemnitySaturday=test('2026-10-31',6,'2026-10-31','2026-11-01');
        statuses.sunAfter=test('2026-10-11',5,'2026-10-11',undefined);
      }finally{brasiliaTodayKey=realDay;brasiliaClockParts=realClock;window.MISSAL_STATUS=realStatus;}return statuses;
    });
    mark(row,'saturday-release-rule',gate.satBefore.preview===null && gate.satAfter.preview==='2026-10-11' && gate.satBefore.limit==='2026-10-09',gate);
    mark(row,'sunday-midnight-preview-rule',gate.sunBefore.preview==='2026-10-11'&&gate.sunAfter.limit==='2026-10-11',gate);
+   mark(row,'sunday-prepared-early-remains-visible',gate.sunEarlyPublished.preview==='2026-10-11'&&gate.sunEarlyPublished.limit==='2026-10-10',gate.sunEarlyPublished);
+   mark(row,'sunday-solemnity-saturday-visible',gate.solemnitySaturday.preview==='2026-11-01'&&gate.solemnitySaturday.visible.includes('2026-11-01'),gate.solemnitySaturday);
    // Cobertura regressiva: a Vigília NUNCA é escolhida pelo relógio.
    const christmas=await page.evaluate(()=>{
      const previousDate=window.currentDateKey,oldDay=brasiliaTodayKey,oldClock=brasiliaClockParts,oldChoice=december24Choice;
