@@ -157,3 +157,17 @@ O exemplar integral do **Missal Romano, terceira edição típica em português 
 - A tela inicial exibe os dados principais sem transição que os deixe invisíveis no primeiro instante do Safari.
 - Em páginas com quatro alternativas (como o Natal), a separação rápida mobile apresenta os quatro números organizados em uma grade 2×2, preservando os valores.
 - A Missa de **24/12** requer escolha explícita entre manhã, Vigília e visão geral; o sistema não escolhe automaticamente com base no horário das 12h.
+
+## Correções de 15/10/2026 — rastreabilidade, telas e PWA
+
+- **Escolha de 24 de dezembro:** visão geral fica selecionada por padrão, inclusive após 12h; Missa da manhã e Vigília só alteram páginas, título e cor quando o usuário escolhe explicitamente.
+- **Ciclo sem indicação:** quando o cadastro apresenta `—`, o site informa "Não se aplica" e rotula o campo de modo neutro.
+- **Controles mobile:** botões de navegação, calendário, ações e seleção do Natal ganharam alvos de toque de pelo menos 44 px quando compatível com o espaço.
+- **Índice litúrgico por data:** `missal-date-formulary-map.json` associa as 93 datas cadastradas às páginas específicas dos formulários do Missal, usando o exemplar CNBB 2023 conferido. `scripts/check_missal_references.py` impede que páginas sejam trocadas por outra da mesma seção em datas indexadas, e registra alerta para datas futuras sem correspondência conferida.
+- **PDF original:** o arquivo completo não foi distribuído no repositório público porque seria necessário verificar autorização de redistribuição. A cópia do responsável continua disponível em sua Biblioteca pessoal do ChatGPT; o identificador SHA-256 presente nos metadados assegura que a referência é a edição verificada. O GitHub Actions não possui acesso automático a arquivos particulares da Biblioteca e não reabre esse PDF a cada publicação.
+- **Folhetos novos:** o mesmo workflow passa a consultar também às 11h, 16h e 20h (horário de Brasília). O GitHub pode iniciar o agendamento com atraso.
+- **Ícones PWA:** os PNGs 180, 192 e 512 px são gerados do SVG do projeto antes da publicação; o manifesto apresenta opções PNG/SVG e o ícone Apple usa PNG. A verificação do deploy também confirma os três PNGs públicos.
+- **Links antigos:** os arquivos `missal-atualizado-v54.html` até `v57.html` redirecionam para o site atual, evitando distribuir interfaces defasadas e preservando os URLs.
+- **Regressões:** `full-site-audit.cjs` inclui simulação dos horários de 24/12, confirmação do botão selecionado, cor e páginas das opções.
+
+Estas verificações aumentam a segurança, mas não garantem acerto litúrgico absoluto: escolhas pontuais do folheto, páginas novas e celebrações alternativas ainda exigem referência oficial independente. Na ausência de página confirmada, a interface deve informar **Página a conferir**, não inventar numeração.
