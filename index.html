@@ -3219,6 +3219,23 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   .quick .quick-step .multi-page-values{font-size:11px!important;gap:1px!important}
 }
 </style>
+<style id="alternative-pages-mobile-v77">
+@media(max-width:620px){
+  .quick .quick-step .stacked-page-values,
+  body.celebration-mode .quick .quick-step .stacked-page-values,
+  .prepare-missal-sequence .quick-step .stacked-page-values{
+    display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+    gap:1px!important;place-items:center!important;
+    font-size:11px!important;line-height:1.05!important;
+    width:100%!important;white-space:nowrap!important
+  }
+  .quick .quick-step:has(.stacked-page-values),
+  body.celebration-mode .quick .quick-step:has(.stacked-page-values),
+  .prepare-missal-sequence .quick-step:has(.stacked-page-values){
+    min-height:40px!important;padding:4px 1px!important
+  }
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3460,8 +3477,10 @@ function quickStepsMarkup(value){
   return pages.map((page,i) =>
     '<span class="quick-item">' +
       '<span class="quick-step" title="Marcação '+(i+1)+': '+prepareEscapeHtml(page)+'">'+
-        (/^\d+(?:\s*\/\s*\d+){3}$/.test(page)
-          ? '<span class="multi-page-values">'+page.split(/\s*\/\s*/).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
+        (/^\d+(?:\s*(?:\/|ou)\s*\d+){1,3}$/i.test(page)
+          ? (page.split(/\s*(?:\/|ou)\s*/i).length===4
+            ? '<span class="multi-page-values">'+page.split(/\s*(?:\/|ou)\s*/i).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
+            : '<span class="stacked-page-values">'+page.split(/\s*(?:\/|ou)\s*/i).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>')
           : prepareEscapeHtml(page))+'</span>' +
       (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
     '</span>'
