@@ -33,6 +33,9 @@ jobs:
       - name: Gerar ícones PNG do PWA
         run: python scripts/build_app_icons.py
 
+      - name: Otimizar logo da paróquia
+        run: python scripts/build_brand_logo.py
+
       - name: Atualizar versão do site e cache do PWA
         run: python scripts/bump_daily_version.py
 
