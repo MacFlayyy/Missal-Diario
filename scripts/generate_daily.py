@@ -128,7 +128,9 @@ def read_liturgical_day(day, fetch=None):
     return {
         "day":day, "celebration":celebration, "grade":grade,
         "season":season, "color":color, "saint":saint, "reference":daily_url(day),
-        "cycle":liturgical_year(day) if day.weekday()==6 or grade in ("Festa","Solenidade")
+        # O ciclo dominical (A/B/C) aplica-se somente aos domingos;
+        # festas/solenidades feriais não transformam o dia em domingo.
+        "cycle":liturgical_year(day) if day.weekday()==6
                  else ("Ano I" if day.year%2 else "Ano II")
     }
 
