@@ -192,7 +192,7 @@ async function run(config){
  const missingErrors=[];
  missingPage.on('pageerror',e=>missingErrors.push(e.message));
  try{
-   await missingPage.route(/\\/data\\.js(?:\\?|$)/,route=>route.abort());
+   await missingPage.route(/\/data\.js(?:\?|$)/,route=>route.abort());
    const response=await missingPage.goto(local,{waitUntil:'domcontentloaded',timeout:30000});
    await missingPage.waitForTimeout(400);
    const state=await missingPage.evaluate(()=>({
