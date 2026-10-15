@@ -2665,18 +2665,22 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "587",
-        "title": "Bênção Solene — Na festa de um Santo",
+        "page": "586",
+        "title": "Bênção Solene — Santos Apóstolos",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Pode-se utilizar esta bênção conforme a indicação do próprio dos Santos Simão e Judas (p. 840). Uso facultativo."
+          ],
+          [
+            "Referência no Missal Romano",
+            "Formulário: p. 840; bênção: p. 586. Indicação facultativa."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 839 → 498 → 545 → 587",
+    "quick": "430 → 839 → 498 → 545 → 586",
     "cycle": "Ano II"
   },
   "2026-10-29": {
@@ -3116,18 +3120,22 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "585",
-        "title": "Bênção Solene — Tempo Comum VI",
+        "page": "588",
+        "title": "Bênção Solene — Celebração pelos Fiéis Defuntos",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Pode-se utilizar esta bênção conforme o formulário da Comemoração de Todos os Fiéis Defuntos. Uso facultativo."
+          ],
+          [
+            "Referência no Missal Romano",
+            "Formulário: p. 846; bênção: p. 588. Indicação facultativa."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 846 → 518 → 536 → 585",
+    "quick": "430 → 846 → 518 → 536 → 588",
     "cycle": "Ano II"
   },
   "2026-11-03": {
@@ -5687,18 +5695,22 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "587",
-        "title": "Bênção Solene — Na festa de um Santo",
+        "page": "586",
+        "title": "Bênção Solene — Santos Apóstolos",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Pode-se utilizar esta bênção conforme a indicação do próprio de Santo André (p. 866). Uso facultativo."
+          ],
+          [
+            "Referência no Missal Romano",
+            "Formulário: p. 866; bênção: p. 586. Indicação facultativa."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 865 → 498 → 545 → 587",
+    "quick": "430 → 865 → 498 → 545 → 586",
     "cycle": "Ano II"
   },
   "2026-12-01": {
@@ -6786,18 +6798,22 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "578",
-        "title": "Bênção Solene — Advento",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Pode-se utilizar esta bênção conforme a indicação do próprio de Nossa Senhora de Guadalupe (p. 876). Uso facultativo."
+          ],
+          [
+            "Referência no Missal Romano",
+            "Formulário: p. 876; bênção: p. 585. Indicação facultativa."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 875 → 493 → 545 → 578",
+    "quick": "430 → 875 → 493 → 545 → 585",
     "cycle": "—"
   },
   "2026-12-13": {
