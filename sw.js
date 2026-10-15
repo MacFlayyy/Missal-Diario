@@ -3,9 +3,11 @@
 const CACHE_NAME = "missal-diario-20261015-a8b892d2c13b";
 const SHELL = [
   "./", "./index.html", "./data.js", "./status.js",
-  "./manifest.webmanifest", "./app-icon.svg"
+  "./manifest.webmanifest", "./app-icon.svg",
+  "./app-icon-180.png", "./app-icon-192.png", "./app-icon-512.png",
+  "./brand-logo.png"
 ];
-const FILES = new Set(["index.html","data.js","status.js","manifest.webmanifest","app-icon.svg"]);
+const FILES = new Set(["index.html","data.js","status.js","manifest.webmanifest","app-icon.svg","app-icon-180.png","app-icon-192.png","app-icon-512.png","brand-logo.png"]);
 function cacheKey(url) {
   const root=new URL(self.registration.scope).pathname;
   if(!url.pathname.startsWith(root)) return null;
