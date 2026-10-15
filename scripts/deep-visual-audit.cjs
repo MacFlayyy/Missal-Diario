@@ -71,7 +71,7 @@ async function runView(v){
   const focusBefore=await page.evaluate(()=>document.activeElement?.id);
   await page.keyboard.press('Tab');
   const focusAfter=await page.evaluate(()=>({id:document.activeElement?.id,within:document.getElementById('dateMenu').contains(document.activeElement)}));
-  mark(row,'calendar-keyboard-focus-enters-dialog',focusAfter.within,{before:focusBefore,after:focusAfter},false);
+  mark(row,'calendar-keyboard-focus-enters-dialog',focusAfter.within,{before:focusBefore,after:focusAfter},true);
   if(!focusAfter.within)warn(row,'calendar-keyboard-accessibility',{before:focusBefore,after:focusAfter});
   const close=page.locator('#calendarClose');
   if(await close.count()){await close.click();mark(row,'calendar-close-control-works',await page.locator('#dateMenu').isHidden(),{});}
