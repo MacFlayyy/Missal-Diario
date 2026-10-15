@@ -3258,6 +3258,210 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+/* Missal Diário 2.0 — identidade litúrgica premium e UX responsiva */
+:root{--premium-radius:22px;--premium-border:rgba(105,77,61,.12)}
+body{background:#f6f1e8}
+body .hero-main,body .side{
+  border-radius:var(--premium-radius)!important;
+  box-shadow:0 13px 35px rgba(70,45,34,.075),0 2px 9px var(--liturgical-soft)!important;
+}
+body .card{transition:box-shadow .2s ease,transform .2s ease,background-color .2s ease}
+body .today-dot{box-shadow:0 0 0 4px var(--liturgical-soft)!important}
+body .hero-main h2#celebration{letter-spacing:-.025em}
+body .side button:not(:disabled){transition:transform .18s ease,box-shadow .18s ease}
+body .side button:not(:disabled):active{transform:scale(.975)}
+/* Fitas: cabeçalho organizado, ícone próprio e página em destaque.
+   Não adicionar legendas decorativas ou rótulos de marcador vermelho. */
+.tapes{gap:16px!important}
+.tape{
+  scroll-margin-top:110px;
+  padding:22px 22px 23px 25px!important;
+  border-radius:22px!important;
+  background:rgba(255,253,248,.95)!important;
+  box-shadow:0 12px 36px rgba(65,44,37,.075)!important;
+}
+.tape::before{background:var(--wine)!important;width:3px!important}
+.tape-heading{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:14px;min-width:0;min-height:65px;
+}
+.tape-heading-main{display:flex;align-items:center;gap:11px;min-width:0;flex:1}
+.tape .tape-top{position:static!important;inset:auto!important;flex:none}
+.tape .tape-icon{width:38px!important;height:38px!important;border-radius:12px!important}
+.tape .tape-icon svg{width:20px!important;height:20px!important}
+.tape .tape-heading h4{
+  margin:0!important;padding:0!important;min-width:0;
+  font-size:17px!important;line-height:1.35!important;font-weight:790!important;
+}
+.tape .page{
+  flex:none;display:flex!important;flex-direction:column;align-items:flex-end;justify-content:center;
+  min-height:50px!important;max-width:47%;padding:7px 10px!important;
+  border-radius:13px!important;letter-spacing:0!important;
+  background:rgba(125,23,34,.052)!important;color:var(--wine)!important;
+  font-size:12px!important;line-height:1.35!important;white-space:normal;
+}
+.tape .page-caption{font-size:9px;font-weight:800;letter-spacing:.105em;opacity:.77}
+.tape .page-number{font-size:22px;font-weight:850;letter-spacing:-.025em;line-height:1.1;font-variant-numeric:tabular-nums}
+.tape .tape-content{margin-top:8px}
+.tape .tape-content .detail:first-child{border-top:0!important;padding-top:0!important}
+.tape.tape-jump-highlight{animation:tape-location-pulse 1.12s ease-out!important}
+@keyframes tape-location-pulse{
+  0%{box-shadow:0 0 0 0 var(--liturgical-glow),0 12px 36px rgba(65,44,37,.075)}
+  45%{box-shadow:0 0 0 6px var(--liturgical-soft),0 12px 36px rgba(65,44,37,.075)}
+  100%{box-shadow:0 0 0 0 transparent,0 12px 36px rgba(65,44,37,.075)}
+}
+/* Marcadores de páginas são botões apenas onde existe uma fita correspondente. */
+.quick-steps .quick-jump{
+  cursor:pointer;border:1px solid rgba(125,23,34,.09)!important;
+  border-radius:12px!important;background:rgba(255,253,248,.95)!important;
+  box-shadow:0 3px 11px rgba(58,36,28,.07)!important;
+  color:var(--wine)!important;
+  font-variant-numeric:tabular-nums;
+  transition:transform .17s ease,box-shadow .17s ease,background-color .17s ease!important;
+}
+.quick-steps .quick-jump:hover{transform:translateY(-2px);box-shadow:0 7px 16px rgba(58,36,28,.12)!important}
+.quick-steps .quick-jump:active{transform:scale(.97)}
+.quick-steps .quick-jump:focus-visible{outline:3px solid var(--wine)!important;outline-offset:3px}
+.quick .quick-arrow,.prepare-missal-sequence .quick-arrow{opacity:.8}
+body.celebration-mode .celebration-context{
+  max-width:850px;margin-inline:auto;text-align:center;
+  padding:20px 18px 7px!important;
+}
+body.celebration-mode .celebration-context h2{font-size:clamp(26px,4vw,39px)!important;line-height:1.2}
+body.celebration-mode .quick{
+  max-width:850px!important;
+  border-radius:24px!important;
+  background:rgba(255,253,248,.97)!important;
+  box-shadow:0 12px 35px rgba(65,44,37,.09),0 3px 18px var(--liturgical-soft)!important;
+}
+body.celebration-mode .quick .quick-jump{font-size:clamp(14px,1.6vw,19px)!important;min-height:49px!important}
+body.celebration-mode .section-title{text-align:center}
+@media(max-width:950px){
+  .mobile-nav{
+    border-radius:24px!important;
+    background:rgba(255,253,248,.84)!important;
+    border:1px solid rgba(255,255,255,.66)!important;
+    box-shadow:0 14px 36px rgba(43,30,27,.15),0 2px 8px var(--liturgical-soft)!important;
+  }
+  .mobile-nav button{position:relative;border-radius:18px!important}
+  .mobile-nav button.active,.mobile-nav button[aria-expanded="true"]{
+    background:rgba(125,23,34,.045)!important;color:var(--wine)!important;
+  }
+  .mobile-nav button.active::after,.mobile-nav button[aria-expanded="true"]::after{
+    content:"";position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;
+    background:var(--liturgical);box-shadow:0 0 0 3px var(--liturgical-soft);
+  }
+}
+@media(max-width:620px){
+  .tape{padding:17px 14px 18px 19px!important;border-radius:19px!important}
+  .tape-heading{gap:7px;min-height:58px}
+  .tape-heading-main{gap:8px}
+  .tape .tape-icon{width:33px!important;height:33px!important;border-radius:10px!important}
+  .tape .tape-icon svg{width:18px!important;height:18px!important}
+  .tape .tape-heading h4{font-size:15px!important}
+  .tape .page{padding:6px 8px!important;min-height:45px!important;max-width:45%}
+  .tape .page-number{font-size:18px}
+  .tape .tape-content{margin-top:4px}
+  .quick .quick-steps .quick-jump{min-height:44px!important;white-space:nowrap!important}
+  body.celebration-mode .quick .quick-jump{min-height:48px!important;font-size:13px!important}
+  .mobile-nav{left:12px!important;right:12px!important;border-radius:24px!important}
+  .mobile-nav button{min-height:56px!important}
+  .back-to-top{bottom:calc(max(10px,env(safe-area-inset-bottom)) + 104px)!important}
+  /* Calendário como painel inferior, sem interferir no avanço de meses. */
+  .date-menu.calendar-panel:not([hidden]){
+    left:50%!important;top:auto!important;bottom:0!important;
+    right:auto!important;transform:translateX(-50%)!important;
+    width:min(460px,100vw)!important;max-width:100vw!important;
+    max-height:calc(100dvh - 12px)!important;
+    border-radius:27px 27px 0 0!important;
+    padding:18px 16px calc(18px + env(safe-area-inset-bottom))!important;
+    box-shadow:0 -18px 58px rgba(42,27,26,.25)!important;
+    animation:calendar-sheet-arrive .2s ease-out both;
+  }
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{
+    height:42px!important;min-height:42px!important;border-radius:11px!important;
+  }
+  .date-menu.calendar-panel .calendar-head{margin-bottom:9px}
+  .date-menu.calendar-panel .calendar-day.active{box-shadow:inset 0 0 0 2px var(--wine)!important}
+}
+@keyframes calendar-sheet-arrive{
+  from{opacity:.68}to{opacity:1}
+}
+@media(max-width:350px){
+  .tape .page-number{font-size:16px}
+  .tape .tape-heading h4{font-size:14px!important}
+  .date-menu.calendar-panel:not([hidden]){padding:12px 10px calc(12px + env(safe-area-inset-bottom))!important}
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:37px!important;min-height:37px!important}
+}
+@media(max-height:500px) and (max-width:620px){
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:31px!important;min-height:31px!important}
+  .date-menu.calendar-panel:not([hidden]){overflow-y:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .tape.tape-jump-highlight,.date-menu.calendar-panel:not([hidden]){animation:none!important}
+  .quick-steps .quick-jump{transition:none!important}
+}
+/* Correções de usabilidade: centralização das páginas, modal e Modo Celebração. */
+.tape .page{
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+.tape .page .page-caption,.tape .page .page-number{
+  display:block!important;
+  width:100%;
+  text-align:center!important;
+  margin-inline:auto;
+}
+body.calendar-open{overscroll-behavior:none}
+body.calendar-open .date-menu.calendar-panel{
+  touch-action:pan-y;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+}
+/* O botão Sair ocupa sua própria linha, não se sobrepõe à data. */
+body.celebration-mode .celebration-context{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:7px!important;
+  padding:18px 18px 22px!important;
+}
+body.celebration-mode .celebration-context .celebration-exit{
+  position:static!important;
+  inset:auto!important;
+  top:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  display:inline-flex!important;
+  align-self:flex-end!important;
+  transform:none!important;
+  margin:0 0 7px!important;
+  min-height:42px!important;
+  z-index:auto!important;
+}
+body.celebration-mode .celebration-context-date{
+  position:static!important;
+  margin-top:0!important;
+  clear:both;
+}
+body.celebration-mode .celebration-context h2{
+  margin:0 auto!important;
+}
+@media(max-width:620px){
+  body.celebration-mode .celebration-context{
+    padding:14px 14px 19px!important;
+    gap:8px!important;
+  }
+  body.celebration-mode .celebration-context .celebration-exit{
+    position:static!important;
+    top:auto!important;
+    right:auto!important;
+    min-height:42px!important;
+    margin-bottom:8px!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3321,7 +3525,7 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
         <div class="quick">
           <small>Separação rápida</small>
           <strong id="quickSep">—</strong>
-          <div class="quick-steps" id="quickSteps" aria-hidden="true"></div>
+          <div class="quick-steps" id="quickSteps" role="group" aria-label="Páginas da separação rápida"></div>
           <div class="celebration-choice" id="dec24MassChoice" hidden aria-label="Escolher celebração de 24 de dezembro">
             <button type="button" data-dec24-mass="combined" aria-pressed="true">Visão geral</button>
             <button type="button" data-dec24-mass="morning" aria-pressed="false">Missa da manhã</button>
@@ -5119,9 +5323,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
+    "note": "Separação conforme o folheto oficial. As partes não indicadas ou não identificadas estão sinalizadas, sem escolhas inventadas.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -5145,10 +5349,12 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Formulário",
-            "Missa do dia"
+            "Página",
+            "Sugestão de referência do Missal; a página da Missa não foi confirmada na leitura do PDF. Conferir antes da celebração."
           ]
-        ]
+        ],
+        "pageUnverified": true,
+        "suggestion": true
       },
       {
         "n": 3,
@@ -5156,20 +5362,16 @@ window.MISSAL_DATA = {
         "title": "Prefácio dos Domingos do Tempo Comum IV",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
             "Uso",
-            "Sugestão"
+            "Sugestão: o folheto não indicou este prefácio."
           ]
         ],
         "suggestion": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "536",
+        "title": "Oração Eucarística II",
         "details": [
           [
             "Aclamação",
@@ -5177,11 +5379,11 @@ window.MISSAL_DATA = {
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."
           ]
         ],
         "suggestion": true
@@ -5193,14 +5395,20 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 411 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "quick": "430 → ? → 477 → 536 → 585",
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
+    "officialVerifiedParts": [],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-10-19": {
     "label": "Segunda-feira • 19/10/2026",
@@ -12045,12 +12253,12 @@ window.MISSAL_STATUS = {
     "unverifiedMissalPages": []
   },
   "calendarDataThrough": "2026-12-31",
-  "sundayLeafletDate": "2026-10-11",
-  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
-  "contentVersion": "cd485e9cbca1d02918cb",
-  "lastSuccessfulUpdateAt": "2026-10-15T16:25:47.665169-03:00"
+  "sundayLeafletDate": "2026-10-18",
+  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
+  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+  "contentVersion": "e1852a0d9fc44e18574b",
+  "lastSuccessfulUpdateAt": "2026-10-15T20:18:06.389920-03:00"
 };
 </script>
 <script>
@@ -12107,32 +12315,51 @@ function applyLiturgicalColor(name,fallbackHex){
   return palette;
 }
 
-function quickStepsMarkup(value){
-  const pages = String(value || "")
-    .split(/\s*→\s*/)
-    .map(page => page.trim())
-    .filter(Boolean);
+function quickStepsMarkup(value, interactive=false){
+  const pages=String(value||"").split(/\s*→\s*/).map(page=>page.trim()).filter(Boolean);
+  if(!pages.length || (pages.length===1 && pages[0]==="—"))
+    return '<span class="quick-step">—</span>';
 
-  if(!pages.length) return '<span class="quick-step">—</span>';
-
-  return pages.map((page,i) =>
-    '<span class="quick-item">' +
-      '<span class="quick-step" title="Marcação '+(i+1)+': '+prepareEscapeHtml(page)+'">'+
-        (/^\d+(?:\s*(?:\/|ou)\s*\d+){1,3}$/i.test(page)
-          ? (page.split(/\s*(?:\/|ou)\s*/i).length===4
-            ? '<span class="multi-page-values">'+page.split(/\s*(?:\/|ou)\s*/i).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
-            : '<span class="stacked-page-values">'+page.split(/\s*(?:\/|ou)\s*/i).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>')
-          : prepareEscapeHtml(page))+'</span>' +
-      (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
-    '</span>'
-  ).join("");
+  return pages.map((page,i)=>{
+    const escaped=prepareEscapeHtml(page);
+    const alternatives=/^\d+(?:\s*(?:\/|ou)\s*\d+){1,3}$/i.test(page);
+    const numbers=page.split(/\s*(?:\/|ou)\s*/i);
+    const content=alternatives
+      ? '<span class="'+(numbers.length===4?'multi-page-values':'stacked-page-values')+'">'+numbers.map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
+      : escaped;
+    // Só o número é visível. O nome da ação existe apenas para leitores de tela.
+    const start=interactive
+      ? '<button type="button" class="quick-step quick-jump" data-tape-index="'+i+'" aria-label="Ir para a página '+escaped+' na marcação '+(i+1)+'">'
+      : '<span class="quick-step" title="Página '+escaped+'">';
+    const end=interactive?'</button>':'</span>';
+    return '<span class="quick-item">'+start+content+end+
+      (i<pages.length-1?'<span class="quick-arrow" aria-hidden="true">→</span>':'')+'</span>';
+  }).join("");
 }
 
 function renderQuickSteps(value){
-  const wrap = document.getElementById("quickSteps");
+  const wrap=document.getElementById("quickSteps");
   if(!wrap) return;
-  wrap.innerHTML = quickStepsMarkup(value);
+  wrap.innerHTML=quickStepsMarkup(value,true);
 }
+
+// O mesmo comportamento funciona na página principal, no modo celebração
+// e em Preparar o Missal, sem mudar nem calcular páginas litúrgicas.
+document.addEventListener("click",event=>{
+  const button=event.target.closest(".quick-jump[data-tape-index]");
+  if(!button) return;
+  const index=Number(button.dataset.tapeIndex);
+  const target=document.querySelectorAll("#tapes .tape")[index];
+  if(!target) return;
+  if(button.closest("#prepareMissalOverlay")) setPrepareMissal(false);
+  const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
+  target.classList.remove("tape-jump-highlight");
+  // Reativar o destaque em cliques consecutivos.
+  void target.offsetWidth;
+  target.classList.add("tape-jump-highlight");
+  window.setTimeout(()=>target.classList.remove("tape-jump-highlight"),1200);
+});
 
 
 function tapeIconSvg(t){
@@ -13086,14 +13313,21 @@ function render(dateKey){
   d.tapes.forEach(t=>{
     const el = document.createElement("article");
     el.className = "card tape";
+    el.id="missal-tape-"+t.n;
     el.innerHTML = `
-      <div class="tape-top">
-        <div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div>
+      <div class="tape-heading">
+        <div class="tape-heading-main">
+          <div class="tape-top"><div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div></div>
+          <h4>${prepareEscapeHtml(t.title)}</h4>
+        </div>
+        <div class="page" aria-label="${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : "Página "+prepareEscapeHtml(t.page))}">
+          ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
+        </div>
       </div>
-      <div class="page">${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `Página ${prepareEscapeHtml(t.page)}`)}</div>
-      <h4>${prepareEscapeHtml(t.title)}</h4>
-      ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
-      ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
+      <div class="tape-content">
+        ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
+        ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
+      </div>
     `;
     tapes.appendChild(el);
   });
@@ -13299,12 +13533,51 @@ function buildDateMenu(){
 }
 
 const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
+let calendarScrollRestore=null;
+function lockCalendarBackground(){
+  if(calendarScrollRestore) return;
+  const body=document.body,root=document.documentElement;
+  calendarScrollRestore={
+    y:window.scrollY,
+    bodyPosition:body.style.position,bodyTop:body.style.top,
+    bodyLeft:body.style.left,bodyRight:body.style.right,bodyWidth:body.style.width,
+    htmlOverflow:root.style.overflow,htmlOverscroll:root.style.overscrollBehavior
+  };
+  // Bloqueio real também no Safari do iPhone: overflow:hidden isolado
+  // não impede que a página atrás do modal deslize ao toque.
+  root.style.overflow="hidden";
+  root.style.overscrollBehavior="none";
+  body.style.position="fixed";
+  body.style.top="-"+calendarScrollRestore.y+"px";
+  body.style.left="0";
+  body.style.right="0";
+  body.style.width="100%";
+}
+function unlockCalendarBackground(){
+  if(!calendarScrollRestore) return;
+  const saved=calendarScrollRestore;
+  calendarScrollRestore=null;
+  const body=document.body,root=document.documentElement;
+  body.style.position=saved.bodyPosition;
+  body.style.top=saved.bodyTop;
+  body.style.left=saved.bodyLeft;
+  body.style.right=saved.bodyRight;
+  body.style.width=saved.bodyWidth;
+  root.style.overflow=saved.htmlOverflow;
+  root.style.overscrollBehavior=saved.htmlOverscroll;
+  // Volta à posição exata, sem a animação global de scroll-behavior:smooth.
+  const previousBehavior=root.style.scrollBehavior;
+  root.style.scrollBehavior="auto";
+  window.scrollTo(0,saved.y);
+  root.style.scrollBehavior=previousBehavior;
+}
 function closeDateMenu(){
   const menu=document.getElementById("dateMenu");
   if(!menu) return;
   menu.hidden=true;
   menu.removeAttribute("aria-modal");
   document.body.classList.remove("calendar-open");
+  unlockCalendarBackground();
   document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
   // Recoloca o calendário sob o seletor quando ele não estiver aberto.
   if(dateMenuHome && menu.parentElement!==dateMenuHome) dateMenuHome.appendChild(menu);
@@ -13344,6 +13617,7 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     }
     menu.hidden=false;
     document.body.classList.add("calendar-open");
+    lockCalendarBackground();
     document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
     menu.setAttribute("aria-modal","true");
     menu.querySelector("#calendarClose")?.focus();
@@ -13422,7 +13696,7 @@ function setPrepareMissal(open){
     document.getElementById("prepareMissalDate").textContent=d.label || window.currentDateKey || "";
     document.getElementById("prepareMissalQuick").textContent=d.quick || "—";
     const prepareQuickSteps=document.getElementById("prepareMissalQuickSteps");
-    if(prepareQuickSteps) prepareQuickSteps.innerHTML=quickStepsMarkup(d.quick);
+    if(prepareQuickSteps) prepareQuickSteps.innerHTML=quickStepsMarkup(d.quick,true);
     const pages=document.getElementById("prepareMissalPages");
     const tapes=Array.isArray(d.tapes)?d.tapes:[];
     pages.innerHTML=prepareLabels.map((label,index)=>{
@@ -13589,14 +13863,39 @@ function setMoreMenu(open){
   if(open) document.getElementById("mobileMoreClose")?.focus();
   else if(wasOpen || focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
+  setMobileActiveTab(open?"mobileMoreBtn":null);
+  if(!open) requestAnimationFrame(syncMarkingsActiveTab);
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
 
-document.getElementById("mobileMarkingsBtn")?.addEventListener("click",scrollToMarkings);
-document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>setCelebrationMode(true));
+function setMobileActiveTab(id){
+  document.querySelectorAll(".mobile-nav button").forEach(button=>{
+    button.classList.toggle("active",Boolean(id)&&button.id===id);
+  });
+}
+function syncMarkingsActiveTab(){
+  if(document.body.classList.contains("more-menu-open") ||
+     document.body.classList.contains("celebration-mode")) return;
+  const tapes=document.getElementById("tapes");
+  const rect=tapes?.getBoundingClientRect();
+  const markingsVisible=Boolean(rect && rect.top<window.innerHeight*.64 &&
+    rect.bottom>Math.max(100,window.innerHeight*.15));
+  setMobileActiveTab(markingsVisible?"mobileMarkingsBtn":null);
+}
+window.addEventListener("scroll",syncMarkingsActiveTab,{passive:true});
+window.addEventListener("resize",syncMarkingsActiveTab,{passive:true});
+document.getElementById("mobileMarkingsBtn")?.addEventListener("click",()=>{
+  scrollToMarkings();
+  requestAnimationFrame(syncMarkingsActiveTab);
+});
+document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
+  setMobileActiveTab("mobileCelebrationBtn");
+  setCelebrationMode(true);
+});
 document.getElementById("mobileLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
 document.getElementById("mobileMoreBtn")?.addEventListener("click",()=>setMoreMenu(true));
+requestAnimationFrame(syncMarkingsActiveTab);
 document.getElementById("mobileMoreClose")?.addEventListener("click",()=>setMoreMenu(false));
 document.getElementById("mobileMoreBackdrop")?.addEventListener("click",()=>setMoreMenu(false));
 document.addEventListener("keydown",event=>{
@@ -13652,7 +13951,9 @@ if(tapesNode){
 }
 function setCelebrationMode(on){
   document.body.classList.toggle("celebration-mode",on);
-  if(on) window.scrollTo({top:0,behavior:"smooth"});
+  setMobileActiveTab(null);
+  if(!on) requestAnimationFrame(syncMarkingsActiveTab);
+  if(on) window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
 document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
 document.getElementById("celebrationModeExit")?.addEventListener("click",()=>setCelebrationMode(false));
@@ -13751,7 +14052,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261015-c958d0831ad7",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261015-826e0db9cb75",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{

@@ -1676,9 +1676,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
+    "note": "Separação conforme o folheto oficial. As partes não indicadas ou não identificadas estão sinalizadas, sem escolhas inventadas.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -1702,10 +1702,12 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Formulário",
-            "Missa do dia"
+            "Página",
+            "Sugestão de referência do Missal; a página da Missa não foi confirmada na leitura do PDF. Conferir antes da celebração."
           ]
-        ]
+        ],
+        "pageUnverified": true,
+        "suggestion": true
       },
       {
         "n": 3,
@@ -1713,20 +1715,16 @@ window.MISSAL_DATA = {
         "title": "Prefácio dos Domingos do Tempo Comum IV",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
             "Uso",
-            "Sugestão"
+            "Sugestão: o folheto não indicou este prefácio."
           ]
         ],
         "suggestion": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "536",
+        "title": "Oração Eucarística II",
         "details": [
           [
             "Aclamação",
@@ -1734,11 +1732,11 @@ window.MISSAL_DATA = {
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."
           ]
         ],
         "suggestion": true
@@ -1750,14 +1748,20 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 411 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "quick": "430 → ? → 477 → 536 → 585",
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
+    "officialVerifiedParts": [],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-10-19": {
     "label": "Segunda-feira • 19/10/2026",
