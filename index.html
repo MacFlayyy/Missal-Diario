@@ -3224,7 +3224,7 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   <div class="shell">
     <header class="topbar">
       <div class="brand">
-        <div class="mark"><img src="brand-logo.png" alt="Logomarca do Missal Diário" width="72" height="72" decoding="async"></div>
+        <div class="mark"><img src="brand-logo.png" alt="Logo da Paróquia São Sebastião de Taguatinga" width="72" height="72" decoding="async"></div>
         <div>
           <h1>Missal Diário</h1>
           <p>Separação do Missal</p>
@@ -3545,7 +3545,7 @@ function formatLastUpdate(){
     .format(dt);
   const time=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",hour:"2-digit",minute:"2-digit"}).format(dt);
   const date=new Intl.DateTimeFormat("pt-BR",{timeZone:"America/Sao_Paulo",day:"2-digit",month:"2-digit",year:"numeric"}).format(dt);
-  const pretty=localKey===today ? "Última atualização: hoje às "+time : "Última atualização: "+date+" às "+time;
+  const pretty=localKey===today ? "Preparação inicial de hoje: "+time : "Preparação registrada: "+date+" às "+time;
   target.textContent=pretty;
 }
 
