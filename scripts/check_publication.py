@@ -87,9 +87,16 @@ def main():
                                 f"Ícone PWA {icon_name} ausente ou inválido: "
                                 f"HTTP {icon_response.status}, {icon_type}"
                             )
+                logo_req = Request(
+                    f"{BASE}/brand-logo.webp?health={int(time.time())}-{attempt}",
+                    method="HEAD", headers={"Cache-Control": "no-cache"}
+                )
+                with urlopen(logo_req,timeout=18) as logo_res:
+                    if logo_res.status!=200 or "image/webp" not in str(logo_res.headers.get("Content-Type","")).lower():
+                        raise RuntimeError("Logo WebP não publicada corretamente.")
                 print(
                     f"GitHub Pages confirmado: {expected_date}, versão "
-                    f"{expected_version}, tentativa {attempt}; PNGs Android/iOS disponíveis."
+                    f"{expected_version}, tentativa {attempt}; PNGs e logo WebP disponíveis."
                 )
                 return
             print(
