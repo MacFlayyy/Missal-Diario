@@ -69,6 +69,13 @@ def check_index_and_data():
     if date_map.get("reference_pdf_sha256") != idx.get("source_pdf_sha256"):
         raise SystemExit("Os dois índices do Missal usam PDFs de edições diferentes.")
     known_dates = date_map.get("entries", {})
+    # As remissões facultativas são extraídas dos formulários reais do PDF
+    # (ex.: 02/11, 28/10, 30/11 e 12/12), não dos valores atuais do data.js.
+    rubric_file = ROOT / "missal-rubrics-verified.json"
+    rubrics = json.loads(rubric_file.read_text(encoding="utf-8"))
+    if rubrics.get("pdf_sha256") != idx.get("source_pdf_sha256"):
+        raise SystemExit("O índice de rubricas não corresponde à edição do PDF.")
+    blessing_rules = rubrics.get("blessings", {})
     errors, suggestions, total = [], [], 0
     unmatched_dates = []
     for key,day in data.items():
@@ -95,6 +102,20 @@ def check_index_and_data():
                 )
         if [t.get("n") for t in tapes] != [1,2,3,4,5]:
             errors.append(f"{key}: fitas 1–5 ausentes ou desordenadas")
+        specific = blessing_rules.get(key)
+        if specific and len(tapes)>4 and not day.get("officialLeafletApplied"):
+            blessing = tapes[4]
+            expected_blessing = str(specific["blessing_page"])
+            if str(blessing.get("page","")) != expected_blessing:
+                errors.append(
+                    f"{key}: bênção sugerida p. {blessing.get('page')} diverge "
+                    f"da remissão facultativa do próprio (p. {expected_blessing})"
+                )
+            if not blessing.get("suggestion"):
+                errors.append(f"{key}: uso facultativo não marcado como sugestão")
+            own_page = int(str(tapes[1].get("page","")).split(" / ")[0])
+            if own_page != int(specific["formulary_page"]):
+                errors.append(f"{key}: própria celebração difere da página do índice de rubricas")
         for tape in tapes:
             n = tape.get("n")
             if n not in BY_TAPE:
@@ -135,6 +156,7 @@ def check_index_and_data():
     print(f"Vínculos de celebração e página verificados: "
           f"{len(data)-len(unmatched_dates)}; "
           f"datas ainda sem vínculo próprio: {len(unmatched_dates)}.")
+    print(f"Remissões de bênçãos verificadas no PDF: {len(blessing_rules)} datas.")
     if unmatched_dates:
         print("::warning::Datas sem vínculo próprio no índice do PDF: "
               + ", ".join(unmatched_dates[:8])
