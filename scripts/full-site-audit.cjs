@@ -59,14 +59,32 @@ async function run(config){
    if(config.w<=620){
      const initialTab=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
      mark(row,'markings-tab-not-permanently-active',!initialTab,{active:initialTab});
-     await page.evaluate(()=>document.getElementById('tapes').scrollIntoView({behavior:'instant',block:'start'}));
-     await page.waitForTimeout(70);
-     const atTapes=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
-     mark(row,'markings-tab-active-at-tapes',atTapes,{active:atTapes});
-     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
-     await page.waitForTimeout(70);
-     const backAtTop=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
-     mark(row,'markings-tab-resets-at-top',!backAtTop,{active:backAtTop});
+     const atTapes=await page.evaluate(()=>{
+       const root=document.documentElement;
+       const previous=root.style.scrollBehavior;
+       root.style.scrollBehavior='auto';
+       const tapes=document.getElementById('tapes');
+       window.scrollTo(0,tapes.getBoundingClientRect().top+window.scrollY-12);
+       syncMarkingsActiveTab();
+       const rect=tapes.getBoundingClientRect();
+       const result={active:document.getElementById('mobileMarkingsBtn').classList.contains('active'),
+         y:window.scrollY,tapeTop:rect.top,tapeBottom:rect.bottom};
+       root.style.scrollBehavior=previous;
+       return result;
+     });
+     mark(row,'markings-tab-active-at-tapes',atTapes.active,atTapes);
+     const backAtTop=await page.evaluate(()=>{
+       const root=document.documentElement;
+       const previous=root.style.scrollBehavior;
+       root.style.scrollBehavior='auto';
+       window.scrollTo(0,0);
+       syncMarkingsActiveTab();
+       const result={active:document.getElementById('mobileMarkingsBtn').classList.contains('active'),
+         y:window.scrollY,tapeTop:document.getElementById('tapes').getBoundingClientRect().top};
+       root.style.scrollBehavior=previous;
+       return result;
+     });
+     mark(row,'markings-tab-resets-at-top',!backAtTop.active&&backAtTop.y<3,backAtTop);
    }
    mark(row,'valid-day',metrics.selected===await page.evaluate(() => getVisibleDates().includes(brasiliaTodayKey()) ? brasiliaTodayKey() : getVisibleDates().at(-1)),{selected:metrics.selected,available:metrics.available});
    mark(row,'buttons-text-not-clipped',metrics.overflow.length===0,{overflow:metrics.overflow.slice(0,8)});
@@ -81,12 +99,17 @@ async function run(config){
      bodyPosition:getComputedStyle(document.body).position,
      rootOverflow:document.documentElement.style.overflow,scrollY:window.scrollY
    }));
-   await page.mouse.wheel(0,410);
-   await page.waitForTimeout(70);
+   // O WebKit móvel não implementa mouse.wheel no Playwright.
+   // Em iOS, verificar o bloqueio via posição fixa/overflow; nos outros
+   // navegadores, testar também a rolagem física com wheel.
+   if(!(config.mobile && config.engine==='webkit')){
+     await page.mouse.wheel(0,410);
+     await page.waitForTimeout(70);
+   }
    const scrollAfterWheel=await page.evaluate(()=>window.scrollY);
    mark(row,'calendar-locks-background-scroll',
      scrollLock.bodyPosition==='fixed'&&scrollLock.rootOverflow==='hidden'&&
-     scrollAfterWheel===scrollLock.scrollY,{...scrollLock,scrollAfterWheel});
+     scrollAfterWheel===scrollLock.scrollY,{...scrollLock,scrollAfterWheel,input:config.engine==='webkit'&&config.mobile?'mobile-scroll-lock-css':'mouse-wheel'});
    await page.screenshot({path:path.join(ROOT,config.name+'-calendar.png'),fullPage:false});
    // Teste de regressão: resize do navegador NÃO deve fechar o calendário,
    // inclusive ao atravessar o breakpoint de tablet para desktop.
