@@ -5,7 +5,7 @@ const SHELL = [
   "./", "./index.html", "./data.js", "./status.js",
   "./manifest.webmanifest", "./app-icon.svg",
   "./app-icon-180.png", "./app-icon-192.png", "./app-icon-512.png",
-  "./brand-logo.png"
+  "./brand-logo.png", "./brand-logo.webp"
 ];
 const FILES = new Set(["index.html","data.js","status.js","manifest.webmanifest","app-icon.svg","app-icon-180.png","app-icon-192.png","app-icon-512.png","brand-logo.png", "brand-logo.webp"]);
 function cacheKey(url) {
