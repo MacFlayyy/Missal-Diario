@@ -172,8 +172,13 @@
     },
     "2026-11-02": {
       "celebration": "Comemoração de Todos os Fiéis Defuntos",
-      "missal_formulary_page": "846",
-      "source_section": "saint_feast_or_special"
+      "missal_formulary_page": "846 / 847 / 848",
+      "source_section": "saint_feast_or_special",
+      "formulary_variants": [
+        846,
+        847,
+        848
+      ]
     },
     "2026-11-03": {
       "celebration": "31ª Semana do Tempo Comum",
@@ -313,7 +318,8 @@
     "2026-11-30": {
       "celebration": "Santo André, Apóstolo",
       "missal_formulary_page": "865",
-      "source_section": "saint_feast_or_special"
+      "source_section": "saint_feast_or_special",
+      "liturgical_season": "Advento"
     },
     "2026-12-01": {
       "celebration": "Dia de semana do Advento",
@@ -437,8 +443,13 @@
     },
     "2026-12-25": {
       "celebration": "Natal do Senhor",
-      "missal_formulary_page": "126 / 128 / 130 / 132",
-      "source_section": "saint_feast_or_special"
+      "missal_formulary_page": "128 / 130 / 132",
+      "source_section": "saint_feast_or_special",
+      "formulary_variants": [
+        128,
+        130,
+        132
+      ]
     },
     "2026-12-26": {
       "celebration": "Santo Estêvão, Protomártir",
