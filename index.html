@@ -4604,7 +4604,8 @@ function moveDay(delta){
 let calendarCursor=null;
 function visibleMonthRange(){
   const dates=getVisibleDates();
-  return {min:dates[0].slice(0,7),max:dates[dates.length-1].slice(0,7)};
+  const fallback=brasiliaTodayKey().slice(0,7);
+  return {min:dates.length?dates[0].slice(0,7):fallback,max:dates.length?dates[dates.length-1].slice(0,7):fallback};
 }
 function monthShift(key,delta){
   const [y,m]=key.split("-").map(Number);
@@ -4633,7 +4634,7 @@ function buildDateMenu(){
   const dates=getVisibleDates();
   const dateSet=new Set(dates);
   menu.classList.add("calendar-panel");
-  if(!calendarCursor) calendarCursor=(window.currentDateKey || dates[dates.length-1]).slice(0,7);
+  if(!calendarCursor) calendarCursor=(window.currentDateKey || dates[dates.length-1] || brasiliaTodayKey()).slice(0,7);
 
   const range=visibleMonthRange();
   if(calendarCursor<range.min) calendarCursor=range.min;
@@ -4653,7 +4654,7 @@ function buildDateMenu(){
     const available=dateSet.has(key);
     const cls=["calendar-day",available?"":"unavailable",key===window.currentDateKey?"active":"",key===today?"today":""].filter(Boolean).join(" ");
     cells+=available
-      ? '<button class="'+cls+'" data-date="'+key+'" type="button" title="'+calendarTitleForDate(key).replace(/"/g,"&quot;")+'" style="--day-color:'+calendarColorForDate(key)+'">'+day+'<span class="calendar-liturgical-dot"></span></button>'
+      ? '<button class="'+cls+'" data-date="'+key+'" type="button" title="'+prepareEscapeHtml(calendarTitleForDate(key))+'" style="--day-color:'+calendarColorForDate(key)+'">'+day+'<span class="calendar-liturgical-dot"></span></button>'
       : '<span class="'+cls+'">'+day+'</span>';
   }
 
@@ -5070,8 +5071,11 @@ async function refreshIfDailyStatusAdvanced(){
     if(!res.ok) return;
     const raw=await res.text();
     const today=brasiliaTodayKey();
-    if(raw.includes('"availableThrough": "'+today+'"') &&
-       window.MISSAL_STATUS?.availableThrough!==today){
+    // Não depender de espaços/indentação no status.js.
+    const match=raw.match(/["']availableThrough["']\s*:\s*["'](\d{4}-\d{2}-\d{2})["']/);
+    const publishedDate=match?.[1];
+    if(publishedDate && publishedDate>=today &&
+       String(window.MISSAL_STATUS?.availableThrough || "")<today){
       location.reload();
     }
   }catch(e){}
@@ -5128,10 +5132,10 @@ if("serviceWorker" in navigator){
 const backToTop = document.getElementById("backToTop");
 function updateBackToTop(){
   const blocked=document.body.classList.contains("more-menu-open");
-  backToTop.classList.toggle("show",window.scrollY > 420 && !blocked);
+  if(backToTop) backToTop.classList.toggle("show",window.scrollY > 420 && !blocked);
 }
 window.addEventListener("scroll",updateBackToTop,{passive:true});
-backToTop.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+backToTop?.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
 updateBackToTop();
 </script>
 <script id="pwa-refresh-v63">
