@@ -181,7 +181,18 @@ def ensure_dates(data, day, fetch=None):
         key=date_key.isoformat()
         if key in data:
             continue
-        info=read_liturgical_day(date_key,fetch=fetch)
+        try:
+            info=read_liturgical_day(date_key,fetch=fetch)
+        except Exception as exc:
+            if date_key == day:
+                # A celebração do próprio dia é obrigatória; jamais
+                # declarar sucesso sem confirmar seus dados litúrgicos.
+                raise
+            # A consulta antecipada do domingo pode estar indisponível
+            # na madrugada do sábado. Registrar e tentar novamente no
+            # próximo agendamento sem bloquear o sábado já verificado.
+            print(f"::warning title=Prévia dominical pendente::{key}: {exc}")
+            continue
         data[key]=new_entry(info)
         added.append(key)
     return added
