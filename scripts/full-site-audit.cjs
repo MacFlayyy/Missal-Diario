@@ -87,6 +87,38 @@ async function run(config){
    });
    mark(row,'saturday-release-rule',gate.satBefore.preview===null && gate.satAfter.preview==='2026-10-11' && gate.satBefore.limit==='2026-10-09',gate);
    mark(row,'sunday-midnight-preview-rule',gate.sunBefore.preview==='2026-10-11'&&gate.sunAfter.limit==='2026-10-11',gate);
+   // Cobertura regressiva: a Vigília NUNCA é escolhida pelo relógio.
+   const christmas=await page.evaluate(()=>{
+     const previousDate=window.currentDateKey,oldDay=brasiliaTodayKey,oldClock=brasiliaClockParts,oldChoice=december24Choice;
+     const samples=[];
+     try{
+       brasiliaTodayKey=()=> "2026-12-24";
+       for(const hour of [10,13,21]){
+         brasiliaClockParts=()=>({hour:String(hour)});
+         for(const choice of [null,"morning","vigil"]){
+           december24Choice=choice;render("2026-12-24");
+           const pressed=[...document.querySelectorAll('#dec24MassChoice button[aria-pressed="true"]')]
+             .map(el=>el.dataset.dec24Mass);
+           const title=document.getElementById("celebration").textContent;
+           const quick=document.getElementById("quickSep").textContent;
+           const label=document.getElementById("colorName").textContent;
+           const dot=getComputedStyle(document.documentElement).getPropertyValue("--liturgical");
+           samples.push({hour,choice,pressed,title,quick,label,dot});
+         }
+       }
+     }finally{
+       brasiliaTodayKey=oldDay;brasiliaClockParts=oldClock;december24Choice=oldChoice;render(previousDate);
+     }
+     return samples;
+   });
+   mark(row,'christmas-selections-match-data',christmas.every(x=>
+     x.pressed.length===1&&x.pressed[0]===(x.choice||"combined") &&
+     (x.choice==="vigil"?x.title.includes("Vigília") && x.label==="Branca" && x.quick.includes("126"):
+       x.choice==="morning"?x.title.includes("manhã") && x.label==="Roxa" && x.quick.includes("124"):
+       x.title.includes("Féria privilegiada") && x.label.includes("Roxa") && x.quick.includes("124 / 126"))
+   ),{samples:christmas});
+   const christmasCycle=await page.evaluate(()=>{const d=window.MISSAL_DATA["2026-12-25"];return{label:cycleLabelFor("2026-12-25",d),value:d.cycle};});
+   mark(row,'no-false-ferial-cycle-on-christmas',christmasCycle.label==="Ciclo litúrgico" && christmasCycle.value==="—",christmasCycle);
    const copied=await page.evaluate(()=>buildDetailedCopyText());
    mark(row,'copy-includes-detailed-rites',copied.includes('Saudação')&&copied.includes('Ato Penitencial')&&copied.includes('Separação rápida'),{length:copied.length});
    let img;
