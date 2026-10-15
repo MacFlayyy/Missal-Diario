@@ -3444,7 +3444,7 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
 <script>
 const dataLoaded = Boolean(
   window.MISSAL_DATA &&
-  typeof window.MISSAL_DATA === "object" &&
+  typeof (window.MISSAL_DATA) === "object" &&
   Object.keys(window.MISSAL_DATA).length
 );
 const data = dataLoaded ? window.MISSAL_DATA : {};
