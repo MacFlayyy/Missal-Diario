@@ -27,6 +27,13 @@ def verify_html(path,standalone=False):
     assert not re.search(r"</html>\s*<(?:style|script)\b",html,re.I),path
     assert "calendar-responsive-v71" in html,path
     assert "deep-visual-accessibility-fixes-v73" in html,path
+    assert "touch-targets-and-missal-ux-v74" in html,path
+    assert 'const actualChoice=december24Choice || "combined";' in html,path
+    assert 'function refreshChristmasVigil()' not in html,path
+    assert 'setInterval(refreshChristmasVigil' not in html,path
+    assert 'return december24Choice==="vigil" ? "branco" : "roxo";' in html,path
+    assert 'return "Ciclo litúrgico"' in html,path
+    assert 'app-icon-180.png' not in html if standalone else 'app-icon-180.png' in html,path
     assert '[{opacity:.35,transform:"translateY(7px)"}' not in html,path
     assert "const titleBottom=drawLines(t.title" in html,path
     assert "drawAllLines(allTapeDetails(t),pad+18,titleBottom+8" in html,path
@@ -558,6 +565,27 @@ def check_on_demand_calendar():
     print("PASSOU 2027 sem calendário pré-cadastrado e com prévia do domingo")
 
 
+def check_specific_missal_pages():
+    """Uma página trocada por outra da mesma seção também deve falhar."""
+    path=ROOT/"missal-date-formulary-map.json"
+    ref=json.loads(path.read_text(encoding="utf-8"))
+    pages=read_js_json(DATA,"window.MISSAL_DATA")
+    assert ref["reference_pdf_sha256"] == json.loads(
+        (ROOT/"missal-reference-index.json").read_text(encoding="utf-8")
+    )["source_pdf_sha256"]
+    for key,record in ref["entries"].items():
+        assert key in pages,key
+        assert pages[key]["tapes"][1]["page"]==record["missal_formulary_page"],key
+    original=pages["2026-10-15"]["tapes"][1]["page"]
+    assert original=="830",original
+    changed="831"
+    assert changed!=ref["entries"]["2026-10-15"]["missal_formulary_page"]
+    assert len(ref["entries"])>=93
+    manifest=json.loads((ROOT/"manifest.webmanifest").read_text(encoding="utf-8"))
+    icons={x["src"] for x in manifest["icons"]}
+    assert {"app-icon-192.png","app-icon-512.png","app-icon.svg"}<=icons
+    print("PASSOU índice litúrgico por celebração e manifesto PWA com PNGs")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -567,6 +595,7 @@ def main():
     check_update_safety()
     check_cache_safety()
     check_christmas_choice()
+    check_specific_missal_pages()
     check_rites_texts()
     check_official_leaflet_extraction()
     check_filename_filter_and_ocr()
