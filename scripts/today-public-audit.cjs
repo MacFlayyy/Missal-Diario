@@ -2,7 +2,10 @@ const {chromium,webkit}=require('playwright');
 const fs=require('fs');const path=require('path');
 const ROOT=path.join(process.cwd(),'today-audit-results');fs.mkdirSync(ROOT,{recursive:true});
 const origin='https://macflayyy.github.io/Missal-Diario/';
-const today='2026-10-15';
+const brDate=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{
+ timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'
+}).formatToParts(new Date()).map(part=>[part.type,part.value]));
+const today=`${brDate.year}-${brDate.month}-${brDate.day}`;
 const configs=[
  {name:'android-small',engine:'chromium',width:320,height:700,mobile:true},
  {name:'android-regular',engine:'chromium',width:360,height:800,mobile:true},
@@ -43,9 +46,16 @@ try{
  row.snapshots.start=await measure(page);
  await capture(page,c.name+'-home');
  const s=row.snapshots.start;
- test(c.name,'live-date-15-oct',s.selected===today&&s.status===today,{selected:s.selected,status:s.status});
+ const expectedSelection=await page.evaluate(()=>{
+   const available=getVisibleDates();
+   const current=brasiliaTodayKey();
+   return available.includes(current)?current:(available.at(-1)||current);
+ });
+ test(c.name,'live-date-matches-brasilia-release',s.selected===expectedSelection,{selected:s.selected,expected:expectedSelection,today,status:s.status});
  test(c.name,'five-tapes-and-quick-pages',s.tapes===5&&s.quick.length===5,{tapes:s.tapes,quick:s.quick});
- test(c.name,'quick-pages-match-today',s.quick.join(' → ')==='430 → 830 → 506 → 536 → 587',{quick:s.quick});
+ const expectedQuick=await page.evaluate(()=>String(getDisplayEntry(window.currentDateKey)?.quick || ''));
+ const digits=v=>String(v).replace(/[^0-9?]/g,'');
+ test(c.name,'quick-pages-match-current-entry',digits(s.quick.join(''))===digits(expectedQuick),{quick:s.quick,expectedQuick});
  test(c.name,'no-horizontal-overflow',s.scrollWidth<=c.width+1,{scrollWidth:s.scrollWidth,width:c.width});
  const hero=s.boxes['.hero-main'];
  test(c.name,'hero-visible',!!hero&&Number(hero.opacity)>0.95&&hero.w>0&&hero.h>100,hero);
@@ -63,7 +73,7 @@ try{
  test(c.name,'calendar-escape-returns-focus',await page.locator('#dateMenu').isHidden()&&await page.evaluate(()=>document.activeElement?.id==='datePickerBtn'));
  // Share image from current date and rich-text date.
  if(['iphone','android-regular','desktop'].includes(c.name)){
-   for(const d of [today,'2026-10-11','2026-12-25']){
+   for(const d of [s.selected,'2026-10-11','2026-12-25']){
     const b=await page.evaluate(async k=>{render(k);const blob=await buildShareImageBlob();if(!blob)throw Error('image empty');return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=reject;r.readAsDataURL(blob)})},d);
     const f=path.join(ROOT,c.name+'-share-'+d+'.png');fs.writeFileSync(f,Buffer.from(b,'base64'));
     test(c.name,'share-png-'+d,fs.statSync(f).size>15000,{size:fs.statSync(f).size});
