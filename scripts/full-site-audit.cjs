@@ -183,6 +183,30 @@ async function run(config){
    await pwaPage.screenshot({path:path.join(ROOT,'pwa-offline.png')});
  }catch(e){mark(pwa,'offline-run-completed',false,{error:String(e.message).slice(0,500)})}
  finally{await pwaContext.close();await pwaBrowser.close();}
+ // Um primeiro acesso pode perder data.js por conexão instável.
+ // O site deve explicar a falha sem fabricar fitas ou lançar erro JS.
+ const missing={name:'missing-data-recovery',checks:[]};results.push(missing);
+ const missingBrowser=await chromium.launch({headless:true});
+ const missingContext=await missingBrowser.newContext({serviceWorkers:'block',timezoneId:'America/Sao_Paulo'});
+ const missingPage=await missingContext.newPage();
+ const missingErrors=[];
+ missingPage.on('pageerror',e=>missingErrors.push(e.message));
+ try{
+   await missingPage.route(/\\/data\\.js(?:\\?|$)/,route=>route.abort());
+   const response=await missingPage.goto(local,{waitUntil:'domcontentloaded',timeout:30000});
+   await missingPage.waitForTimeout(400);
+   const state=await missingPage.evaluate(()=>({
+     ready:document.body.classList.contains('is-ready'),
+     note:document.querySelector('#note')?.textContent||'',
+     tapes:document.querySelectorAll('#tapes .tape').length,
+     selected:window.currentDateKey
+   }));
+   mark(missing,'data-script-failure-does-not-crash',response?.status()===200&&state.ready&&missingErrors.length===0,
+     {state,errors:missingErrors});
+   mark(missing,'no-fabricated-missal-pages',state.tapes===0&&/Não foi possível carregar/.test(state.note),state);
+ }catch(e){mark(missing,'data-script-failure-test-completed',false,{error:String(e.message).slice(0,500)});}
+ finally{await missingContext.close();await missingBrowser.close();}
+
  const check={name:'public-deployment',checks:[]};results.push(check);
  const browser=await chromium.launch();
  const ctx=await browser.newContext({timezoneId:'America/Sao_Paulo',serviceWorkers:'block'});
