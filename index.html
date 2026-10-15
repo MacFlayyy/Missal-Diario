@@ -5146,14 +5146,27 @@ function setMoreMenu(open){
   if(open) document.getElementById("mobileMoreClose")?.focus();
   else if(wasOpen || focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
+  setMobileActiveTab(open?"mobileMoreBtn":"mobileMarkingsBtn");
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
 
-document.getElementById("mobileMarkingsBtn")?.addEventListener("click",scrollToMarkings);
-document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>setCelebrationMode(true));
+function setMobileActiveTab(id){
+  document.querySelectorAll(".mobile-nav button").forEach(button=>{
+    button.classList.toggle("active",button.id===id);
+  });
+}
+document.getElementById("mobileMarkingsBtn")?.addEventListener("click",()=>{
+  setMobileActiveTab("mobileMarkingsBtn");
+  scrollToMarkings();
+});
+document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
+  setMobileActiveTab("mobileCelebrationBtn");
+  setCelebrationMode(true);
+});
 document.getElementById("mobileLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
 document.getElementById("mobileMoreBtn")?.addEventListener("click",()=>setMoreMenu(true));
+setMobileActiveTab("mobileMarkingsBtn");
 document.getElementById("mobileMoreClose")?.addEventListener("click",()=>setMoreMenu(false));
 document.getElementById("mobileMoreBackdrop")?.addEventListener("click",()=>setMoreMenu(false));
 document.addEventListener("keydown",event=>{
@@ -5209,7 +5222,8 @@ if(tapesNode){
 }
 function setCelebrationMode(on){
   document.body.classList.toggle("celebration-mode",on);
-  if(on) window.scrollTo({top:0,behavior:"smooth"});
+  setMobileActiveTab(on?"mobileCelebrationBtn":"mobileMarkingsBtn");
+  if(on) window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
 document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
 document.getElementById("celebrationModeExit")?.addEventListener("click",()=>setCelebrationMode(false));
