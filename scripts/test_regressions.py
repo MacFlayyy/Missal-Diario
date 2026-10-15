@@ -144,7 +144,27 @@ def check_saturday_preview():
         module.save_status("2026-10-11",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert "sundayPreview" not in status,status
-    print("PASSOU prévia dominical: sábado, madrugada e domingo às 05h")
+
+        # Solenidades e festas substituem o título "Domingo", mas continuam
+        # sendo antecipadas no sábado para a missa vespertina.
+        for saturday, sunday in (
+            ("2026-10-31", "2026-11-01"),  # Todos os Santos
+            ("2026-11-21", "2026-11-22"),  # Cristo Rei
+            ("2026-12-26", "2026-12-27"),  # Sagrada Família
+        ):
+            year, month, day = map(int, saturday.split("-"))
+            class SpecialSaturday(RealDatetime):
+                @classmethod
+                def now(cls, tz=None):
+                    return cls(year, month, day, 6, 30, tzinfo=tz)
+            module.datetime=SpecialSaturday
+            module.save_status(saturday,data)
+            special=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+            assert special.get("sundayPreview")==sunday, (
+                f"Festa ou solenidade de domingo {sunday} indisponível no sábado",
+                special,
+            )
+    print("PASSOU prévias: domingo comum, madrugada, solenidades e festas")
 
 def check_liturgical_integrity():
     import copy
