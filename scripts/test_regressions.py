@@ -615,7 +615,7 @@ def check_on_demand_calendar():
     info=read_liturgical_day(day,fetch=mock)
     assert info["grade"]=="Solenidade",info
     assert info["season"]=="Natal" and info["color"]=="Branca",info
-    assert info["cycle"]=="Ano I", "Solenidade ferial não deve receber ciclo dominical",info
+    assert info["cycle"]=="Ano I", f"Solenidade ferial não deve receber ciclo dominical: {info}"
     data={}
     assert ensure_dates(data,day,fetch=mock)==["2027-01-01"]
     new=data["2027-01-01"]
