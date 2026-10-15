@@ -95,8 +95,10 @@ def save_status(key, data):
         sunday_key = (now.date() + timedelta(days=1)).isoformat()
         sunday = data.get(sunday_key)
         tapes = sunday.get("tapes", []) if isinstance(sunday, dict) else []
-        if (sunday and len(tapes) >= 5
-                and "domingo" in (str(sunday.get("celebration",""))+" "+str(sunday.get("grade",""))).lower()
+        # O dia é domingo pelo calendário, mesmo quando a celebração se
+        # chama "Todos os Santos", "Cristo Rei" ou "Sagrada Família".
+        # Não exigir a palavra "domingo" no nome nem no grau litúrgico.
+        if (isinstance(sunday, dict) and len(tapes) >= 5
                 and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") or (sunday.get("dailySourceVerified") and t.get("pageUnverified") and t.get("page") == "—") for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
