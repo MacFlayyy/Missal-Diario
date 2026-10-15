@@ -100,6 +100,13 @@ def save_status(key, data):
                 and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") or (sunday.get("dailySourceVerified") and t.get("pageUnverified") and t.get("page") == "—") for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
+    # O domingo liberado no sábado continua acessível durante a madrugada.
+    # A execução antecipada (04h) não pode retirar uma prévia já autorizada
+    # antes da liberação ordinária das 05h de domingo.
+    if (now.weekday() == 6 and now.hour < 5
+            and existing.get("sundayPreview") == key and key in data):
+        payload["sundayPreview"] = key
+
     # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
     # Nunca gera páginas do Missal por adivinhação.
     from datetime import date, timedelta
