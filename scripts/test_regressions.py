@@ -318,9 +318,14 @@ def check_cache_safety():
     assert 'await store.put(key,res.clone())' in sw
     assert 'missal-romano-2023-pdf-4' not in html
     assert ':focus-visible' in html
-    for name in ("scripts/update_folheto.py","scripts/bump_daily_version.py","scripts/generate_daily.py"):
+    for name in ("scripts/update_folheto.py","scripts/bump_daily_version.py",
+                 "scripts/generate_daily.py","scripts/check_publication.py",
+                 "scripts/validate_daily.py"):
         compile((ROOT/name).read_text(encoding="utf-8"),name,"exec")
-    print("PASSOU proteção de cache, liberação e atualização PWA")
+    publication=(ROOT/"scripts"/"check_publication.py").read_text(encoding="utf-8")
+    assert "remote_status == local_status" in publication, "Status publicado não é comparado ao validado"
+    assert "remote_data == expected_data" in publication, "Dados publicados não são comparados ao arquivo validado"
+    print("PASSOU proteção de cache, liberação, atualização PWA e integridade do deploy")
 
 def check_christmas_choice():
     """Modo geral precisa ser selecionável mesmo em 24/12 à tarde."""
