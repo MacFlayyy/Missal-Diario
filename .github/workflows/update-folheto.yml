@@ -17,6 +17,9 @@ on:
     - cron: "10 8 * * *"  # 05:10 Brasília
     - cron: "30 8 * * *"  # 05:30 Brasília
     - cron: "0 9 * * *"   # 06:00 Brasília
+    - cron: "0 14 * * *"  # 11:00 Brasília — novo folheto publicado durante a manhã
+    - cron: "0 19 * * *"  # 16:00 Brasília — nova checagem à tarde
+    - cron: "0 23 * * *"  # 20:00 Brasília — checagem noturna
 
 # Compartilhada com pages.yml: serializa o deploy do atualizador e do site.
 concurrency:
