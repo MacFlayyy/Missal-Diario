@@ -610,7 +610,7 @@ def check_on_demand_calendar():
     info=read_liturgical_day(day,fetch=mock)
     assert info["grade"]=="Solenidade",info
     assert info["season"]=="Natal" and info["color"]=="Branca",info
-    assert info["cycle"]=="Ano B",info
+    assert info["cycle"]=="Ano I", "Solenidade ferial não deve receber ciclo dominical",info
     data={}
     assert ensure_dates(data,day,fetch=mock)==["2027-01-01"]
     new=data["2027-01-01"]
@@ -620,7 +620,8 @@ def check_on_demand_calendar():
     assert new["tapes"][0]["details"][0][0].endswith("sugestão")
     assert ensure_dates(data,day,fetch=mock)==[], "Data duplicada"
     assert ensure_dates(data,date(2027,1,2),fetch=mock)==["2027-01-02","2027-01-03"]
-    assert data["2027-01-03"]["cycle"]=="Ano B"
+    assert data["2027-01-02"]["cycle"]=="Ano I", "Sábado utiliza ciclo ferial"
+    assert data["2027-01-03"]["cycle"]=="Ano B", "Domingo utiliza ciclo dominical"
     assert liturgical_year(date(2027,11,28))=="Ano C"
     assert liturgical_year(date(2027,11,27))=="Ano B"
     print("PASSOU 2027 sem calendário pré-cadastrado e com prévia do domingo")
