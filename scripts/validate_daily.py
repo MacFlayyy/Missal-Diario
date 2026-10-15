@@ -19,6 +19,7 @@ A prioridade é:
 from __future__ import annotations
 from pathlib import Path
 from datetime import datetime
+import hashlib
 from zoneinfo import ZoneInfo
 from ritos_texts import apply_rite_suggestions, fill_folheto_gaps
 from generate_daily import ensure_dates
@@ -65,16 +66,8 @@ def save_status(key, data):
         except Exception:
             existing = {}
 
-    already_current = existing.get("availableThrough") == key
-    last_update = (
-        existing.get("lastSuccessfulUpdateAt")
-        if already_current and existing.get("lastSuccessfulUpdateAt")
-        else now.isoformat(timespec="seconds")
-    )
-
     payload = {
         "availableThrough": key,
-        "lastSuccessfulUpdateAt": last_update,
         "timezone": "America/Sao_Paulo",
         # Validar formato/páginas e comparar um índice não equivale a
         # reabrir o Missal integral nem a garantir todas as escolhas litúrgicas.
@@ -129,6 +122,33 @@ def save_status(key, data):
         value = existing.get(field)
         if value:
             payload[field] = value
+
+    # A primeira atualização de uma data e TODA correção posterior devem
+    # ser percebidas também por um PWA que permaneceu aberto o dia inteiro.
+    # Use o conteúdo, não apenas a data da publicação, como identificador.
+    content_signature = json.dumps({
+        "availableThrough": key,
+        "data": data,
+        "sundayPreview": payload.get("sundayPreview"),
+        "leaflets": {
+            field: payload.get(field)
+            for field in (
+                "sundayLeafletDate", "sundayLeafletDesktopUrl",
+                "sundayLeafletMobileUrl", "sundayLeafletUrl"
+            )
+        },
+    }, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+    version = hashlib.sha256(content_signature.encode("utf-8")).hexdigest()[:20]
+    payload["contentVersion"] = version
+    unchanged = (
+        existing.get("availableThrough") == key
+        and existing.get("contentVersion") == version
+        and existing.get("lastSuccessfulUpdateAt")
+    )
+    payload["lastSuccessfulUpdateAt"] = (
+        existing["lastSuccessfulUpdateAt"]
+        if unchanged else now.isoformat(timespec="microseconds")
+    )
 
     STATUS_FILE.write_text(
         "window.MISSAL_STATUS = " +
