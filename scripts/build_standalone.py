@@ -26,7 +26,7 @@ def main():
     for tag in (
         r'<link\s+rel="manifest"\s+href="manifest\.webmanifest"\s*/?>',
         r'<link\s+rel="icon"\s+href="app-icon\.svg"[^>]*>',
-        r'<link\s+rel="apple-touch-icon"\s+href="app-icon\.svg"\s*/?>',
+        r'<link\s+rel="apple-touch-icon"[^>]*>',
     ):
         html = re.sub(tag, "", html, flags=re.I)
 
