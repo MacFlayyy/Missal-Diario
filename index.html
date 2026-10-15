@@ -5081,12 +5081,15 @@ async function refreshIfDailyStatusAdvanced(){
     // Não depender de espaços/indentação no status.js.
     const match=raw.match(/["']availableThrough["']\s*:\s*["'](\d{4}-\d{2}-\d{2})["']/);
     const publishedDate=match?.[1];
-    const remoteUpdate=raw.match(/["']lastSuccessfulUpdateAt["']\\s*:\\s*["']([^"']+)["']/)?.[1];
+    const remoteUpdate=raw.match(/["']lastSuccessfulUpdateAt["']\s*:\s*["']([^"']+)["']/)?.[1];
+    const remoteVersion=raw.match(/["']contentVersion["']\s*:\s*["']([^"']+)["']/)?.[1];
     const localUpdate=String(window.MISSAL_STATUS?.lastSuccessfulUpdateAt || "");
+    const localVersion=String(window.MISSAL_STATUS?.contentVersion || "");
+    const versionChanged=Boolean(remoteVersion && remoteVersion!==localVersion);
     const newPublication=Boolean(remoteUpdate && remoteUpdate!==localUpdate);
     if((publishedDate && publishedDate>=today &&
         String(window.MISSAL_STATUS?.availableThrough || "")<today) ||
-       (newPublication && publishedDate && publishedDate>=today)){
+       ((newPublication || versionChanged) && publishedDate && publishedDate>=today)){
       location.reload();
     }
   }catch(e){}
