@@ -3849,7 +3849,7 @@ function roundRectPath(ctx,x,y,w,h,r){
 }
 
 async function buildShareImageBlob(){
-  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v70";
+  const SHARE_IMAGE_LAYOUT_VERSION="visual-2026-v71";
   const d=getDisplayEntry(window.currentDateKey);
   if(!d) return null;
 
@@ -4688,6 +4688,7 @@ function buildDateMenu(){
 const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
 function closeDateMenu(){
   const menu=document.getElementById("dateMenu");
+  if(!menu) return;
   menu.hidden=true;
   menu.removeAttribute("aria-modal");
   document.body.classList.remove("calendar-open");
@@ -4719,7 +4720,7 @@ document.addEventListener("keydown",event=>{
 document.getElementById("datePickerBtn").addEventListener("click",()=>{
   const menu = document.getElementById("dateMenu");
   if(menu.hidden){
-    calendarCursor=(window.currentDateKey || getVisibleDates().at(-1)).slice(0,7);
+    calendarCursor=(window.currentDateKey || getVisibleDates().at(-1) || brasiliaTodayKey()).slice(0,7);
     buildDateMenu();
   }
   if(menu.hidden){
@@ -4741,8 +4742,13 @@ document.addEventListener("click",(e)=>{
   const picker = document.getElementById("datePickerBtn");
   if(!menu.contains(e.target) && !picker.contains(e.target)) closeDateMenu();
 });
+// Preserve o calendário quando a janela muda de tamanho.
 window.addEventListener("resize",()=>{
-  if(!document.getElementById("dateMenu").hidden) closeDateMenu();
+  const menu=document.getElementById("dateMenu");
+  if(!menu || menu.hidden) return;
+  const mobile=window.matchMedia("(max-width:950px)").matches;
+  if(mobile && menu.parentElement!==document.body) document.body.appendChild(menu);
+  if(!mobile && dateMenuHome && menu.parentElement!==dateMenuHome) dateMenuHome.appendChild(menu);
 });
 
 document.getElementById("prevBtn").addEventListener("click",()=>moveDay(-1));
@@ -4756,7 +4762,7 @@ const visibleDates = getVisibleDates();
 const todayKey = brasiliaTodayKey();
 const initialKey = visibleDates.includes(todayKey)
   ? todayKey
-  : visibleDates[visibleDates.length - 1];
+  : (visibleDates.at(-1) || todayKey);
 
 render(initialKey);
 
@@ -4943,7 +4949,13 @@ function getDominicalLeafletUrl(){
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
   if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return;}
-  window.open(url,"_blank","noopener,noreferrer");
+  const link=document.createElement("a");
+  link.href=url;
+  link.target="_blank";
+  link.rel="noopener noreferrer";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 }
 
 document.getElementById("desktopLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
