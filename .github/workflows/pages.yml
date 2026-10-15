@@ -27,6 +27,12 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
+      - name: Instalar dependências para geração dos ícones
+        run: python -m pip install -r requirements.txt
+
+      - name: Gerar ícones PNG do PWA
+        run: python scripts/build_app_icons.py
+
       - name: Atualizar versão do site e cache do PWA
         run: python scripts/bump_daily_version.py
 
