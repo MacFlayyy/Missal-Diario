@@ -3077,12 +3077,16 @@ window.MISSAL_DATA = {
       },
       {
         "n": 2,
-        "page": "846",
+        "page": "846 / 847 / 848",
         "title": "Comemoração de Todos os Fiéis Defuntos",
         "details": [
           [
-            "Formulário",
-            "Missa do dia"
+            "Formulários à escolha",
+            "1º formulário — p. 846; 2º formulário — p. 847; 3º formulário — p. 848."
+          ],
+          [
+            "Observação",
+            "O Missal permite escolher livremente uma das três Missas nesta comemoração."
           ]
         ]
       },
@@ -3135,7 +3139,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 846 → 518 → 536 → 588",
+    "quick": "430 → 846 / 847 / 848 → 518 → 536 → 588",
     "cycle": "Ano II"
   },
   "2026-11-03": {
@@ -5620,10 +5624,10 @@ window.MISSAL_DATA = {
   "2026-11-30": {
     "label": "Segunda-feira • 30/11/2026",
     "celebration": "Santo André, Apóstolo",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Advento",
     "saint": "Santo André, Apóstolo",
     "grade": "Festa",
-    "season": "Tempo Comum",
+    "season": "Advento",
     "color": "Vermelha",
     "colorHex": "#9f2d2d",
     "note": "Festa celebrada neste dia.",
@@ -7963,20 +7967,20 @@ window.MISSAL_DATA = {
       },
       {
         "n": 2,
-        "page": "126 / 128 / 130 / 132",
+        "page": "128 / 130 / 132",
         "title": "Natal do Senhor",
         "details": [
           [
-            "Formulários",
-            "Vigília p. 126 • Noite p. 128 • Aurora p. 130 • Dia p. 132"
+            "Missas de 25/12",
+            "Missa da Noite — p. 128; Missa da Aurora — p. 130; Missa do Dia — p. 132."
+          ],
+          [
+            "Vigília de 24/12",
+            "A Missa da Vigília (p. 126) deve ser selecionada no dia 24/12."
           ],
           [
             "Escolha",
-            "Use a página conforme o horário da Missa"
-          ],
-          [
-            "Formulários alternativos",
-            "Vigília: pág. 126; Noite: pág. 128; Aurora: pág. 130; Dia: pág. 132. Escolher conforme o horário e a Missa."
+            "Usar o formulário correspondente à hora e ao tipo de celebração."
           ]
         ]
       },
@@ -8029,7 +8033,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 126 / 128 / 130 / 132 → 455 → 545 → 579",
+    "quick": "430 → 128 / 130 / 132 → 455 → 545 → 579",
     "cycle": "—"
   },
   "2026-12-26": {
