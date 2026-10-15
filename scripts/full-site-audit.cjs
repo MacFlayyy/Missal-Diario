@@ -45,6 +45,29 @@ async function run(config){
    mark(row,'no-horizontal-page-overflow',metrics.documentWidth<=config.w+1,{doc:metrics.documentWidth,viewport:config.w});
    mark(row,'five-tapes',metrics.tapes===5,{count:metrics.tapes});
    mark(row,'five-quick-pages',metrics.quick===5,{count:metrics.quick});
+   const pageAlignment=await page.evaluate(()=>{
+     return [...document.querySelectorAll('#tapes .tape .page-number')].map(el=>{
+       const parent=el.closest('.page');
+       const p=parent.getBoundingClientRect(),n=el.getBoundingClientRect();
+       return {page:el.textContent.trim(),delta:Math.abs((p.left+p.right-n.left-n.right)/2),
+         align:getComputedStyle(parent).alignItems,textAlign:getComputedStyle(el).textAlign};
+     });
+   });
+   mark(row,'page-numbers-centered-in-cards',
+     pageAlignment.length===5&&pageAlignment.every(v=>v.delta<=1.5&&v.align==='center'&&v.textAlign==='center'),
+     {alignment:pageAlignment});
+   if(config.w<=620){
+     const initialTab=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
+     mark(row,'markings-tab-not-permanently-active',!initialTab,{active:initialTab});
+     await page.evaluate(()=>document.getElementById('tapes').scrollIntoView({behavior:'instant',block:'start'}));
+     await page.waitForTimeout(70);
+     const atTapes=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
+     mark(row,'markings-tab-active-at-tapes',atTapes,{active:atTapes});
+     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+     await page.waitForTimeout(70);
+     const backAtTop=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
+     mark(row,'markings-tab-resets-at-top',!backAtTop,{active:backAtTop});
+   }
    mark(row,'valid-day',metrics.selected===await page.evaluate(() => getVisibleDates().includes(brasiliaTodayKey()) ? brasiliaTodayKey() : getVisibleDates().at(-1)),{selected:metrics.selected,available:metrics.available});
    mark(row,'buttons-text-not-clipped',metrics.overflow.length===0,{overflow:metrics.overflow.slice(0,8)});
    await page.screenshot({path:path.join(ROOT,config.name+'-start.png'),fullPage:false});
@@ -54,6 +77,16 @@ async function run(config){
      return {open:!el.hidden,x:r.x,right:r.right,top:r.top,bottom:r.bottom,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth,winWidth:innerWidth,winHeight:innerHeight};
    });
    mark(row,'calendar-visible-within-screen',calendar.open && calendar.x>=-2 && calendar.right<=config.w+2 && calendar.top>=-3 && calendar.bottom<=config.h+3,calendar);
+   const scrollLock=await page.evaluate(()=>({
+     bodyPosition:getComputedStyle(document.body).position,
+     rootOverflow:document.documentElement.style.overflow,scrollY:window.scrollY
+   }));
+   await page.mouse.wheel(0,410);
+   await page.waitForTimeout(70);
+   const scrollAfterWheel=await page.evaluate(()=>window.scrollY);
+   mark(row,'calendar-locks-background-scroll',
+     scrollLock.bodyPosition==='fixed'&&scrollLock.rootOverflow==='hidden'&&
+     scrollAfterWheel===scrollLock.scrollY,{...scrollLock,scrollAfterWheel});
    await page.screenshot({path:path.join(ROOT,config.name+'-calendar.png'),fullPage:false});
    // Teste de regressão: resize do navegador NÃO deve fechar o calendário,
    // inclusive ao atravessar o breakpoint de tablet para desktop.
@@ -76,6 +109,12 @@ async function run(config){
      await day.click();
      mark(row,'calendar-select-historic-date',await page.evaluate(k=>window.currentDateKey===k,selected),{selected});
    }else await page.locator('#datePickerBtn').click();
+   const scrollUnlocked=await page.evaluate(()=>({
+     bodyPosition:getComputedStyle(document.body).position,
+     rootOverflow:document.documentElement.style.overflow
+   }));
+   mark(row,'calendar-restores-background-scroll',
+     scrollUnlocked.bodyPosition!=='fixed'&&scrollUnlocked.rootOverflow!=='hidden',scrollUnlocked);
    await page.evaluate(()=>{const dates=getVisibleDates();render(dates[dates.length-1]);});
    const visibility=await page.evaluate(()=>{
      const d=getVisibleDates(),last=d[d.length-1],all=getRegisteredDates();
@@ -146,12 +185,24 @@ async function run(config){
      await page.locator('#mobileMoreClose').click();
      await page.locator('#mobileCelebrationBtn').click();
      mark(row,'celebration-mode-opens',await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
+     const exitLayout=await page.evaluate(()=>{
+       const a=document.getElementById('celebrationModeExit').getBoundingClientRect();
+       const b=document.getElementById('celebrationModeDate').getBoundingClientRect();
+       return {exitBottom:a.bottom,dateTop:b.top,delta:b.top-a.bottom};
+     });
+     mark(row,'celebration-exit-above-date-no-overlap',exitLayout.delta>=2,exitLayout);
      await page.screenshot({path:path.join(ROOT,config.name+'-celebration.png'),fullPage:false});
      await page.locator('#celebrationModeExit').click();
      mark(row,'celebration-mode-exits',!await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
    } else {
      await page.locator('#celebrationModeBtn').click();
      mark(row,'desktop-celebration-mode-opens',await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
+     const exitLayout=await page.evaluate(()=>{
+       const a=document.getElementById('celebrationModeExit').getBoundingClientRect();
+       const b=document.getElementById('celebrationModeDate').getBoundingClientRect();
+       return {exitBottom:a.bottom,dateTop:b.top,delta:b.top-a.bottom};
+     });
+     mark(row,'desktop-celebration-exit-above-date-no-overlap',exitLayout.delta>=2,exitLayout);
      await page.screenshot({path:path.join(ROOT,config.name+'-celebration.png'),fullPage:false});
      await page.locator('#celebrationModeExit').click();
    }
