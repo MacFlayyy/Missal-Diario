@@ -3124,6 +3124,22 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   .prepare-missal-sequence .quick-step .multi-page-values{font-size:9px}
 }
 </style>
+<style id="touch-targets-and-missal-ux-v74">
+/* Alvos interativos confortáveis sem alterar o tamanho dos marcadores (que não são botões). */
+@media (max-width:620px){
+  .nav-btn,.date-picker-btn,.utility-btn,.side-actions button,
+  .mobile-nav button,.calendar-head button,.celebration-choice button{
+    min-height:44px!important;
+  }
+  .nav-btn,.calendar-head button{min-width:44px!important}
+  .mobile-nav button{touch-action:manipulation}
+  .back-to-top.show{min-height:44px;min-width:44px}
+}
+.date-picker-btn:focus-visible,.nav-btn:focus-visible,.calendar-day:focus-visible,
+.calendar-nav:focus-visible,.celebration-choice button:focus-visible{
+  outline:3px solid #b86a28!important;outline-offset:3px!important
+}
+</style>
 </head>
 <body>
   <div class="shell">
