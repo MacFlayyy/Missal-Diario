@@ -7,7 +7,7 @@ const SHELL = [
   "./app-icon-180.png", "./app-icon-192.png", "./app-icon-512.png",
   "./brand-logo.png"
 ];
-const FILES = new Set(["index.html","data.js","status.js","manifest.webmanifest","app-icon.svg","app-icon-180.png","app-icon-192.png","app-icon-512.png","brand-logo.png"]);
+const FILES = new Set(["index.html","data.js","status.js","manifest.webmanifest","app-icon.svg","app-icon-180.png","app-icon-192.png","app-icon-512.png","brand-logo.png", "brand-logo.webp"]);
 function cacheKey(url) {
   const root=new URL(self.registration.scope).pathname;
   if(!url.pathname.startsWith(root)) return null;
