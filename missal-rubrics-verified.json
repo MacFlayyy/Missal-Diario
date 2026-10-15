@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "reference": "Missal Romano CNBB 2023, terceira edição típica",
+  "pdf_sha256": "2ca10b5555dfb02f636cdd7db815ae198539c9a0b506ab9cdfc85670ea951a62",
+  "purpose": "Indicações específicas dos formulários verificadas nas páginas indicadas. Sem transcrição do livro e de caráter facultativo quando o texto assim determina.",
+  "blessings": {
+    "2026-11-02": {
+      "formulary_page": 846,
+      "missal_evidence_pages": [
+        846,
+        847,
+        848,
+        588
+      ],
+      "blessing_page": "588",
+      "blessing_title": "Bênção Solene — Celebração pelos Fiéis Defuntos",
+      "blessing_section": "20. Celebração pelos Fiéis Defuntos",
+      "optional": true
+    },
+    "2026-10-28": {
+      "formulary_page": 839,
+      "missal_evidence_pages": [
+        840,
+        586
+      ],
+      "blessing_page": "586",
+      "blessing_title": "Bênção Solene — Santos Apóstolos",
+      "blessing_section": "17. Santos Apóstolos",
+      "optional": true
+    },
+    "2026-11-30": {
+      "formulary_page": 865,
+      "missal_evidence_pages": [
+        866,
+        586
+      ],
+      "blessing_page": "586",
+      "blessing_title": "Bênção Solene — Santos Apóstolos",
+      "blessing_section": "17. Santos Apóstolos",
+      "optional": true
+    },
+    "2026-12-12": {
+      "formulary_page": 875,
+      "missal_evidence_pages": [
+        876,
+        585
+      ],
+      "blessing_page": "585",
+      "blessing_title": "Bênção Solene — Bem-aventurada Virgem Maria",
+      "blessing_section": "15. Bem-aventurada Virgem Maria",
+      "optional": true
+    }
+  }
+}
