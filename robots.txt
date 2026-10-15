@@ -1,0 +1,5 @@
+# Robots de informação no caminho do projeto GitHub Pages.
+# Regras válidas globalmente devem existir em https://macflayyy.github.io/robots.txt
+User-agent: *
+Allow: /Missal-Diario/
+Sitemap: https://macflayyy.github.io/Missal-Diario/sitemap.xml
