@@ -7,6 +7,7 @@ também SHA-256 integral e cada página registrada, sem publicá-lo no site.
 """
 from __future__ import annotations
 import hashlib
+from datetime import date, timedelta
 import json
 import os
 from pathlib import Path
@@ -86,6 +87,17 @@ def check_index_and_data():
     errors, suggestions, total = [], [], 0
     unmatched_dates = []
     for key,day in data.items():
+        # Advento inicia quatro domingos antes do Natal. A festa do santo
+        # não altera o tempo litúrgico, embora possa ter cor própria.
+        try:
+            current=date.fromisoformat(key)
+            dec24=date(current.year,12,24)
+            last_advent_sunday=dec24-timedelta(days=(dec24.weekday()+1)%7)
+            first_advent_sunday=last_advent_sunday-timedelta(days=21)
+            if first_advent_sunday <= current <= dec24 and str(day.get("season",""))!="Advento":
+                errors.append(f"{key}: tempo litúrgico deve ser Advento")
+        except ValueError:
+            errors.append(f"{key}: data do calendário malformada")
         tapes = day.get("tapes") or []
         verified = VERIFIED_DATE_RUBRICS.get(key)
         if verified:
