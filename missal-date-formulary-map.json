@@ -1,0 +1,474 @@
+{
+  "schema_version": 1,
+  "edition": "Missal Romano 2023, CNBB, terceira edição típica",
+  "reference_pdf_sha256": "2ca10b5555dfb02f636cdd7db815ae198539c9a0b506ab9cdfc85670ea951a62",
+  "reviewed_on": "2026-10-15",
+  "purpose": "Conferir página específica da celebração, separada da lista de páginas de seções; metadados apenas, não contém texto do livro.",
+  "entries": {
+    "2026-09-30": {
+      "celebration": "São Jerônimo, presbítero e doutor da Igreja",
+      "missal_formulary_page": "814",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-01": {
+      "celebration": "Santa Teresa do Menino Jesus, virgem e doutora da Igreja",
+      "missal_formulary_page": "816",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-02": {
+      "celebration": "Santos Anjos da Guarda",
+      "missal_formulary_page": "817–818",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-03": {
+      "celebration": "Santos André de Soveral, Ambrósio Francisco Ferro, presbíteros, Mateus Moreira, leigo, e companheiros mártires",
+      "missal_formulary_page": "819",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-04": {
+      "celebration": "27º Domingo do Tempo Comum",
+      "missal_formulary_page": "409",
+      "source_section": "sunday_proper"
+    },
+    "2026-10-05": {
+      "celebration": "São Benedito, o Negro, religioso",
+      "missal_formulary_page": "821",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-06": {
+      "celebration": "Santa Faustina Kowalska, virgem",
+      "missal_formulary_page": "823 / 939 ou 952",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-07": {
+      "celebration": "Bem-aventurada Virgem Maria do Rosário",
+      "missal_formulary_page": "823",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-08": {
+      "celebration": "27ª Semana do Tempo Comum",
+      "missal_formulary_page": "409",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-09": {
+      "celebration": "27ª Semana do Tempo Comum",
+      "missal_formulary_page": "409",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-10": {
+      "celebration": "27ª Semana do Tempo Comum",
+      "missal_formulary_page": "409",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-11": {
+      "celebration": "28º Domingo do Tempo Comum",
+      "missal_formulary_page": "410",
+      "source_section": "sunday_proper"
+    },
+    "2026-10-12": {
+      "celebration": "Bem-aventurada Virgem Maria da Conceição Aparecida",
+      "missal_formulary_page": "826",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-13": {
+      "celebration": "28ª Semana do Tempo Comum",
+      "missal_formulary_page": "410",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-14": {
+      "celebration": "28ª Semana do Tempo Comum",
+      "missal_formulary_page": "410",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-15": {
+      "celebration": "Santa Teresa de Jesus, virgem e doutora da Igreja",
+      "missal_formulary_page": "830",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-16": {
+      "celebration": "28ª Semana do Tempo Comum",
+      "missal_formulary_page": "410",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-17": {
+      "celebration": "Santo Inácio de Antioquia, bispo e mártir",
+      "missal_formulary_page": "832",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-18": {
+      "celebration": "29º Domingo do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "sunday_proper"
+    },
+    "2026-10-19": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-20": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-21": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-22": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-23": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-24": {
+      "celebration": "29ª Semana do Tempo Comum",
+      "missal_formulary_page": "411",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-25": {
+      "celebration": "30º Domingo do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "sunday_proper"
+    },
+    "2026-10-26": {
+      "celebration": "30ª Semana do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-27": {
+      "celebration": "30ª Semana do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-28": {
+      "celebration": "Santos Simão e Judas Tadeu, apóstolos",
+      "missal_formulary_page": "839",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-10-29": {
+      "celebration": "30ª Semana do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-30": {
+      "celebration": "30ª Semana do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-10-31": {
+      "celebration": "30ª Semana do Tempo Comum",
+      "missal_formulary_page": "412",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-01": {
+      "celebration": "Todos os Santos",
+      "missal_formulary_page": "842",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-02": {
+      "celebration": "Comemoração de Todos os Fiéis Defuntos",
+      "missal_formulary_page": "846",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-03": {
+      "celebration": "31ª Semana do Tempo Comum",
+      "missal_formulary_page": "413",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-04": {
+      "celebration": "São Carlos Borromeu, bispo",
+      "missal_formulary_page": "849",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-05": {
+      "celebration": "31ª Semana do Tempo Comum",
+      "missal_formulary_page": "413",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-06": {
+      "celebration": "31ª Semana do Tempo Comum",
+      "missal_formulary_page": "413",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-07": {
+      "celebration": "31ª Semana do Tempo Comum",
+      "missal_formulary_page": "413",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-08": {
+      "celebration": "32º Domingo do Tempo Comum",
+      "missal_formulary_page": "414",
+      "source_section": "sunday_proper"
+    },
+    "2026-11-09": {
+      "celebration": "Dedicação da Basílica do Latrão",
+      "missal_formulary_page": "850",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-10": {
+      "celebration": "São Leão Magno, papa e doutor da Igreja",
+      "missal_formulary_page": "853",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-11": {
+      "celebration": "São Martinho de Tours, bispo",
+      "missal_formulary_page": "854",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-12": {
+      "celebration": "São Josafá, bispo e mártir",
+      "missal_formulary_page": "855",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-13": {
+      "celebration": "32ª Semana do Tempo Comum",
+      "missal_formulary_page": "414",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-14": {
+      "celebration": "32ª Semana do Tempo Comum",
+      "missal_formulary_page": "414",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-15": {
+      "celebration": "33º Domingo do Tempo Comum",
+      "missal_formulary_page": "415",
+      "source_section": "sunday_proper"
+    },
+    "2026-11-16": {
+      "celebration": "33ª Semana do Tempo Comum",
+      "missal_formulary_page": "415",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-17": {
+      "celebration": "Santa Isabel da Hungria, religiosa",
+      "missal_formulary_page": "858",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-18": {
+      "celebration": "33ª Semana do Tempo Comum",
+      "missal_formulary_page": "415",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-19": {
+      "celebration": "Santos Roque González, Afonso Rodríguez e João de Castillo, presbíteros e mártires",
+      "missal_formulary_page": "860",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-20": {
+      "celebration": "33ª Semana do Tempo Comum",
+      "missal_formulary_page": "415",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-21": {
+      "celebration": "Apresentação da Bem-aventurada Virgem Maria",
+      "missal_formulary_page": "861",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-22": {
+      "celebration": "Nosso Senhor Jesus Cristo, Rei do Universo",
+      "missal_formulary_page": "425",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-23": {
+      "celebration": "34ª Semana do Tempo Comum",
+      "missal_formulary_page": "416",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-24": {
+      "celebration": "Santo André Dung-Lac e companheiros, mártires",
+      "missal_formulary_page": "863",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-11-25": {
+      "celebration": "34ª Semana do Tempo Comum",
+      "missal_formulary_page": "416",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-26": {
+      "celebration": "34ª Semana do Tempo Comum",
+      "missal_formulary_page": "416",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-27": {
+      "celebration": "34ª Semana do Tempo Comum",
+      "missal_formulary_page": "416",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-28": {
+      "celebration": "34ª Semana do Tempo Comum",
+      "missal_formulary_page": "416",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-11-29": {
+      "celebration": "1º Domingo do Advento",
+      "missal_formulary_page": "96",
+      "source_section": "sunday_proper"
+    },
+    "2026-11-30": {
+      "celebration": "Santo André, Apóstolo",
+      "missal_formulary_page": "865",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-01": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "98",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-02": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "99",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-03": {
+      "celebration": "São Francisco Xavier, presbítero",
+      "missal_formulary_page": "867",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-04": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "101",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-05": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "102",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-06": {
+      "celebration": "2º Domingo do Advento",
+      "missal_formulary_page": "103",
+      "source_section": "sunday_proper"
+    },
+    "2026-12-07": {
+      "celebration": "Santo Ambrósio, bispo e doutor da Igreja",
+      "missal_formulary_page": "869",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-08": {
+      "celebration": "Imaculada Conceição da Bem-aventurada Virgem Maria",
+      "missal_formulary_page": "871",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-09": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "106",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-10": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "107",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-11": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "108",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-12": {
+      "celebration": "Bem-aventurada Virgem Maria de Guadalupe",
+      "missal_formulary_page": "875",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-13": {
+      "celebration": "3º Domingo do Advento — Gaudete",
+      "missal_formulary_page": "110",
+      "source_section": "sunday_proper"
+    },
+    "2026-12-14": {
+      "celebration": "São João da Cruz, presbítero e doutor da Igreja",
+      "missal_formulary_page": "877",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-15": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "112",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-16": {
+      "celebration": "Dia de semana do Advento",
+      "missal_formulary_page": "113",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-17": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "117",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-18": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "118",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-19": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "119",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-20": {
+      "celebration": "4º Domingo do Advento",
+      "missal_formulary_page": "116",
+      "source_section": "sunday_proper"
+    },
+    "2026-12-21": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "121",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-22": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "122",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-23": {
+      "celebration": "Féria privilegiada do Advento",
+      "missal_formulary_page": "123",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-24": {
+      "celebration": "24 de dezembro — Féria privilegiada do Advento / Vigília do Natal",
+      "missal_formulary_page": "124 / 126",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-25": {
+      "celebration": "Natal do Senhor",
+      "missal_formulary_page": "126 / 128 / 130 / 132",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-26": {
+      "celebration": "Santo Estêvão, Protomártir",
+      "missal_formulary_page": "880",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-27": {
+      "celebration": "Sagrada Família de Jesus, Maria e José",
+      "missal_formulary_page": "134",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-28": {
+      "celebration": "Santos Inocentes, Mártires",
+      "missal_formulary_page": "882",
+      "source_section": "saint_feast_or_special"
+    },
+    "2026-12-29": {
+      "celebration": "Quinto dia na Oitava do Natal",
+      "missal_formulary_page": "135",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-30": {
+      "celebration": "Sexto dia na Oitava do Natal",
+      "missal_formulary_page": "136",
+      "source_section": "weekly_or_seasonal"
+    },
+    "2026-12-31": {
+      "celebration": "Sétimo dia na Oitava do Natal",
+      "missal_formulary_page": "137",
+      "source_section": "weekly_or_seasonal"
+    }
+  }
+}
