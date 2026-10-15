@@ -4417,13 +4417,8 @@ function render(dateKey){
     note:"Esta data ainda não está disponível.",
     source:"Data ainda não cadastrada",
     quick:"—",
-    tapes:[
-      {n:1,page:"430",title:"Ritos Iniciais",details:[["Status","Aguardando geração diária"]]},
-      {n:2,page:"—",title:"Missa do dia",details:[["Status","Aguardando geração diária"]]},
-      {n:3,page:"—",title:"Prefácio",details:[["Status","Aguardando geração diária"]]},
-      {n:4,page:"—",title:"Oração Eucarística",details:[["Status","Aguardando geração diária"]]},
-      {n:5,page:"—",title:"Bênção",details:[["Status","Aguardando geração diária"]]}
-    ]
+    // Sem dados confirmados, não simular fitas nem páginas litúrgicas.
+    tapes:[]
   };
 
   window.currentDateKey = dateKey;
