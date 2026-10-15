@@ -3067,6 +3067,64 @@ body.celebration-mode .celebration-exit-footer{
   .mobile-nav{padding:7px!important}
 }
 </style>
+<style id="calendar-responsive-v71">
+/* Calendário dimensionado pela viewport: não cortar dias nem ocultar a grade sob a barra inferior. */
+@media (max-width:950px){
+  body.calendar-open::before{
+    content:"";position:fixed;inset:0;z-index:123;
+    background:rgba(40,25,24,.36);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);
+  }
+  .date-menu.calendar-panel:not([hidden]){
+    position:fixed!important;top:50%!important;left:50%!important;right:auto!important;
+    transform:translate(-50%,-50%)!important;z-index:124!important;
+    width:min(400px,calc(100vw - 24px))!important;max-width:calc(100vw - 24px)!important;
+    max-height:calc(100vh - 24px)!important;max-height:calc(100dvh - 24px)!important;
+    margin:0!important;padding:12px!important;box-sizing:border-box!important;
+    overflow-x:hidden!important;overflow-y:auto!important;overscroll-behavior:contain;
+    border-radius:18px!important;box-shadow:0 25px 70px rgba(40,20,20,.3)!important;
+  }
+  .date-menu.calendar-panel .calendar-grid,
+  .date-menu.calendar-panel .calendar-week{
+    grid-template-columns:repeat(7,minmax(0,1fr))!important;gap:3px!important;min-width:0!important;
+  }
+  .date-menu.calendar-panel .calendar-day,
+  .date-menu.calendar-panel .calendar-empty{
+    min-width:0!important;max-width:100%!important;
+    height:36px!important;min-height:0!important;aspect-ratio:auto!important;
+    box-sizing:border-box!important;
+  }
+}
+@media (max-width:350px){
+  .date-menu.calendar-panel:not([hidden]){padding:9px!important}
+  .date-menu.calendar-panel .calendar-grid,.date-menu.calendar-panel .calendar-week{gap:2px!important}
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:34px!important}
+}
+@media (max-height:420px) and (max-width:950px){
+  .date-menu.calendar-panel:not([hidden]){max-height:calc(100dvh - 12px)!important;padding:9px!important}
+  .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:32px!important}
+}
+</style>
+<style id="deep-visual-accessibility-fixes-v73">
+/* Cabeçalho e dados principais aparecem imediatamente, sem flash branco/desbotado no Safari. */
+body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:none!important}
+.reveal{opacity:1!important;transform:none!important}
+@media(max-width:620px){
+  .quick .quick-steps:has(.multi-page-values),
+  body.celebration-mode .quick .quick-steps:has(.multi-page-values),
+  .prepare-missal-sequence .quick-steps:has(.multi-page-values){
+    grid-template-columns:minmax(0,.85fr) minmax(0,1.8fr) repeat(3,minmax(0,.85fr))!important;
+  }
+  .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
+  .prepare-missal-sequence .quick-step .multi-page-values{
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;
+    width:100%;font-size:10px;line-height:1.25;font-variant-numeric:tabular-nums
+  }
+}
+@media(max-width:340px){
+  .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
+  .prepare-missal-sequence .quick-step .multi-page-values{font-size:9px}
+}
+</style>
 </head>
 <body>
   <div class="shell">
@@ -3102,13 +3160,13 @@ body.celebration-mode .celebration-exit-footer{
         <div class="eyebrow">Escolher data</div>
         <div class="date-control">
           <button class="nav-btn" id="prevBtn" aria-label="Dia anterior">‹</button>
-          <button class="date-picker-btn" id="datePickerBtn" type="button">
+          <button class="date-picker-btn" id="datePickerBtn" type="button" aria-expanded="false" aria-controls="dateMenu" aria-haspopup="dialog">
             <span id="datePickerLabel">Hoje</span>
             <span class="calendar-icon">▾</span>
           </button>
           <button class="nav-btn" id="nextBtn" aria-label="Próximo dia">›</button>
         </div>
-        <div class="date-menu" id="dateMenu" hidden></div>
+        <div class="date-menu" id="dateMenu" role="dialog" aria-label="Calendário para escolher a data" hidden></div>
         <div class="sunday-preview-note" id="sundayPreviewNote" hidden><span></span><strong>Domingo disponível</strong> — Missa dominical já preparada.</div>
         <div class="color-chip">
           <div class="dot" id="colorDot" style="background:#c8a96a"></div>
@@ -4725,7 +4783,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 830 → 506 → 536 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-16": {
     "label": "Sexta-feira • 16/10/2026",
@@ -6968,12 +7030,16 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "851",
-        "title": "Prefácio próprio da Dedicação da Basílica do Latrão",
+        "page": "852",
+        "title": "Prefácio próprio — O mistério da Igreja, esposa de Cristo e templo do Espírito Santo",
         "details": [
           [
+            "Título",
+            "O mistério da Igreja, esposa de Cristo e templo do Espírito Santo"
+          ],
+          [
             "Uso",
-            "No próprio formulário da festa"
+            "Prefácio próprio da Dedicação da Basílica do Latrão."
           ]
         ]
       },
@@ -7010,8 +7076,9 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 850 → 851 → 545 → 588",
-    "cycle": "Ano II"
+    "quick": "430 → 850 → 852 → 545 → 588",
+    "cycle": "Ano II",
+    "missalPageReferenceVerified": true
   },
   "2026-11-10": {
     "label": "Terça-feira • 10/11/2026",
@@ -9626,12 +9693,16 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "872",
-        "title": "Prefácio próprio da Imaculada Conceição",
+        "page": "873",
+        "title": "Prefácio próprio — Do mistério de Maria e da Igreja",
         "details": [
           [
             "Título",
             "Do mistério de Maria e da Igreja"
+          ],
+          [
+            "Uso",
+            "Prefácio próprio da Imaculada Conceição."
           ]
         ]
       },
@@ -9668,8 +9739,9 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 871 → 872 → 545 → 586",
-    "cycle": "—"
+    "quick": "430 → 871 → 873 → 545 → 586",
+    "cycle": "—",
+    "missalPageReferenceVerified": true
   },
   "2026-12-09": {
     "label": "Quarta-feira • 09/12/2026",
@@ -11806,8 +11878,8 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-14",
-  "lastSuccessfulUpdateAt": "2026-10-14T04:32:38-03:00",
+  "availableThrough": "2026-10-15",
+  "lastSuccessfulUpdateAt": "2026-10-15T04:32:18-03:00",
   "timezone": "America/Sao_Paulo",
   "validation": "reviewed-and-corrected",
   "calendarDataThrough": "2026-12-31",
@@ -11875,7 +11947,10 @@ function quickStepsMarkup(value){
 
   return pages.map((page,i) =>
     '<span class="quick-item">' +
-      '<span class="quick-step" title="Marcação '+(i+1)+'">'+prepareEscapeHtml(page)+'</span>' +
+      '<span class="quick-step" title="Marcação '+(i+1)+': '+prepareEscapeHtml(page)+'">'+
+        (/^\d+(?:\s*\/\s*\d+){3}$/.test(page)
+          ? '<span class="multi-page-values">'+page.split(/\s*\/\s*/).map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
+          : prepareEscapeHtml(page))+'</span>' +
       (i < pages.length-1 ? '<span class="quick-arrow" aria-hidden="true">→</span>' : '') +
     '</span>'
   ).join("");
@@ -12049,7 +12124,7 @@ function buildDetailedCopyText(dateKey){
 
   (d.tapes||[]).forEach(function(t){
     const info=detailMap(t);
-    const page=String(t.page||"—");
+    const page=t.pageUnverified ? "a conferir" : (t.notIndicated ? "não indicada" : String(t.page||"—"));
 
     if(t.n===1){
       lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
@@ -12072,6 +12147,7 @@ function buildDetailedCopyText(dateKey){
       title+="**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
+      else if(t.suggestion) title+=" *(sugestão)*";
       lines.push(title+"     ","");
       return;
     }
@@ -12092,6 +12168,7 @@ function buildDetailedCopyText(dateKey){
       let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
       if(usage) title+=" "+usage;
+      else if(t.suggestion) title+=" *(sugestão)*";
       lines.push(title+"     ","");
       return;
     }
@@ -12315,10 +12392,14 @@ async function buildShareImageBlob(){
     return lines.length*lineHeight;
   }
   function allTapeDetails(tape){
-    return (tape.details||[]).map(pair=>{
+    const parts=(tape.details||[]).map(pair=>{
       const meta=labelWithSuggestion(pair[0]);
-      return meta.clean+": "+String(pair[1]||"");
-    }).join(" • ");
+      return meta.clean+(meta.isSuggestion?" (sugestão)":"")+": "+String(pair[1]||"");
+    });
+    if(tape.pageUnverified) parts.unshift("Página ainda não conferida no Missal Romano.");
+    if(tape.notIndicated) parts.unshift("O folheto não indica página específica.");
+    if(tape.suggestion && !parts.some(t=>/sugestão/i.test(t))) parts.unshift("Escolha sugerida, não confirmada pelo folheto.");
+    return parts.join(" • ");
   }
 
   function metaBox(x,y,w,h,label,value){
@@ -12388,7 +12469,9 @@ async function buildShareImageBlob(){
   const imageTapes=(d.tapes||[]).slice(0,5);
   const tapeHeights=imageTapes.map(t=>{
     const n=fullTextLines(allTapeDetails(t),cardW-36,"600 14px Arial, sans-serif").length;
-    return Math.max(132,87+18*Math.max(2,n)+18);
+    const titleRows=fullTextLines(t.title||"—",cardW-90,"800 23px Arial, sans-serif").length;
+    // A área descritiva começa DEPOIS do título, inclusive quando ele ocupa 2+ linhas.
+    return Math.max(132,54+titleRows*25+8+18*Math.max(2,n)+18);
   });
   const totalTapeHeight=tapeHeights.reduce((sum,height)=>sum+height+12,0);
   canvas.height=Math.max(1700+heroExtra,835+heroExtra+34+totalTapeHeight+100);
@@ -12598,18 +12681,21 @@ async function buildShareImageBlob(){
     ctx.stroke();
     ctx.restore();
 
-    const pageText=String(t.page||"—").replace(/^Página\s*/i,"");
+    const pageText=t.pageUnverified?"PÁGINA A CONFERIR":
+      (t.notIndicated?"SEM PÁGINA INDICADA":"PÁGINA "+String(t.page||"—").replace(/^Página\s*/i,""));
     ctx.font="800 12px Arial, sans-serif";
-    const pageW=Math.max(92,ctx.measureText("PÁGINA "+pageText).width+22);
+    const pageW=Math.max(92,ctx.measureText(pageText).width+22);
     fillRound(pad+18,y+14,pageW,28,14,"#f6edef");
     ctx.fillStyle=wine;
     ctx.textBaseline="middle";
-    ctx.fillText("PÁGINA "+pageText,pad+30,y+28);
+    ctx.fillText(pageText,pad+30,y+28);
     ctx.textBaseline="alphabetic";
 
-    drawLines(t.title||"—",pad+18,y+54,cardW-90,25,2,"800 23px Arial, sans-serif",ink);
+    const titleRows=fullTextLines(t.title||"—",cardW-90,"800 23px Arial, sans-serif").length;
+    const titleBottom=drawLines(t.title||"—",pad+18,y+54,cardW-90,25,
+      Math.max(2,titleRows),"800 23px Arial, sans-serif",ink);
 
-    drawAllLines(allTapeDetails(t),pad+18,y+87,cardW-36,18,
+    drawAllLines(allTapeDetails(t),pad+18,titleBottom+8,cardW-36,18,
       "600 14px Arial, sans-serif",muted);
 
     y+=tapeH+12;
@@ -12701,7 +12787,7 @@ function animateUpdatedContent(){
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const targets = [document.querySelector(".hero-main"),document.querySelector(".side"),...document.querySelectorAll(".tape")].filter(Boolean);
   targets.forEach((el,i)=>el.animate(
-    [{opacity:.35,transform:"translateY(7px)"},{opacity:1,transform:"translateY(0)"}],
+    [{transform:"translateY(4px)"},{transform:"translateY(0)"}],
     {duration:280+i*24,easing:"cubic-bezier(.2,.7,.2,1)"}
   ));
 }
@@ -12731,9 +12817,9 @@ function getDisplayEntry(dateKey){
   const base=data[dateKey];
   if(!base || dateKey!=="2026-12-24") return base;
 
-  const automaticMass=dateKey===brasiliaTodayKey()
-    ? (Number(brasiliaClockParts().hour)>=12?"vigil":"morning") : null;
-  const selected=december24Choice || automaticMass;
+  // A escolha depende do horário da celebração da paróquia, não de um meio-dia
+  // arbitrário. Por padrão mostramos as duas possibilidades sem confundir fitas.
+  const selected=december24Choice;
   if(!selected || selected==="combined") return base;
 
   // Permite escolher explicitamente a Missa: preparação antecipada e exceções de horário.
@@ -13017,6 +13103,7 @@ function buildDateMenu(){
       '<button class="calendar-nav" id="calendarPrev" type="button" '+(calendarCursor<=range.min?'disabled':'')+'>‹</button>'+
       '<strong>'+title+'</strong>'+
       '<button class="calendar-nav" id="calendarNext" type="button" '+(calendarCursor>=range.max?'disabled':'')+'>›</button>'+
+      '<button class="calendar-nav" id="calendarClose" type="button" aria-label="Fechar calendário" title="Fechar calendário">×</button>'+
     '</div>'+
     '<div class="calendar-week"><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span><span>Dom</span></div>'+
     '<div class="calendar-grid">'+cells+'</div>'+
@@ -13025,20 +13112,46 @@ function buildDateMenu(){
   menu.querySelectorAll(".calendar-day[data-date]").forEach(btn=>{
     btn.addEventListener("click",()=>{
       render(btn.dataset.date);
-      menu.hidden=true;
+      closeDateMenu();
     });
   });
   document.getElementById("calendarPrev")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,-1);buildDateMenu();});
   document.getElementById("calendarNext")?.addEventListener("click",(e)=>{e.stopPropagation();calendarCursor=monthShift(calendarCursor,1);buildDateMenu();});
+  document.getElementById("calendarClose")?.addEventListener("click",()=>{
+    closeDateMenu();
+    document.getElementById("datePickerBtn")?.focus();
+  });
   updateNavButtons();
 }
 
+const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
+function closeDateMenu(){
+  const menu=document.getElementById("dateMenu");
+  menu.hidden=true;
+  menu.removeAttribute("aria-modal");
+  document.body.classList.remove("calendar-open");
+  document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
+  // Recoloca o calendário sob o seletor quando ele não estiver aberto.
+  if(dateMenuHome && menu.parentElement!==dateMenuHome) dateMenuHome.appendChild(menu);
+}
 document.getElementById("dateMenu").addEventListener("click",(e)=>e.stopPropagation());
 document.addEventListener("keydown",event=>{
-  if(event.key!=="Escape") return;
   const calendar=document.getElementById("dateMenu");
+  if(event.key==="Tab" && calendar && !calendar.hidden &&
+      window.matchMedia("(max-width:950px)").matches){
+    const buttons=[...calendar.querySelectorAll("button:not([disabled])")].filter(el=>el.offsetParent!==null);
+    if(buttons.length){
+      const first=buttons[0],last=buttons[buttons.length-1],active=document.activeElement;
+      if(event.shiftKey && (active===first || !calendar.contains(active))){
+        event.preventDefault();last.focus();
+      }else if(!event.shiftKey && (active===last || !calendar.contains(active))){
+        event.preventDefault();first.focus();
+      }
+    }
+  }
+  if(event.key!=="Escape") return;
   if(calendar && !calendar.hidden){
-    calendar.hidden=true;
+    closeDateMenu();
     document.getElementById("datePickerBtn")?.focus();
   }
 });
@@ -13049,13 +13162,29 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     calendarCursor=(window.currentDateKey || getVisibleDates().at(-1)).slice(0,7);
     buildDateMenu();
   }
-  menu.hidden = !menu.hidden;
+  if(menu.hidden){
+    // Elementos ancestrais animados usam transform, o que altera o referencial
+    // de position:fixed. No mobile/tablet, monta o calendário diretamente no body.
+    if(window.matchMedia("(max-width:950px)").matches && menu.parentElement!==document.body){
+      document.body.appendChild(menu);
+    }
+    menu.hidden=false;
+    document.body.classList.add("calendar-open");
+    document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
+    if(window.matchMedia("(max-width:950px)").matches){
+      menu.setAttribute("aria-modal","true");
+      menu.querySelector("#calendarClose")?.focus();
+    }
+  }else closeDateMenu();
 });
 
 document.addEventListener("click",(e)=>{
   const menu = document.getElementById("dateMenu");
   const picker = document.getElementById("datePickerBtn");
-  if(!menu.contains(e.target) && !picker.contains(e.target)) menu.hidden = true;
+  if(!menu.contains(e.target) && !picker.contains(e.target)) closeDateMenu();
+});
+window.addEventListener("resize",()=>{
+  if(!document.getElementById("dateMenu").hidden) closeDateMenu();
 });
 
 document.getElementById("prevBtn").addEventListener("click",()=>moveDay(-1));
@@ -13121,8 +13250,9 @@ function setPrepareMissal(open){
     const tapes=Array.isArray(d.tapes)?d.tapes:[];
     pages.innerHTML=prepareLabels.map((label,index)=>{
       const tape=tapes[index] || {};
-      const page=String(tape.page || "—");
-      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(label)+'</span></div>';
+      const page=tape.pageUnverified?"A conferir":(tape.notIndicated?"Não indicada":String(tape.page || "—"));
+      const labelText=label+(tape.suggestion?" (sugestão)":"");
+      return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(labelText)+'</span></div>';
     }).join("");
     overlay.hidden=false;
     document.body.classList.add("prepare-missal-open");
@@ -13412,7 +13542,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261014-0dcefc49101b",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261015-a8b892d2c13b",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{

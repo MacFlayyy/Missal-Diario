@@ -3302,8 +3302,8 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261014-0dcefc49101b"></script>
-<script src="status.js?v=20261014-0dcefc49101b"></script>
+<script src="data.js?v=20261015-a8b892d2c13b"></script>
+<script src="status.js?v=20261015-a8b892d2c13b"></script>
 <script>
 const data = window.MISSAL_DATA;
 
@@ -4957,7 +4957,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261014-0dcefc49101b",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261015-a8b892d2c13b",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
