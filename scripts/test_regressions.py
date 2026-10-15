@@ -586,6 +586,41 @@ def check_specific_missal_pages():
     assert {"app-icon-192.png","app-icon-512.png","app-icon.svg"}<=icons
     print("PASSOU índice litúrgico por celebração e manifesto PWA com PNGs")
 
+def check_corrective_audit_2026():
+    """Regras do Missal conferidas e requisitos de acessibilidade/SEO."""
+    import json
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    seed=json.loads((ROOT/"calendar_seed.json").read_text(encoding="utf-8"))
+    rubrics=json.loads((ROOT/"missal-rubrics-verified.json").read_text(encoding="utf-8"))
+    assert len(rubrics["blessings"])==4
+    for day,rule in rubrics["blessings"].items():
+        for entries in (data,seed):
+            tape=entries[day]["tapes"][4]
+            if not entries[day].get("officialLeafletApplied"):
+                assert tape["page"]==str(rule["blessing_page"]),day
+                assert tape["suggestion"] is True,day
+                assert str(rule["blessing_page"]) in entries[day]["quick"],day
+    assert data["2026-11-02"]["tapes"][4]["page"]=="588"
+    assert data["2026-10-28"]["tapes"][4]["page"]=="586"
+    assert data["2026-11-30"]["tapes"][4]["page"]=="586"
+    assert data["2026-12-12"]["tapes"][4]["page"]=="585"
+    idx=INDEX.read_text(encoding="utf-8")
+    standalone=STANDALONE.read_text(encoding="utf-8")
+    assert '<main id="mainContent">' in idx and '</main>' in idx
+    assert '<footer class="footer">' in idx and '</footer>' in idx
+    assert '<meta name="description"' in idx and 'rel="canonical"' in idx
+    assert 'property="og:image"' in idx
+    assert 'id="mobileMoreSheet" role="dialog" aria-modal="true"' in idx
+    assert "event.key!==\"Tab\"" in idx and "last.focus()" in idx
+    assert 'quick-markers-mobile-grid-v76' in idx
+    assert '<img src="brand-logo.png"' in idx and '<img src="data:image/png;base64,' in standalone
+    assert len((ROOT/"brand-logo.png").read_bytes()) > 1000
+    assert (ROOT/"robots.txt").exists() and (ROOT/"sitemap.xml").exists()
+    sw=(ROOT/"sw.js").read_text(encoding="utf-8")
+    for icon in ("app-icon-180.png","app-icon-192.png","app-icon-512.png","brand-logo.png"):
+        assert icon in sw
+    print("PASSOU correções de liturgia, SEO, landmarks, logo e menu mobile")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -595,6 +630,7 @@ def main():
     check_update_safety()
     check_cache_safety()
     check_christmas_choice()
+    check_corrective_audit_2026()
     check_specific_missal_pages()
     check_rites_texts()
     check_official_leaflet_extraction()
