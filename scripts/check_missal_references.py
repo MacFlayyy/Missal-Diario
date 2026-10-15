@@ -61,9 +61,38 @@ def check_index_and_data():
     data = load_js(ROOT / "data.js", "window.MISSAL_DATA")
     groups = {name:set(map(int,idx["categories"][name])) for name in CATEGORIES}
     registered = set().union(*groups.values())
+    # Registro INDEPENDENTE por celebração conferido no PDF do Missal.
+    # O índice anterior só impedia páginas inexistentes ou em seções erradas.
+    date_map = json.loads(
+        (ROOT / "missal-date-formulary-map.json").read_text(encoding="utf-8")
+    )
+    if date_map.get("reference_pdf_sha256") != idx.get("source_pdf_sha256"):
+        raise SystemExit("Os dois índices do Missal usam PDFs de edições diferentes.")
+    known_dates = date_map.get("entries", {})
     errors, suggestions, total = [], [], 0
+    unmatched_dates = []
     for key,day in data.items():
         tapes = day.get("tapes") or []
+        expected = known_dates.get(key)
+        if expected:
+            actual_page = str(tapes[1].get("page","")).strip() if len(tapes) > 1 else ""
+            registered_page = str(expected.get("missal_formulary_page","")).strip()
+            if actual_page != registered_page:
+                errors.append(
+                    f"{key}: página da Missa {actual_page!r} diverge do PDF "
+                    f"verificado para a celebração ({registered_page!r})"
+                )
+            # Os nomes de dias especiais podem mudar de abreviação, mas mudanças
+            # litúrgicas devem ser observadas e revisadas separadamente.
+            if str(day.get("celebration","")).strip() != str(expected.get("celebration","")).strip():
+                errors.append(f"{key}: celebração diverge do cadastro específico do Missal")
+        else:
+            unmatched_dates.append(key)
+            if len(tapes)>1 and not tapes[1].get("pageUnverified") and not day.get("officialLeafletApplied"):
+                errors.append(
+                    f"{key}: formulário tem página numérica sem vínculo verificado "
+                    "ao PDF nem indicação de folheto oficial"
+                )
         if [t.get("n") for t in tapes] != [1,2,3,4,5]:
             errors.append(f"{key}: fitas 1–5 ausentes ou desordenadas")
         for tape in tapes:
@@ -103,6 +132,13 @@ def check_index_and_data():
             errors.append(f"{key}: separação rápida diverge das fitas")
     print(f"Conferência de índice: {len(data)} dias, {total} páginas referenciadas; "
           f"{len(suggestions)} fitas aguardam conferência.")
+    print(f"Vínculos de celebração e página verificados: "
+          f"{len(data)-len(unmatched_dates)}; "
+          f"datas ainda sem vínculo próprio: {len(unmatched_dates)}.")
+    if unmatched_dates:
+        print("::warning::Datas sem vínculo próprio no índice do PDF: "
+              + ", ".join(unmatched_dates[:8])
+              + ("..." if len(unmatched_dates)>8 else ""))
     if errors:
         print("FALHAS DE REFERÊNCIA:")
         for e in errors: print(" -",e)
