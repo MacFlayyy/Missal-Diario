@@ -76,11 +76,22 @@ def save_status(key, data):
         "availableThrough": key,
         "lastSuccessfulUpdateAt": last_update,
         "timezone": "America/Sao_Paulo",
+        # Validar formato/páginas e comparar um índice não equivale a
+        # reabrir o Missal integral nem a garantir todas as escolhas litúrgicas.
         "validation": (
             "requires-missal-page-check"
             if any(t.get("pageUnverified") for t in data.get(key, {}).get("tapes", []))
-            else "reviewed-and-corrected"
+            else "technical-checks-passed"
         ),
+        "validationDetails": {
+            "structureAndPageIndexChecked": True,
+            "originalMissalPdfCheckedInThisRun": False,
+            "dailyOfficialLeafletApplied": bool(data.get(key, {}).get("officialLeafletApplied")),
+            "unverifiedMissalPages": [
+                t.get("n") for t in data.get(key, {}).get("tapes", [])
+                if t.get("pageUnverified")
+            ],
+        },
     }
 
     # Aos sábados, deixa o domingo seguinte preparado para liberação
