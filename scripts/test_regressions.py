@@ -627,6 +627,25 @@ def check_on_demand_calendar():
     assert ensure_dates(data,date(2027,1,2),fetch=mock)==["2027-01-02","2027-01-03"]
     assert data["2027-01-02"]["cycle"]=="Ano I", "Sábado utiliza ciclo ferial"
     assert data["2027-01-03"]["cycle"]=="Ano B", "Domingo utiliza ciclo dominical"
+
+    # Fonte do próximo domingo pode não estar disponível na madrugada.
+    # Isso não deve impedir a publicação do sábado, mas faltar o dia
+    # obrigatório deve continuar causando erro.
+    def sunday_missing(url):
+        from urllib.parse import parse_qs, urlsplit
+        key=parse_qs(urlsplit(url).query)["data"][0]
+        if key == "2027-01-03":
+            raise RuntimeError("O domingo ainda não foi publicado na fonte")
+        return fake_page(date.fromisoformat(key))
+    incomplete={}
+    assert ensure_dates(incomplete,date(2027,1,2),fetch=sunday_missing)==["2027-01-02"]
+    assert "2027-01-02" in incomplete and "2027-01-03" not in incomplete
+    try:
+        ensure_dates({},date(2027,1,3),fetch=sunday_missing)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("A fonte do dia obrigatório não pode falhar silenciosamente")
     assert liturgical_year(date(2027,11,28))=="Ano C"
     assert liturgical_year(date(2027,11,27))=="Ano B"
     print("PASSOU 2027 sem calendário pré-cadastrado e com prévia do domingo")
