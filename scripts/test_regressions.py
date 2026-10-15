@@ -600,6 +600,22 @@ def check_corrective_audit_2026():
                 assert tape["page"]==str(rule["blessing_page"]),day
                 assert tape["suggestion"] is True,day
                 assert str(rule["blessing_page"]) in entries[day]["quick"],day
+    # Contra erros de data civil, Advento e perda de dados do backup.
+    assert data["2026-11-30"]["season"]=="Advento"
+    assert seed["2026-11-30"]["season"]=="Advento"
+    assert data["2026-12-25"]["tapes"][1]["page"]=="128 / 130 / 132"
+    assert data["2026-11-02"]["tapes"][1]["page"]=="846 / 847 / 848"
+    assert seed["2026-12-25"]["tapes"][1]["page"]=="128 / 130 / 132"
+    assert seed["2026-11-02"]["tapes"][1]["page"]=="846 / 847 / 848"
+    for date_key,backup in seed.items():
+        original = data[date_key]
+        if not original.get("officialLeafletApplied"):
+            assert backup["tapes"][0]["details"]==original["tapes"][0]["details"], date_key
+        for line in backup["tapes"][0]["details"]:
+            assert "Consultar o texto integral no Missal Romano" not in str(line[1]), date_key
+    assert "function scheduleNextFiveAMRelease()" in INDEX.read_text(encoding="utf-8")
+    assert "dateChangeAnnouncement" in INDEX.read_text(encoding="utf-8")
+    assert "aria-modal" in INDEX.read_text(encoding="utf-8")
     assert data["2026-11-02"]["tapes"][4]["page"]=="588"
     assert data["2026-10-28"]["tapes"][4]["page"]=="586"
     assert data["2026-11-30"]["tapes"][4]["page"]=="586"
@@ -614,6 +630,9 @@ def check_corrective_audit_2026():
     assert "event.key!==\"Tab\"" in idx and "last.focus()" in idx
     assert 'quick-markers-mobile-grid-v76' in idx
     assert '<img src="brand-logo.png"' in idx and '<img src="data:image/png;base64,' in standalone
+    assert 'brand-logo.webp' in idx and 'brand-logo.webp' not in standalone
+    assert 'app-icon-512.png' in idx
+    assert 'technical-checks-passed' in (ROOT/"status.js").read_text(encoding="utf-8")
     assert len((ROOT/"brand-logo.png").read_bytes()) > 1000
     assert (ROOT/"robots.txt").exists() and (ROOT/"sitemap.xml").exists()
     sw=(ROOT/"sw.js").read_text(encoding="utf-8")
