@@ -55,6 +55,14 @@ async function run(config){
    });
    mark(row,'calendar-visible-within-screen',calendar.open && calendar.x>=-2 && calendar.right<=config.w+2 && calendar.top>=-3 && calendar.bottom<=config.h+3,calendar);
    await page.screenshot({path:path.join(ROOT,config.name+'-calendar.png'),fullPage:false});
+   // Teste de regressão: resize do navegador NÃO deve fechar o calendário,
+   // inclusive ao atravessar o breakpoint de tablet para desktop.
+   const narrower=config.w===1024 ? 900 : Math.max(280,config.w-20);
+   await page.setViewportSize({width:narrower,height:config.h});
+   const stillOpen=await page.locator('#dateMenu').isVisible();
+   mark(row,'calendar-resize-keeps-dialog-open',stillOpen,{before:config.w,after:narrower});
+   await page.setViewportSize({width:config.w,height:config.h});
+   mark(row,'calendar-resize-back-keeps-dialog-open',await page.locator('#dateMenu').isVisible(),{restored:config.w});
    const prev=page.locator('#calendarPrev');
    if(await prev.isEnabled()){
      const title=await page.locator('.calendar-head strong').innerText();
