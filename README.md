@@ -184,3 +184,17 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Transparência de atualização**: o rodapé identifica o horário exibido como o momento da **preparação inicial do dia**, não como a hora da última verificação ou como garantia de publicação exatamente às 05h.
 
 **Limitações remanescentes**: o workflow do GitHub não pode abrir diretamente o PDF privado guardado na Biblioteca do ChatGPT e o GitHub Actions não garante início pontual dos crons. O índice confirmado pelo PDF reduz divergências das datas cobertas, mas a confirmação de novos dias e orientações específicas requer consulta à edição de 2023 ou ao folheto apropriado. O site público não distribui o livro integral por direitos autorais.
+
+## Revisão litúrgica e acessibilidade de 15/10/2026
+
+- **Advento 2026:** o calendário do dia 30/11 (festa de Santo André) mantém o tempo litúrgico Advento e cor própria da festa. O verificador calcula os quatro domingos do Advento para conferir o tempo de todas as datas cadastradas.
+- **Natal:** a Missa da Vigília (p. 126) pertence à tarde de 24/12 e foi removida das alternativas da data civil 25/12. No dia 25 permanecem Noite (p. 128), Aurora (p. 130) e Dia (p. 132).
+- **Fiéis Defuntos:** a Fita 2 apresenta os três formulários facultativos (p. 846, 847 e 848) conforme o Missal CNBB 2023. A sugestão de bênção própria na p. 588 continua.
+- **Recuperação:** o `calendar_seed.json` contém as aberturas curtas de Saudação/Ato Penitencial dos 93 dias registrados, em vez de placeholders genéricos. Os testes comparam esse backup aos registros sem folheto oficial.
+- **Conferência editorial:** a associação entre páginas e datas é verificada por regras específicas adicionais; datas futuras ainda podem exigir conferência individual do Missal e folheto. O PDF integral permanece privado e não é distribuído em repositório público.
+- **Acessibilidade:** calendário desktop e mobile usam foco inicial e ciclo de Tab, foco restaurado na escolha do dia e anúncio discreto da mudança de celebração via `aria-live`.
+- **Desempenho:** verificação de liberação às 05h por temporizador de transição + confirmação periódica; imagem da paróquia otimizada como WebP de qualidade 88 com PNG como fallback e versão incorporada no arquivo HTML autossuficiente.
+- **CSS:** as 17 camadas contíguas de estilos foram consolidadas em uma só, preservando a ordem da cascata, para evitar diferenças visuais. Regras antigas ainda têm substituições `!important`; remoções indiscriminadas seriam arriscadas.
+- **SEO:** índice principal tem `meta robots`, descrição e URL canônica. O arquivo `robots.txt` do subdiretório não substitui `https://macflayyy.github.io/robots.txt`, que precisaria ser mantido na raiz do host.
+- **Visibilidade futura:** o controle no site é de interface. Como `data.js` e `calendar_seed.json` são públicos no GitHub Pages/repositório, não há sigilo técnico sobre dias ainda não liberados; isso exigiria migrar a fonte de dados para hospedagem privada.
+- **Status:** `validationDetails` diferencia a conferência estrutural/numérica da consulta integral ao PDF (que não é executada automaticamente no GitHub).
