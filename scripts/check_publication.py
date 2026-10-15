@@ -75,9 +75,21 @@ def main():
                 and actual_version == expected_version
             )
             if ok:
+                # Não confirmar PWA enquanto faltar o ícone Android/iOS publicado.
+                icons = ("app-icon-180.png", "app-icon-192.png", "app-icon-512.png")
+                for icon_name in icons:
+                    icon_url = f"{BASE}/{icon_name}?health={int(time.time())}-{attempt}"
+                    req = Request(icon_url, method="HEAD", headers={"Cache-Control":"no-cache"})
+                    with urlopen(req, timeout=18) as icon_response:
+                        icon_type = str(icon_response.headers.get("Content-Type","")).lower()
+                        if icon_response.status != 200 or "image/png" not in icon_type:
+                            raise RuntimeError(
+                                f"Ícone PWA {icon_name} ausente ou inválido: "
+                                f"HTTP {icon_response.status}, {icon_type}"
+                            )
                 print(
                     f"GitHub Pages confirmado: {expected_date}, versão "
-                    f"{expected_version}, tentativa {attempt}."
+                    f"{expected_version}, tentativa {attempt}; PNGs Android/iOS disponíveis."
                 )
                 return
             print(
