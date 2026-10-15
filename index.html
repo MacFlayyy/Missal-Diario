@@ -2892,8 +2892,9 @@
 .source-status.official::before{
   background:#8b8178 !important;
 }
-</style>
-<style id="quick-neutral-v56">
+
+/* Origem da camada CSS: quick-neutral-v56 */
+
 .quick,
 body.celebration-mode .quick,
 .prepare-missal-sequence{
@@ -2907,8 +2908,9 @@ body.celebration-mode .quick,
   color:#403a36 !important;
 }
 .quick-arrow{color:rgba(255,255,255,.58) !important}
-</style>
-<style id="quick-soft-wine-v57">
+
+/* Origem da camada CSS: quick-soft-wine-v57 */
+
 /* Separação rápida: identidade vinho suave, sem parecer cor litúrgica. */
 .quick,
 body.celebration-mode .quick,
@@ -2927,15 +2929,17 @@ body.celebration-mode .quick,
   box-shadow:0 5px 12px rgba(84,20,29,.06) !important;
 }
 .quick-arrow{color:rgba(125,23,34,.38) !important}
-</style>
-<style id="quick-home-white-text-v58">
+
+/* Origem da camada CSS: quick-home-white-text-v58 */
+
 /* Página principal: textos da Separação rápida em branco. */
 body:not(.celebration-mode) .quick small,
 body:not(.celebration-mode) .quick .quick-arrow{
   color:#fff !important;
 }
-</style>
-<style id="quick-arrow-contrast-v61">
+
+/* Origem da camada CSS: quick-arrow-contrast-v61 */
+
 /* Setas da Separação rápida: contraste suficiente sobre o fundo claro. */
 body:not(.celebration-mode) .quick .quick-arrow,
 body.celebration-mode .quick .quick-arrow,
@@ -2943,8 +2947,9 @@ body.celebration-mode .quick .quick-arrow,
   color:#a12a38 !important;
   opacity:.82 !important;
 }
-</style>
-<style id="visual-audit-fixes-v64">
+
+/* Origem da camada CSS: visual-audit-fixes-v64 */
+
 /* Botão Sair: resguardar a data no modo celebração. */
 @media(max-width:620px){
   body.celebration-mode .celebration-exit{top:max(12px,env(safe-area-inset-top))!important;right:12px!important;height:38px!important;min-width:65px!important;z-index:110!important}
@@ -2970,8 +2975,9 @@ body.celebration-mode .quick .quick-arrow,
 /* Cartões neutros; círculo litúrgico suavizado e com sombra, texto legível. */
 .hero-main .meta-item span{color:#62574f!important}
 .hero-main .meta-item::after{right:-14px!important;bottom:-15px!important;width:39px!important;height:39px!important;opacity:.3!important;box-shadow:0 0 0 5px var(--liturgical-soft),0 0 14px var(--liturgical-glow)!important}
-</style>
-<style id="accessibility-and-stability-v65">
+
+/* Origem da camada CSS: accessibility-and-stability-v65 */
+
 /* A saída do modo celebração passa a fazer parte do cabeçalho, nunca cobre as fitas ao rolar. */
 body.celebration-mode .celebration-context{
   position:relative!important; padding-top:62px!important;
@@ -3004,8 +3010,9 @@ body.celebration-mode .celebration-exit-footer{
   .quick .quick-step,body.celebration-mode .quick .quick-step,
   .prepare-missal-sequence .quick-step{font-size:11px!important}
 }
-</style>
-<style id="mobile-touch-accessibility-v66">
+
+/* Origem da camada CSS: mobile-touch-accessibility-v66 */
+
 /* Áreas de toque adequadas para os comandos de navegação, sem alterar o visual. */
 #mobileMoreClose{min-width:44px!important;min-height:44px!important;display:inline-flex;align-items:center;justify-content:center}
 @media(max-width:620px){
@@ -3020,8 +3027,9 @@ body.celebration-mode .celebration-exit-footer{
  .mobile-nav button span{font-size:10px!important}
  #mobileLeafletBtn span{font-size:10px!important}
 }
-</style>
-<style id="layout-regression-fixes-v67">
+
+/* Origem da camada CSS: layout-regression-fixes-v67 */
+
 /* Todas as cinco páginas continuam visíveis, inclusive com alternativas longas. */
 .quick .quick-steps,body.celebration-mode .quick .quick-steps,.prepare-missal-sequence .quick-steps{
  display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
@@ -3056,8 +3064,9 @@ body.celebration-mode .celebration-exit-footer{
  .quick .quick-item,body.celebration-mode .quick .quick-item,.prepare-missal-sequence .quick-item{grid-template-columns:minmax(0,1fr) 7px!important}
  .quick .quick-arrow,body.celebration-mode .quick .quick-arrow,.prepare-missal-sequence .quick-arrow{width:7px!important;font-size:9px!important}
 }
-</style>
-<style id="qa-improvements-v69">
+
+/* Origem da camada CSS: qa-improvements-v69 */
+
 @media(max-width:620px){
   .back-to-top{width:46px!important;height:46px!important}
 }
@@ -3075,8 +3084,9 @@ body.celebration-mode .celebration-exit-footer{
   .mobile-nav button{min-height:56px!important;padding:7px 3px!important}
   .mobile-nav{padding:7px!important}
 }
-</style>
-<style id="calendar-responsive-v71">
+
+/* Origem da camada CSS: calendar-responsive-v71 */
+
 /* Calendário dimensionado pela viewport: não cortar dias nem ocultar a grade sob a barra inferior. */
 @media (max-width:950px){
   body.calendar-open::before{
@@ -3112,8 +3122,9 @@ body.celebration-mode .celebration-exit-footer{
   .date-menu.calendar-panel:not([hidden]){max-height:calc(100dvh - 12px)!important;padding:9px!important}
   .date-menu.calendar-panel .calendar-day,.date-menu.calendar-panel .calendar-empty{height:32px!important}
 }
-</style>
-<style id="deep-visual-accessibility-fixes-v73">
+
+/* Origem da camada CSS: deep-visual-accessibility-fixes-v73 */
+
 /* Cabeçalho e dados principais aparecem imediatamente, sem flash branco/desbotado no Safari. */
 body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:none!important}
 .reveal{opacity:1!important;transform:none!important}
@@ -3133,8 +3144,9 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   .quick .quick-step .multi-page-values,body.celebration-mode .quick .quick-step .multi-page-values,
   .prepare-missal-sequence .quick-step .multi-page-values{font-size:9px}
 }
-</style>
-<style id="touch-targets-and-missal-ux-v74">
+
+/* Origem da camada CSS: touch-targets-and-missal-ux-v74 */
+
 /* Alvos interativos confortáveis sem alterar o tamanho dos marcadores (que não são botões). */
 @media (max-width:620px){
   .nav-btn,.date-picker-btn,.utility-btn,.side-actions button,
@@ -3149,8 +3161,9 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
 .calendar-nav:focus-visible,.celebration-choice button:focus-visible{
   outline:3px solid #b86a28!important;outline-offset:3px!important
 }
-</style>
-<style id="readable-markings-and-accessibility-v75">
+
+/* Origem da camada CSS: readable-markings-and-accessibility-v75 */
+
 /* Em celulares estreitos a fita pode rolar dentro de seu próprio painel,
    sem reduzir o número da página a 8,5px. */
 @media (max-width:620px){
@@ -3180,8 +3193,9 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   html{scroll-behavior:auto!important}
   .hero-main,.side,.tape{animation:none!important;transition:none!important}
 }
-</style>
-<style id="quick-markers-mobile-grid-v76">
+
+/* Origem da camada CSS: quick-markers-mobile-grid-v76 */
+
 @media(max-width:620px){
   .quick .quick-steps,body.celebration-mode .quick .quick-steps,
   .prepare-missal-sequence .quick-steps{
@@ -3218,8 +3232,9 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
   }
   .quick .quick-step .multi-page-values{font-size:11px!important;gap:1px!important}
 }
-</style>
-<style id="alternative-pages-mobile-v77">
+
+/* Origem da camada CSS: alternative-pages-mobile-v77 */
+
 @media(max-width:620px){
   .quick .quick-step .stacked-page-values,
   body.celebration-mode .quick .quick-step .stacked-page-values,
@@ -3235,8 +3250,9 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
     min-height:40px!important;padding:4px 1px!important
   }
 }
-</style>
-<style id="screen-reader-and-time-audit-v78">
+
+/* Origem da camada CSS: screen-reader-and-time-audit-v78 */
+
 .sr-only{position:absolute!important;width:1px!important;height:1px!important;
  padding:0!important;margin:-1px!important;overflow:hidden!important;
  clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
