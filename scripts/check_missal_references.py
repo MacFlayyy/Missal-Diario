@@ -83,7 +83,7 @@ def check_index_and_data():
         "2026-11-02": {"mass_pages": "846 / 847 / 848"},
         "2026-12-25": {"season": "Natal", "mass_pages": "128 / 130 / 132"},
     }
-    errors, suggestions, total = [], 0, 0
+    errors, suggestions, total = [], [], 0
     unmatched_dates = []
     for key,day in data.items():
         tapes = day.get("tapes") or []
