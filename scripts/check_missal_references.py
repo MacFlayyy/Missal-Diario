@@ -76,10 +76,23 @@ def check_index_and_data():
     if rubrics.get("pdf_sha256") != idx.get("source_pdf_sha256"):
         raise SystemExit("O índice de rubricas não corresponde à edição do PDF.")
     blessing_rules = rubrics.get("blessings", {})
-    errors, suggestions, total = [], [], 0
+    # Conferências independentes baseadas na edição de 2023 (datas e rubricas).
+    # Ao contrário do mapa histórico, estas constantes NÃO são geradas de data.js.
+    VERIFIED_DATE_RUBRICS = {
+        "2026-11-30": {"season": "Advento", "mass_pages": "865"},
+        "2026-11-02": {"mass_pages": "846 / 847 / 848"},
+        "2026-12-25": {"season": "Natal", "mass_pages": "128 / 130 / 132"},
+    }
+    errors, suggestions, total = [], 0, 0
     unmatched_dates = []
     for key,day in data.items():
         tapes = day.get("tapes") or []
+        verified = VERIFIED_DATE_RUBRICS.get(key)
+        if verified:
+            if "season" in verified and str(day.get("season","")).strip() != verified["season"]:
+                errors.append(f"{key}: tempo litúrgico incompatível com a rubrica de 2023")
+            if len(tapes) < 2 or str(tapes[1].get("page","")).strip() != verified["mass_pages"]:
+                errors.append(f"{key}: opções de formulário divergentes das páginas do Missal 2023")
         expected = known_dates.get(key)
         if expected:
             actual_page = str(tapes[1].get("page","")).strip() if len(tapes) > 1 else ""
