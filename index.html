@@ -3442,8 +3442,14 @@ body.is-ready .topbar,body.is-ready .hero-main,body.is-ready .side{animation:non
 <script src="data.js?v=20261015-cbe0c9709cb9"></script>
 <script src="status.js?v=20261015-cbe0c9709cb9"></script>
 <script>
-const data = window.MISSAL_DATA;
-
+const dataLoaded = Boolean(
+  window.MISSAL_DATA &&
+  typeof window.MISSAL_DATA === "object" &&
+  Object.keys(window.MISSAL_DATA).length
+);
+const data = dataLoaded ? window.MISSAL_DATA : {};
+// Ao recuperar a conexão, tenta novamente carregar os dados obrigatórios.
+if(!dataLoaded) window.addEventListener("online",()=>location.reload(),{once:true});
 
 const liturgicalPalettes = {
   verde:    {accent:"#2f6347", dot:"#2f6347", soft:"rgba(47,99,71,.16)",   deep:"#244e38", glow:"rgba(47,99,71,.30)"},
@@ -4414,7 +4420,7 @@ function render(dateKey){
     celebration:"Celebração ainda não cadastrada",
     subtitle:"Aguardando dados da celebração",
     saint:"—", grade:"—", season:"—", color:"—", colorHex:"#c8a96a", liturgicalNote:"—",
-    note:"Esta data ainda não está disponível.",
+    note:dataLoaded ? "Esta data ainda não está disponível." : "Não foi possível carregar as celebrações. Verifique sua conexão e atualize a página.",
     source:"Data ainda não cadastrada",
     quick:"—",
     // Sem dados confirmados, não simular fitas nem páginas litúrgicas.
