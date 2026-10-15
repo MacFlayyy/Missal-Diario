@@ -171,3 +171,16 @@ O exemplar integral do **Missal Romano, terceira edição típica em português 
 - **Regressões:** `full-site-audit.cjs` inclui simulação dos horários de 24/12, confirmação do botão selecionado, cor e páginas das opções.
 
 Estas verificações aumentam a segurança, mas não garantem acerto litúrgico absoluto: escolhas pontuais do folheto, páginas novas e celebrações alternativas ainda exigem referência oficial independente. Na ausência de página confirmada, a interface deve informar **Página a conferir**, não inventar numeração.
+
+## Correções concluídas após auditoria de 15/10/2026
+
+- **Bênçãos opcionais do Missal Romano 2023, conferidas no PDF original**: 28/10 (Santos Simão e Judas, p. 586 conforme formulário p. 840), 02/11 (Fiéis Defuntos, p. 588 conforme formulários p. 846–848), 30/11 (Santo André, p. 586 conforme formulário p. 866), 12/12 (Nossa Senhora de Guadalupe, p. 585 conforme formulário p. 876). As quatro permanecem sugestões quando não existir folheto oficial. **Prioridade do folheto preservada.**
+- **Referência independente**: `missal-rubrics-verified.json` guarda apenas metadados das remissões próprias do livro, sem reproduzir o texto da obra; `scripts/check_missal_references.py` passa a impedir que alterações futuras troquem essas bênçãos por outra página válida, salvo indicação diferente no folheto oficial.
+- **Teclado e leitor de telas**: o menu Mais é diálogo semântico, com navegação circular por Tab/Shift+Tab, foco devolvido ao botão original no fechamento e Escape funcionando.
+- **Marcação rápida responsiva**: as cinco fitas permanecem centralizadas em cinco colunas, com fonte mínima melhorada e coluna maior em datas com quatro alternativas. O layout é verificado em tamanhos Android e iPhone.
+- **Marcos de página e SEO**: `<main>` e `<footer>` semânticos, descrição, canonical e Open Graph. O arquivo `sitemap.xml` está disponível para submissão à busca; `robots.txt` nesta pasta só serve como documentação, pois regras efetivas de rastreamento precisam estar na raiz de `macflayyy.github.io`, fora do escopo do GitHub Pages deste projeto.
+- **Desempenho**: a imagem original da paróquia saiu do HTML principal (menos cerca de 190 KB de código Base64) e agora é `brand-logo.png` com cache separado pelo service worker. O arquivo HTML autossuficiente ainda inclui a logomarca para funcionar localmente e no chat.
+- **PWA offline**: logo e ícones PNG de instalação passam a integrar o cache. Os testes verificam carregamento da versão pública e funcionamento offline.
+- **Transparência de atualização**: o rodapé identifica o horário exibido como o momento da **preparação inicial do dia**, não como a hora da última verificação ou como garantia de publicação exatamente às 05h.
+
+**Limitações remanescentes**: o workflow do GitHub não pode abrir diretamente o PDF privado guardado na Biblioteca do ChatGPT e o GitHub Actions não garante início pontual dos crons. O índice confirmado pelo PDF reduz divergências das datas cobertas, mas a confirmação de novos dias e orientações específicas requer consulta à edição de 2023 ou ao folheto apropriado. O site público não distribui o livro integral por direitos autorais.
