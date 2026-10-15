@@ -3400,6 +3400,67 @@ body.celebration-mode .section-title{text-align:center}
   .tape.tape-jump-highlight,.date-menu.calendar-panel:not([hidden]){animation:none!important}
   .quick-steps .quick-jump{transition:none!important}
 }
+/* Correções de usabilidade: centralização das páginas, modal e Modo Celebração. */
+.tape .page{
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+.tape .page .page-caption,.tape .page .page-number{
+  display:block!important;
+  width:100%;
+  text-align:center!important;
+  margin-inline:auto;
+}
+body.calendar-open{overscroll-behavior:none}
+body.calendar-open .date-menu.calendar-panel{
+  touch-action:pan-y;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+}
+/* O botão Sair ocupa sua própria linha, não se sobrepõe à data. */
+body.celebration-mode .celebration-context{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  gap:7px!important;
+  padding:18px 18px 22px!important;
+}
+body.celebration-mode .celebration-context .celebration-exit{
+  position:static!important;
+  inset:auto!important;
+  top:auto!important;
+  right:auto!important;
+  bottom:auto!important;
+  left:auto!important;
+  display:inline-flex!important;
+  align-self:flex-end!important;
+  transform:none!important;
+  margin:0 0 7px!important;
+  min-height:42px!important;
+  z-index:auto!important;
+}
+body.celebration-mode .celebration-context-date{
+  position:static!important;
+  margin-top:0!important;
+  clear:both;
+}
+body.celebration-mode .celebration-context h2{
+  margin:0 auto!important;
+}
+@media(max-width:620px){
+  body.celebration-mode .celebration-context{
+    padding:14px 14px 19px!important;
+    gap:8px!important;
+  }
+  body.celebration-mode .celebration-context .celebration-exit{
+    position:static!important;
+    top:auto!important;
+    right:auto!important;
+    min-height:42px!important;
+    margin-bottom:8px!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -4856,12 +4917,51 @@ function buildDateMenu(){
 }
 
 const dateMenuHome=document.getElementById("dateMenu")?.parentElement;
+let calendarScrollRestore=null;
+function lockCalendarBackground(){
+  if(calendarScrollRestore) return;
+  const body=document.body,root=document.documentElement;
+  calendarScrollRestore={
+    y:window.scrollY,
+    bodyPosition:body.style.position,bodyTop:body.style.top,
+    bodyLeft:body.style.left,bodyRight:body.style.right,bodyWidth:body.style.width,
+    htmlOverflow:root.style.overflow,htmlOverscroll:root.style.overscrollBehavior
+  };
+  // Bloqueio real também no Safari do iPhone: overflow:hidden isolado
+  // não impede que a página atrás do modal deslize ao toque.
+  root.style.overflow="hidden";
+  root.style.overscrollBehavior="none";
+  body.style.position="fixed";
+  body.style.top="-"+calendarScrollRestore.y+"px";
+  body.style.left="0";
+  body.style.right="0";
+  body.style.width="100%";
+}
+function unlockCalendarBackground(){
+  if(!calendarScrollRestore) return;
+  const saved=calendarScrollRestore;
+  calendarScrollRestore=null;
+  const body=document.body,root=document.documentElement;
+  body.style.position=saved.bodyPosition;
+  body.style.top=saved.bodyTop;
+  body.style.left=saved.bodyLeft;
+  body.style.right=saved.bodyRight;
+  body.style.width=saved.bodyWidth;
+  root.style.overflow=saved.htmlOverflow;
+  root.style.overscrollBehavior=saved.htmlOverscroll;
+  // Volta à posição exata, sem a animação global de scroll-behavior:smooth.
+  const previousBehavior=root.style.scrollBehavior;
+  root.style.scrollBehavior="auto";
+  window.scrollTo(0,saved.y);
+  root.style.scrollBehavior=previousBehavior;
+}
 function closeDateMenu(){
   const menu=document.getElementById("dateMenu");
   if(!menu) return;
   menu.hidden=true;
   menu.removeAttribute("aria-modal");
   document.body.classList.remove("calendar-open");
+  unlockCalendarBackground();
   document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","false");
   // Recoloca o calendário sob o seletor quando ele não estiver aberto.
   if(dateMenuHome && menu.parentElement!==dateMenuHome) dateMenuHome.appendChild(menu);
@@ -4901,6 +5001,7 @@ document.getElementById("datePickerBtn").addEventListener("click",()=>{
     }
     menu.hidden=false;
     document.body.classList.add("calendar-open");
+    lockCalendarBackground();
     document.getElementById("datePickerBtn")?.setAttribute("aria-expanded","true");
     menu.setAttribute("aria-modal","true");
     menu.querySelector("#calendarClose")?.focus();
@@ -5146,19 +5247,31 @@ function setMoreMenu(open){
   if(open) document.getElementById("mobileMoreClose")?.focus();
   else if(wasOpen || focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
-  setMobileActiveTab(open?"mobileMoreBtn":"mobileMarkingsBtn");
+  setMobileActiveTab(open?"mobileMoreBtn":null);
+  if(!open) requestAnimationFrame(syncMarkingsActiveTab);
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
 
 function setMobileActiveTab(id){
   document.querySelectorAll(".mobile-nav button").forEach(button=>{
-    button.classList.toggle("active",button.id===id);
+    button.classList.toggle("active",Boolean(id)&&button.id===id);
   });
 }
+function syncMarkingsActiveTab(){
+  if(document.body.classList.contains("more-menu-open") ||
+     document.body.classList.contains("celebration-mode")) return;
+  const tapes=document.getElementById("tapes");
+  const rect=tapes?.getBoundingClientRect();
+  const markingsVisible=Boolean(rect && rect.top<window.innerHeight*.64 &&
+    rect.bottom>Math.max(100,window.innerHeight*.15));
+  setMobileActiveTab(markingsVisible?"mobileMarkingsBtn":null);
+}
+window.addEventListener("scroll",syncMarkingsActiveTab,{passive:true});
+window.addEventListener("resize",syncMarkingsActiveTab,{passive:true});
 document.getElementById("mobileMarkingsBtn")?.addEventListener("click",()=>{
-  setMobileActiveTab("mobileMarkingsBtn");
   scrollToMarkings();
+  requestAnimationFrame(syncMarkingsActiveTab);
 });
 document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
   setMobileActiveTab("mobileCelebrationBtn");
@@ -5166,7 +5279,7 @@ document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
 });
 document.getElementById("mobileLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
 document.getElementById("mobileMoreBtn")?.addEventListener("click",()=>setMoreMenu(true));
-setMobileActiveTab("mobileMarkingsBtn");
+requestAnimationFrame(syncMarkingsActiveTab);
 document.getElementById("mobileMoreClose")?.addEventListener("click",()=>setMoreMenu(false));
 document.getElementById("mobileMoreBackdrop")?.addEventListener("click",()=>setMoreMenu(false));
 document.addEventListener("keydown",event=>{
@@ -5222,7 +5335,8 @@ if(tapesNode){
 }
 function setCelebrationMode(on){
   document.body.classList.toggle("celebration-mode",on);
-  setMobileActiveTab(on?"mobileCelebrationBtn":"mobileMarkingsBtn");
+  setMobileActiveTab(null);
+  if(!on) requestAnimationFrame(syncMarkingsActiveTab);
   if(on) window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
 document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
