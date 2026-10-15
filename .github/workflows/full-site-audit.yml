@@ -34,8 +34,9 @@ jobs:
           python-version: '3.12'
       - name: Preparar imagens e HTML de teste igual ao site publicado
         run: |
-          python -m pip install cairosvg==2.8.2
+          python -m pip install cairosvg==2.8.2 Pillow==11.3.0
           python scripts/build_app_icons.py
+          python scripts/build_brand_logo.py
           python scripts/build_standalone.py
       - name: Servir versão do repositório
         run: |
