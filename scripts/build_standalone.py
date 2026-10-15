@@ -38,6 +38,12 @@ def main():
         if replacements != 1:
             raise RuntimeError(f"Falha ao incorporar {name}: encontrado {replacements} vezes")
 
+    # HTML avulso precisa usar PNG incorporado, não o WebP externo.
+    html = re.sub(
+        r'<source[^>]*srcset="brand-logo\.webp"[^>]*>',
+        "", html, flags=re.I
+    )
+
     for tag in (
         r'<link\s+rel="manifest"\s+href="manifest\.webmanifest"\s*/?>',
         r'<link\s+rel="icon"\s+href="app-icon\.svg"[^>]*>',
