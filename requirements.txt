@@ -2,3 +2,4 @@ beautifulsoup4==4.12.3
 requests==2.32.3
 pypdf==5.1.0
 cairosvg==2.8.2
+Pillow==11.3.0
