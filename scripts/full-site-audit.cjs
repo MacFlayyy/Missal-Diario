@@ -155,6 +155,26 @@ async function run(config){
      await page.screenshot({path:path.join(ROOT,config.name+'-celebration.png'),fullPage:false});
      await page.locator('#celebrationModeExit').click();
    }
+   // Navegação nova: apenas páginas visíveis, com salto real à fita.
+   const quickButtons=await page.locator('#quickSteps .quick-jump').count();
+   const printed=await page.locator('#quickSteps .quick-jump').allTextContents();
+   mark(row,'interactive-quick-pages-only',quickButtons===5&&printed.every(t=>!/[Ff]ita|[Mm]arcador/.test(t)),{count:quickButtons,pages:printed});
+   if(quickButtons===5){
+     await page.locator('#quickSteps .quick-jump').nth(2).click();
+     const target=await page.evaluate(()=>({
+       highlighted:document.querySelectorAll('#tapes .tape')[2]?.classList.contains('tape-jump-highlight'),
+       correctPage:document.querySelectorAll('#tapes .tape')[2]?.querySelector('.page-number')?.textContent.trim()
+     }));
+     mark(row,'quick-third-page-jumps-to-preface',target.highlighted&&!!target.correctPage,target);
+   }
+   await page.evaluate(()=>setPrepareMissal(true));
+   const prepButtons=await page.locator('#prepareMissalOverlay .quick-jump').count();
+   mark(row,'prepare-missal-pages-interactive',prepButtons===5,{count:prepButtons});
+   if(prepButtons===5){
+     await page.locator('#prepareMissalOverlay .quick-jump').nth(0).click();
+     const closed=await page.evaluate(()=>document.getElementById('prepareMissalOverlay').hidden);
+     mark(row,'prepare-missal-jump-closes-overlay',closed,{closed});
+   }else await page.evaluate(()=>setPrepareMissal(false));
    mark(row,'no-app-javascript-errors',row.errors.length===0,{errors:row.errors});
  }catch(e){mark(row,'test-run-completed',false,{error:String(e.message).slice(0,500)});}
  finally{await ctx.close();await browser.close();}
