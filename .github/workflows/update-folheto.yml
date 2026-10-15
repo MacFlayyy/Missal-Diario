@@ -66,6 +66,9 @@ jobs:
             sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-por poppler-utils
           fi
 
+      - name: Gerar ícones PNG do PWA
+        run: python scripts/build_app_icons.py
+
       - name: Gerar datas ainda não cadastradas por consulta litúrgica diária
         run: python scripts/generate_daily.py
 
