@@ -128,11 +128,23 @@ def check_saturday_preview():
         updated=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert updated["contentVersion"]!=version,"Correção diária não identificada"
         assert updated["lastSuccessfulUpdateAt"]!=publication_time,"Horário de correção não atualizado"
+
+        class SundayBeforeFive(RealDatetime):
+            @classmethod
+            def now(cls,tz=None):return cls(2026,10,11,4,15,tzinfo=tz)
+        module.datetime=SundayBeforeFive
+        module.save_status("2026-10-11",data)
+        status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+        assert status.get("sundayPreview")=="2026-10-11", (
+            "A atualização antecipada apagou a prévia liberada no sábado",status
+        )
+        assert status["availableThrough"]=="2026-10-11"
+
         module.datetime=Sunday
         module.save_status("2026-10-11",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert "sundayPreview" not in status,status
-    print("PASSOU prévia dominical: sábado sim, domingo não")
+    print("PASSOU prévia dominical: sábado, madrugada e domingo às 05h")
 
 def check_liturgical_integrity():
     import copy
