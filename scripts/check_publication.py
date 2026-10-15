@@ -61,6 +61,9 @@ def main():
             f"Dados locais desatualizados: status {local_date}, esperado {expected_date}"
         )
     expected_version = app_version((ROOT / "index.html").read_text(encoding="utf-8"))
+    expected_data = (ROOT / "data.js").read_text(encoding="utf-8")
+    if f'"{expected_date}"' not in expected_data:
+        raise SystemExit(f"data.js local não contém a data de publicação {expected_date}")
 
     for attempt in range(1, 7):
         try:
@@ -69,9 +72,13 @@ def main():
             remote_data = fetch("data.js", attempt)
             remote_html = fetch("index.html", attempt)
             actual_version = app_version(remote_html)
+            # Uma URL HTTP 200 com a data certa não basta: uma publicação
+            # parcial pode misturar HTML novo, status antigo e data.js obsoleto.
+            # Os arquivos remotos precisam corresponder aos revisados no job.
             ok = (
                 remote_date == expected_date
-                and f'"{expected_date}"' in remote_data
+                and remote_status == local_status
+                and remote_data == expected_data
                 and actual_version == expected_version
             )
             if ok:
@@ -101,7 +108,9 @@ def main():
                 return
             print(
                 f"Tentativa {attempt}: status={remote_date}, "
-                f"versão={actual_version}, esperado={expected_version}."
+                f"versão={actual_version}, esperado={expected_version}; "
+                f"status idêntico={remote_status == local_status}; "
+                f"dados idênticos={remote_data == expected_data}."
             )
         except Exception as exc:
             print(f"Tentativa {attempt}: {exc}")
