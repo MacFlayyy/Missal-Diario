@@ -12,6 +12,7 @@ on:
       - 'scripts/check_publication.py'
       - 'scripts/full-site-audit.cjs'
       - 'scripts/deep-visual-audit.cjs'
+      - 'scripts/today-public-audit.cjs'
       - '.github/workflows/full-site-audit.yml'
 permissions:
   contents: read
@@ -38,6 +39,9 @@ jobs:
       - name: Auditoria aprofundada de animação, datas especiais e acessibilidade
         if: always()
         run: node scripts/deep-visual-audit.cjs
+      - name: Auditar site público de hoje em 8 telas
+        if: always()
+        run: node scripts/today-public-audit.cjs
       - name: Anexar capturas e relatório
         if: always()
         uses: actions/upload-artifact@v4
@@ -46,5 +50,6 @@ jobs:
           path: |
             full-audit-results/
             deep-audit-results/
+            today-audit-results/
           if-no-files-found: warn
           retention-days: 14
