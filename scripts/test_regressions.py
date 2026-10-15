@@ -273,6 +273,15 @@ def check_cache_safety():
     assert "prepareEscapeHtml(page)" in html
     assert "const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);" in html
     assert "remote[1]!==local[1]" in html
+    assert 'const remoteVersion=raw.match(' in html
+    assert 'const versionChanged=Boolean(remoteVersion && remoteVersion!==localVersion);' in html
+    # Uma barra invertida duplicada dentro dessas regex impede a
+    # leitura do status publicado (erro encontrado na revisão aprofundada).
+    status_refresh=html.split("async function refreshIfDailyStatusAdvanced(){",1)[1].split('window.addEventListener("focus"',1)[0]
+    for line in status_refresh.splitlines():
+        if "raw.match(" in line:
+            assert "\\\\s" not in line, "Regex de atualização com barras duplicadas"
+    assert "tapes:[]" in html, "Fallback sem dados não deve inventar páginas do Missal"
     assert 'function cacheKey(url)' in sw and 'FILES.has(file)' in sw
     assert 'await store.put(key,res.clone())' in sw
     assert 'missal-romano-2023-pdf-4' not in html
