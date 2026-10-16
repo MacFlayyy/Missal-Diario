@@ -3620,6 +3620,15 @@ body.celebration-mode .celebration-exit-footer{
   border-top:1px solid rgba(125,23,34,.07);
   text-align:center;font-size:10px;line-height:1.4;
 }
+/* Garante o congelamento do plano de fundo também em WebKit/Safari,
+   independentemente do estilo calculado durante transições. */
+body.leaflet-reader-open{
+  position:fixed!important;
+  overflow:hidden!important;
+  width:100%!important;
+  overscroll-behavior:none!important;
+}
+html:has(body.leaflet-reader-open){overflow:hidden!important;overscroll-behavior:none!important}
 body.leaflet-reader-open .mobile-nav{z-index:145!important}
 @media(max-width:620px){
   .leaflet-reader-backdrop{display:none!important}
