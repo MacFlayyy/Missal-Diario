@@ -201,7 +201,7 @@ async function run(config){
    mark(row,'share-image-png-created',img?.size>15000&&img.type==='image/png',img);
    // As mídias externas não são necessárias para testar a UI do leitor.
    // Evita depender da rede da Arquidiocese durante a auditoria.
-   await page.route(/\\.pdf(?:[?#]|$)/i,route=>route.abort());
+   await page.route(/\.pdf(?:[?#]|$)/i,route=>route.abort());
    const expectedLeaflet=await page.evaluate(()=>getDominicalLeafletUrl());
    const leafletLaunch=config.w<=620?'#mobileLeafletBtn':'#desktopLeafletBtn';
    await page.locator(leafletLaunch).click();
@@ -217,7 +217,7 @@ async function run(config){
        readerBottom:p.bottom,navTop:n.top};
    });
    mark(row,'official-leaflet-opens-inside-site',
-     inlineReader.open&&/^https:\\/\\/.+\\.pdf(?:[?#]|$)/i.test(inlineReader.src||'')&&
+     inlineReader.open&&/^https:\/\/.+\.pdf(?:[?#]|$)/i.test(inlineReader.src||'')&&
      inlineReader.src===expectedLeaflet&&inlineReader.original===expectedLeaflet&&
      inlineReader.bodyLocked,inlineReader);
    if(config.w<=620){
