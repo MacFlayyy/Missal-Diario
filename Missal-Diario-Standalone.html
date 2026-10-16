@@ -3462,6 +3462,201 @@ body.celebration-mode .celebration-context h2{
     margin-bottom:8px!important;
   }
 }
+/* Navegação persistente e cabeçalho proporcional do Modo Celebração — v2.1 */
+body.celebration-mode .celebration-context{
+  padding:17px 20px 23px!important;
+  gap:16px!important;
+  align-items:stretch!important;
+}
+body.celebration-mode .celebration-header-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  min-width:0;
+  gap:12px;
+  padding:0 0 12px;
+  border-bottom:1px solid rgba(125,23,34,.09);
+}
+body.celebration-mode .celebration-header-row .celebration-context-date{
+  flex:1 1 auto;min-width:0;text-align:left!important;
+  margin:0!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+  overflow-wrap:anywhere;
+}
+body.celebration-mode .celebration-header-row .celebration-exit{
+  position:static!important;inset:auto!important;transform:none!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:none!important;align-self:center!important;
+  width:auto!important;min-width:64px!important;
+  height:36px!important;min-height:36px!important;
+  margin:0!important;padding:0 11px!important;
+  border:1px solid rgba(125,23,34,.17)!important;
+  border-radius:11px!important;
+  background:rgba(125,23,34,.045)!important;
+  color:var(--wine)!important;
+  box-shadow:none!important;
+  font-size:12px!important;line-height:1!important;
+  font-weight:750!important;letter-spacing:0!important;
+}
+body.celebration-mode .celebration-context h2{
+  width:100%!important;
+  margin:0 auto!important;
+  text-align:center!important;
+}
+body.celebration-mode .celebration-exit-footer{
+  margin-bottom:0!important;
+}
+@media(max-width:620px){
+  body.celebration-mode .mobile-nav{
+    display:grid!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+  body.celebration-mode{
+    padding-bottom:100px!important;
+  }
+  body.celebration-mode .shell{
+    padding-bottom:calc(116px + env(safe-area-inset-bottom))!important;
+  }
+  body.celebration-mode .celebration-context{
+    padding:14px 15px 19px!important;
+    gap:13px!important;
+  }
+  body.celebration-mode .celebration-header-row{gap:8px}
+  body.celebration-mode .celebration-header-row .celebration-context-date{
+    font-size:10.5px!important;letter-spacing:.04em!important;
+  }
+  body.celebration-mode .celebration-header-row .celebration-exit{
+    min-width:60px!important;
+    height:34px!important;min-height:34px!important;
+    padding:0 9px!important;font-size:11px!important;
+  }
+  /* Mais pode abrir sobre o conteúdo sem esconder a barra persistente. */
+  body.celebration-mode .mobile-more-backdrop,
+  body.celebration-mode .mobile-more-sheet{
+    display:block!important;
+  }
+  body.more-menu-open .mobile-nav{
+    display:grid!important;
+    z-index:96!important;
+  }
+  .mobile-more-sheet{
+    z-index:94!important;
+    bottom:calc(max(10px,env(safe-area-inset-bottom)) + 89px)!important;
+    max-height:calc(100dvh - 112px)!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain;
+  }
+  .mobile-more-backdrop{z-index:88!important}
+}
+@media(max-width:340px){
+  body.celebration-mode .celebration-header-row .celebration-context-date{
+    font-size:10px!important;
+  }
+  body.celebration-mode .celebration-header-row .celebration-exit{
+    min-width:56px!important;padding:0 8px!important;
+  }
+}
+/* Leitura integrada do folheto, com barra inferior persistente no celular. */
+.leaflet-reader[hidden],.leaflet-reader-backdrop[hidden]{display:none!important}
+.leaflet-reader-backdrop{
+  position:fixed;inset:0;z-index:128;
+  background:rgba(36,25,24,.62);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+}
+.leaflet-reader{
+  position:fixed;
+  top:16px;bottom:16px;left:50%;transform:translateX(-50%);
+  width:min(1100px,calc(100vw - 32px));
+  max-height:calc(100dvh - 32px);
+  z-index:130;
+  display:flex;flex-direction:column;min-height:0;
+  background:#fffdf8;border:1px solid rgba(125,23,34,.15);
+  border-radius:22px;overflow:hidden;
+  box-shadow:0 24px 78px rgba(31,21,18,.27);
+}
+.leaflet-reader-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex:none;padding:13px 17px;
+  border-bottom:1px solid rgba(125,23,34,.11);
+}
+.leaflet-reader-heading{min-width:0}
+.leaflet-reader-heading span{
+  display:block;color:#76635e;font-size:9px;
+  font-weight:850;letter-spacing:.085em;
+}
+.leaflet-reader-heading h2{
+  margin:3px 0 0;color:#332b27;
+  font-size:17px;line-height:1.2;letter-spacing:-.025em;
+}
+.leaflet-reader-actions{display:flex;gap:7px;flex:none;align-items:center}
+.leaflet-reader-actions a,.leaflet-reader-actions button{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-height:42px;padding:0 13px;
+  border-radius:12px;
+  font-family:inherit;font-size:12px;font-weight:750;line-height:1.15;
+  text-decoration:none;cursor:pointer;
+}
+.leaflet-reader-external{
+  color:var(--wine)!important;
+  background:rgba(125,23,34,.06);
+  border:1px solid rgba(125,23,34,.12);
+}
+.leaflet-reader-close{
+  color:#fff;background:var(--wine);border:1px solid var(--wine);
+}
+.leaflet-reader-pages{
+  flex:1 1 auto;min-height:0;background:#f7f4ef;
+}
+#leafletReaderFrame{
+  display:block;width:100%;height:100%;
+  min-height:0;border:0;background:#f7f4ef;
+}
+.leaflet-reader-help{
+  flex:none;margin:0;padding:8px 14px;
+  background:#fffdf8;color:#62564f;
+  border-top:1px solid rgba(125,23,34,.07);
+  text-align:center;font-size:10px;line-height:1.4;
+}
+/* Garante o congelamento do plano de fundo também em WebKit/Safari,
+   independentemente do estilo calculado durante transições. */
+body.leaflet-reader-open{
+  position:fixed!important;
+  overflow:hidden!important;
+  width:100%!important;
+  overscroll-behavior:none!important;
+}
+html:has(body.leaflet-reader-open){overflow:hidden!important;overscroll-behavior:none!important}
+body.leaflet-reader-open .mobile-nav{z-index:145!important}
+@media(max-width:620px){
+  .leaflet-reader-backdrop{display:none!important}
+  .leaflet-reader{
+    inset:max(0px,env(safe-area-inset-top)) 0
+      calc(max(10px,env(safe-area-inset-bottom)) + 88px) 0;
+    transform:none;width:100%;max-height:none;
+    border:0;border-radius:0;box-shadow:none;
+    z-index:140;
+  }
+  .leaflet-reader-header{gap:7px;padding:11px 10px}
+  .leaflet-reader-heading span{font-size:8px}
+  .leaflet-reader-heading h2{font-size:14px}
+  .leaflet-reader-actions{gap:5px}
+  .leaflet-reader-actions a,.leaflet-reader-actions button{
+    padding:0 9px;min-height:39px;font-size:10.5px;
+    border-radius:10px;
+  }
+  .leaflet-reader-help{font-size:9.5px;padding:7px 8px}
+}
+@media(max-width:355px){
+  .leaflet-reader-heading h2{font-size:13px}
+  .leaflet-reader-actions a,.leaflet-reader-actions button{font-size:10px;padding:0 7px}
+}
+@media(prefers-reduced-motion:reduce){
+  .leaflet-reader,.leaflet-reader-backdrop{transition:none!important}
+}
 </style>
 </head>
 <body>
@@ -3601,6 +3796,27 @@ body.celebration-mode .celebration-context h2{
       <span>Mais</span>
     </button>
   </nav>
+
+  <!-- O folheto oficial abre no próprio Missal Diário, sem alterar a regra
+       de seleção entre folheto do dia, domingo atual e domingo anterior. -->
+  <div class="leaflet-reader-backdrop" id="leafletReaderBackdrop" hidden></div>
+  <section class="leaflet-reader" id="leafletReader" role="region" aria-labelledby="leafletReaderTitle" hidden>
+    <header class="leaflet-reader-header">
+      <div class="leaflet-reader-heading">
+        <span>FOLHETO LITÚRGICO</span>
+        <h2 id="leafletReaderTitle">O Povo de Deus</h2>
+      </div>
+      <div class="leaflet-reader-actions">
+        <a id="leafletReaderExternal" class="leaflet-reader-external"
+           href="#" target="_blank" rel="noopener noreferrer" aria-label="Abrir o PDF original do folheto em outra aba">Abrir original ↗</a>
+        <button id="leafletReaderClose" class="leaflet-reader-close" type="button" aria-label="Fechar folheto e voltar ao Missal">Fechar ×</button>
+      </div>
+    </header>
+    <div class="leaflet-reader-pages">
+      <iframe id="leafletReaderFrame" title="Folheto litúrgico O Povo de Deus em PDF" loading="eager"></iframe>
+    </div>
+    <p class="leaflet-reader-help">Se o PDF não aparecer no seu navegador, toque em <strong>Abrir original</strong>.</p>
+  </section>
 
   <div class="mobile-more-backdrop" id="mobileMoreBackdrop" hidden></div>
   <section class="mobile-more-sheet" id="mobileMoreSheet" role="dialog" aria-modal="true" aria-labelledby="mobileMoreTitle" inert aria-hidden="true">
@@ -13837,21 +14053,47 @@ function getDominicalLeafletUrl(){
   return "";
 }
 
+let leafletReaderPreviousFocus=null;
+function closeLeafletReader(restoreFocus=true){
+  const panel=document.getElementById("leafletReader");
+  if(!panel || panel.hidden) return;
+  panel.hidden=true;
+  document.getElementById("leafletReaderBackdrop").hidden=true;
+  document.getElementById("leafletReaderFrame").removeAttribute("src");
+  document.body.classList.remove("leaflet-reader-open");
+  mobileLeafletSelected=false;
+  unlockCalendarBackground();
+  syncMarkingsActiveTab();
+  if(restoreFocus && leafletReaderPreviousFocus?.isConnected)
+    leafletReaderPreviousFocus.focus({preventScroll:true});
+  leafletReaderPreviousFocus=null;
+}
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
-  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return;}
-  const link=document.createElement("a");
-  link.href=url;
-  link.target="_blank";
-  link.rel="noopener noreferrer";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
+  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
+  if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
+  if(!document.getElementById("dateMenu").hidden) closeDateMenu();
+  if(!document.getElementById("prepareMissalOverlay").hidden) setPrepareMissal(false);
+  const panel=document.getElementById("leafletReader");
+  if(panel.hidden) leafletReaderPreviousFocus=document.activeElement;
+  document.getElementById("leafletReaderExternal").href=url;
+  const frame=document.getElementById("leafletReaderFrame");
+  if(frame.getAttribute("src")!==url) frame.src=url;
+  panel.hidden=false;
+  document.getElementById("leafletReaderBackdrop").hidden=false;
+  document.body.classList.add("leaflet-reader-open");
+  lockCalendarBackground();
+  mobileLeafletSelected=true;
+  setMobileActiveTab("mobileLeafletBtn");
+  document.getElementById("leafletReaderClose").focus({preventScroll:true});
+  return true;
 }
-
+document.getElementById("leafletReaderClose")?.addEventListener("click",()=>closeLeafletReader());
+document.getElementById("leafletReaderBackdrop")?.addEventListener("click",()=>closeLeafletReader());
 document.getElementById("desktopLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
 
 function setMoreMenu(open){
+  if(open && !document.getElementById("leafletReader")?.hidden) closeLeafletReader(false);
   const sheet=document.getElementById("mobileMoreSheet");
   const backdrop=document.getElementById("mobileMoreBackdrop");
   const trigger=document.getElementById("mobileMoreBtn");
@@ -13867,20 +14109,33 @@ function setMoreMenu(open){
   if(open) document.getElementById("mobileMoreClose")?.focus();
   else if(wasOpen || focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
+  if(open) mobileLeafletSelected=false;
   setMobileActiveTab(open?"mobileMoreBtn":null);
-  if(!open) requestAnimationFrame(syncMarkingsActiveTab);
+  // Ao fechar Mais, restaurar a aba anterior imediatamente, sem piscar.
+  if(!open) syncMarkingsActiveTab();
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
 
+let mobileLeafletSelected=false;
 function setMobileActiveTab(id){
   document.querySelectorAll(".mobile-nav button").forEach(button=>{
-    button.classList.toggle("active",Boolean(id)&&button.id===id);
+    const active=Boolean(id)&&button.id===id;
+    button.classList.toggle("active",active);
+    if(active) button.setAttribute("aria-current","page");
+    else button.removeAttribute("aria-current");
   });
 }
 function syncMarkingsActiveTab(){
-  if(document.body.classList.contains("more-menu-open") ||
-     document.body.classList.contains("celebration-mode")) return;
+  if(document.body.classList.contains("more-menu-open")) return;
+  if(mobileLeafletSelected){
+    setMobileActiveTab("mobileLeafletBtn");
+    return;
+  }
+  if(document.body.classList.contains("celebration-mode")){
+    setMobileActiveTab("mobileCelebrationBtn");
+    return;
+  }
   const tapes=document.getElementById("tapes");
   const rect=tapes?.getBoundingClientRect();
   const markingsVisible=Boolean(rect && rect.top<window.innerHeight*.64 &&
@@ -13890,14 +14145,23 @@ function syncMarkingsActiveTab(){
 window.addEventListener("scroll",syncMarkingsActiveTab,{passive:true});
 window.addEventListener("resize",syncMarkingsActiveTab,{passive:true});
 document.getElementById("mobileMarkingsBtn")?.addEventListener("click",()=>{
+  if(!document.getElementById("leafletReader").hidden) closeLeafletReader(false);
+  if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
+  if(document.body.classList.contains("celebration-mode")) setCelebrationMode(false);
+  mobileLeafletSelected=false;
+  setMobileActiveTab("mobileMarkingsBtn");
   scrollToMarkings();
   requestAnimationFrame(syncMarkingsActiveTab);
 });
 document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
-  setMobileActiveTab("mobileCelebrationBtn");
+  if(!document.getElementById("leafletReader").hidden) closeLeafletReader(false);
+  mobileLeafletSelected=false;
   setCelebrationMode(true);
 });
-document.getElementById("mobileLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
+document.getElementById("mobileLeafletBtn")?.addEventListener("click",()=>{
+  if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
+  openDominicalLeaflet();
+});
 document.getElementById("mobileMoreBtn")?.addEventListener("click",()=>setMoreMenu(true));
 requestAnimationFrame(syncMarkingsActiveTab);
 document.getElementById("mobileMoreClose")?.addEventListener("click",()=>setMoreMenu(false));
@@ -13943,7 +14207,20 @@ document.getElementById("todayBtn")?.addEventListener("click",()=>{
 
 const celebrationContextNode=document.getElementById("celebrationContext");
 const celebrationExitNode=document.getElementById("celebrationModeExit");
-if(celebrationContextNode && celebrationExitNode) celebrationContextNode.prepend(celebrationExitNode);
+if(celebrationContextNode && celebrationExitNode){
+  // Uma única linha, com data à esquerda e ação discreta à direita.
+  // A data nunca fica sobreposta ao botão Sair, nem no celular menor.
+  const celebrationDateNode=document.getElementById("celebrationModeDate");
+  const headerRow=document.createElement("div");
+  headerRow.className="celebration-header-row";
+  if(celebrationDateNode){
+    celebrationContextNode.insertBefore(headerRow,celebrationDateNode);
+    headerRow.appendChild(celebrationDateNode);
+  }else{
+    celebrationContextNode.prepend(headerRow);
+  }
+  headerRow.appendChild(celebrationExitNode);
+}
 const tapesNode=document.getElementById("tapes");
 if(tapesNode){
   const bottomExit=document.createElement("button");
@@ -13954,14 +14231,26 @@ if(tapesNode){
   tapesNode.insertAdjacentElement("afterend",bottomExit);
 }
 function setCelebrationMode(on){
+  if(on && document.body.classList.contains("more-menu-open")) setMoreMenu(false);
   document.body.classList.toggle("celebration-mode",on);
-  setMobileActiveTab(null);
+  mobileLeafletSelected=false;
+  setMobileActiveTab(on?"mobileCelebrationBtn":null);
   if(!on) requestAnimationFrame(syncMarkingsActiveTab);
   if(on) window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
 document.getElementById("celebrationModeBtn")?.addEventListener("click",()=>setCelebrationMode(true));
 document.getElementById("celebrationModeExit")?.addEventListener("click",()=>setCelebrationMode(false));
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){setPrepareMissal(false);setMoreMenu(false);setCelebrationMode(false);}});
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Escape") return;
+  if(!document.getElementById("leafletReader").hidden){
+    closeLeafletReader();
+    e.preventDefault();
+    return;
+  }
+  setPrepareMissal(false);
+  setMoreMenu(false);
+  setCelebrationMode(false);
+});
 
 function updateTodayButton(){
   const btn=document.getElementById("todayBtn");
@@ -14056,7 +14345,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261016-4513d5b104c8",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261016-c2eb8920dbf9",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
