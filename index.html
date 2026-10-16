@@ -5604,13 +5604,9 @@ function leafletFallbackFrame(original,reason){
   pages.hidden=true;
   status.hidden=false;
   status.textContent="Visualização alternativa do folheto. Se necessário, use Abrir original.";
-  // Google apresenta páginas com largura adaptável; o navegador nativo
-  // continua disponível pelo link original. No computador preferir o PDF.
-  const mobile=isMobileLeafletDevice();
-  const viewer=mobile
-    ? "https://docs.google.com/gview?embedded=1&url="+encodeURIComponent(original)
-    : original+"#view=FitH";
-  frame.src=viewer;
+  // Sem republicação nem entrega do folheto a visualizadores terceirizados.
+  // O desktop recebe somente a URL original da Arquidiocese.
+  frame.src=original+"#view=FitH";
   frame.hidden=false;
   frame.setAttribute("data-official-pdf",original);
   if(reason)console.warn("Folheto: usando visualizador alternativo",reason);
@@ -5705,6 +5701,23 @@ function closeLeafletReader(restoreFocus=true){
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
   if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
+  // Safari/Android podem ampliar, cortar ou mostrar só a primeira página
+  // quando um PDF externo é incorporado. Sem autorização para hospedar
+  // cópias, no celular a leitura completa deve usar o PDF oficial.
+  // O clique é síncrono à ação do usuário para evitar bloqueadores de pop-up.
+  if(isMobileLeafletDevice()){
+    const link=document.createElement("a");
+    link.href=url;
+    link.target="_blank";
+    link.rel="noopener noreferrer";
+    link.setAttribute("aria-label","Abrir o folheto oficial completo em PDF");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    mobileLeafletSelected=false;
+    syncMarkingsActiveTab();
+    return true;
+  }
   if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
   if(!document.getElementById("dateMenu").hidden) closeDateMenu();
   if(!document.getElementById("prepareMissalOverlay").hidden) setPrepareMissal(false);
@@ -5800,7 +5813,10 @@ document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
   mobileLeafletSelected=false;
   setCelebrationMode(true);
 });
-document.getElementById("mobileLeafletBtn")?.addEventListener("click",()=>{
+const mobileLeafletButton=document.getElementById("mobileLeafletBtn");
+mobileLeafletButton?.setAttribute("title","Abrir o PDF oficial completo da Arquidiocese");
+mobileLeafletButton?.setAttribute("aria-label","Abrir folheto oficial completo em nova aba");
+mobileLeafletButton?.addEventListener("click",()=>{
   if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
   openDominicalLeaflet();
 });
