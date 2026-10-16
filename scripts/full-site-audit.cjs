@@ -226,7 +226,7 @@ async function run(config){
      });
      mark(row,'celebration-bottom-tabs-persist-and-highlight',
        navState.display==='grid'&&navState.visible&&navState.active.length===1&&
-       navState.active[0]==='mobileCelebrationBtn'&&navState.bottom<=innerHeight+2,navState);
+       navState.active[0]==='mobileCelebrationBtn'&&navState.bottom<=config.h+2,navState);
      await page.locator('#mobileMoreBtn').click();
      const moreState=await page.evaluate(()=>{
        const nav=document.querySelector('.mobile-nav'),sheet=document.getElementById('mobileMoreSheet');
