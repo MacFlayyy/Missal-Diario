@@ -211,9 +211,40 @@ async function run(config){
      const exitLayout=await page.evaluate(()=>{
        const a=document.getElementById('celebrationModeExit').getBoundingClientRect();
        const b=document.getElementById('celebrationModeDate').getBoundingClientRect();
-       return {exitBottom:a.bottom,dateTop:b.top,delta:b.top-a.bottom};
+       const h=document.querySelector('.celebration-header-row').getBoundingClientRect();
+       const overlap=a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom;
+       return {exit:{left:a.left,right:a.right,top:a.top,bottom:a.bottom},date:{left:b.left,right:b.right,top:b.top,bottom:b.bottom},
+         row:{left:h.left,right:h.right},overlap};
      });
-     mark(row,'celebration-exit-above-date-no-overlap',exitLayout.delta>=2,exitLayout);
+     mark(row,'celebration-exit-balanced-beside-date',!exitLayout.overlap&&
+       exitLayout.exit.left>=exitLayout.date.right-2&&
+       exitLayout.exit.right<=exitLayout.row.right+2,exitLayout);
+     const navState=await page.evaluate(()=>{
+       const el=document.querySelector('.mobile-nav'),bounds=el.getBoundingClientRect();
+       return {display:getComputedStyle(el).display,visible:bounds.width>0&&bounds.height>0,
+         active:[...el.querySelectorAll('button.active')].map(b=>b.id),bottom:bounds.bottom};
+     });
+     mark(row,'celebration-bottom-tabs-persist-and-highlight',
+       navState.display==='grid'&&navState.visible&&navState.active.length===1&&
+       navState.active[0]==='mobileCelebrationBtn'&&navState.bottom<=innerHeight+2,navState);
+     await page.locator('#mobileMoreBtn').click();
+     const moreState=await page.evaluate(()=>{
+       const nav=document.querySelector('.mobile-nav'),sheet=document.getElementById('mobileMoreSheet');
+       const a=nav.getBoundingClientRect(),b=sheet.getBoundingClientRect();
+       return {active:[...nav.querySelectorAll('button.active')].map(el=>el.id),
+         navTop:a.top,navBottom:a.bottom,sheetBottom:b.bottom,
+         sheetVisible:sheet.classList.contains('open'),navZ:getComputedStyle(nav).zIndex};
+     });
+     mark(row,'celebration-more-keeps-tabs-visible-and-active',
+       moreState.sheetVisible&&moreState.active.length===1&&moreState.active[0]==='mobileMoreBtn'&&
+       moreState.sheetBottom<=moreState.navTop+2,moreState);
+     await page.locator('#mobileMoreClose').click();
+     mark(row,'celebration-tab-restored-after-more',
+       await page.locator('#mobileCelebrationBtn').evaluate(el=>el.classList.contains('active')));
+     await page.locator('#mobileMarkingsBtn').click();
+     mark(row,'markings-tab-exits-celebration',
+       !await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
+     await page.locator('#mobileCelebrationBtn').click();
      await page.screenshot({path:path.join(ROOT,config.name+'-celebration.png'),fullPage:false});
      await page.locator('#celebrationModeExit').click();
      mark(row,'celebration-mode-exits',!await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
@@ -223,9 +254,10 @@ async function run(config){
      const exitLayout=await page.evaluate(()=>{
        const a=document.getElementById('celebrationModeExit').getBoundingClientRect();
        const b=document.getElementById('celebrationModeDate').getBoundingClientRect();
-       return {exitBottom:a.bottom,dateTop:b.top,delta:b.top-a.bottom};
+       return {exitLeft:a.left,dateRight:b.right,intersects:a.left<b.right&&b.left<a.right&&a.top<b.bottom&&b.top<a.bottom};
      });
-     mark(row,'desktop-celebration-exit-above-date-no-overlap',exitLayout.delta>=2,exitLayout);
+     mark(row,'desktop-celebration-exit-beside-date',
+       !exitLayout.intersects&&exitLayout.exitLeft>=exitLayout.dateRight-2,exitLayout);
      await page.screenshot({path:path.join(ROOT,config.name+'-celebration.png'),fullPage:false});
      await page.locator('#celebrationModeExit').click();
    }
