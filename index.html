@@ -3461,6 +3461,104 @@ body.celebration-mode .celebration-context h2{
     margin-bottom:8px!important;
   }
 }
+/* Navegação persistente e cabeçalho proporcional do Modo Celebração — v2.1 */
+body.celebration-mode .celebration-context{
+  padding:17px 20px 23px!important;
+  gap:16px!important;
+  align-items:stretch!important;
+}
+body.celebration-mode .celebration-header-row{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  width:100%!important;
+  min-width:0;
+  gap:12px;
+  padding:0 0 12px;
+  border-bottom:1px solid rgba(125,23,34,.09);
+}
+body.celebration-mode .celebration-header-row .celebration-context-date{
+  flex:1 1 auto;min-width:0;text-align:left!important;
+  margin:0!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+  overflow-wrap:anywhere;
+}
+body.celebration-mode .celebration-header-row .celebration-exit{
+  position:static!important;inset:auto!important;transform:none!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  flex:none!important;align-self:center!important;
+  width:auto!important;min-width:64px!important;
+  height:36px!important;min-height:36px!important;
+  margin:0!important;padding:0 11px!important;
+  border:1px solid rgba(125,23,34,.17)!important;
+  border-radius:11px!important;
+  background:rgba(125,23,34,.045)!important;
+  color:var(--wine)!important;
+  box-shadow:none!important;
+  font-size:12px!important;line-height:1!important;
+  font-weight:750!important;letter-spacing:0!important;
+}
+body.celebration-mode .celebration-context h2{
+  width:100%!important;
+  margin:0 auto!important;
+  text-align:center!important;
+}
+body.celebration-mode .celebration-exit-footer{
+  margin-bottom:0!important;
+}
+@media(max-width:620px){
+  body.celebration-mode .mobile-nav{
+    display:grid!important;
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+  body.celebration-mode{
+    padding-bottom:100px!important;
+  }
+  body.celebration-mode .shell{
+    padding-bottom:calc(116px + env(safe-area-inset-bottom))!important;
+  }
+  body.celebration-mode .celebration-context{
+    padding:14px 15px 19px!important;
+    gap:13px!important;
+  }
+  body.celebration-mode .celebration-header-row{gap:8px}
+  body.celebration-mode .celebration-header-row .celebration-context-date{
+    font-size:10.5px!important;letter-spacing:.04em!important;
+  }
+  body.celebration-mode .celebration-header-row .celebration-exit{
+    min-width:60px!important;
+    height:34px!important;min-height:34px!important;
+    padding:0 9px!important;font-size:11px!important;
+  }
+  /* Mais pode abrir sobre o conteúdo sem esconder a barra persistente. */
+  body.celebration-mode .mobile-more-backdrop,
+  body.celebration-mode .mobile-more-sheet{
+    display:block!important;
+  }
+  body.more-menu-open .mobile-nav{
+    display:grid!important;
+    z-index:96!important;
+  }
+  .mobile-more-sheet{
+    z-index:94!important;
+    bottom:calc(max(10px,env(safe-area-inset-bottom)) + 89px)!important;
+    max-height:calc(100dvh - 112px)!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain;
+  }
+  .mobile-more-backdrop{z-index:88!important}
+}
+@media(max-width:340px){
+  body.celebration-mode .celebration-header-row .celebration-context-date{
+    font-size:10px!important;
+  }
+  body.celebration-mode .celebration-header-row .celebration-exit{
+    min-width:56px!important;padding:0 8px!important;
+  }
+}
 </style>
 </head>
 <body>
@@ -5219,7 +5317,7 @@ function getDominicalLeafletUrl(){
 
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
-  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return;}
+  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
   const link=document.createElement("a");
   link.href=url;
   link.target="_blank";
@@ -5227,6 +5325,7 @@ function openDominicalLeaflet(){
   document.body.appendChild(link);
   link.click();
   link.remove();
+  return true;
 }
 
 document.getElementById("desktopLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
@@ -5247,20 +5346,32 @@ function setMoreMenu(open){
   if(open) document.getElementById("mobileMoreClose")?.focus();
   else if(wasOpen || focusWasInside) trigger.focus();
   document.body.classList.toggle("more-menu-open",open);
+  if(open) mobileLeafletSelected=false;
   setMobileActiveTab(open?"mobileMoreBtn":null);
   if(!open) requestAnimationFrame(syncMarkingsActiveTab);
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
 
+let mobileLeafletSelected=false;
 function setMobileActiveTab(id){
   document.querySelectorAll(".mobile-nav button").forEach(button=>{
-    button.classList.toggle("active",Boolean(id)&&button.id===id);
+    const active=Boolean(id)&&button.id===id;
+    button.classList.toggle("active",active);
+    if(active) button.setAttribute("aria-current","page");
+    else button.removeAttribute("aria-current");
   });
 }
 function syncMarkingsActiveTab(){
-  if(document.body.classList.contains("more-menu-open") ||
-     document.body.classList.contains("celebration-mode")) return;
+  if(document.body.classList.contains("more-menu-open")) return;
+  if(document.body.classList.contains("celebration-mode")){
+    setMobileActiveTab("mobileCelebrationBtn");
+    return;
+  }
+  if(mobileLeafletSelected){
+    setMobileActiveTab("mobileLeafletBtn");
+    return;
+  }
   const tapes=document.getElementById("tapes");
   const rect=tapes?.getBoundingClientRect();
   const markingsVisible=Boolean(rect && rect.top<window.innerHeight*.64 &&
@@ -5270,14 +5381,25 @@ function syncMarkingsActiveTab(){
 window.addEventListener("scroll",syncMarkingsActiveTab,{passive:true});
 window.addEventListener("resize",syncMarkingsActiveTab,{passive:true});
 document.getElementById("mobileMarkingsBtn")?.addEventListener("click",()=>{
+  if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
+  if(document.body.classList.contains("celebration-mode")) setCelebrationMode(false);
+  mobileLeafletSelected=false;
+  setMobileActiveTab("mobileMarkingsBtn");
   scrollToMarkings();
   requestAnimationFrame(syncMarkingsActiveTab);
 });
 document.getElementById("mobileCelebrationBtn")?.addEventListener("click",()=>{
-  setMobileActiveTab("mobileCelebrationBtn");
+  mobileLeafletSelected=false;
   setCelebrationMode(true);
 });
-document.getElementById("mobileLeafletBtn")?.addEventListener("click",openDominicalLeaflet);
+document.getElementById("mobileLeafletBtn")?.addEventListener("click",()=>{
+  if(document.body.classList.contains("more-menu-open")) setMoreMenu(false);
+  const opened=openDominicalLeaflet();
+  if(opened){
+    mobileLeafletSelected=true;
+    setMobileActiveTab("mobileLeafletBtn");
+  }
+});
 document.getElementById("mobileMoreBtn")?.addEventListener("click",()=>setMoreMenu(true));
 requestAnimationFrame(syncMarkingsActiveTab);
 document.getElementById("mobileMoreClose")?.addEventListener("click",()=>setMoreMenu(false));
@@ -5323,7 +5445,20 @@ document.getElementById("todayBtn")?.addEventListener("click",()=>{
 
 const celebrationContextNode=document.getElementById("celebrationContext");
 const celebrationExitNode=document.getElementById("celebrationModeExit");
-if(celebrationContextNode && celebrationExitNode) celebrationContextNode.prepend(celebrationExitNode);
+if(celebrationContextNode && celebrationExitNode){
+  // Uma única linha, com data à esquerda e ação discreta à direita.
+  // A data nunca fica sobreposta ao botão Sair, nem no celular menor.
+  const celebrationDateNode=document.getElementById("celebrationModeDate");
+  const headerRow=document.createElement("div");
+  headerRow.className="celebration-header-row";
+  if(celebrationDateNode){
+    celebrationContextNode.insertBefore(headerRow,celebrationDateNode);
+    headerRow.appendChild(celebrationDateNode);
+  }else{
+    celebrationContextNode.prepend(headerRow);
+  }
+  headerRow.appendChild(celebrationExitNode);
+}
 const tapesNode=document.getElementById("tapes");
 if(tapesNode){
   const bottomExit=document.createElement("button");
@@ -5334,8 +5469,10 @@ if(tapesNode){
   tapesNode.insertAdjacentElement("afterend",bottomExit);
 }
 function setCelebrationMode(on){
+  if(on && document.body.classList.contains("more-menu-open")) setMoreMenu(false);
   document.body.classList.toggle("celebration-mode",on);
-  setMobileActiveTab(null);
+  mobileLeafletSelected=false;
+  setMobileActiveTab(on?"mobileCelebrationBtn":null);
   if(!on) requestAnimationFrame(syncMarkingsActiveTab);
   if(on) window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
 }
