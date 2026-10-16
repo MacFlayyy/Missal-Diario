@@ -199,6 +199,55 @@ async function run(config){
    try{img=await page.evaluate(async()=>{const b=await buildShareImageBlob();return {size:b?.size,type:b?.type};});}
    catch(e){img={error:String(e)}}
    mark(row,'share-image-png-created',img?.size>15000&&img.type==='image/png',img);
+   // As mídias externas não são necessárias para testar a UI do leitor.
+   // Evita depender da rede da Arquidiocese durante a auditoria.
+   await page.route(/\\.pdf(?:[?#]|$)/i,route=>route.abort());
+   const expectedLeaflet=await page.evaluate(()=>getDominicalLeafletUrl());
+   const leafletLaunch=config.w<=620?'#mobileLeafletBtn':'#desktopLeafletBtn';
+   await page.locator(leafletLaunch).click();
+   const inlineReader=await page.evaluate(()=>{
+     const panel=document.getElementById('leafletReader'),frame=document.getElementById('leafletReaderFrame');
+     const original=document.getElementById('leafletReaderExternal');
+     const nav=document.querySelector('.mobile-nav'),p=panel.getBoundingClientRect();
+     const n=nav.getBoundingClientRect();
+     return {open:!panel.hidden,src:frame.getAttribute('src'),original:original.href,
+       bodyLocked:getComputedStyle(document.body).position==='fixed',
+       navDisplay:getComputedStyle(nav).display,
+       navSelected:[...nav.querySelectorAll('button.active')].map(el=>el.id),
+       readerBottom:p.bottom,navTop:n.top};
+   });
+   mark(row,'official-leaflet-opens-inside-site',
+     inlineReader.open&&/^https:\\/\\/.+\\.pdf(?:[?#]|$)/i.test(inlineReader.src||'')&&
+     inlineReader.src===expectedLeaflet&&inlineReader.original===expectedLeaflet&&
+     inlineReader.bodyLocked,inlineReader);
+   if(config.w<=620){
+     mark(row,'leaflet-tab-persists-below-pdf-viewer',
+       inlineReader.navDisplay==='grid'&&
+       inlineReader.navSelected.length===1&&inlineReader.navSelected[0]==='mobileLeafletBtn'&&
+       inlineReader.readerBottom<=inlineReader.navTop+3,inlineReader);
+   }
+   await page.locator('#leafletReaderClose').click();
+   const closedReader=await page.evaluate(()=>({
+     hidden:document.getElementById('leafletReader').hidden,
+     src:document.getElementById('leafletReaderFrame').getAttribute('src'),
+     unlocked:getComputedStyle(document.body).position!=='fixed',
+     active:[...document.querySelectorAll('.mobile-nav button.active')].map(el=>el.id)
+   }));
+   mark(row,'leaflet-reader-closes-cleans-frame-restores-scroll',
+     closedReader.hidden&&closedReader.src===null&&closedReader.unlocked,closedReader);
+   if(config.w<=620){
+     await page.locator('#mobileLeafletBtn').click();
+     await page.locator('#mobileCelebrationBtn').click();
+     const switched=await page.evaluate(()=>({
+       closed:document.getElementById('leafletReader').hidden,
+       celebration:document.body.classList.contains('celebration-mode'),
+       active:[...document.querySelectorAll('.mobile-nav button.active')].map(el=>el.id)
+     }));
+     mark(row,'leaflet-to-celebration-switch-keeps-navigation',
+       switched.closed&&switched.celebration&&switched.active.length===1&&
+       switched.active[0]==='mobileCelebrationBtn',switched);
+     await page.locator('#celebrationModeExit').click();
+   }
    if(config.w<=620){
      await page.locator('#mobileMoreBtn').click();
      await page.waitForFunction(()=>{let e=document.querySelector('#mobileMoreSheet');return e?.classList.contains('open')&&e.getBoundingClientRect().bottom<=innerHeight+3;},null,{timeout:4500}).catch(()=>{});
