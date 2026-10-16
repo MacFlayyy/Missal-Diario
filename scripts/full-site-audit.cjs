@@ -228,6 +228,13 @@ async function run(config){
        navState.display==='grid'&&navState.visible&&navState.active.length===1&&
        navState.active[0]==='mobileCelebrationBtn'&&navState.bottom<=config.h+2,navState);
      await page.locator('#mobileMoreBtn').click();
+     // A transição de 260ms não pode ser medida no quadro inicial.
+     await page.waitForFunction(()=>{
+       const sheet=document.getElementById('mobileMoreSheet');
+       const nav=document.querySelector('.mobile-nav');
+       return sheet?.classList.contains('open')&&
+         sheet.getBoundingClientRect().bottom<=nav.getBoundingClientRect().top+2;
+     },null,{timeout:2400}).catch(()=>{});
      const moreState=await page.evaluate(()=>{
        const nav=document.querySelector('.mobile-nav'),sheet=document.getElementById('mobileMoreSheet');
        const a=nav.getBoundingClientRect(),b=sheet.getBoundingClientRect();
