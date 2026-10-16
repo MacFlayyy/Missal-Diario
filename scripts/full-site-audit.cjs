@@ -56,6 +56,22 @@ async function run(config){
    mark(row,'page-numbers-centered-in-cards',
      pageAlignment.length===5&&pageAlignment.every(v=>v.delta<=1.5&&v.align==='center'&&v.textAlign==='center'),
      {alignment:pageAlignment});
+   // Captura o problema relatado: título jamais ocupa a área do
+   // ícone ou do badge da página, mesmo em desktop com 5 fitas.
+   const tapeHeaders=await page.evaluate(()=>[...document.querySelectorAll('#tapes .tape')].map(t=>{
+     const title=t.querySelector('.tape-heading > h4')?.getBoundingClientRect();
+     const page=t.querySelector('.tape-heading-top .page')?.getBoundingClientRect();
+     const icon=t.querySelector('.tape-heading-top .tape-icon')?.getBoundingClientRect();
+     return {title:!!title,page:!!page,icon:!!icon,clear:!!title&&!!page&&!!icon&&
+       title.top>=Math.max(page.bottom,icon.bottom)+1,
+       pageCenter:page?(page.left+page.right)/2:null,
+       columns:getComputedStyle(document.querySelector('.tapes')).gridTemplateColumns};
+   }));
+   mark(row,'desktop-tape-title-does-not-overlap-page-or-icon',
+     tapeHeaders.length===5&&tapeHeaders.every(t=>t.clear),
+     {headers:tapeHeaders});
+   if(config.w>=951)mark(row,'desktop-tapes-use-readable-responsive-columns',
+     tapeHeaders[0]?.columns.split(' ').length===3,{columns:tapeHeaders[0]?.columns});
    if(config.w<=620){
      const initialTab=await page.locator('#mobileMarkingsBtn').evaluate(el=>el.classList.contains('active'));
      mark(row,'markings-tab-not-permanently-active',!initialTab,{active:initialTab});
@@ -210,16 +226,19 @@ async function run(config){
      const original=document.getElementById('leafletReaderExternal');
      const nav=document.querySelector('.mobile-nav'),p=panel.getBoundingClientRect();
      const n=nav.getBoundingClientRect();
-     return {open:!panel.hidden,src:frame.getAttribute('src'),original:original.href,
+     return {open:!panel.hidden,src:frame.getAttribute('src'),official:frame.getAttribute('data-official-pdf'),
+       original:original.href,
+       responsivePages:typeof renderLeafletPages==='function'&&!!document.getElementById('leafletCanvasPages'),
+       loading:!document.getElementById('leafletRenderStatus').hidden,
        bodyLocked:getComputedStyle(document.body).position==='fixed',
        navDisplay:getComputedStyle(nav).display,
        navSelected:[...nav.querySelectorAll('button.active')].map(el=>el.id),
        readerBottom:p.bottom,navTop:n.top};
    });
    mark(row,'official-leaflet-opens-inside-site',
-     inlineReader.open&&/^https:\/\/.+\.pdf(?:[?#]|$)/i.test(inlineReader.src||'')&&
-     inlineReader.src===expectedLeaflet&&inlineReader.original===expectedLeaflet&&
-     inlineReader.bodyLocked,inlineReader);
+     inlineReader.open&&/^https:\/\/.+\.pdf(?:[?#]|$)/i.test(inlineReader.official||'')&&
+     inlineReader.official===expectedLeaflet&&inlineReader.original===expectedLeaflet&&
+     inlineReader.responsivePages&&inlineReader.bodyLocked,inlineReader);
    if(config.w<=620){
      mark(row,'leaflet-tab-persists-below-pdf-viewer',
        inlineReader.navDisplay==='grid'&&
