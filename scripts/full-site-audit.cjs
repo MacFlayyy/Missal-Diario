@@ -223,8 +223,8 @@ async function run(config){
    // Evita depender da rede da Arquidiocese durante a auditoria.
    await page.route(/\.pdf(?:[?#]|$)/i,route=>route.abort());
    const expectedLeaflet=await page.evaluate(()=>getDominicalLeafletUrl());
-   if(config.w>620){
-   const leafletLaunch=config.w<=620?'#mobileLeafletBtn':'#desktopLeafletBtn';
+   if(config.w>700){
+   const leafletLaunch='#desktopLeafletBtn';
    await page.locator(leafletLaunch).click();
    const inlineReader=await page.evaluate(()=>{
      const panel=document.getElementById('leafletReader'),frame=document.getElementById('leafletReaderFrame');
