@@ -3656,6 +3656,89 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
 @media(prefers-reduced-motion:reduce){
   .leaflet-reader,.leaflet-reader-backdrop{transition:none!important}
 }
+/* Layout definitivo das fitas: ícone e página na primeira linha,
+   título abaixo ocupando toda a largura. Nada sobreposto no desktop. */
+.tapes{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch;
+  gap:16px!important;
+}
+.tape{
+  min-width:0!important;
+  height:auto!important;
+}
+.tape .tape-heading{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  min-height:0!important;
+  width:100%!important;
+  position:relative!important;
+}
+.tape .tape-heading-top{
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  min-width:0!important;
+  min-height:58px!important;
+}
+.tape .tape-top{
+  position:static!important;
+  inset:auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  margin:0!important;
+  padding:0!important;
+  flex:0 0 auto!important;
+  width:40px!important;
+  height:40px!important;
+}
+.tape .tape-heading-top .page{
+  position:static!important;
+  inset:auto!important;
+  margin:0!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:78px!important;
+  max-width:calc(100% - 58px)!important;
+  align-items:center!important;
+  text-align:center!important;
+  justify-content:center!important;
+  box-sizing:border-box!important;
+}
+.tape .tape-heading > h4{
+  display:block!important;
+  position:static!important;
+  inset:auto!important;
+  width:100%!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:17px!important;
+  line-height:1.3!important;
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+  text-align:left!important;
+  color:#342d29!important;
+}
+.tape .tape-content{margin-top:13px!important}
+@media(min-width:621px) and (max-width:950px){
+  .tapes{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:620px){
+  .tapes{grid-template-columns:minmax(0,1fr)!important}
+  .tape .tape-heading{gap:8px!important}
+  .tape .tape-heading-top{min-height:47px!important}
+  .tape .tape-top{width:35px!important;height:35px!important}
+  .tape .tape-heading-top .page{min-width:72px!important;max-width:calc(100% - 50px)!important}
+  .tape .tape-heading > h4{font-size:16px!important}
+  .tape .tape-content{margin-top:10px!important}
+}
 </style>
 </head>
 <body>
@@ -4916,13 +4999,13 @@ function render(dateKey){
     el.id="missal-tape-"+t.n;
     el.innerHTML = `
       <div class="tape-heading">
-        <div class="tape-heading-main">
+        <div class="tape-heading-top">
           <div class="tape-top"><div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div></div>
-          <h4>${prepareEscapeHtml(t.title)}</h4>
+          <div class="page" aria-label="${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : "Página "+prepareEscapeHtml(t.page))}">
+            ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
+          </div>
         </div>
-        <div class="page" aria-label="${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : "Página "+prepareEscapeHtml(t.page))}">
-          ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
-        </div>
+        <h4>${prepareEscapeHtml(t.title)}</h4>
       </div>
       <div class="tape-content">
         ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
