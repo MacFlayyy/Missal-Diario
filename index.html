@@ -5348,7 +5348,8 @@ function setMoreMenu(open){
   document.body.classList.toggle("more-menu-open",open);
   if(open) mobileLeafletSelected=false;
   setMobileActiveTab(open?"mobileMoreBtn":null);
-  if(!open) requestAnimationFrame(syncMarkingsActiveTab);
+  // Ao fechar Mais, restaurar a aba anterior imediatamente, sem piscar.
+  if(!open) syncMarkingsActiveTab();
   updateBackToTop();
   if(!open) setTimeout(()=>{if(!backdrop.classList.contains("open")) backdrop.hidden=true;},230);
 }
