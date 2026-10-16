@@ -77,27 +77,31 @@ async function run(config){
      mark(row,'markings-tab-not-permanently-active',!initialTab,{active:initialTab});
      const atTapes=await page.evaluate(()=>{
        const root=document.documentElement;
-       const previous=root.style.scrollBehavior;
-       root.style.scrollBehavior='auto';
+       const previous=root.style.getPropertyValue('scroll-behavior');
+       const priority=root.style.getPropertyPriority('scroll-behavior');
+       root.style.setProperty('scroll-behavior','auto','important');
        const tapes=document.getElementById('tapes');
-       window.scrollTo(0,tapes.getBoundingClientRect().top+window.scrollY-12);
+       window.scrollTo({top:tapes.getBoundingClientRect().top+window.scrollY-12,behavior:'instant'});
        syncMarkingsActiveTab();
        const rect=tapes.getBoundingClientRect();
        const result={active:document.getElementById('mobileMarkingsBtn').classList.contains('active'),
          y:window.scrollY,tapeTop:rect.top,tapeBottom:rect.bottom};
-       root.style.scrollBehavior=previous;
+       if(previous)root.style.setProperty('scroll-behavior',previous,priority);
+       else root.style.removeProperty('scroll-behavior');
        return result;
      });
      mark(row,'markings-tab-active-at-tapes',atTapes.active,atTapes);
      const backAtTop=await page.evaluate(()=>{
        const root=document.documentElement;
-       const previous=root.style.scrollBehavior;
-       root.style.scrollBehavior='auto';
-       window.scrollTo(0,0);
+       const previous=root.style.getPropertyValue('scroll-behavior');
+       const priority=root.style.getPropertyPriority('scroll-behavior');
+       root.style.setProperty('scroll-behavior','auto','important');
+       window.scrollTo({top:0,behavior:'instant'});
        syncMarkingsActiveTab();
        const result={active:document.getElementById('mobileMarkingsBtn').classList.contains('active'),
          y:window.scrollY,tapeTop:document.getElementById('tapes').getBoundingClientRect().top};
-       root.style.scrollBehavior=previous;
+       if(previous)root.style.setProperty('scroll-behavior',previous,priority);
+       else root.style.removeProperty('scroll-behavior');
        return result;
      });
      mark(row,'markings-tab-resets-at-top',!backAtTop.active&&backAtTop.y<3,backAtTop);
