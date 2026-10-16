@@ -223,6 +223,7 @@ async function run(config){
    // Evita depender da rede da Arquidiocese durante a auditoria.
    await page.route(/\.pdf(?:[?#]|$)/i,route=>route.abort());
    const expectedLeaflet=await page.evaluate(()=>getDominicalLeafletUrl());
+   if(config.w>620){
    const leafletLaunch=config.w<=620?'#mobileLeafletBtn':'#desktopLeafletBtn';
    await page.locator(leafletLaunch).click();
    const inlineReader=await page.evaluate(()=>{
@@ -270,6 +271,12 @@ async function run(config){
        switched.closed&&switched.celebration&&switched.active.length===1&&
        switched.active[0]==='mobileCelebrationBtn',switched);
      await page.locator('#celebrationModeExit').click();
+   }
+   }else{
+     const mobileLeaflet=await page.evaluate(()=>({url:getDominicalLeafletUrl(),
+       originalDirect:/link\.target="_blank"/.test(openDominicalLeaflet.toString()),
+       noThirdPartyPreview:!leafletFallbackFrame.toString().includes('docs.google.com')}));
+     mark(row,'mobile-official-leaflet-direct-link',mobileLeaflet.url===expectedLeaflet&&mobileLeaflet.originalDirect&&mobileLeaflet.noThirdPartyPreview,mobileLeaflet);
    }
    if(config.w<=620){
      await page.locator('#mobileMoreBtn').click();
