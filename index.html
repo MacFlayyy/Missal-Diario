@@ -3643,8 +3643,8 @@ body.celebration-mode .celebration-context h2{
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261015-826e0db9cb75"></script>
-<script src="status.js?v=20261015-826e0db9cb75"></script>
+<script src="data.js?v=20261016-4513d5b104c8"></script>
+<script src="status.js?v=20261016-4513d5b104c8"></script>
 <script>
 const dataLoaded = Boolean(
   window.MISSAL_DATA &&
@@ -5436,7 +5436,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261015-826e0db9cb75",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261016-4513d5b104c8",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
