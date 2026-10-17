@@ -725,33 +725,39 @@ def update_entry(entry, text, url):
 # receber uma sugestão disfarçada de indicação oficial.
 LEAFLET_OPENINGS = {
     "A": "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.",
+    "B": "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor.",
     "E": "A vós, irmãos, paz e fé da parte de Deus, o Pai, e do Senhor Jesus Cristo.",
 }
 LEAFLET_ATO_OPENINGS = {
     "Segunda fórmula, 3ª opção": "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.",
     "Primeira fórmula, 3ª opção": "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova.",
     "Primeira fórmula, 2ª opção": "O Senhor Jesus, que nos convida à mesa da Palavra e da Eucaristia, nos chama a segui-lo fielmente.",
+    "Terceira fórmula, 2ª opção": "Em Jesus Cristo, o justo, que intercede por nós e nos reconcilia com o Pai.",
 }
 
 def leaflet_compact(value):
     return re.sub(r"[^a-z0-9]", "", norm(value))
 
 def leaflet_initial_choices(text):
+    """Identificar opções dentro de cada rito, sem presumir sempre Saudação A.
+
+    Prefixos compactos toleram espaços e hifenização do OCR do PDF.
+    """
     sa = leaflet_compact(section(text, "SAUDAÇÃO INICIAL", ["ATO PENITENCIAL"]))
     at = leaflet_compact(section(text, "ATO PENITENCIAL", ["HINO DO GLÓRIA", "COLETA"]))
-    greeting = None
-    if "agracadenossosenhorjesus" in sa:
-        greeting = "A"
-    elif "avosirmaospazefe" in sa:
-        greeting = "E"
-
-    penitential = None
-    if "decoracaocontritoehumilde" in at:
-        penitential = "Segunda fórmula, 3ª opção"
-    elif "nodiaemquecelebramosavitoriadecristo" in at:
-        penitential = "Primeira fórmula, 3ª opção"
-    elif "osenhorjesusquenosconvida" in at:
-        penitential = "Primeira fórmula, 2ª opção"
+    greeting = next(
+        (letter for letter, opening in SAUDACOES
+         if leaflet_compact(opening)[:18] in sa), None
+    )
+    options = (
+        ("Terceira fórmula, 2ª opção", "emjesuscristoojustoqueintercede"),
+        ("Terceira fórmula, 3ª opção", "osenhordissequemdentrevos"),
+        ("Segunda fórmula, 3ª opção", "decoracaocontritoehumilde"),
+        ("Segunda fórmula, 2ª opção", "noiniciodestacelebracaoeucaristica"),
+        ("Primeira fórmula, 3ª opção", "nodiaemquecelebramosavitoriadecristo"),
+        ("Primeira fórmula, 2ª opção", "osenhorjesusquenosconvida"),
+    )
+    penitential = next((label for label, prefix in options if prefix in at), None)
     return greeting, penitential
 
 def leaflet_oe_prefacio(text):
@@ -826,7 +832,7 @@ def update_entry_verified(entry, text, url):
     tapes = {t["n"]: t for t in entry["tapes"]}
 
     t1 = tapes[1]
-    if saud and ato:
+    if saud and ato and saud in LEAFLET_OPENINGS and ato in LEAFLET_ATO_OPENINGS:
         t1["details"] = [
             ["Saudação " + saud, LEAFLET_OPENINGS[saud]],
             ["Ato Penitencial — " + ato, LEAFLET_ATO_OPENINGS[ato]],
@@ -1020,6 +1026,14 @@ def main():
                     # Trecho mínimo para identificação; não reproduzir o folheto inteiro.
                     print("[diagnostico-18] saudacao-inicio:", " ".join(greeting_sec.split()[:20]))
                     print("[diagnostico-18] ato-inicio:", " ".join(pen_sec.split()[:14]))
+                    chosen_prefix = [letter for letter, opening in SAUDACOES
+                                     if leaflet_compact(opening)[:18] in leaflet_compact(greeting_sec)]
+                    print("[diagnostico-18] prefix-detect:", chosen_prefix, leaflet_initial_choices(source))
+                    for marker in ("prefacio", "oracao eucaristica", "misterio da fe", "p. 545", "p. 536"):
+                        normalized_source=norm(source)
+                        loc=normalized_source.find(marker)
+                        if loc >= 0:
+                            print("[diagnostico-18] area-", marker, ":", " ".join(normalized_source[loc:loc+105].split()[:15]))
                 if update_entry(entry, source, known_url):
                     changed_any = True
                 if date.fromisoformat(key).weekday() == 6:
@@ -1083,8 +1097,16 @@ def main():
                 entry[url_field] = url
                 changed_any = True
 
-            # Quando houver folheto oficial para qualquer dia cadastrado,
-            # aplica também as escolhas reconhecidas à separação desse dia.
+            # A edição "versão celular" muitas vezes só permite ler as 4
+            # primeiras páginas de 13. É exclusivamente link de leitura
+            # quando já existe PDF final desktop: NÃO sobrescrever escolhas
+            # verificadas no folheto completo com OCR incompleto do mobile.
+            if variant == "mobile" and entry.get("folhetoDesktopUrl"):
+                print("[folheto] mobile preservado como link; indicações lidas do PDF final:", key)
+                continue
+
+            # Quando houver folheto oficial, aplicar escolhas comprovadas
+            # da edição completa, nunca textos presumidos pelo calendário.
             if update_entry(entry, text, url):
                 changed_any = True
         except Exception as e:
