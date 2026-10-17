@@ -1710,12 +1710,11 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Página",
-            "Sugestão de referência do Missal; a página da Missa não foi confirmada na leitura do PDF. Conferir antes da celebração."
+            "Referência do Missal",
+            "Página 411 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
           ]
         ],
-        "pageUnverified": true,
-        "suggestion": true
+        "folhetoPageNotSpecified": true
       },
       {
         "n": 3,
@@ -1762,7 +1761,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → ? → 477 → 536 → 585",
+    "quick": "430 → 411 → 477 → 536 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [],
