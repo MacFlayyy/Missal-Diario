@@ -5713,12 +5713,11 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Página",
-            "Sugestão de referência do Missal; a página da Missa não foi confirmada na leitura do PDF. Conferir antes da celebração."
+            "Referência do Missal",
+            "Página 411 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
           ]
         ],
-        "pageUnverified": true,
-        "suggestion": true
+        "folhetoPageNotSpecified": true
       },
       {
         "n": 3,
@@ -5765,7 +5764,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → ? → 477 → 536 → 585",
+    "quick": "430 → 411 → 477 → 536 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [],
@@ -12622,8 +12621,8 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
-  "contentVersion": "d066286592ecbd04fad3",
-  "lastSuccessfulUpdateAt": "2026-10-17T04:26:10.451440-03:00"
+  "contentVersion": "dc242563143c985374e5",
+  "lastSuccessfulUpdateAt": "2026-10-17T11:21:34.725258-03:00"
 };
 </script>
 <script>
@@ -14628,7 +14627,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261017-bbc332c3cb79",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261017-f2807f52cc63",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
