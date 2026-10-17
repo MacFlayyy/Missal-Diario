@@ -34,7 +34,7 @@ BY_TAPE = {
 }
 # Algumas páginas do Próprio são prefácios próprios; outras são só formulário.
 OWN_PREFACES = {818, 828, 843, 852, 873}
-SPECIAL_PREFACES = {426, 614}
+SPECIAL_PREFACES = {426, 614, 626}
 
 
 def load_js(path, prefix):
