@@ -1684,7 +1684,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Separação conforme o folheto oficial. As partes não indicadas ou não identificadas estão sinalizadas, sem escolhas inventadas.",
+    "note": "Indicações de Saudação, Ato Penitencial, Prefácio e Oração Eucarística verificadas no folheto oficial. Página da Missa 411 conferida no índice do Missal. A Bênção Solene permanece sugestão por não ter sido identificada indicação específica no folheto.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1694,15 +1694,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação B",
+            "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Terceira fórmula, 2ª opção",
+            "Em Jesus Cristo, o justo, que intercede por nós e nos reconcilia com o Pai."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -1718,35 +1718,31 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV",
+        "page": "626",
+        "title": "Prefácio próprio — Jesus, caminho para o Pai",
         "details": [
           [
-            "Uso",
-            "Sugestão: o folheto não indicou este prefácio."
+            "Indicação",
+            "Prefácio integrante da Oração Eucarística para Diversas Circunstâncias III, conforme o folheto oficial."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "536",
-        "title": "Oração Eucarística II",
+        "page": "626",
+        "title": "Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé e do amor!"
           ],
           [
             "Resposta",
-            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
-          ],
-          [
-            "Uso",
-            "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."
+            "Todas as vezes que comemos deste pão e bebemos deste cálice, anunciamos, Senhor, a vossa morte, enquanto esperamos a vossa vinda!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -1761,12 +1757,16 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 411 → 477 → 536 → 585",
+    "quick": "430 → 411 → 626 → 626 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
-    "officialVerifiedParts": [],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
+    "officialVerifiedParts": [
+      1,
+      3,
+      4
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf"
   },
