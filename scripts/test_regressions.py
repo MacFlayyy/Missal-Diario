@@ -583,6 +583,54 @@ def check_incomplete_leaflet_variant_protection():
 
 
 
+def check_known_sunday_page_survives_leaflet_ocr():
+    """Página do formulário no Missal não pode virar '?' por OCR incompleto."""
+    import ast
+    import copy
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    record=data["2026-10-18"]
+    reference=json.loads((ROOT/"missal-date-formulary-map.json").read_text(encoding="utf-8"))
+    registered=reference["entries"]["2026-10-18"]["missal_formulary_page"]
+    tape=record["tapes"][1]
+    assert registered=="411" and tape["page"]==registered
+    assert not tape.get("pageUnverified"),"Fita 2 ocultou página confirmada no Missal"
+    assert not tape.get("verifiedByFolheto"),"Página do Missal não comprova indicação do folheto"
+    assert tape.get("folhetoPageNotSpecified"),"Lacuna do folheto não sinalizada"
+    assert record["quick"].split(" → ")[1]=="411",record["quick"]
+    assert "?" not in record["quick"],record["quick"]
+
+    source=(ROOT/"scripts"/"update_folheto.py").read_text(encoding="utf-8")
+    nodes=[n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef)
+           and n.name in ("formulary_page_confirmed_in_missal","update_entry_verified")]
+    assert len(nodes)==2,"Atualizador perdeu a separação entre Missal e folheto"
+    ns={
+        "json":json,"re":re,"FORMULARY_INDEX_FILE":ROOT/"missal-date-formulary-map.json",
+        "leaflet_initial_choices":lambda _: (None,None),
+        "leaflet_oe_prefacio":lambda _: (None,None),
+        "detect_acclamation":lambda _: None,
+        "detect_missal_page":lambda _: None,
+        "norm":lambda _: "",
+        "fill_folheto_gaps":lambda _: False,
+    }
+    exec(compile(ast.Module(body=nodes,type_ignores=[]),"<folheto-page-regression>","exec"),ns)
+    assert ns["formulary_page_confirmed_in_missal"](record,"411")
+    assert not ns["formulary_page_confirmed_in_missal"](record,"412")
+    old=copy.deepcopy(record)
+    old["tapes"][1]["pageUnverified"]=True
+    old["tapes"][1]["suggestion"]=True
+    old["quick"]="430 → ? → 477 → 536 → 585"
+    ns["update_entry_verified"](old,"","https://example.org/18-10-folheto.pdf")
+    assert old["tapes"][1]["page"]=="411"
+    assert not old["tapes"][1].get("pageUnverified")
+    assert not old["tapes"][1].get("suggestion")
+    assert not old["tapes"][1].get("verifiedByFolheto")
+    assert old["tapes"][1].get("folhetoPageNotSpecified")
+    unknown=copy.deepcopy(record)
+    unknown["celebration"]="Celebração ainda sem referência conferida"
+    assert not ns["formulary_page_confirmed_in_missal"](unknown,"411")
+    print("PASSOU: Fita 2 do domingo preserva p. 411 mesmo sem OCR do folheto")
+
+
 def check_pending_page_copy():
     html=INDEX.read_text(encoding="utf-8")
     assert "existe página do Missal ainda não conferida" in html
@@ -746,6 +794,7 @@ def main():
     check_incomplete_leaflet_variant_protection()
     check_on_demand_calendar()
     check_pending_page_copy()
+    check_known_sunday_page_survives_leaflet_ocr()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
