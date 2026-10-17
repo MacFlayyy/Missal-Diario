@@ -114,6 +114,13 @@ def check_index_and_data():
                     f"{key}: página da Missa {actual_page!r} diverge do PDF "
                     f"verificado para a celebração ({registered_page!r})"
                 )
+            # Uma página presente no índice não pode aparecer como "?"
+            # só porque o OCR do folheto não reconheceu sua indicação.
+            if len(tapes)>1 and tapes[1].get("pageUnverified"):
+                errors.append(
+                    f"{key}: Fita 2 usa '?' apesar de a página {registered_page} "
+                    "já estar conferida no índice do Missal 2023"
+                )
             # Os nomes de dias especiais podem mudar de abreviação, mas mudanças
             # litúrgicas devem ser observadas e revisadas separadamente.
             if str(day.get("celebration","")).strip() != str(expected.get("celebration","")).strip():
