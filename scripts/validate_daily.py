@@ -303,7 +303,7 @@ def repair_entry(entry):
 
     # Fita 4
     f4 = by_n[4]
-    if not (str(f4.get("page","")) in {"523","536","545","554","564","614"} or (f4.get("notIndicated") and f4.get("page") == "—")) or "oração eucarística" not in str(f4.get("title","")).lower():
+    if not (str(f4.get("page","")) in {"523","536","545","554","564","614","626"} or (f4.get("notIndicated") and f4.get("page") == "—")) or "oração eucarística" not in str(f4.get("title","")).lower():
         raise RuntimeError("Oração Eucarística ausente/inválida: conferir o folheto.")
     if not entry.get("officialLeafletApplied"):
         ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
