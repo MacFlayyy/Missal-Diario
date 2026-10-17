@@ -1031,26 +1031,6 @@ def main():
             seen.add(known_url)
             try:
                 source = pdf_text(known_url, allow_ocr=True)
-                if key == "2026-10-18":
-                    greeting_sec = section(source, "SAUDAÇÃO INICIAL", ["ATO PENITENCIAL", "COLETA"])
-                    pen_sec = section(source, "ATO PENITENCIAL", ["HINO DO GLÓRIA", "COLETA"])
-                    chosen = [letter for letter, phrase in SAUDACOES if norm(phrase) in greeting_sec]
-                    detected = leaflet_initial_choices(source)
-                    print("[diagnostico-18] fonte=", known_url.rsplit("/", 1)[-1],
-                          "chars=", len(source), "greeting-section=", len(greeting_sec),
-                          "penitential-section=", len(pen_sec), "greeting-candidates=", chosen,
-                          "legacy-detection=", detected, "preface/OE=", leaflet_oe_prefacio(source))
-                    # Trecho mínimo para identificação; não reproduzir o folheto inteiro.
-                    print("[diagnostico-18] saudacao-inicio:", " ".join(greeting_sec.split()[:20]))
-                    print("[diagnostico-18] ato-inicio:", " ".join(pen_sec.split()[:14]))
-                    chosen_prefix = [letter for letter, opening in SAUDACOES
-                                     if leaflet_compact(opening)[:18] in leaflet_compact(greeting_sec)]
-                    print("[diagnostico-18] prefix-detect:", chosen_prefix, leaflet_initial_choices(source))
-                    for marker in ("prefacio", "oracao eucaristica", "misterio da fe", "p. 545", "p. 536"):
-                        normalized_source=norm(source)
-                        loc=normalized_source.find(marker)
-                        if loc >= 0:
-                            print("[diagnostico-18] area-", marker, ":", " ".join(normalized_source[loc:loc+105].split()[:15]))
                 if update_entry(entry, source, known_url):
                     changed_any = True
                 if date.fromisoformat(key).weekday() == 6:
