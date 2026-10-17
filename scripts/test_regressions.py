@@ -484,6 +484,7 @@ def check_verified_leaflet_days():
         "2026-10-04":("Saudação A","Segunda fórmula, 3ª opção","477","545"),
         "2026-10-11":("Saudação A","Primeira fórmula, 3ª opção","614","614"),
         "2026-10-12":("Saudação E","Primeira fórmula, 2ª opção","828","523"),
+        "2026-10-18":("Saudação B","Terceira fórmula, 2ª opção","626","626"),
     }
     for day,(saud,ato,pref,oe) in expected.items():
         item=data[day]
@@ -507,6 +508,23 @@ def check_verified_leaflet_days():
         else:
             assert all("sugestão" not in str(row[1]).lower()
                        for tape in item["tapes"][:4] for row in tape.get("details", []))
+    sunday=data["2026-10-18"]
+    assert sunday.get("officialVerifiedParts")==[1,3,4]
+    assert sunday["tapes"][1].get("folhetoPageNotSpecified")
+    assert sunday["quick"]=="430 → 411 → 626 → 626 → 585"
+    assert sunday["tapes"][3]["details"][0][1]=="Mistério da fé e do amor!"
+    from update_folheto import leaflet_initial_choices, leaflet_oe_prefacio, detect_acclamation
+    scan=("SAUDAÇÃO INICIAL\\n"
+          "A graça e a paz de Deus, nosso Pai\\n"
+          "ATO PENITENCIAL\\n"
+          "Em Jesus Cristo, o justo, que interce- de por nós e nos reconcilia com o Pai\\n"
+          "HINO DO GLÓRIA\\n"
+          "ORAÇÃO EUCARÍSTICA PARA DIVERSAS CIRCUNTÂNCIAS III - Je- sus, caminho para o Pai\\n"
+          "Mistério da fé e do amor!")
+    assert leaflet_initial_choices(scan)==("B","Terceira fórmula, 2ª opção")
+    pref,oe=leaflet_oe_prefacio(scan)
+    assert pref[1]==oe[1]=="626"
+    assert detect_acclamation(scan)=="Mistério da fé e do amor!"
     html=INDEX.read_text(encoding="utf-8")
     assert "Abrir o texto original no folheto oficial" not in html
     assert "rites-official-pdf" not in html
