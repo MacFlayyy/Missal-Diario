@@ -762,6 +762,14 @@ def leaflet_initial_choices(text):
 
 def leaflet_oe_prefacio(text):
     c = leaflet_compact(text)
+    # No folheto de 18/10/2026, o OCR lê "circuntancias" e
+    # "je- sus, caminho para o Pai". O prefácio é parte da própria OE III.
+    if ("oracaoeucaristicaparadiversas" in c
+            and "jesuscaminhoparaopai" in c):
+        return (
+            ("Prefácio próprio — Jesus, caminho para o Pai", "626"),
+            ("Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai", "626"),
+        )
     if "oracaoeucaristicaparadi" in c and "caminhodaunidade" in c and "p614" in c:
         return (
             ("Prefácio próprio — A Igreja a caminho da unidade", "614"),
@@ -968,7 +976,16 @@ def update_entry_verified(entry, text, url):
 
     verified = [n for n, t in tapes.items() if t.get("verifiedByFolheto")]
     entry["officialVerifiedParts"] = sorted(verified)
-    entry["officialLeafletApplied"] = all(n in verified for n in (1, 2, 3, 4))
+    # No próprio Missal, o formulário tem página já confirmada no índice.
+    # O folheto pode não imprimir o número dessa página. Nesse caso as
+    # escolhas dos ritos, prefácio e OE continuam sendo oficiais.
+    missal_formulary_known = bool(t2.get("folhetoPageNotSpecified")) and (
+        formulary_page_confirmed_in_missal(entry, t2.get("page"))
+    )
+    entry["officialLeafletApplied"] = (
+        all(n in verified for n in (1, 3, 4))
+        and (2 in verified or missal_formulary_known)
+    )
     entry["ritesPendingOfficial"] = not t1.get("verifiedByFolheto", False)
     entry["source"] = "Folheto oficial O Povo de Deus • Arquidiocese de Brasília"
     entry["note"] = (
