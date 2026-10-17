@@ -28,6 +28,7 @@ from ritos_texts import apply_rite_suggestions, fill_folheto_gaps, suggested_ble
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
 STATUS_FILE = ROOT / "status.js"
+FORMULARY_INDEX_FILE = ROOT / "missal-date-formulary-map.json"
 BASE = "https://arqbrasilia.com.br"
 UA = {"User-Agent": "Mozilla/5.0 (MissalDiario/1.0; parish liturgy helper)"}
 
@@ -778,6 +779,26 @@ def leaflet_oe_prefacio(text):
         pref = detected if detected and leaflet_compact(detected[0]) in c else None
     return pref, oe
 
+def formulary_page_confirmed_in_missal(entry, page):
+    """Página independente do PDF do folheto, conferida no índice do Missal 2023.
+
+    O fato de o folheto não mencionar um número NÃO invalida a página do
+    formulário no Missal. Não implica que escolhas do folheto estejam confirmadas.
+    """
+    if not str(page).isdigit() or not FORMULARY_INDEX_FILE.exists():
+        return False
+    try:
+        references = json.loads(FORMULARY_INDEX_FILE.read_text(encoding="utf-8"))
+    except (ValueError, OSError):
+        return False
+    celebration = str(entry.get("celebration") or "").strip()
+    return any(
+        str(reference.get("celebration", "")).strip() == celebration
+        and str(reference.get("missal_formulary_page", "")).strip() == str(page)
+        for reference in references.get("entries", {}).values()
+    )
+
+
 def update_entry_verified(entry, text, url):
     """Aplicar somente o que é verificável no folheto e não inventar fitas."""
     snapshot = json.dumps(entry, ensure_ascii=False, sort_keys=True)
@@ -832,19 +853,29 @@ def update_entry_verified(entry, text, url):
         t2["verifiedByFolheto"] = True
         t2.pop("suggestion", None)
         t2.pop("pageUnverified", None)
+        t2.pop("folhetoPageNotSpecified", None)
     else:
-        t2["details"] = [[
-            "Página", "Sugestão de referência do Missal; a página da Missa não "
-                      "foi confirmada na leitura do PDF. Conferir antes da celebração."
-        ]]
         t2.pop("verifiedByFolheto", None)
-        t2["pageUnverified"] = True
-        t2["suggestion"] = True
-        if registered_page == "—":
-            t2["details"][0][1] = (
-                "Página a conferir no Missal Romano CNBB 2023; o folheto não "
-                "permitiu identificar o número com segurança."
-            )
+        if formulary_page_confirmed_in_missal(entry, registered_page):
+            # A página 411 do 29º Domingo, por exemplo, já está conferida no
+            # índice do Missal, mesmo que a leitura do folheto não a mencione.
+            t2["details"] = [[
+                "Referência do Missal",
+                "Página " + registered_page + " confirmada no índice do Missal "
+                "Romano CNBB 2023. O folheto não permitiu confirmar esta "
+                "referência; suas demais indicações ainda exigem conferência."
+            ]]
+            t2.pop("pageUnverified", None)
+            t2.pop("suggestion", None)
+            t2["folhetoPageNotSpecified"] = True
+        else:
+            t2["details"] = [[
+                "Página", "A página da Missa ainda não foi confirmada nem no "
+                "índice do Missal nem na leitura do folheto. Conferir."
+            ]]
+            t2.pop("folhetoPageNotSpecified", None)
+            t2["pageUnverified"] = True
+            t2["suggestion"] = True
 
     t3 = tapes[3]
     if pref:
