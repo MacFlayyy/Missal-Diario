@@ -70,7 +70,8 @@
       523,
       536,
       545,
-      614
+      614,
+      626
     ],
     "bencaos_solenes": [
       578,
@@ -165,10 +166,17 @@
     "585": "Bênção Tempo Comum VI",
     "587": "Bênção na festa de um santo",
     "614": "Oração Eucarística para Diversas Circunstâncias I com prefácio próprio",
+    "626": "Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai",
     "818": "Prefácio dos Anjos",
     "828": "Prefácio mariano de Aparecida",
     "843": "Prefácio de Todos os Santos",
     "852": "Prefácio da Dedicação da Basílica do Latrão",
     "873": "Prefácio da Imaculada Conceição"
+  },
+  "supplemental_page_provenance": {
+    "626": {
+      "verification": "Fonte litúrgica externa da mesma edição do Missal Romano 2023; não reexaminado no PDF original nesta revisão.",
+      "source": "https://diocese-sjc.org.br/wp-content/uploads/2026/01/8-de-fevereiro-de-2026-5o-Domingo-do-Tempo-Comum-.pdf"
+    }
   }
 }
