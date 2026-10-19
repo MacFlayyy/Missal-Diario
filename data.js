@@ -2336,9 +2336,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Santo Antônio de Sant’Ana Galvão — memória omitida por coincidir com domingo",
+    "note": "Separação conforme o folheto oficial. As partes não indicadas ou não identificadas estão sinalizadas, sem escolhas inventadas.",
     "liturgicalNote": "Santo Antônio de Sant’Ana Galvão — memória omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -2363,9 +2363,10 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -2373,20 +2374,16 @@ window.MISSAL_DATA = {
         "title": "Prefácio dos Domingos do Tempo Comum IV",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
             "Uso",
-            "Sugestão"
+            "Sugestão: o folheto não indicou este prefácio."
           ]
         ],
         "suggestion": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "536",
+        "title": "Oração Eucarística II",
         "details": [
           [
             "Aclamação",
@@ -2394,11 +2391,11 @@ window.MISSAL_DATA = {
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."
           ]
         ],
         "suggestion": true
@@ -2410,14 +2407,21 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Sugestão: o folheto oficial não indica bênção solene específica."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 412 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "quick": "430 → 412 → 477 → 536 → 585",
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      2
+    ],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf"
   },
   "2026-10-26": {
     "label": "Segunda-feira • 26/10/2026",
