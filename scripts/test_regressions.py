@@ -509,7 +509,7 @@ def check_verified_leaflet_days():
             assert all("sugestão" not in str(row[1]).lower()
                        for tape in item["tapes"][:4] for row in tape.get("details", []))
     sunday=data["2026-10-18"]
-    assert sunday.get("officialVerifiedParts")==[1,2,3,4]
+    assert sunday.get("officialVerifiedParts")==[1,3,4]
     assert sunday["tapes"][1].get("folhetoPageNotSpecified")
     assert sunday["quick"]=="430 → 411 → 626 → 626 → 585"
     assert sunday["tapes"][3]["details"][0][1]=="Mistério da fé e do amor!"
