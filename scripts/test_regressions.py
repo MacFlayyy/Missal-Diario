@@ -509,8 +509,19 @@ def check_verified_leaflet_days():
             assert all("sugestão" not in str(row[1]).lower()
                        for tape in item["tapes"][:4] for row in tape.get("details", []))
     sunday=data["2026-10-18"]
-    assert sunday.get("officialVerifiedParts")==[1,3,4]
-    assert sunday["tapes"][1].get("folhetoPageNotSpecified")
+    verified_parts=set(sunday.get("officialVerifiedParts", []))
+    assert {1,3,4}.issubset(verified_parts)
+    formulary=sunday["tapes"][1]
+    # A página 411 é sempre confirmada no índice do Missal. Se o extrator
+    # encontrar a indicação expressa no folheto, deve também marcá-la como
+    # verificada; caso contrário, precisa deixar explícita a lacuna do folheto.
+    if 2 in verified_parts:
+        assert formulary.get("verifiedByFolheto")
+        assert not formulary.get("folhetoPageNotSpecified")
+        assert "indicada e conferida no folheto oficial" in formulary["details"][0][1].lower()
+    else:
+        assert not formulary.get("verifiedByFolheto")
+        assert formulary.get("folhetoPageNotSpecified")
     assert sunday["quick"]=="430 → 411 → 626 → 626 → 585"
     assert sunday["tapes"][3]["details"][0][1]=="Mistério da fé e do amor!"
     from update_folheto import leaflet_initial_choices, leaflet_oe_prefacio, detect_acclamation
@@ -588,6 +599,7 @@ def check_incomplete_leaflet_variant_protection():
         "fill_folheto_gaps":lambda entry: False,
         "leaflet_initial_choices":lambda text: (None,None),
         "leaflet_oe_prefacio":lambda text: (None,None),
+        "detect_missal_page":lambda text: None,
     }
     exec(compile(ast.Module(body=[node],type_ignores=[]),"<verified-guard>","exec"),names)
     data=read_js_json(DATA,"window.MISSAL_DATA")
@@ -597,7 +609,20 @@ def check_incomplete_leaflet_variant_protection():
     assert not changed
     assert item==before,"PDF alternativo vazio apagou escolhas oficiais"
     assert item["tapes"][0]["details"][1][0]=="Ato Penitencial — Segunda fórmula, 3ª opção"
-    print("PASSOU: versão alternativa sem texto não sobrescreve o folheto confirmado")
+
+    # A mesma proteção deve funcionar quando o folheto confirmou apenas
+    # as fitas 1, 3 e 4, mas a página 2 foi confirmada independentemente.
+    partial=copy.deepcopy(data["2026-10-18"])
+    partial["folhetoDesktopUrl"]="https://example.org/18-10-Prova-Final.pdf"
+    partial["officialLeafletApplied"]=True
+    partial["officialVerifiedParts"]=[1,3,4]
+    partial_before=copy.deepcopy(partial)
+    changed=names["update_entry_verified"](
+        partial,"","https://example.org/18-10-Versao-Celular.pdf"
+    )
+    assert not changed
+    assert partial==partial_before,"PDF alternativo apagou fitas oficiais parciais"
+    print("PASSOU: PDF alternativo incompleto preserva fitas oficiais completas e parciais")
 
 
 
@@ -612,8 +637,12 @@ def check_known_sunday_page_survives_leaflet_ocr():
     tape=record["tapes"][1]
     assert registered=="411" and tape["page"]==registered
     assert not tape.get("pageUnverified"),"Fita 2 ocultou página confirmada no Missal"
-    assert not tape.get("verifiedByFolheto"),"Página do Missal não comprova indicação do folheto"
-    assert tape.get("folhetoPageNotSpecified"),"Lacuna do folheto não sinalizada"
+    if tape.get("verifiedByFolheto"):
+        assert 2 in record.get("officialVerifiedParts", [])
+        assert not tape.get("folhetoPageNotSpecified")
+    else:
+        assert 2 not in record.get("officialVerifiedParts", [])
+        assert tape.get("folhetoPageNotSpecified"),"Lacuna do folheto não sinalizada"
     assert record["quick"].split(" → ")[1]=="411",record["quick"]
     assert "?" not in record["quick"],record["quick"]
 
@@ -634,15 +663,21 @@ def check_known_sunday_page_survives_leaflet_ocr():
     assert ns["formulary_page_confirmed_in_missal"](record,"411")
     assert not ns["formulary_page_confirmed_in_missal"](record,"412")
     old=copy.deepcopy(record)
-    old["tapes"][1]["pageUnverified"]=True
-    old["tapes"][1]["suggestion"]=True
-    old["quick"]="430 → ? → 477 → 536 → 585"
-    ns["update_entry_verified"](old,"","https://example.org/18-10-folheto.pdf")
-    assert old["tapes"][1]["page"]=="411"
-    assert not old["tapes"][1].get("pageUnverified")
-    assert not old["tapes"][1].get("suggestion")
-    assert not old["tapes"][1].get("verifiedByFolheto")
-    assert old["tapes"][1].get("folhetoPageNotSpecified")
+    if tape.get("verifiedByFolheto"):
+        original_tape=copy.deepcopy(old["tapes"][1])
+        ns["update_entry_verified"](old,"","https://example.org/18-10-Versao-Celular.pdf")
+        assert old["tapes"][1]==original_tape,"PDF alternativo vazio apagou confirmação do folheto"
+    else:
+        old["tapes"][1]["pageUnverified"]=True
+        old["tapes"][1]["suggestion"]=True
+        old["quick"]="430 → ? → 477 → 536 → 585"
+        same_url=old.get("folhetoDesktopUrl") or old.get("folhetoUrl") or "https://example.org/18-10-folheto.pdf"
+        ns["update_entry_verified"](old,"",same_url)
+        assert old["tapes"][1]["page"]=="411"
+        assert not old["tapes"][1].get("pageUnverified")
+        assert not old["tapes"][1].get("suggestion")
+        assert not old["tapes"][1].get("verifiedByFolheto")
+        assert old["tapes"][1].get("folhetoPageNotSpecified")
     unknown=copy.deepcopy(record)
     unknown["celebration"]="Celebração ainda sem referência conferida"
     assert not ns["formulary_page_confirmed_in_missal"](unknown,"411")

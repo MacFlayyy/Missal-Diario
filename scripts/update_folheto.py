@@ -822,16 +822,39 @@ def update_entry_verified(entry, text, url):
             and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
             and saved_url == url):
         return fill_folheto_gaps(entry)
-    # Uma segunda versão (ex.: para celular) pode não possuir texto
-    # extraível. Não apagar escolhas verificadas pelo PDF desktop quando
-    # a variante não comprovar TODAS as indicações da celebração.
-    if (entry.get("officialLeafletApplied")
-            and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
-            and saved_url and saved_url != url):
+    # Um PDF alternativo não pode apagar partes já verificadas só porque
+    # sua extração está incompleta. Isso vale também quando a página da Missa
+    # está confirmada no índice, mas ainda não no folheto.
+    previously_verified = {
+        n for n in entry.get("officialVerifiedParts", []) if isinstance(n, int)
+    }
+    if saved_url and saved_url != url and previously_verified:
         candidate_saud, candidate_ato = leaflet_initial_choices(text)
         candidate_pref, candidate_oe = leaflet_oe_prefacio(text)
-        if not all((candidate_saud, candidate_ato, candidate_pref, candidate_oe)):
-            print("[folheto] Variante incompleta; preservando escolhas oficiais já verificadas:", url)
+        candidate_page = detect_missal_page(text)
+        tapes_by_n = {t.get("n"): t for t in entry.get("tapes", [])}
+        current_page = str(tapes_by_n.get(2, {}).get("page", "")).strip()
+        candidate_verified = set()
+        if (candidate_saud and candidate_ato
+                and candidate_saud in LEAFLET_OPENINGS
+                and candidate_ato in LEAFLET_ATO_OPENINGS):
+            candidate_verified.add(1)
+        if (candidate_page and current_page.isdigit()
+                and candidate_page == current_page):
+            candidate_verified.add(2)
+        if candidate_pref:
+            candidate_verified.add(3)
+        if candidate_oe:
+            candidate_verified.add(4)
+        if any("bencao solene" in norm(line) and len(norm(line)) <= 160
+               for line in text.splitlines()):
+            candidate_verified.add(5)
+        if not previously_verified.issubset(candidate_verified):
+            print(
+                "[folheto] Variante incompleta; preservando partes verificadas:",
+                url, "anteriores=", sorted(previously_verified),
+                "reconhecidas=", sorted(candidate_verified)
+            )
             return fill_folheto_gaps(entry)
 
     saud, ato = leaflet_initial_choices(text)
