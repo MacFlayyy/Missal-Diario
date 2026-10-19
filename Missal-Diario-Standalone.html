@@ -5687,7 +5687,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Separação conforme o folheto oficial. As partes não indicadas ou não identificadas estão sinalizadas, sem escolhas inventadas.",
+    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -5697,15 +5697,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação B",
+            "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Terceira fórmula, 2ª opção",
+            "Em Jesus Cristo, o justo, que intercede por nós e nos reconcilia com o Pai."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -5713,43 +5713,39 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Referência do Missal",
-            "Página 411 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
+            "Formulário",
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
         ],
-        "folhetoPageNotSpecified": true
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
-        "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV",
+        "page": "626",
+        "title": "Prefácio próprio — Jesus, caminho para o Pai",
         "details": [
           [
-            "Uso",
-            "Sugestão: o folheto não indicou este prefácio."
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "536",
-        "title": "Oração Eucarística II",
+        "page": "626",
+        "title": "Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé e do amor!"
           ],
           [
             "Resposta",
-            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
-          ],
-          [
-            "Uso",
-            "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."
+            "Todas as vezes que comemos deste pão e bebemos deste cálice, anunciamos, Senhor, a vossa morte, enquanto esperamos a vossa vinda!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -5764,13 +5760,18 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 411 → 477 → 536 → 585",
+    "quick": "430 → 411 → 626 → 626 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
-    "officialVerifiedParts": [],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-10-19": {
@@ -5863,7 +5864,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 411 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-20": {
     "label": "Terça-feira • 20/10/2026",
@@ -12606,7 +12611,7 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-17",
+  "availableThrough": "2026-10-19",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -12615,14 +12620,13 @@ window.MISSAL_STATUS = {
     "dailyOfficialLeafletApplied": false,
     "unverifiedMissalPages": []
   },
-  "sundayPreview": "2026-10-18",
   "calendarDataThrough": "2026-12-31",
   "sundayLeafletDate": "2026-10-18",
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
-  "contentVersion": "dc242563143c985374e5",
-  "lastSuccessfulUpdateAt": "2026-10-17T11:21:34.725258-03:00"
+  "contentVersion": "b9e5dbcb14e8ee314497",
+  "lastSuccessfulUpdateAt": "2026-10-19T08:03:49.900750-03:00"
 };
 </script>
 <script>
@@ -14627,7 +14631,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261017-f2807f52cc63",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261019-820f3af95210",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{

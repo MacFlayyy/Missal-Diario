@@ -1684,7 +1684,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Indicações de Saudação, Ato Penitencial, Prefácio e Oração Eucarística verificadas no folheto oficial. Página da Missa 411 conferida no índice do Missal. A Bênção Solene permanece sugestão por não ter sido identificada indicação específica no folheto.",
+    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1710,11 +1710,11 @@ window.MISSAL_DATA = {
         "title": "29º Domingo do Tempo Comum",
         "details": [
           [
-            "Referência do Missal",
-            "Página 411 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
+            "Formulário",
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
         ],
-        "folhetoPageNotSpecified": true
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -1723,7 +1723,7 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Indicação",
-            "Prefácio integrante da Oração Eucarística para Diversas Circunstâncias III, conforme o folheto oficial."
+            "Prefácio indicado no folheto oficial"
           ]
         ],
         "verifiedByFolheto": true
@@ -1762,12 +1762,13 @@ window.MISSAL_DATA = {
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [
       1,
+      2,
       3,
       4
     ],
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf",
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-10-19": {
@@ -1860,7 +1861,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 411 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-20": {
     "label": "Terça-feira • 20/10/2026",
