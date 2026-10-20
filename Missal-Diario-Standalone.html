@@ -5960,7 +5960,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 411 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-21": {
     "label": "Quarta-feira • 21/10/2026",
@@ -6424,7 +6428,8 @@ window.MISSAL_DATA = {
     ],
     "officialLeafletApplied": false,
     "ritesPendingOfficial": true,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-10-26": {
     "label": "Segunda-feira • 26/10/2026",
@@ -12615,7 +12620,7 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-19",
+  "availableThrough": "2026-10-20",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -12627,10 +12632,10 @@ window.MISSAL_STATUS = {
   "calendarDataThrough": "2026-12-31",
   "sundayLeafletDate": "2026-10-25",
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-  "contentVersion": "6272f6977a4713693427",
-  "lastSuccessfulUpdateAt": "2026-10-19T16:27:33.190156-03:00"
+  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf",
+  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf",
+  "contentVersion": "3dabf5ca26b263708777",
+  "lastSuccessfulUpdateAt": "2026-10-20T04:33:29.951799-03:00"
 };
 </script>
 <script>
@@ -14635,7 +14640,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261019-6209013ec1ca",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261020-bb57a9850f46",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
