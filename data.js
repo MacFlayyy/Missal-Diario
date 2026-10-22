@@ -2149,7 +2149,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 411 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-10-23": {
     "label": "Sexta-feira • 23/10/2026",

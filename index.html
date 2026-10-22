@@ -3999,8 +3999,8 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261021-6b4bd50c453c"></script>
-<script src="status.js?v=20261021-6b4bd50c453c"></script>
+<script src="data.js?v=20261022-8e82b98a939e"></script>
+<script src="status.js?v=20261022-8e82b98a939e"></script>
 <script>
 const dataLoaded = Boolean(
   window.MISSAL_DATA &&
@@ -6003,7 +6003,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261021-6b4bd50c453c",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261022-8e82b98a939e",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
