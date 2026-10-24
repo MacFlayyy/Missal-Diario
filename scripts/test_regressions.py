@@ -556,6 +556,7 @@ def check_folheto_gap_fallbacks():
         "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
     })
     sample["tapes"][4].pop("suggestion",None)
+    sample["tapes"][4].pop("verifiedByFolheto",None)
     assert fill_folheto_gaps(sample)
     assert sample["tapes"][4]["page"]=="—"
     assert "não indicada no folheto" in sample["tapes"][4]["title"].lower()
