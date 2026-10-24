@@ -4062,16 +4062,18 @@ function quickStepsMarkup(value, interactive=false){
 
   return pages.map((page,i)=>{
     const escaped=prepareEscapeHtml(page);
+    const hasKnownPage=/^\d+(?:\s*(?:\/|ou)\s*\d+){0,3}$/i.test(page);
     const alternatives=/^\d+(?:\s*(?:\/|ou)\s*\d+){1,3}$/i.test(page);
     const numbers=page.split(/\s*(?:\/|ou)\s*/i);
     const content=alternatives
       ? '<span class="'+(numbers.length===4?'multi-page-values':'stacked-page-values')+'">'+numbers.map(n=>'<span>'+prepareEscapeHtml(n)+'</span>').join('')+'</span>'
       : escaped;
-    // Só o número é visível. O nome da ação existe apenas para leitores de tela.
-    const start=interactive
+    // Páginas desconhecidas (ex.: "?") permanecem visíveis, mas nunca viram links.
+    const canJump=interactive&&hasKnownPage;
+    const start=canJump
       ? '<button type="button" class="quick-step quick-jump" data-tape-index="'+i+'" aria-label="Ir para a página '+escaped+' na marcação '+(i+1)+'">'
       : '<span class="quick-step" title="Página '+escaped+'">';
-    const end=interactive?'</button>':'</span>';
+    const end=canJump?'</button>':'</span>';
     return '<span class="quick-item">'+start+content+end+
       (i<pages.length-1?'<span class="quick-arrow" aria-hidden="true">→</span>':'')+'</span>';
   }).join("");
