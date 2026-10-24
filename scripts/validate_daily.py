@@ -98,8 +98,30 @@ def save_status(key, data):
         # O dia é domingo pelo calendário, mesmo quando a celebração se
         # chama "Todos os Santos", "Cristo Rei" ou "Sagrada Família".
         # Não exigir a palavra "domingo" no nome nem no grau litúrgico.
+        def preview_part_is_explicit(tape):
+            page = str(tape.get("page", "—")).strip()
+            if is_valid_page(page):
+                return True
+            if page != "—":
+                return False
+            if tape.get("notIndicated"):
+                return True
+            if sunday.get("dailySourceVerified") and tape.get("pageUnverified"):
+                return True
+            # Um folheto oficial pode omitir partes discricionárias. Permitir
+            # a prévia com essas fitas explicitamente pendentes, sem inventar
+            # página, prefácio ou bênção; a interface exibirá a pendência.
+            title = str(tape.get("title", "")).lower()
+            pending_markers = ("a conferir no folheto", "não confirmada",
+                               "não indicado claramente no folheto",
+                               "não indicada no folheto", "não confirmada no folheto")
+            return bool(sunday.get("folhetoUrl") or sunday.get("folhetoDesktopUrl")
+                        or sunday.get("folhetoMobileUrl")) and any(
+                marker in title for marker in pending_markers
+            )
+
         if (isinstance(sunday, dict) and len(tapes) >= 5
-                and all(is_valid_page(t.get("page")) or (t.get("notIndicated") and t.get("page") == "—") or (sunday.get("dailySourceVerified") and t.get("pageUnverified") and t.get("page") == "—") for t in tapes[:5])):
+                and all(preview_part_is_explicit(t) for t in tapes[:5])):
             payload["sundayPreview"] = sunday_key
 
     # O domingo liberado no sábado continua acessível durante a madrugada.
