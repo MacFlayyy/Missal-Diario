@@ -2391,6 +2391,7 @@ window.MISSAL_DATA = {
       {
         "n": 3,
         "page": "—",
+        "pageUnverified": true,
         "title": "Prefácio — não indicado claramente no folheto",
         "details": [
           [
@@ -2418,6 +2419,7 @@ window.MISSAL_DATA = {
       {
         "n": 5,
         "page": "—",
+        "pageUnverified": true,
         "title": "Bênção Solene — não confirmada",
         "details": [
           [
@@ -2427,7 +2429,7 @@ window.MISSAL_DATA = {
         ]
       }
     ],
-    "quick": "430 → 412 → 614",
+    "quick": "430 → 412 → ? → 614 → ?",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [1, 2, 4],
