@@ -227,7 +227,7 @@ def discover_recent_media():
     return sorted(set(results))
 
 
-def ocr_scanned_folheto(pdf_bytes, max_pages=4):
+def ocr_scanned_folheto(pdf_bytes, max_pages=15):
     """Último recurso para PDFs digitalizados, com OCR português e páginas limitadas."""
     if not shutil.which("pdftoppm") or not shutil.which("tesseract"):
         print("[aviso] OCR não instalado; PDF ficará vinculado sem transcrição automática.")
@@ -1117,12 +1117,13 @@ def main():
                 entry[url_field] = url
                 changed_any = True
 
-            # A edição "versão celular" muitas vezes só permite ler as 4
-            # primeiras páginas de 13. É exclusivamente link de leitura
-            # quando já existe PDF final desktop: NÃO sobrescrever escolhas
-            # verificadas no folheto completo com OCR incompleto do mobile.
-            if variant == "mobile" and entry.get("folhetoDesktopUrl"):
-                print("[folheto] mobile preservado como link; indicações lidas do PDF final:", key)
+            # Priorizar o PDF desktop quando ele já foi lido e confirmou as
+            # partes principais. Se a extração desktop falhou ou não confirmou
+            # as escolhas, processar também a versão celular com OCR ampliado.
+            if (variant == "mobile" and entry.get("folhetoDesktopUrl")
+                    and entry.get("officialLeafletApplied")
+                    and all(n in entry.get("officialVerifiedParts", []) for n in (1, 3, 4))):
+                print("[folheto] mobile mantido apenas como link; PDF desktop já confirmou as indicações:", key)
                 continue
 
             # Quando houver folheto oficial, aplicar escolhas comprovadas
