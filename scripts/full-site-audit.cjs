@@ -352,13 +352,17 @@ async function run(config){
    const printed=await page.locator('#quickSteps .quick-jump').allTextContents();
    const expectedQuick=await page.locator('#tapes .tape .page-number').evaluateAll(els=>els.filter(el=>/^\d+$/.test(el.textContent.trim())).length);
    mark(row,'interactive-quick-pages-only',quickButtons===expectedQuick&&printed.every(t=>!/[Ff]ita|[Mm]arcador/.test(t)),{count:quickButtons,expected:expectedQuick,pages:printed});
-   if(quickButtons===5){
-     await page.locator('#quickSteps .quick-jump').nth(2).click();
+   const thirdTapeJump=page.locator('#quickSteps .quick-jump[data-tape-index="2"]');
+   if(await thirdTapeJump.count()){
+     await thirdTapeJump.click();
      const target=await page.evaluate(()=>({
        highlighted:document.querySelectorAll('#tapes .tape')[2]?.classList.contains('tape-jump-highlight'),
        correctPage:document.querySelectorAll('#tapes .tape')[2]?.querySelector('.page-number')?.textContent.trim()
      }));
      mark(row,'quick-third-page-jumps-to-preface',target.highlighted&&!!target.correctPage,target);
+   }else{
+     const thirdPageIsUnverified=await page.locator('#tapes .tape').nth(2).locator('.page-number').count()===0;
+     mark(row,'quick-third-page-jumps-to-preface',thirdPageIsUnverified,{skippedBecausePageUnverified:thirdPageIsUnverified});
    }
    await page.evaluate(()=>setPrepareMissal(true));
    const prepButtons=await page.locator('#prepareMissalOverlay .quick-jump').count();
