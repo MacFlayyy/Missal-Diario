@@ -558,7 +558,7 @@ def check_folheto_gap_fallbacks():
     sample["tapes"][4].pop("suggestion",None)
     assert fill_folheto_gaps(sample)
     assert sample["tapes"][4]["page"]=="—"
-    assert "conferir folheto" in sample["tapes"][4]["title"].lower()
+    assert "não indicada no folheto" in sample["tapes"][4]["title"].lower()
     assert "suggestion" not in sample["tapes"][4]
     assert sample["tapes"][:4]==original
     assert not fill_folheto_gaps(sample),"Aplicação de sugestões deve ser idempotente"
