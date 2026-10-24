@@ -2370,7 +2370,7 @@ window.MISSAL_DATA = {
             "Irmãos eleitos segundo a presciência de Deus Pai, pela santificação do Espírito para obedecer a Jesus Cristo e participar da bênção da aspersão do seu sangue, graça e paz vos sejam concedidas abundantemente."
           ],
           [
-            "Ato Penitencial — invocações próprias do folheto",
+            "Ato Penitencial — Terceira fórmula (introdução, 3ª opção) + Invocações alternativas para os diversos tempos — Tempo Comum, nº 4",
             "O Senhor disse: “Quem dentre vós estiver sem pecado, atire a primeira pedra”. Reconheçamo-nos todos pecadores e perdoemo-nos mutuamente do fundo do coração. (breve silêncio) — Senhor, que vieste procurar quem estava perdido, tende piedade de nós. Assembleia: Senhor, tende piedade de nós. — Cristo, que vieste dar a vida em resgate de muitos, tende piedade de nós. Assembleia: Cristo, tende piedade de nós. — Senhor, que congregais na unidade os filhos de Deus dispersos, tende piedade de nós. Assembleia: Senhor, tende piedade de nós. — Conclusão: Deus todo-poderoso, tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna. Amém."
           ]
         ],
@@ -2391,14 +2391,14 @@ window.MISSAL_DATA = {
       {
         "n": 3,
         "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV — A história da salvação",
+        "title": "Prefácio integrado à Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
         "details": [
           [
             "Indicação",
-            "O folheto não especifica claramente um prefácio. Sugestão pelo Missal Romano para o Tempo Comum; não é uma indicação expressa do folheto."
+            "A Oração Eucarística indicada no folheto contém seu próprio prefácio. Consulte a p. 614 junto à Fita 4; não usar o Prefácio dos Domingos do Tempo Comum IV como se fosse indicação do folheto."
           ]
         ],
-        "suggestion": true
+        "suggestion": false
       },
       {
         "n": 4,
