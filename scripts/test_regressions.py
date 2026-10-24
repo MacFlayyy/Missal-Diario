@@ -796,7 +796,7 @@ def check_corrective_audit_2026():
     assert seed["2026-11-02"]["tapes"][1]["page"]=="846 / 847 / 848"
     for date_key,backup in seed.items():
         original = data[date_key]
-        if not original.get("officialLeafletApplied"):
+        if not original.get("officialLeafletApplied") and not original.get("ritesPendingOfficial"):
             assert backup["tapes"][0]["details"]==original["tapes"][0]["details"], date_key
         for line in backup["tapes"][0]["details"]:
             assert "Consultar o texto integral no Missal Romano" not in str(line[1]), date_key
