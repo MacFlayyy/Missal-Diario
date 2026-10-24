@@ -107,7 +107,7 @@ def fill_folheto_gaps(entry):
 
         # Se o leitor identificou explicitamente que a bênção não está indicada,
         # manter essa informação, sem substituí-la por uma bênção sugerida.
-        if number == 5 and tape.get("notIndicated"):
+        if number == 5 and (tape.get("notIndicated") or "não indicada no folheto" in str(tape.get("title", "")).lower()):
             tape["title"] = "Bênção Solene — não indicada no folheto"
             tape["page"] = "—"
             tape["details"] = [[
