@@ -350,7 +350,8 @@ async function run(config){
    // Navegação nova: apenas páginas visíveis, com salto real à fita.
    const quickButtons=await page.locator('#quickSteps .quick-jump').count();
    const printed=await page.locator('#quickSteps .quick-jump').allTextContents();
-   mark(row,'interactive-quick-pages-only',quickButtons===5&&printed.every(t=>!/[Ff]ita|[Mm]arcador/.test(t)),{count:quickButtons,pages:printed});
+   const expectedQuick=await page.locator('#tapes .tape .page-number').evaluateAll(els=>els.filter(el=>/^\\d+$/.test(el.textContent.trim())).length);
+   mark(row,'interactive-quick-pages-only',quickButtons===expectedQuick&&printed.every(t=>!/[Ff]ita|[Mm]arcador/.test(t)),{count:quickButtons,expected:expectedQuick,pages:printed});
    if(quickButtons===5){
      await page.locator('#quickSteps .quick-jump').nth(2).click();
      const target=await page.evaluate(()=>({
@@ -361,8 +362,8 @@ async function run(config){
    }
    await page.evaluate(()=>setPrepareMissal(true));
    const prepButtons=await page.locator('#prepareMissalOverlay .quick-jump').count();
-   mark(row,'prepare-missal-pages-interactive',prepButtons===5,{count:prepButtons});
-   if(prepButtons===5){
+   mark(row,'prepare-missal-pages-interactive',prepButtons===expectedQuick,{count:prepButtons,expected:expectedQuick});
+   if(prepButtons===expectedQuick&&prepButtons>0){
      await page.locator('#prepareMissalOverlay .quick-jump').nth(0).click();
      const closed=await page.evaluate(()=>document.getElementById('prepareMissalOverlay').hidden);
      mark(row,'prepare-missal-jump-closes-overlay',closed,{closed});
