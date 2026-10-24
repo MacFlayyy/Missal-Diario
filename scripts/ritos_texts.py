@@ -75,99 +75,63 @@ def suggested_preface(entry):
     return "509", "Prefácio Comum I"
 
 def fill_folheto_gaps(entry):
-    """Não confundir escolhas do folheto com sugestões nos itens não indicados.
+    """Não preencher lacunas de um folheto oficial com escolhas genéricas.
 
-    A decisão é feita por fita e, na oração eucarística, por aclamação.
-    Funciona também para dados antigos já confirmados parcialmente.
+    Para dias com PDF oficial vinculado, só as partes marcadas como
+    verifiedByFolheto podem ser apresentadas como oficiais. O que o leitor
+    automático não reconhecer fica pendente de conferência, sem página/texto
+    inventado. Dias sem folheto continuam usando as sugestões existentes
+    no cadastro-base, fora desta função.
     """
-    if not any(entry.get(field) for field in ("folhetoDesktopUrl", "folhetoUrl", "folhetoMobileUrl")):
+    if not any(entry.get(field) for field in (
+        "folhetoDesktopUrl", "folhetoUrl", "folhetoMobileUrl"
+    )):
         return False
-    before = __import__("json").dumps(entry, sort_keys=True, ensure_ascii=False)
+
+    import json
+    before = json.dumps(entry, sort_keys=True, ensure_ascii=False)
     tapes = {t.get("n"): t for t in entry.get("tapes", [])}
-    if not all(number in tapes for number in (1, 2, 3, 4, 5)):
-        return False
+    for number, title, detail in (
+        (1, "Ritos Iniciais — a conferir no folheto",
+         "Saudação e Ato Penitencial não identificados com segurança no folheto."),
+        (3, "Prefácio — a conferir no folheto",
+         "Prefácio não identificado com segurança no folheto."),
+        (4, "Oração Eucarística — a conferir no folheto",
+         "Oração Eucarística/aclamação não identificada com segurança no folheto."),
+        (5, "Bênção Solene — conferir folheto",
+         "Indicação de bênção solene ainda não confirmada na leitura do folheto."),
+    ):
+        tape = tapes.get(number)
+        if not tape or tape.get("verifiedByFolheto"):
+            continue
 
-    t1 = tapes[1]
-    if not t1.get("verifiedByFolheto"):
-        previous = t1.get("details") or []
-        valid_saud = next(
-            (row for row in previous
-             if isinstance(row, list) and len(row) >= 2 and row[0].startswith("Saudação ")
-             and "a conferir" not in row[0] and str(row[1]).strip()), None
-        )
-        valid_ato = next(
-            (row for row in previous
-             if isinstance(row, list) and len(row) >= 2 and row[0].startswith("Ato Penitencial — ")
-             and "a conferir" not in row[0] and str(row[1]).strip()), None
-        )
-        saad = valid_saud or ["Saudação A", SAUDACOES["A"]]
-        ato = valid_ato or ["Ato Penitencial — Segunda fórmula, 2ª opção",
-                            ATO_PENITENCIAL["Segunda fórmula, 2ª opção"]]
-        t1["details"] = [
-            [saad[0].split(" • ")[0] + " • sugestão", saad[1]],
-            [ato[0].split(" • ")[0] + " • sugestão", ato[1]],
-        ]
-        t1["suggestion"] = True
-    else:
-        t1.pop("suggestion", None)
+        # Se o leitor identificou explicitamente que a bênção não está indicada,
+        # manter essa informação, sem substituí-la por uma bênção sugerida.
+        if number == 5 and tape.get("notIndicated"):
+            tape["title"] = "Bênção Solene — não indicada no folheto"
+            tape["page"] = "—"
+            tape["details"] = [[
+                "Indicação",
+                "O folheto não apresenta uma bênção solene específica."
+            ]]
+        else:
+            tape["title"] = title
+            tape["page"] = "—"
+            tape["details"] = [["Conferência", detail]]
+        tape.pop("suggestion", None)
+        tape.pop("pageSuggestion", None)
+        tape.pop("notIndicated", None)
 
-    t3 = tapes[3]
-    if not t3.get("verifiedByFolheto"):
-        if (t3.get("notIndicated") or str(t3.get("page", "—")) == "—"
-                or "não identificado" in str(t3.get("title", "")).lower()):
-            t3["page"], t3["title"] = suggested_preface(entry)
-        t3["details"] = [["Uso", "Sugestão: o folheto não indicou este prefácio."]]
-        t3["suggestion"] = True
-        t3.pop("notIndicated", None)
-    else:
-        t3.pop("suggestion", None)
-
-    t4 = tapes[4]
-    if not t4.get("verifiedByFolheto"):
-        if (t4.get("notIndicated") or str(t4.get("page", "—")) == "—"
-                or "não identificada" in str(t4.get("title", "")).lower()):
-            t4["page"], t4["title"] = "536", "Oração Eucarística II"
-        t4["details"] = [
-            ["Aclamação", "Mistério da fé! • sugestão"],
-            ["Resposta", "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"],
-            ["Uso", "Oração Eucarística e aclamação sugeridas: não identificadas no folheto."],
-        ]
-        t4["suggestion"] = True
-        t4.pop("notIndicated", None)
-    else:
-        t4.pop("suggestion", None)
-        rows = t4.setdefault("details", [])
-        acclamation = next((r for r in rows if isinstance(r, list) and len(r) >= 2
-                            and r[0] == "Aclamação"), None)
-        if not acclamation or any(word in str(acclamation[1]).lower()
-                                  for word in ("não identificada", "a conferir")):
-            if acclamation:
-                acclamation[1] = "Mistério da fé! • sugestão"
-            else:
-                rows.append(["Aclamação", "Mistério da fé! • sugestão"])
-            if not any(r[0] == "Resposta" for r in rows if isinstance(r, list) and len(r) >= 2):
-                rows.append(["Resposta", "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"])
-            if not any(r[0] == "Uso" for r in rows if isinstance(r, list) and len(r) >= 2):
-                rows.append(["Uso", "Somente a aclamação é sugestão; a Oração Eucarística segue o folheto."])
-
-    t5 = tapes[5]
-    if not t5.get("verifiedByFolheto"):
-        t5["page"], t5["title"] = suggested_blessing(entry)
-        t5["details"] = [
-            ["Uso", "Sugestão: o folheto oficial não indica bênção solene específica."],
-        ]
-        t5["suggestion"] = True
-        t5.pop("notIndicated", None)
-    else:
-        t5.pop("suggestion", None)
-
+    # A página da Missa pode estar confirmada no índice do Missal mesmo se
+    # o PDF não a reproduzir; não alterar essa fita.
     entry["quick"] = " → ".join(
-        ("?" if t.get("pageUnverified") else str(t["page"])) for t in entry["tapes"]
+        ("?" if t.get("pageUnverified") else str(t.get("page", "—")))
+        for t in entry.get("tapes", [])
         if str(t.get("page", "—")).strip() not in ("", "—") or t.get("pageUnverified")
     )
-    if entry.get("officialLeafletApplied"):
-        entry["note"] = (
-            "Indicações do folheto oficial aplicadas. Onde o folheto não especifica "
-            "uma parte, a marcação é sugestão, não escolha oficial."
-        )
-    return __import__("json").dumps(entry, sort_keys=True, ensure_ascii=False) != before
+    entry["note"] = (
+        "Folheto oficial vinculado. Somente partes verificadas no folheto "
+        "são tratadas como oficiais; partes não reconhecidas ficam pendentes "
+        "de conferência, sem sugestões substitutas."
+    )
+    return json.dumps(entry, sort_keys=True, ensure_ascii=False) != before
