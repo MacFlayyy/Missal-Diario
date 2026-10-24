@@ -303,7 +303,7 @@ def pdf_text(url, allow_ocr=False):
         recognized = ocr_scanned_folheto(r.content)
         if score(recognized) > score(text):
             text = recognized
-    if allow_ocr and "Povo-Deus-61" in url and ("04_10" in url or "11_10" in url or "12_10" in url):
+    if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10")):
         lines = [line.strip() for line in text.splitlines() if line.strip()]
         words = ("saudacao inicial", "ato penitencial", "prefacio", "eucaristica",
                  "bencao", "misterio da fe", "gloria", "oracao sobre")
