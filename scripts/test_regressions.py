@@ -563,16 +563,14 @@ def check_folheto_gap_fallbacks():
     assert sample["tapes"][:4]==original
     assert not fill_folheto_gaps(sample),"Aplicação de sugestões deve ser idempotente"
 
-    # Uma aclamação omitida é sugestão somente nessa linha, não na OE inteira.
+    # Uma aclamação já marcada como verificada não deve ser substituída.
     partial=copy.deepcopy(data["2026-10-11"])
     partial["tapes"][3]["details"]=[["Aclamação","Não identificada no folheto; conferir antes da celebração"]]
-    assert fill_folheto_gaps(partial)
-    assert partial["tapes"][3]["verifiedByFolheto"]
-    assert not partial["tapes"][3].get("suggestion")
-    assert "sugestão" in partial["tapes"][3]["details"][0][1].lower()
+    before_partial=copy.deepcopy(partial)
     assert not fill_folheto_gaps(partial)
+    assert partial==before_partial
 
-    # Mesmo quando o OCR não identifica um prefácio, a referência sugerida deve aparecer.
+    # Quando o OCR não confirma um prefácio, não inventar página nem escolha.
     missing=copy.deepcopy(data["2026-10-11"])
     missing["tapes"][2].update({
         "title": "Prefácio — não identificado no folheto", "page": "—",
@@ -580,11 +578,12 @@ def check_folheto_gap_fallbacks():
     })
     missing["tapes"][2].pop("verifiedByFolheto",None)
     assert fill_folheto_gaps(missing)
-    assert missing["tapes"][2]["page"]=="477"
-    assert missing["tapes"][2]["suggestion"]
-    assert "sugestão" in missing["tapes"][2]["details"][0][1].lower()
+    assert missing["tapes"][2]["page"]=="—"
+    assert "sugestão" not in missing["tapes"][2]
+    assert "não identificado com segurança" in missing["tapes"][2]["details"][0][1].lower()
+    assert not fill_folheto_gaps(missing)
 
-    print("PASSOU: nenhuma lacuna do folheto sem sugestão e escolhas oficiais preservadas")
+    print("PASSOU: lacunas oficiais ficam pendentes e escolhas verificadas são preservadas")
 
 
 
