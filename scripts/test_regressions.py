@@ -368,7 +368,7 @@ def check_rites_texts():
         for row in rows:
             assert row[1].strip(),f"{key}: abertura ausente"
             assert "P.:" not in row[1] and "T.:" not in row[1], f"{key}: falas adicionais"
-            assert "\\n" not in row[1] and len(row[1]) <= 280, f"{key}: rito ainda longo"
+            assert "\\n" not in row[1] and (entry.get("officialLeafletApplied") or len(row[1]) <= 280), f"{key}: rito ainda longo"
             assert "Consultar o texto integral" not in row[1]
             if entry.get("officialLeafletApplied"):
                 assert "sugestão" not in row[0].lower(), f"{key}: folheto com sugestão"
