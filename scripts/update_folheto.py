@@ -6,8 +6,9 @@ Atualizador automático do Missal Diário.
   Arquidiocese de Brasília.
 - Extrai o texto do folheto.
 - Identifica as escolhas confirmadas no folheto e preserva-as como oficiais.
-- Sempre sugere, de modo explícito, uma opção para cada parte omitida
-  no folheto (inclusive Bênção Solene e aclamações não especificadas).
+- Mantém pendentes as partes que o folheto não identifica com segurança.
+- Não substitui escolhas oficiais nem inventa páginas, prefácios, aclamações
+  ou bênçãos para preencher lacunas do folheto.
 - Não usa API paga nem chave secreta.
 """
 
