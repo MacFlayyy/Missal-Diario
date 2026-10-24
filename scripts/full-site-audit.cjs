@@ -350,7 +350,7 @@ async function run(config){
    // Navegação nova: apenas páginas visíveis, com salto real à fita.
    const quickButtons=await page.locator('#quickSteps .quick-jump').count();
    const printed=await page.locator('#quickSteps .quick-jump').allTextContents();
-   const expectedQuick=await page.locator('#tapes .tape .page-number').evaluateAll(els=>els.filter(el=>/^\\d+$/.test(el.textContent.trim())).length);
+   const expectedQuick=await page.locator('#tapes .tape .page-number').evaluateAll(els=>els.filter(el=>/^\d+$/.test(el.textContent.trim())).length);
    mark(row,'interactive-quick-pages-only',quickButtons===expectedQuick&&printed.every(t=>!/[Ff]ita|[Mm]arcador/.test(t)),{count:quickButtons,expected:expectedQuick,pages:printed});
    if(quickButtons===5){
      await page.locator('#quickSteps .quick-jump').nth(2).click();
