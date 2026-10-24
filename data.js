@@ -2390,15 +2390,15 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "—",
-        "pageUnverified": true,
-        "title": "Prefácio — não indicado claramente no folheto",
+        "page": "477",
+        "title": "Prefácio dos Domingos do Tempo Comum IV — A história da salvação",
         "details": [
           [
-            "Conferência",
-            "O folheto não permitiu confirmar com segurança um prefácio específico. Conferir no Missal antes da celebração."
+            "Indicação",
+            "O folheto não especifica claramente um prefácio. Sugestão pelo Missal Romano para o Tempo Comum; não é uma indicação expressa do folheto."
           ]
-        ]
+        ],
+        "suggestion": true
       },
       {
         "n": 4,
@@ -2418,18 +2418,18 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "—",
-        "pageUnverified": true,
-        "title": "Bênção Solene — não confirmada",
+        "page": "585",
+        "title": "Bênção Solene — Tempo Comum VI (2Ts 2,16-17)",
         "details": [
           [
-            "Conferência",
-            "O folheto consultado não permitiu confirmar uma Bênção Solene específica. Não substituir por uma sugestão sem conferência."
+            "Uso",
+            "O folheto não indica bênção solene específica. Sugestão pelo tempo litúrgico, conforme o Missal Romano."
           ]
-        ]
+        ],
+        "suggestion": true
       }
     ],
-    "quick": "430 → 412 → ? → 614 → ?",
+    "quick": "430 → 412 → 477 → 614 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [1, 2, 4],
