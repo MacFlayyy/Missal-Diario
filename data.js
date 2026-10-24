@@ -2366,7 +2366,7 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação inicial",
+            "Saudação E",
             "Irmãos eleitos segundo a presciência de Deus Pai, pela santificação do Espírito para obedecer a Jesus Cristo e participar da bênção da aspersão do seu sangue, graça e paz vos sejam concedidas abundantemente."
           ],
           [
