@@ -78,10 +78,11 @@ def fill_folheto_gaps(entry):
     """Não preencher lacunas de um folheto oficial com escolhas genéricas.
 
     Para dias com PDF oficial vinculado, só as partes marcadas como
-    verifiedByFolheto podem ser apresentadas como oficiais. O que o leitor
-    automático não reconhecer fica pendente de conferência, sem página/texto
-    inventado. Dias sem folheto continuam usando as sugestões existentes
-    no cadastro-base, fora desta função.
+    verifiedByFolheto podem ser apresentadas como oficiais. Partes já
+    verificadas nunca são alteradas; o processamento repetido deve ser
+    idempotente. O que o leitor automático não reconhecer fica pendente de
+    conferência, sem página/texto inventado. Dias sem folheto continuam usando
+    as sugestões existentes no cadastro-base, fora desta função.
     """
     if not any(entry.get(field) for field in (
         "folhetoDesktopUrl", "folhetoUrl", "folhetoMobileUrl"
