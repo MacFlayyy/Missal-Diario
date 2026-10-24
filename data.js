@@ -2429,7 +2429,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 412 → 614 → 614 → 585",
+    "quick": "430 → 412 → 614 (Fitas 3 e 4) → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [1, 2, 4],
