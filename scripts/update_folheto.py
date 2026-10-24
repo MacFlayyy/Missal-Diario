@@ -301,7 +301,9 @@ def pdf_text(url, allow_ocr=False):
     text = max((plain, layout), key=lambda x: (score(x), len(x)))
     if allow_ocr and score(text) < 5:
         recognized = ocr_scanned_folheto(r.content)
-        if score(recognized) > score(text):
+        # PDFs digitalizados podem ter OCR útil mesmo quando os títulos têm
+        # pequenos erros e, por isso, não pontuam nos marcadores exatos.
+        if score(recognized) > score(text) or len(recognized) > max(500, len(text) * 1.15):
             text = recognized
     if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10")):
         lines = [line.strip() for line in text.splitlines() if line.strip()]
@@ -312,9 +314,13 @@ def pdf_text(url, allow_ocr=False):
         indexes = set()
         for marker in markers[:20]:
             indexes.update(range(max(0, marker-1), min(len(lines), marker+7)))
+        # Para o folheto do domingo em correção, registrar também o começo do
+        # OCR, pois erros de reconhecimento podem impedir a detecção do título.
+        if "25_10" in url:
+            indexes.update(range(min(len(lines), 110)))
         print("[auditoria-folheto] nome:", url.rsplit("/", 1)[-1], "linhas:", len(lines))
-        for i in sorted(indexes)[:95]:
-            print(f"[auditoria-linha] {i:03d} {lines[i][:95]}")
+        for i in sorted(indexes)[:150]:
+            print(f"[auditoria-linha] {i:03d} {lines[i][:110]}")
     print(
         f"[pdf-extracao] paginas={len(pages)} bytes={len(r.content)} "
         f"texto={len(plain)} layout={len(layout)} "
