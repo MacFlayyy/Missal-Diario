@@ -2356,24 +2356,25 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Folheto oficial vinculado. Somente partes verificadas no folheto são tratadas como oficiais; partes não reconhecidas ficam pendentes de conferência, sem sugestões substitutas.",
+    "note": "Conferido pelo folheto oficial O Povo de Deus da Arquidiocese de Brasília. Partes não indicadas no folheto permanecem sinalizadas para conferência.",
     "liturgicalNote": "Santo Antônio de Sant’Ana Galvão — memória omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
         "page": "430",
-        "title": "Ritos Iniciais — a conferir no folheto",
+        "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação — a conferir",
-            "Não identificada com segurança na leitura do folheto oficial."
+            "Saudação inicial",
+            "Irmãos eleitos segundo a presciência de Deus Pai, pela santificação do Espírito para obedecer a Jesus Cristo e participar da bênção da aspersão do seu sangue, graça e paz vos sejam concedidas abundantemente."
           ],
           [
-            "Ato Penitencial — a conferir",
-            "Não identificado com segurança na leitura do folheto oficial."
+            "Ato Penitencial — invocações próprias do folheto",
+            "O Senhor disse: “Quem dentre vós estiver sem pecado, atire a primeira pedra”. Reconheçamo-nos todos pecadores e perdoemo-nos mutuamente do fundo do coração. (breve silêncio) — Senhor, que vieste procurar quem estava perdido, tende piedade de nós. Assembleia: Senhor, tende piedade de nós. — Cristo, que vieste dar a vida em resgate de muitos, tende piedade de nós. Assembleia: Cristo, tende piedade de nós. — Senhor, que congregais na unidade os filhos de Deus dispersos, tende piedade de nós. Assembleia: Senhor, tende piedade de nós. — Conclusão: Deus todo-poderoso, tenha compaixão de nós, perdoe os nossos pecados e nos conduza à vida eterna. Amém."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -2382,7 +2383,7 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Página da Missa indicada e conferida no folheto oficial."
+            "Missa do 30º Domingo do Tempo Comum — Ano A. Missal Romano, p. 412."
           ]
         ],
         "verifiedByFolheto": true
@@ -2390,45 +2391,48 @@ window.MISSAL_DATA = {
       {
         "n": 3,
         "page": "—",
-        "title": "Prefácio — a conferir no folheto",
+        "title": "Prefácio — não indicado claramente no folheto",
         "details": [
           [
             "Conferência",
-            "Prefácio não identificado com segurança no folheto oficial."
+            "O folheto não permitiu confirmar com segurança um prefácio específico. Conferir no Missal antes da celebração."
           ]
         ]
       },
       {
         "n": 4,
-        "page": "—",
-        "title": "Oração Eucarística — a conferir no folheto",
+        "page": "614",
+        "title": "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
         "details": [
           [
-            "Conferência",
-            "Oração Eucarística e aclamação não identificadas com segurança no folheto oficial."
+            "Fonte no folheto",
+            "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade. Missal Romano, p. 614."
+          ],
+          [
+            "Aclamação após a consagração",
+            "Mistério da fé para a salvação do mundo! Resposta: Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
         "page": "—",
-        "title": "Bênção Solene — conferir folheto",
+        "title": "Bênção Solene — não confirmada",
         "details": [
           [
             "Conferência",
-            "Indicação de bênção solene ainda não confirmada na leitura do folheto oficial."
+            "O folheto consultado não permitiu confirmar uma Bênção Solene específica. Não substituir por uma sugestão sem conferência."
           ]
         ]
       }
     ],
-    "quick": "430 → 412",
+    "quick": "430 → 412 → 614",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-    "officialVerifiedParts": [
-      2
-    ],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
+    "officialVerifiedParts": [1, 2, 4],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf"
   },
