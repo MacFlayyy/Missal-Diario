@@ -524,7 +524,7 @@ def check_verified_leaflet_days():
     else:
         assert not formulary.get("verifiedByFolheto")
         assert formulary.get("folhetoPageNotSpecified")
-    assert sunday["quick"]=="430 → 411 → 626 → 626 → 585"
+    assert sunday["quick"]=="430 → 411 → 626 → 585"
     assert sunday["tapes"][3]["details"][0][1]=="Mistério da fé e do amor!"
     from update_folheto import leaflet_initial_choices, leaflet_oe_prefacio, detect_acclamation
     scan=("SAUDAÇÃO INICIAL\\n"
