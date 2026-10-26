@@ -94,7 +94,7 @@ def check_saturday_preview():
     module=importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     data=read_js_json(DATA,"window.MISSAL_DATA")
-    assert "2026-10-11" in data,"Domingo 11/10 ausente dos dados"
+    assert "2026-10-25" in data,"Domingo 25/10 ausente dos dados"
     class Saturday(RealDatetime):
         @classmethod
         def now(cls,tz=None):return cls(2026,10,10,4,30,tzinfo=tz)
@@ -104,10 +104,10 @@ def check_saturday_preview():
     with tempfile.TemporaryDirectory() as folder:
         module.STATUS_FILE=Path(folder)/"status.js"
         module.datetime=Saturday
-        module.save_status("2026-10-10",data)
+        module.save_status("2026-10-24",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
-        assert status.get("sundayPreview")=="2026-10-11",status
-        assert status["availableThrough"]=="2026-10-10"
+        assert status.get("sundayPreview")=="2026-10-25",status
+        assert status["availableThrough"]=="2026-10-24"
         assert status.get("contentVersion"),"Publicação sem revisão do conteúdo"
         version=status["contentVersion"]
         publication_time=status["lastSuccessfulUpdateAt"]
@@ -116,15 +116,15 @@ def check_saturday_preview():
             @classmethod
             def now(cls,tz=None):return cls(2026,10,10,7,12,tzinfo=tz)
         module.datetime=SaturdayLater
-        module.save_status("2026-10-10",data)
+        module.save_status("2026-10-24",data)
         same=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert same["contentVersion"]==version,"Revisão mudou sem alterações"
         assert same["lastSuccessfulUpdateAt"]==publication_time,"Publicação redundante"
 
         import copy
         changed=copy.deepcopy(data)
-        changed["2026-10-10"]["note"]=str(changed["2026-10-10"].get("note",""))+" (corrigido)"
-        module.save_status("2026-10-10",changed)
+        changed["2026-10-24"]["note"]=str(changed["2026-10-24"].get("note",""))+" (corrigido)"
+        module.save_status("2026-10-24",changed)
         updated=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert updated["contentVersion"]!=version,"Correção diária não identificada"
         assert updated["lastSuccessfulUpdateAt"]!=publication_time,"Horário de correção não atualizado"
@@ -133,15 +133,15 @@ def check_saturday_preview():
             @classmethod
             def now(cls,tz=None):return cls(2026,10,11,4,15,tzinfo=tz)
         module.datetime=SundayBeforeFive
-        module.save_status("2026-10-11",data)
+        module.save_status("2026-10-25",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
-        assert status.get("sundayPreview")=="2026-10-11", (
+        assert status.get("sundayPreview")=="2026-10-25", (
             "A atualização antecipada apagou a prévia liberada no sábado",status
         )
-        assert status["availableThrough"]=="2026-10-11"
+        assert status["availableThrough"]=="2026-10-25"
 
         module.datetime=Sunday
-        module.save_status("2026-10-11",data)
+        module.save_status("2026-10-25",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert "sundayPreview" not in status,status
 
