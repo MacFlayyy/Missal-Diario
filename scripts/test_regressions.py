@@ -97,10 +97,10 @@ def check_saturday_preview():
     assert "2026-10-25" in data,"Domingo 25/10 ausente dos dados"
     class Saturday(RealDatetime):
         @classmethod
-        def now(cls,tz=None):return cls(2026,10,10,4,30,tzinfo=tz)
+        def now(cls,tz=None):return cls(2026,10,24,4,30,tzinfo=tz)
     class Sunday(RealDatetime):
         @classmethod
-        def now(cls,tz=None):return cls(2026,10,11,5,0,tzinfo=tz)
+        def now(cls,tz=None):return cls(2026,10,25,5,0,tzinfo=tz)
     with tempfile.TemporaryDirectory() as folder:
         module.STATUS_FILE=Path(folder)/"status.js"
         module.datetime=Saturday
@@ -114,7 +114,7 @@ def check_saturday_preview():
 
         class SaturdayLater(RealDatetime):
             @classmethod
-            def now(cls,tz=None):return cls(2026,10,10,7,12,tzinfo=tz)
+            def now(cls,tz=None):return cls(2026,10,24,7,12,tzinfo=tz)
         module.datetime=SaturdayLater
         module.save_status("2026-10-24",data)
         same=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
@@ -131,7 +131,7 @@ def check_saturday_preview():
 
         class SundayBeforeFive(RealDatetime):
             @classmethod
-            def now(cls,tz=None):return cls(2026,10,11,4,15,tzinfo=tz)
+            def now(cls,tz=None):return cls(2026,10,25,4,15,tzinfo=tz)
         module.datetime=SundayBeforeFive
         module.save_status("2026-10-25",data)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
