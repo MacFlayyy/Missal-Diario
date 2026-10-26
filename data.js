@@ -1079,7 +1079,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 410 → 614 → 614 → 585",
+    "quick": "430 → 410 → 614 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/54-Povo-Deus-61-11_10_28o-Domingo-TC-Prova-Final.pdf",
@@ -1757,7 +1757,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 411 → 626 → 626 → 585",
+    "quick": "430 → 411 → 626 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/56-Povo-Deus-61-18_10_29o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [
