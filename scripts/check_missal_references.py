@@ -180,7 +180,12 @@ def check_index_and_data():
                     errors.append(f"{key}: página {page} não inicia prefácio próprio")
                 if n==3 and page in groups["oracoes_eucaristicas"] and page not in SPECIAL_PREFACES:
                     errors.append(f"{key}: oração eucarística não identificada como prefácio próprio")
-        expected = " → ".join("?" if t.get("pageUnverified") else str(t.get("page","—")) for t in tapes)
+        quick_pages = ["?" if t.get("pageUnverified") else str(t.get("page","")).strip()
+                       for t in tapes
+                       if str(t.get("page","")).strip() not in {"", "—"} or t.get("pageUnverified")]
+        # A separação rápida lista páginas consecutivas repetidas apenas uma vez.
+        expected = " → ".join(page for i,page in enumerate(quick_pages)
+                              if i == 0 or page != quick_pages[i-1])
         if day.get("quick") != expected:
             errors.append(f"{key}: separação rápida diverge das fitas")
     print(f"Conferência de índice: {len(data)} dias, {total} páginas referenciadas; "
