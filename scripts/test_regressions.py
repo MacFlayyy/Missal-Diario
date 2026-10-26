@@ -180,7 +180,7 @@ def check_liturgical_integrity():
         tapes=entry.get("tapes",[])
         assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
         assert [t.get("n") for t in tapes]==[1,2,3,4,5],f"{key}: ordem de fitas"
-        expected=" → ".join(("?" if t.get("pageUnverified") else str(t.get("page","")).strip()) for t in tapes if str(t.get("page","")).strip() not in {"", "—"} or t.get("pageUnverified"))
+        quick_pages=[("?" if t.get("pageUnverified") else str(t.get("page","")).strip()) for t in tapes if str(t.get("page","")).strip() not in {"", "—"} or t.get("pageUnverified")]\n        # Fitas consecutivas podem apontar para a mesma página; a separação rápida lista cada página uma única vez.\n        expected=" → ".join(page for i,page in enumerate(quick_pages) if i==0 or page!=quick_pages[i-1])
         assert entry.get("quick")==expected,f"{key}: separação rápida difere das fitas"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"
