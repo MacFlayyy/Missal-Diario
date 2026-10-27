@@ -2,6 +2,8 @@
 """
 Atualizador automático do Missal Diário.
 
+A validação da separação rápida deve seguir as páginas efetivamente exibidas nas fitas.
+
 - Procura PDFs do "O Povo de Deus" nos diretórios públicos de uploads da
   Arquidiocese de Brasília.
 - Extrai o texto do folheto.
