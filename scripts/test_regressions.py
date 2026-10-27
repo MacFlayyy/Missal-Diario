@@ -183,7 +183,7 @@ def check_liturgical_integrity():
         quick_pages=[str(t.get("page","")).strip() for t in tapes if str(t.get("page","")).strip() not in {"", "—"}]
         # Fitas consecutivas podem apontar para a mesma página; a separação rápida lista cada página uma única vez.
         expected=" → ".join(page for i,page in enumerate(quick_pages) if i==0 or page!=quick_pages[i-1])
-        assert entry.get("quick")==expected,f"{key}: separação rápida difere das fitas"
+        assert entry.get("quick")==expected, f"{key}: separação rápida difere das fitas; quick={entry.get('quick')!r}; esperado={expected!r}; páginas={quick_pages!r}"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"
             assert str(tape.get("title","")).strip(),f"{key}: fita sem título"
