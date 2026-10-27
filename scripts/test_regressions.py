@@ -378,6 +378,10 @@ def check_rites_texts():
             assert "Consultar o texto integral" not in row[1]
             if rites_official:
                 assert "sugestão" not in row[0].lower(), f"{key}: folheto com sugestão"
+            elif "a conferir no folheto" in row[0].lower():
+                # Uma variante oficial incompleta pode deixar um marcador de
+                # conferência no lugar do texto do rito; ele não é uma sugestão.
+                assert "não identificados com segurança" in row[1].lower(), f"{key}: pendência sem explicação"
             else:
                 assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
     assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
