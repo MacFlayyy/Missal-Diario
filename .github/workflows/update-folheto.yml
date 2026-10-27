@@ -7,6 +7,7 @@ on:
     paths:
       - "scripts/update_folheto.py"
       - "scripts/ritos_texts.py"
+      - "scripts/test_regressions.py"
   schedule:
     # GitHub Actions usa UTC; Brasília é UTC-3.
     # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
