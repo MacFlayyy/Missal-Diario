@@ -366,13 +366,17 @@ def check_rites_texts():
     data=read_js_json(DATA,"window.MISSAL_DATA")
     assert len(data)>90
     for key,entry in data.items():
-        rows=entry["tapes"][0]["details"][:2]
+        fita1=entry["tapes"][0]
+        rows=fita1["details"][:2]
+        # A fita pode continuar verificada pelo folheto mesmo quando uma
+        # variante incompleta impede marcar o cadastro inteiro como aplicado.
+        rites_official = bool(entry.get("officialLeafletApplied") or fita1.get("verifiedByFolheto"))
         for row in rows:
             assert row[1].strip(),f"{key}: abertura ausente"
             assert "P.:" not in row[1] and "T.:" not in row[1], f"{key}: falas adicionais"
-            assert "\\n" not in row[1] and (entry.get("officialLeafletApplied") or len(row[1]) <= 280), f"{key}: rito ainda longo"
+            assert "\\n" not in row[1] and (rites_official or len(row[1]) <= 280), f"{key}: rito ainda longo"
             assert "Consultar o texto integral" not in row[1]
-            if entry.get("officialLeafletApplied"):
+            if rites_official:
                 assert "sugestão" not in row[0].lower(), f"{key}: folheto com sugestão"
             else:
                 assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
