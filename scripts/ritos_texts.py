@@ -92,6 +92,7 @@ def fill_folheto_gaps(entry):
     import json
     before = json.dumps(entry, sort_keys=True, ensure_ascii=False)
     tapes = {t.get("n"): t for t in entry.get("tapes", [])}
+    verified_parts = entry.get("officialVerifiedParts")
     for number, title, detail in (
         (1, "Ritos Iniciais — a conferir no folheto",
          "Saudação e Ato Penitencial não identificados com segurança no folheto."),
@@ -103,8 +104,16 @@ def fill_folheto_gaps(entry):
          "Indicação de bênção solene ainda não confirmada na leitura do folheto."),
     ):
         tape = tapes.get(number)
-        if not tape or tape.get("verifiedByFolheto"):
+        if not tape:
             continue
+        # Quando há uma lista explícita de partes verificadas, ela prevalece
+        # sobre flags antigas que possam ter ficado na fita após trocar de PDF.
+        tape_verified = bool(tape.get("verifiedByFolheto"))
+        if isinstance(verified_parts, list):
+            tape_verified = tape_verified and number in verified_parts
+        if tape_verified:
+            continue
+        tape.pop("verifiedByFolheto", None)
 
         # Se o leitor identificou explicitamente que a bênção não está indicada,
         # manter essa informação, sem substituí-la por uma bênção sugerida.
