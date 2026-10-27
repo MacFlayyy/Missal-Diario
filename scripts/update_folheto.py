@@ -720,8 +720,13 @@ def update_entry(entry, text, url):
         entry["source"] = "Atualizado pelo folheto oficial O Povo de Deus"
         entry["note"] = "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal."
         entry["folhetoUrl"] = url
+        quick_pages = [
+            str(t["page"]) for t in entry["tapes"]
+            if str(t.get("page", "—")).strip() not in {"—", ""}
+        ]
         entry["quick"] = " → ".join(
-            str(t["page"]) for t in entry["tapes"] if str(t.get("page","—")) not in {"—",""}
+            page for i, page in enumerate(quick_pages)
+            if i == 0 or page != quick_pages[i - 1]
         )
     return changed
 
