@@ -1147,7 +1147,9 @@ def main():
         except Exception as e:
             print(f"[aviso] Falha em {url}: {e}")
 
-    # Reconstrói a separação rápida a partir das páginas finais das fitas
+    # Reconstrói a separação rápida a partir das páginas finais das fitas.
+    # A validação dos ritos considera também verifiedByFolheto da Fita 1,
+    # pois uma variante parcial não invalida partes já confirmadas.
     # após TODAS as alterações do folheto/sugestões. Assim o dado salvo nunca
     # fica defasado quando uma fita muda ou duas fitas usam a mesma página.
     for entry in data.values():
