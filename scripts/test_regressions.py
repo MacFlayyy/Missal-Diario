@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Testes de regressão do Missal Diário executados antes de publicar."""
+"""Testes de regressão do Missal Diário executados antes de publicar.
+Inclui marcadores explícitos de conferência para folhetos incompletos."""
 from __future__ import annotations
 from datetime import datetime as RealDatetime
 from pathlib import Path
