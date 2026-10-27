@@ -1147,6 +1147,24 @@ def main():
         except Exception as e:
             print(f"[aviso] Falha em {url}: {e}")
 
+    # Reconstrói a separação rápida a partir das páginas finais das fitas
+    # após TODAS as alterações do folheto/sugestões. Assim o dado salvo nunca
+    # fica defasado quando uma fita muda ou duas fitas usam a mesma página.
+    for entry in data.values():
+        tapes = sorted(entry.get("tapes", []), key=lambda tape: tape.get("n", 0))
+        pages = [
+            str(tape.get("page", "")).strip()
+            for tape in tapes
+            if str(tape.get("page", "")).strip() not in {"", "—"}
+        ]
+        quick = " → ".join(
+            page for i, page in enumerate(pages)
+            if i == 0 or page != pages[i - 1]
+        )
+        if entry.get("quick") != quick:
+            entry["quick"] = quick
+            changed_any = True
+
     if changed_any:
         save_data(data)
         print("Dados atualizados.")
