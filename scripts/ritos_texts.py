@@ -106,6 +106,25 @@ def fill_folheto_gaps(entry):
         tape = tapes.get(number)
         if not tape:
             continue
+
+        # Uma bênção conferida diretamente no índice do Missal Romano é
+        # válida mesmo quando o folheto do dia não a menciona. Não a apagar
+        # apenas porque o folheto está incompleto ou não foi possível ler.
+        if number == 5 and tape.get("suggestion"):
+            try:
+                rubric_path = __import__("pathlib").Path(__file__).resolve().parents[1] / "missal-rubrics-verified.json"
+                blessings = json.loads(rubric_path.read_text(encoding="utf-8")).get("blessings", {})
+                title = str(tape.get("title", "")).strip()
+                page = str(tape.get("page", "")).strip()
+                if any(
+                    str(rule.get("blessing_page", "")).strip() == page
+                    and str(rule.get("blessing_title", "")).strip() == title
+                    for rule in blessings.values()
+                ):
+                    continue
+            except (OSError, ValueError, TypeError):
+                pass
+
         # Quando há uma lista explícita de partes verificadas, ela prevalece
         # sobre flags antigas que possam ter ficado na fita após trocar de PDF.
         tape_verified = bool(tape.get("verifiedByFolheto"))
