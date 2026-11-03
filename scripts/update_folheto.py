@@ -723,13 +723,10 @@ def update_entry(entry, text, url):
         entry["note"] = "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal."
         entry["folhetoUrl"] = url
         quick_pages = [
-            str(t["page"]) for t in entry["tapes"]
-            if str(t.get("page", "—")).strip() not in {"—", ""}
+            "?" if t.get("pageUnverified") else (str(t.get("page", "—")).strip() or "—")
+            for t in sorted(entry["tapes"], key=lambda tape: tape.get("n", 99))
         ]
-        entry["quick"] = " → ".join(
-            page for i, page in enumerate(quick_pages)
-            if i == 0 or page != quick_pages[i - 1]
-        )
+        entry["quick"] = " → ".join(quick_pages)
     return changed
 
 
