@@ -1002,12 +1002,21 @@ def update_entry_verified(entry, text, url):
         t5["verifiedByFolheto"] = True
         t5.pop("notIndicated", None)
     else:
+        # O folheto pode omitir a bênção, mas a Fita 5 continua separada.
+        # Preservar sugestões já cadastradas e conferidas; só recorrer à
+        # sugestão geral quando a página ainda não estiver preenchida.
+        proposed_page = str(t5.get("page", "—")).strip()
+        proposed_title = str(t5.get("title", "")).strip()
+        if not proposed_page.isdigit() or not t5.get("suggestion"):
+            proposed_page, proposed_title = suggested_blessing(entry)
         t5.update({
-            "page": "—", "title": "Bênção Solene — não indicada no folheto",
-            "notIndicated": True,
-            "details": [["Indicação", "O folheto não apresenta uma bênção solene específica."]],
+            "page": proposed_page, "title": proposed_title,
+            "notIndicated": True, "suggestion": True,
+            "details": [
+                ["Indicação", "O folheto não indica bênção solene específica."],
+                ["Sugestão", "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."],
+            ],
         })
-        t5.pop("suggestion", None)
         t5.pop("verifiedByFolheto", None)
         t5.pop("pageSuggestion", None)
 
