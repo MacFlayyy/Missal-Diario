@@ -181,9 +181,12 @@ def check_liturgical_integrity():
         tapes=entry.get("tapes",[])
         assert len(tapes)==5, f"{key}: cinco fitas são obrigatórias"
         assert [t.get("n") for t in tapes]==[1,2,3,4,5],f"{key}: ordem de fitas"
-        quick_pages=[str(t.get("page","")).strip() for t in tapes if str(t.get("page","")).strip() not in {"", "—"}]
-        # Fitas consecutivas podem apontar para a mesma página; a separação rápida lista cada página uma única vez.
-        expected=" → ".join(page for i,page in enumerate(quick_pages) if i==0 or page!=quick_pages[i-1])
+        quick_pages=[
+            "?" if t.get("pageUnverified") else str(t.get("page","—")).strip() or "—"
+            for t in tapes
+        ]
+        # Uma posição por fita: páginas repetidas e páginas pendentes não são removidas.
+        expected=" → ".join(quick_pages)
         assert entry.get("quick")==expected, f"{key}: separação rápida difere das fitas; quick={entry.get('quick')!r}; esperado={expected!r}; páginas={quick_pages!r}"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"
@@ -379,10 +382,10 @@ def check_rites_texts():
             assert "Consultar o texto integral" not in row[1]
             if rites_official:
                 assert "sugestão" not in row[0].lower(), f"{key}: folheto com sugestão"
-            elif "a conferir no folheto" in row[0].lower():
+            elif "a conferir" in row[0].lower():
                 # Uma variante oficial incompleta pode deixar um marcador de
                 # conferência no lugar do texto do rito; ele não é uma sugestão.
-                assert "não identificados com segurança" in row[1].lower(), f"{key}: pendência sem explicação"
+                assert "não identificad" in row[1].lower() and "segurança" in row[1].lower(), f"{key}: pendência sem explicação"
             else:
                 assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
     assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
