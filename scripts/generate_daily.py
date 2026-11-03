@@ -169,14 +169,10 @@ def new_entry(info):
     entry["tapes"][2]["page"],entry["tapes"][2]["title"]=suggested_preface(entry)
     entry["tapes"][4]["page"],entry["tapes"][4]["title"]=suggested_blessing(entry)
     quick_pages = [
-        "?" if t.get("pageUnverified") else str(t.get("page", "")).strip()
-        for t in entry["tapes"]
-        if str(t.get("page", "")).strip() not in {"", "—"} or t.get("pageUnverified")
+        "?" if t.get("pageUnverified") else str(t.get("page", "—")).strip() or "—"
+        for t in sorted(entry["tapes"], key=lambda tape: tape.get("n", 99))
     ]
-    entry["quick"] = " → ".join(
-        page for i, page in enumerate(quick_pages)
-        if i == 0 or page != quick_pages[i - 1]
-    )
+    entry["quick"] = " → ".join(quick_pages)
     return entry
 
 def ensure_dates(data, day, fetch=None):
