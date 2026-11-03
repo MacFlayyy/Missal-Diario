@@ -134,8 +134,14 @@ def fill_folheto_gaps(entry):
             continue
         tape.pop("verifiedByFolheto", None)
 
-        # Se o leitor identificou explicitamente que a bênção não está indicada,
-        # manter essa informação, sem substituí-la por uma bênção sugerida.
+        # A ausência de indicação no folheto não elimina a fita de Bênção Solene.
+        # Quando há uma sugestão litúrgica, preservar página/título e deixar
+        # explícito que a sugestão não veio do folheto. Isso também mantém
+        # páginas específicas previamente conferidas no índice do Missal.
+        if number == 5 and tape.get("suggestion"):
+            continue
+
+        # Sem sugestão cadastrada, manter a ausência do folheto como pendência.
         if number == 5 and (tape.get("notIndicated") or "não indicada no folheto" in str(tape.get("title", "")).lower()):
             tape["title"] = "Bênção Solene — não indicada no folheto"
             tape["page"] = "—"
