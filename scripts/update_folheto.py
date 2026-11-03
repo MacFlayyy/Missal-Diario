@@ -1164,14 +1164,11 @@ def main():
     for entry in data.values():
         tapes = sorted(entry.get("tapes", []), key=lambda tape: tape.get("n", 0))
         pages = [
-            str(tape.get("page", "")).strip()
+            "?" if tape.get("pageUnverified")
+            else (str(tape.get("page", "—")).strip() or "—")
             for tape in tapes
-            if str(tape.get("page", "")).strip() not in {"", "—"}
         ]
-        quick = " → ".join(
-            page for i, page in enumerate(pages)
-            if i == 0 or page != pages[i - 1]
-        )
+        quick = " → ".join(pages)
         if entry.get("quick") != quick:
             entry["quick"] = quick
             changed_any = True
