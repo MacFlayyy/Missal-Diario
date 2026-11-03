@@ -821,6 +821,14 @@ def check_corrective_audit_2026():
     assert "dateChangeAnnouncement" in INDEX.read_text(encoding="utf-8")
     assert "aria-modal" in INDEX.read_text(encoding="utf-8")
     assert data["2026-11-02"]["tapes"][4]["page"]=="588"
+    for entries in (data, seed):
+        finados_blessing=entries["2026-11-02"]["tapes"][4]
+        assert finados_blessing["page"]=="588"
+        assert finados_blessing["title"]=="Bênção Solene — Celebração pelos Fiéis Defuntos"
+        assert finados_blessing.get("suggestion") is True
+    if data["2026-11-02"].get("folhetoUrl"):
+        finados_details=str(data["2026-11-02"]["tapes"][4].get("details", []))
+        assert "folheto não indica" in finados_details.lower()
     assert data["2026-10-28"]["tapes"][4]["page"]=="586"
     assert data["2026-11-30"]["tapes"][4]["page"]=="586"
     assert data["2026-12-12"]["tapes"][4]["page"]=="585"
