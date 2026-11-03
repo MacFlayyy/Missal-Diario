@@ -160,9 +160,8 @@ def fill_folheto_gaps(entry):
     # A página da Missa pode estar confirmada no índice do Missal mesmo se
     # o PDF não a reproduzir; não alterar essa fita.
     entry["quick"] = " → ".join(
-        ("?" if t.get("pageUnverified") else str(t.get("page", "—")))
-        for t in entry.get("tapes", [])
-        if str(t.get("page", "—")).strip() not in ("", "—") or t.get("pageUnverified")
+        "?" if t.get("pageUnverified") else (str(t.get("page", "—")).strip() or "—")
+        for t in sorted(entry.get("tapes", []), key=lambda tape: tape.get("n", 99))
     )
     entry["note"] = (
         "Folheto oficial vinculado. Somente partes verificadas no folheto "
