@@ -386,6 +386,16 @@ def check_rites_texts():
                 # Uma variante oficial incompleta pode deixar um marcador de
                 # conferência no lugar do texto do rito; ele não é uma sugestão.
                 assert "não identificad" in row[1].lower() and "segurança" in row[1].lower(), f"{key}: pendência sem explicação"
+            elif any(
+                isinstance(item, list) and len(item) >= 2
+                and str(item[0]).startswith("Conferência necessária")
+                and "precisa ser conferido" in str(item[1]).lower()
+                and "antes de substituir" in str(item[1]).lower()
+                for item in fita1.get("details", [])
+            ):
+                # Se o PDF indicar uma fórmula diferente, o texto anterior
+                # pode ser preservado somente com um aviso explícito de revisão.
+                pass
             else:
                 assert " • sugestão" in row[0], f"{key}: sugestão sem identificação"
     assert "3ª opção" in data["2026-10-04"]["tapes"][0]["details"][1][0]
