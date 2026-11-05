@@ -67,7 +67,8 @@ def verify_html(path,standalone=False):
     assert "drawInstagramMark(ctx,canvas.width-pad" in html,path
     assert 'id="dec24MassChoice"' in html,path
     assert "december24Choice=" in html,path
-    assert "sujeita à conclusão dos testes" in html,path
+    # Texto do rodapé sobre a atualização automática removido a pedido do usuário (05/11/2026).
+    assert 'id="lastUpdateText"' in html,path
     assert 'if(!url){alert("O folheto em PDF' in html,path
     assert 'bottomExit.textContent="Sair do modo celebração"' in html,path
     assert 'madrugada de domingo' in html,path
