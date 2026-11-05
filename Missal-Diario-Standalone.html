@@ -3819,11 +3819,11 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
   <script>
-    /* Tema: "auto" segue o celular/computador; "claro" e "escuro" são escolhas do usuário (aba Mais) */
+    /* Tema: padrão é "claro"; "escuro" e "auto" (segue o aparelho) são escolhas do usuário (aba Mais) */
     (function(){
       var KEY="missal-tema", m=null;
       try{m=window.matchMedia("(prefers-color-scheme: dark)");}catch(e){}
-      function pref(){try{var v=localStorage.getItem(KEY);return v==="claro"||v==="escuro"?v:"auto";}catch(e){return "auto";}}
+      function pref(){try{var v=localStorage.getItem(KEY);return v==="escuro"||v==="auto"?v:"claro";}catch(e){return "claro";}}
       function apply(){
         var p=pref(), dark=p==="escuro"||(p==="auto"&&!!(m&&m.matches));
         document.documentElement.classList.toggle("theme-dark",dark);
@@ -3838,7 +3838,7 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
         });
       }
       window.setMissalTheme=function(p){
-        try{ if(p==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,p); }catch(e){}
+        try{ if(p==="claro") localStorage.removeItem(KEY); else localStorage.setItem(KEY,p); }catch(e){}
         apply();
       };
       window.applyMissalTheme=apply;
