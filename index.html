@@ -3799,6 +3799,9 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
     /* Revisão 05/11/2026: mesmos tons, um pouco mais escuros, para atingir
        contraste mínimo de leitura (WCAG AA 4,5:1) em textos pequenos. */
     .note[hidden]{display:none!important}
+    /* Subtítulo "Missa do dia" acima do nome da celebração (Fita 2) */
+    .tape .tape-kicker{display:block;margin:0 0 3px;font-size:10px;font-weight:800;
+      letter-spacing:.105em;text-transform:uppercase;color:var(--wine)}
     .calendar-head strong{text-transform:none!important}
     .side>.eyebrow{color:#6f635a!important}
     .color-chip small{color:#665d55!important}
@@ -5107,6 +5110,7 @@ function render(dateKey){
             ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
           </div>
         </div>
+        ${t.n===2 ? `<span class="tape-kicker">Missa do dia</span>` : ``}
         <h4>${prepareEscapeHtml(t.title)}</h4>
       </div>
       <div class="tape-content">
