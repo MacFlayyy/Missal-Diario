@@ -7,6 +7,7 @@ from pathlib import Path
 import importlib.util
 import json
 import re
+import sys
 import subprocess
 import tempfile
 
@@ -185,8 +186,10 @@ def check_liturgical_integrity():
             "?" if t.get("pageUnverified") else str(t.get("page","—")).strip() or "—"
             for t in tapes
         ]
-        # Uma posição por fita: páginas repetidas e páginas pendentes não são removidas.
-        expected=" → ".join(quick_pages)
+        # Páginas seguidas iguais aparecem uma vez só (pedido do usuário).
+        sys.path.insert(0, str(ROOT/"scripts"))
+        from ritos_texts import quick_from_tapes
+        expected=quick_from_tapes(tapes)
         assert entry.get("quick")==expected, f"{key}: separação rápida difere das fitas; quick={entry.get('quick')!r}; esperado={expected!r}; páginas={quick_pages!r}"
         for tape in tapes:
             assert tape.get("page"),f"{key}: fita sem página"

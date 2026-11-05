@@ -149,6 +149,19 @@ def fill_folheto_gaps(entry):
                 "Indicação",
                 "O folheto não apresenta uma bênção solene específica."
             ]]
+        elif (number in (1, 3, 4)
+              and str(tape.get("page", "")).strip() not in ("", "—", "?")
+              and "a conferir" not in str(tape.get("title", "")).lower()):
+            # Regra do usuário: se o folheto não indicar (ou o leitor não
+            # reconhecer) uma parte, mostrar sugestão em vez de apagar a página.
+            tape["suggestion"] = True
+            if number == 1:
+                for row in tape.get("details", []):
+                    if (isinstance(row, list) and row
+                            and str(row[0]).startswith(("Saudação", "Ato Penitencial"))
+                            and " • sugestão" not in str(row[0])):
+                        row[0] = str(row[0]) + " • sugestão"
+            continue
         else:
             tape["title"] = title
             tape["page"] = "—"
@@ -159,13 +172,23 @@ def fill_folheto_gaps(entry):
 
     # A página da Missa pode estar confirmada no índice do Missal mesmo se
     # o PDF não a reproduzir; não alterar essa fita.
-    entry["quick"] = " → ".join(
-        "?" if t.get("pageUnverified") else (str(t.get("page", "—")).strip() or "—")
-        for t in sorted(entry.get("tapes", []), key=lambda tape: tape.get("n", 99))
-    )
+    entry["quick"] = quick_from_tapes(entry.get("tapes", []))
     entry["note"] = (
-        "Folheto oficial vinculado. Somente partes verificadas no folheto "
-        "são tratadas como oficiais; partes não reconhecidas ficam pendentes "
-        "de conferência, sem sugestões substitutas."
+        "Folheto oficial vinculado. Partes conferidas no folheto seguem o "
+        "folheto; partes que o folheto não indica aparecem como sugestão."
     )
     return json.dumps(entry, sort_keys=True, ensure_ascii=False) != before
+
+
+def quick_from_tapes(tapes):
+    """Separação rápida: uma página por fita, na ordem, sem repetir páginas
+    seguidas iguais (pedido do usuário) e sem posições vazias ('—')."""
+    pages = []
+    for tape in sorted(tapes or [], key=lambda t: t.get("n", 99)):
+        page = "?" if tape.get("pageUnverified") else str(tape.get("page", "")).strip()
+        if page in ("", "—"):
+            continue
+        if pages and pages[-1] == page:
+            continue
+        pages.append(page)
+    return " → ".join(pages)

@@ -336,10 +336,8 @@ def repair_entry(entry):
         raise RuntimeError("Bênção ausente/inválida: conferir antes de publicar.")
 
     # Reconstrói separação rápida SEMPRE, evitando inconsistência.
-    entry["quick"] = " → ".join(
-        "?" if t.get("pageUnverified") else (str(t.get("page", "—")).strip() or "—")
-        for t in sorted(tapes, key=lambda x: x.get("n",99))
-    )
+    from ritos_texts import quick_from_tapes
+    entry["quick"] = quick_from_tapes(tapes)
 
     if fixes:
         note = "Conferência automática registrada. " + " ".join(fixes)

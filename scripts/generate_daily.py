@@ -168,11 +168,8 @@ def new_entry(info):
     }
     entry["tapes"][2]["page"],entry["tapes"][2]["title"]=suggested_preface(entry)
     entry["tapes"][4]["page"],entry["tapes"][4]["title"]=suggested_blessing(entry)
-    quick_pages = [
-        "?" if t.get("pageUnverified") else str(t.get("page", "—")).strip() or "—"
-        for t in sorted(entry["tapes"], key=lambda tape: tape.get("n", 99))
-    ]
-    entry["quick"] = " → ".join(quick_pages)
+    from ritos_texts import quick_from_tapes
+    entry["quick"] = quick_from_tapes(entry["tapes"])
     return entry
 
 def ensure_dates(data, day, fetch=None):

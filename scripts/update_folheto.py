@@ -26,7 +26,7 @@ import subprocess, tempfile, shutil
 import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
-from ritos_texts import apply_rite_suggestions, fill_folheto_gaps, suggested_blessing
+from ritos_texts import apply_rite_suggestions, fill_folheto_gaps, suggested_blessing, quick_from_tapes
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
@@ -722,11 +722,8 @@ def update_entry(entry, text, url):
         entry["source"] = "Atualizado pelo folheto oficial O Povo de Deus"
         entry["note"] = "Folheto oficial encontrado e aplicado automaticamente. As partes não identificadas permanecem conforme a pré-separação do Missal."
         entry["folhetoUrl"] = url
-        quick_pages = [
-            "?" if t.get("pageUnverified") else (str(t.get("page", "—")).strip() or "—")
-            for t in sorted(entry["tapes"], key=lambda tape: tape.get("n", 99))
-        ]
-        entry["quick"] = " → ".join(quick_pages)
+        from ritos_texts import quick_from_tapes
+        entry["quick"] = quick_from_tapes(entry["tapes"])
     return changed
 
 
@@ -810,7 +807,9 @@ def formulary_page_confirmed_in_missal(entry, page):
     O fato de o folheto não mencionar um número NÃO invalida a página do
     formulário no Missal. Não implica que escolhas do folheto estejam confirmadas.
     """
-    if not str(page).isdigit() or not FORMULARY_INDEX_FILE.exists():
+    # Aceita também várias missas no mesmo dia, ex.: Finados "846 / 847 / 848".
+    if (not re.fullmatch(r"\d+(\s*/\s*\d+)*", str(page).strip())
+            or not FORMULARY_INDEX_FILE.exists()):
         return False
     try:
         references = json.loads(FORMULARY_INDEX_FILE.read_text(encoding="utf-8"))
@@ -822,6 +821,32 @@ def formulary_page_confirmed_in_missal(entry, page):
         and str(reference.get("missal_formulary_page", "")).strip() == str(page)
         for reference in references.get("entries", {}).values()
     )
+
+
+def _keep_as_suggestion(tape):
+    """Regra do usuário: quando o folheto não indica (ou o leitor não
+    reconhece) uma parte, manter a sugestão existente em vez de apagar a
+    página. Retorna True se a fita foi mantida como sugestão."""
+    if tape.get("n") == 1:
+        rows = [r for r in tape.get("details", [])
+                if isinstance(r, list) and len(r) >= 2
+                and str(r[0]).startswith(("Saudação", "Ato Penitencial"))
+                and "a conferir" not in str(r[0]).lower()
+                and str(r[1]).strip()]
+        if len(rows) < 2:
+            return False
+        for r in rows:
+            if " • sugestão" not in str(r[0]):
+                r[0] = str(r[0]) + " • sugestão"
+    else:
+        page = str(tape.get("page", "")).strip()
+        title = str(tape.get("title", "")).lower()
+        if page in ("", "—", "?") or "não identificad" in title or "a conferir" in title:
+            return False
+    tape["suggestion"] = True
+    tape.pop("verifiedByFolheto", None)
+    tape.pop("notIndicated", None)
+    return True
 
 
 def update_entry_verified(entry, text, url):
@@ -839,7 +864,9 @@ def update_entry_verified(entry, text, url):
     previously_verified = {
         n for n in entry.get("officialVerifiedParts", []) if isinstance(n, int)
     }
-    if saved_url and saved_url != url and previously_verified:
+    # Vale também para o MESMO PDF: uma releitura com OCR pior não pode
+    # apagar Saudação/Ato/páginas que já foram conferidas antes.
+    if previously_verified:
         candidate_saud, candidate_ato = leaflet_initial_choices(text)
         candidate_pref, candidate_oe = leaflet_oe_prefacio(text)
         candidate_page = detect_missal_page(text)
@@ -881,13 +908,14 @@ def update_entry_verified(entry, text, url):
         ]
         t1["verifiedByFolheto"] = True
         t1.pop("notIndicated", None)
-    else:
+    elif not _keep_as_suggestion(t1):
         t1["details"] = [
             ["Saudação — a conferir", "Não identificada com segurança na leitura do folheto."],
             ["Ato Penitencial — a conferir", "Não identificado com segurança na leitura do folheto."],
         ]
         t1.pop("verifiedByFolheto", None)
-    t1.pop("suggestion", None)
+    if t1.get("verifiedByFolheto"):
+        t1.pop("suggestion", None)
 
     t2 = tapes[2]
     # Um folheto pode mencionar várias páginas do Missal, inclusive as da
@@ -931,14 +959,15 @@ def update_entry_verified(entry, text, url):
         t3["details"] = [["Indicação", "Prefácio indicado no folheto oficial"]]
         t3["verifiedByFolheto"] = True
         t3.pop("notIndicated", None)
-    else:
+    elif not _keep_as_suggestion(t3):
         t3.update({
             "title": "Prefácio — não identificado no folheto", "page": "—",
             "notIndicated": True,
             "details": [["Indicação", "Prefácio não identificado com segurança no PDF."]],
         })
         t3.pop("verifiedByFolheto", None)
-    t3.pop("suggestion", None)
+    if t3.get("verifiedByFolheto"):
+        t3.pop("suggestion", None)
 
     t4 = tapes[4]
     if oe:
@@ -954,14 +983,15 @@ def update_entry_verified(entry, text, url):
         t4["details"] = rows
         t4["verifiedByFolheto"] = True
         t4.pop("notIndicated", None)
-    else:
+    elif not _keep_as_suggestion(t4):
         t4.update({
             "title": "Oração Eucarística — não identificada no folheto",
             "page": "—", "notIndicated": True,
             "details": [["Indicação", "Oração Eucarística não identificada com segurança no PDF."]],
         })
         t4.pop("verifiedByFolheto", None)
-    t4.pop("suggestion", None)
+    if t4.get("verifiedByFolheto"):
+        t4.pop("suggestion", None)
 
     # Se a bênção solene é mencionada no folheto, a indicação é oficial;
     # sem número impresso, a página é sugestão e não confirmação.
@@ -1159,13 +1189,7 @@ def main():
     # após TODAS as alterações do folheto/sugestões. Assim o dado salvo nunca
     # fica defasado quando uma fita muda ou duas fitas usam a mesma página.
     for entry in data.values():
-        tapes = sorted(entry.get("tapes", []), key=lambda tape: tape.get("n", 0))
-        pages = [
-            "?" if tape.get("pageUnverified")
-            else (str(tape.get("page", "—")).strip() or "—")
-            for tape in tapes
-        ]
-        quick = " → ".join(pages)
+        quick = quick_from_tapes(entry.get("tapes", []))
         if entry.get("quick") != quick:
             entry["quick"] = quick
             changed_any = True
