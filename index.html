@@ -3818,10 +3818,32 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111114" />
   <script>
-    /* Modo escuro automático: segue o modo do celular/computador */
-    (function(){try{var m=window.matchMedia('(prefers-color-scheme: dark)');
-      var apply=function(){document.documentElement.classList.toggle('theme-dark',m.matches)};
-      apply(); if(m.addEventListener)m.addEventListener('change',apply); else if(m.addListener)m.addListener(apply);}catch(e){}})();
+    /* Tema: "auto" segue o celular/computador; "claro" e "escuro" são escolhas do usuário (aba Mais) */
+    (function(){
+      var KEY="missal-tema", m=null;
+      try{m=window.matchMedia("(prefers-color-scheme: dark)");}catch(e){}
+      function pref(){try{var v=localStorage.getItem(KEY);return v==="claro"||v==="escuro"?v:"auto";}catch(e){return "auto";}}
+      function apply(){
+        var p=pref(), dark=p==="escuro"||(p==="auto"&&!!(m&&m.matches));
+        document.documentElement.classList.toggle("theme-dark",dark);
+        document.documentElement.dataset.themePref=p;
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){
+          if(p==="auto"){ if(t.dataset.orig) t.setAttribute("content",t.dataset.orig); return; }
+          if(!t.dataset.orig) t.dataset.orig=t.getAttribute("content");
+          t.setAttribute("content",dark?"#111114":"#7d1722");
+        });
+        document.querySelectorAll("[data-theme-choice]").forEach(function(b){
+          b.setAttribute("aria-pressed",String(b.getAttribute("data-theme-choice")===p));
+        });
+      }
+      window.setMissalTheme=function(p){
+        try{ if(p==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,p); }catch(e){}
+        apply();
+      };
+      window.applyMissalTheme=apply;
+      apply();
+      if(m){ if(m.addEventListener) m.addEventListener("change",apply); else if(m.addListener) m.addListener(apply); }
+    })();
   </script>
   <style id="novo-design">
 /* ===== Novo design (05/11/2026): fonte clássica, selos, fitinha da cor litúrgica,
@@ -4094,6 +4116,24 @@ html.theme-dark body.celebration-mode .quick-step{background:var(--d-raised)!imp
 html.theme-dark body.celebration-mode .quick{background:var(--d-surface)!important}
 html.theme-dark .leaflet-reader-help,html.theme-dark .leaflet-render-status{background:var(--d-raised)!important;color:var(--d-muted)!important;border-color:var(--d-line)!important}
 html.theme-dark .leaflet-reader-pages,html.theme-dark .leaflet-canvas-pages{background:#2a2a30!important}
+
+/* Escolha de tema (aba Mais / Mais ações) */
+.side-actions .pv-more-grid #installAppBtn{grid-column:1/-1}
+.theme-choice{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(125,23,34,.12)}
+.theme-choice-label{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#6f635a}
+.theme-choice-options{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:100%;padding:4px;border-radius:14px;background:rgba(125,23,34,.06)}
+.theme-choice-options button{min-height:40px;border:0;border-radius:11px;background:transparent;color:#5b4f48;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.theme-choice-options button[aria-pressed="true"]{background:#fff;color:#7d1722;box-shadow:0 1px 3px rgba(61,44,34,.15)}
+.theme-choice-options button{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.theme-choice-options svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-choice-help{font-size:12px;color:#6f635a;text-align:center}
+#mobileMoreSheet .theme-choice{margin:14px 0 4px}
+html.theme-dark .theme-choice{border-top-color:var(--d-line)}
+html.theme-dark .theme-choice-label{color:var(--d-gold)!important}
+html.theme-dark .theme-choice-options{background:var(--d-raised)!important}
+html.theme-dark .theme-choice-options button{color:var(--d-muted)!important;background:transparent!important}
+html.theme-dark .theme-choice-options button[aria-pressed="true"]{background:var(--d-wine)!important;color:#fff!important;box-shadow:none}
+html.theme-dark .theme-choice-help{color:var(--d-muted)!important}
 
   </style>
 </head>
@@ -6403,8 +6443,27 @@ document.addEventListener("visibilitychange",async()=>{
       rib.style.setProperty('background',g,'important'); if(pill) pill.style.setProperty('background',g,'important');
     }else{ rib.style.removeProperty('background'); if(pill) pill.style.removeProperty('background'); }
   }
+  // Escolha de tema: Claro / Escuro / Automático
+  function themeControl(){
+    var html='<div class="theme-choice" role="group" aria-label="Tema do site">'+
+      '<span class="theme-choice-label">Tema</span>'+
+      '<div class="theme-choice-options">'+
+      '<button type="button" data-theme-choice="claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>Claro</button>'+
+      '<button type="button" data-theme-choice="escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></svg>Escuro</button>'+
+      '<button type="button" data-theme-choice="auto"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>Automático</button>'+
+      '</div><small class="theme-choice-help">Automático segue o modo do seu aparelho.</small></div>';
+    var sheet=document.querySelector('#mobileMoreSheet .mobile-more-grid');
+    if(sheet&&!document.querySelector('#mobileMoreSheet .theme-choice')) sheet.insertAdjacentHTML('afterend',html);
+    var grid=document.querySelector('.side-actions .pv-more-grid');
+    if(grid&&!grid.querySelector('.theme-choice')) grid.insertAdjacentHTML('beforeend',html);
+    document.querySelectorAll('[data-theme-choice]').forEach(function(b){
+      if(b.dataset.bound)return; b.dataset.bound='1';
+      b.addEventListener('click',function(){ if(window.setMissalTheme) window.setMissalTheme(b.getAttribute('data-theme-choice')); });
+    });
+    if(window.applyMissalTheme) window.applyMissalTheme();
+  }
   function init(){
-    groupActions(); ribbon();
+    groupActions(); ribbon(); themeControl();
     var el=document.getElementById('colorName');
     if(el) new MutationObserver(ribbon).observe(el,{childList:true,characterData:true,subtree:true});
   }
