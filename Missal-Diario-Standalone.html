@@ -3814,6 +3814,331 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
     .footer-auto{color:#6f645c!important}
     .last-update{color:#6b5e58!important}
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
+  <script>
+    /* Tema: "auto" segue o celular/computador; "claro" e "escuro" são escolhas do usuário (aba Mais) */
+    (function(){
+      var KEY="missal-tema", m=null;
+      try{m=window.matchMedia("(prefers-color-scheme: dark)");}catch(e){}
+      function pref(){try{var v=localStorage.getItem(KEY);return v==="claro"||v==="escuro"?v:"auto";}catch(e){return "auto";}}
+      function apply(){
+        var p=pref(), dark=p==="escuro"||(p==="auto"&&!!(m&&m.matches));
+        document.documentElement.classList.toggle("theme-dark",dark);
+        document.documentElement.dataset.themePref=p;
+        document.querySelectorAll('meta[name="theme-color"]').forEach(function(t){
+          if(p==="auto"){ if(t.dataset.orig) t.setAttribute("content",t.dataset.orig); return; }
+          if(!t.dataset.orig) t.dataset.orig=t.getAttribute("content");
+          t.setAttribute("content",dark?"#000000":"#7d1722");
+        });
+        document.querySelectorAll("[data-theme-choice]").forEach(function(b){
+          b.setAttribute("aria-pressed",String(b.getAttribute("data-theme-choice")===p));
+        });
+      }
+      window.setMissalTheme=function(p){
+        try{ if(p==="auto") localStorage.removeItem(KEY); else localStorage.setItem(KEY,p); }catch(e){}
+        apply();
+      };
+      window.applyMissalTheme=apply;
+      apply();
+      if(m){ if(m.addEventListener) m.addEventListener("change",apply); else if(m.addListener) m.addListener(apply); }
+    })();
+  </script>
+  <style id="novo-design">
+/* ===== Novo design (05/11/2026): fonte clássica, selos, fitinha da cor litúrgica,
+   botões organizados, menos sombras e modo escuro automático ===== */
+/* ===== PRÉVIA DO NOVO DESIGN — Missal Diário ===== */
+
+/* 4) Título em letra clássica (serifada), que lembra o Missal */
+#celebration,
+.celebration-context h2,
+.section-title h3{
+  font-family:"Cormorant Garamond","Libre Caslon Text",Georgia,"Times New Roman",serif!important;
+  font-weight:700!important;
+  letter-spacing:-.01em!important;
+}
+#celebration{font-size:clamp(34px,5.2vw,52px)!important;line-height:1.02!important}
+.section-title h3{font-size:30px!important}
+
+/* 5) Menos sombras e efeitos: superfícies planas, só as fitas mantêm relevo leve */
+.hero-main,.side,.meta-item,.utility-btn,.quick,.color-chip,.source-status,
+.date-picker-btn,.nav-btn,.note,.source,.footer,.topbar,.quick-step{
+  box-shadow:none!important;
+}
+.card{box-shadow:0 1px 2px rgba(61,44,34,.05)!important}
+.tape{box-shadow:0 1px 2px rgba(61,44,34,.05),0 6px 18px rgba(61,44,34,.05)!important}
+.hero-main .meta-item::after,.hero-main .meta-item::before,
+.meta-item::after,.meta-item::before{content:none!important;display:none!important}
+
+/* 3) Cabeçalho do dia: selos compactos em vez de 6 caixas */
+.hero-main .meta{
+  display:flex!important;flex-wrap:wrap!important;gap:8px!important;
+  grid-template-columns:none!important;margin-top:18px!important;
+}
+.hero-main .meta-item{
+  min-height:0!important;padding:7px 13px!important;border-radius:999px!important;
+  background:rgba(125,23,34,.05)!important;border:1px solid rgba(125,23,34,.10)!important;
+  display:inline-flex!important;align-items:center!important;gap:6px!important;
+  flex:0 0 auto!important;width:auto!important;transform:none!important;
+}
+.hero-main .meta-item span{
+  position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;
+  clip:rect(0 0 0 0)!important;white-space:nowrap!important;
+}
+.hero-main .meta-item strong{font-size:13.5px!important;font-weight:700!important;line-height:1.2!important}
+.hero-main .meta-item:nth-child(4) strong::before{
+  content:"";display:inline-block;width:9px;height:9px;border-radius:50%;
+  margin-right:6px;vertical-align:1px;background:var(--liturgical,#3b6f50);
+}
+/* Dia do Santo(a) e Observação litúrgica: linhas de texto, com rótulo */
+.hero-main .meta-item:nth-child(1),
+.hero-main .meta-item.meta-wide{
+  flex:1 1 100%!important;border-radius:0!important;background:none!important;border:0!important;
+  padding:0!important;display:block!important;
+}
+.hero-main .meta-item:nth-child(1){order:-1;margin-bottom:4px!important}
+.hero-main .meta-item.meta-wide{margin-top:8px!important;padding-top:12px!important;border-top:1px solid rgba(125,23,34,.10)!important}
+.hero-main .meta-item:nth-child(1) span,
+.hero-main .meta-item.meta-wide span{
+  position:static!important;width:auto!important;height:auto!important;clip:auto!important;
+  display:block!important;font-size:10.5px!important;letter-spacing:.09em!important;
+  text-transform:uppercase!important;font-weight:800!important;color:#6f635a!important;margin-bottom:3px!important;
+}
+.hero-main .meta-item:nth-child(1) strong,
+.hero-main .meta-item.meta-wide strong{font-size:15px!important;font-weight:600!important}
+
+/* 2) Botões: 3 em destaque + "Mais ações" */
+.side-actions .pv-more{grid-column:1/-1}
+.side-actions .pv-more summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;border-radius:14px;border:1px solid rgba(125,23,34,.14);
+  font-weight:700;font-size:14px;color:#5b4f48;background:transparent;
+}
+.side-actions .pv-more summary::-webkit-details-marker{display:none}
+.side-actions .pv-more summary::after{content:"▾";font-size:11px;transition:transform .2s}
+.side-actions .pv-more[open] summary::after{transform:rotate(180deg)}
+.side-actions .pv-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.side-actions #prepareMissalBtn{grid-column:1/-1;order:-2}
+
+/* ajustes da 2ª rodada */
+.hero-main .meta .meta-item:nth-child(1),
+.hero-main .meta .meta-item.meta-wide,
+.hero-main .meta .meta-item:nth-child(1):hover,
+.hero-main .meta .meta-item.meta-wide:hover{background:none!important;box-shadow:none!important;transform:none!important}
+.side-actions #desktopLeafletBtn{grid-column:auto!important}
+@media(max-width:620px){.side-actions #copyQuickBtn{grid-column:1/-1!important}}
+
+/* Números da separação rápida maiores e mais legíveis */
+.quick .quick-step,.prepare-missal-sequence .quick-step{
+  font-size:clamp(15px,4.4vw,19px)!important;font-weight:820!important;
+  height:auto!important;min-height:42px!important;letter-spacing:-.01em!important;
+}
+@media(min-width:621px){.quick .quick-step,.prepare-missal-sequence .quick-step{font-size:18px!important}}
+.quick .quick-steps{gap:4px!important}
+
+/* Selos: texto centralizado na vertical (o <strong> herdava margin-top de 5px) */
+.hero-main .meta .meta-item:not(:nth-child(1)):not(.meta-wide) strong{
+  margin:0!important;display:inline-flex!important;align-items:center!important;line-height:1.2!important;
+}
+.hero-main .meta .meta-item:not(:nth-child(1)):not(.meta-wide){justify-content:center!important}
+
+/* Fonte clássica em todo o site: Crimson Pro (inspirada na Minion Pro do Missal)
+   nos textos e Cormorant Garamond nos títulos. Números sempre alinhados. */
+body,button,input,select,textarea{
+  font-family:"Crimson Pro","Minion Pro","Iowan Old Style",Georgia,"Times New Roman",serif!important;
+}
+body,body *{font-variant-numeric:lining-nums!important;font-feature-settings:"lnum" 1!important}
+.tape .tape-heading h4,.topbar h1{
+  font-family:"Cormorant Garamond","Crimson Pro",Georgia,serif!important;font-weight:700!important;
+}
+.tape .tape-heading h4{font-size:21px!important;line-height:1.2!important}
+.topbar h1{font-size:24px!important;letter-spacing:0!important}
+/* A serifa parece menor que a fonte anterior no mesmo tamanho: pequeno ajuste */
+.detail-text,.note,.subtitle,.source p{font-size:1.06em!important}
+.eyebrow,.page-caption,.tape .tape-kicker,.quick small,.hero-main .meta-item span,
+.today-kicker,.side>.eyebrow{letter-spacing:.08em!important}
+
+.hero-main{display:flex!important;flex-direction:column!important}
+
+/* O quadrinho "Cor do dia" da lateral repetia a informação */
+.side .color-chip{display:none!important}
+/* Selo da cor no cabeçalho: preenchido com a cor */
+.hero-main .meta .meta-item:nth-child(4){background:var(--liturgical)!important;border-color:transparent!important}
+.hero-main .meta .meta-item:nth-child(4) strong{color:#fff!important}
+.hero-main .meta .meta-item:nth-child(4) strong::before{background:#fff!important}
+body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4){background:#fffaf0!important;border-color:#c8a96a!important}
+body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) strong{color:#5d4512!important}
+body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) strong::before{background:#c8a96a!important}
+
+.hero-main .meta .meta-item:nth-child(4) strong,
+.hero-main .meta .meta-item:nth-child(4) #colorName{color:#fff!important}
+body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) strong,
+body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) #colorName{color:#5d4512!important}
+.hero-main .meta{margin-bottom:20px!important}
+.hero-main .note:not([hidden]){margin-bottom:20px!important}
+
+.hero{align-items:start!important}
+.hero-main{position:relative!important;overflow:visible!important}
+.pv-ribbon{
+  position:absolute;top:-6px;right:34px;width:30px;height:84px;z-index:3;pointer-events:none;
+  background:linear-gradient(180deg,var(--liturgical-deep),var(--liturgical));
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);
+  box-shadow:0 2px 6px rgba(0,0,0,.18);filter:drop-shadow(0 3px 4px rgba(0,0,0,.18));
+}
+.pv-ribbon::before{content:"";position:absolute;inset:0 7px;border-left:1px dashed rgba(255,255,255,.35);border-right:1px dashed rgba(255,255,255,.35)}
+body[data-liturgical-color="branco"] .pv-ribbon{background:linear-gradient(180deg,#fffaf0,#efe0bb);outline:1px solid #c8a96a}
+body[data-liturgical-color="branco"] .pv-ribbon::before{border-color:rgba(154,115,37,.45)}
+@media(max-width:620px){.pv-ribbon{right:22px;width:24px;height:66px}}
+.hero-main .today-kicker{align-self:flex-start!important;max-width:calc(100% - 80px)!important}
+.source p{font-size:15px!important;line-height:1.45!important}
+.tape .page-number{font-size:26px!important;font-weight:700!important}
+
+/* ================= MODO ESCURO (paleta estilo iOS) =================
+   Fundo preto, cartões cinza-chumbo (#1c1c1e / #2c2c2e), texto branco,
+   rótulos em cinza; vinho da identidade nos botões e na faixa do topo. */
+html.theme-dark{
+  color-scheme:dark;
+  --d-bg:#000000; --d-surface:#1c1c1e; --d-raised:#2c2c2e; --d-hover:#3a3a3c;
+  --d-line:#38383a; --d-text:#ffffff; --d-muted:#98989f;
+  --d-gold:#d6b26e; --d-wine:#8e2633; --d-wine-2:#8e2633;
+}
+html.theme-dark body{background:var(--d-bg)!important;color:var(--d-text)!important}
+html.theme-dark body::before,html.theme-dark body::after{opacity:.25!important}
+
+/* superfícies */
+html.theme-dark .card,html.theme-dark .hero-main,html.theme-dark .side,html.theme-dark .tape,
+html.theme-dark .source,html.theme-dark .footer,html.theme-dark .quick,
+html.theme-dark .date-menu,html.theme-dark .prepare-missal-dialog,html.theme-dark .mobile-more-sheet,
+html.theme-dark .celebration-context,html.theme-dark .leaflet-reader,html.theme-dark .leaflet-reader-header,
+html.theme-dark .mobile-nav{
+  background:var(--d-surface)!important;border-color:var(--d-line)!important;color:var(--d-text)!important;
+  box-shadow:none!important;
+}
+html.theme-dark .quick,html.theme-dark .prepare-missal-sequence{background:var(--d-raised)!important}
+html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important}
+html.theme-dark .note,html.theme-dark .today-kicker,html.theme-dark .source-status,html.theme-dark .sunday-preview-note{
+  background:var(--d-raised)!important;border-color:var(--d-line)!important;color:var(--d-muted)!important;
+}
+
+/* textos */
+html.theme-dark h1,html.theme-dark h2,html.theme-dark h3,html.theme-dark h4,html.theme-dark strong,html.theme-dark b,
+html.theme-dark #celebration,html.theme-dark .tape .tape-heading h4,html.theme-dark .celebration-context h2,
+html.theme-dark .hero-main .meta-item strong,html.theme-dark .hero-main .meta-item #colorName,
+html.theme-dark .prepare-missal-head h2,html.theme-dark .prepare-missal-page strong,
+html.theme-dark .mobile-more-head strong,html.theme-dark .calendar-head strong,html.theme-dark .leaflet-reader-heading strong{color:var(--d-text)!important}
+html.theme-dark p,html.theme-dark small,html.theme-dark .subtitle,html.theme-dark .detail-text,html.theme-dark .note,
+html.theme-dark .source p,html.theme-dark .last-update,html.theme-dark .section-title span,
+html.theme-dark .prepare-missal-page span:not(.prepare-missal-number),html.theme-dark .prepare-missal-date,
+html.theme-dark .mobile-more-head small,html.theme-dark .calendar-footer,html.theme-dark .calendar-legend,
+html.theme-dark .leaflet-reader-help,html.theme-dark .hero-main .meta-item:nth-child(1) span,
+html.theme-dark .hero-main .meta-item.meta-wide span{color:var(--d-muted)!important}
+/* rótulos em dourado */
+html.theme-dark .eyebrow,html.theme-dark .side>.eyebrow,html.theme-dark .tape .page-caption,html.theme-dark .tape .tape-kicker,
+html.theme-dark .detail b,html.theme-dark .prepare-missal-kicker,html.theme-dark .celebration-context-date,
+html.theme-dark .calendar-week,html.theme-dark .calendar-week span,html.theme-dark .leaflet-reader-heading small{color:var(--d-gold)!important}
+html.theme-dark .detail{background:transparent!important;border-color:var(--d-line)!important}
+html.theme-dark .section-title h3{color:var(--d-text)!important}
+html.theme-dark .section-title span{background:var(--d-raised)!important}
+
+/* números de página */
+html.theme-dark .tape .page{background:var(--d-raised)!important;color:var(--d-text)!important}
+html.theme-dark .tape .page-number{color:var(--d-text)!important}
+html.theme-dark .tape .tape-icon{background:var(--d-raised)!important}
+html.theme-dark .tape .tape-icon svg{stroke:var(--d-gold)!important}
+html.theme-dark .tape{border-left-color:var(--d-wine-2)!important}
+html.theme-dark .detail b,html.theme-dark .tape .tape-kicker,html.theme-dark .tape .page-caption{color:var(--d-muted)!important}
+html.theme-dark .suggestion{background:rgba(216,180,106,.12)!important;color:var(--d-gold)!important}
+html.theme-dark .inline-suggestion{color:var(--d-muted)!important}
+
+/* separação rápida e páginas do "Preparar" */
+html.theme-dark .quick-step,html.theme-dark .prepare-missal-sequence .quick-step,html.theme-dark .quick-jump{
+  background:var(--d-surface)!important;color:var(--d-text)!important;border-color:var(--d-line)!important;box-shadow:none!important;
+}
+html.theme-dark .quick-arrow,html.theme-dark .quick .quick-steps>span{color:var(--d-gold)!important}
+html.theme-dark .quick small,html.theme-dark .prepare-missal-sequence small{background:var(--d-wine)!important;color:#fff!important}
+html.theme-dark .prepare-missal-page{background:var(--d-raised)!important;border-color:var(--d-line)!important}
+html.theme-dark .prepare-missal-number{background:var(--d-surface)!important;color:var(--d-gold)!important}
+html.theme-dark .prepare-missal-overlay{background:rgba(0,0,0,.6)!important}
+
+/* botões */
+html.theme-dark .utility-btn,html.theme-dark .date-picker-btn,html.theme-dark .nav-btn,
+html.theme-dark .side-actions .pv-more summary,html.theme-dark .mobile-more-grid button,
+html.theme-dark .calendar-nav,html.theme-dark .calendar-head button,html.theme-dark .prepare-missal-close,
+html.theme-dark .mobile-more-head button,html.theme-dark .celebration-exit,html.theme-dark #celebrationModeExit,
+html.theme-dark .leaflet-reader-close,html.theme-dark .leaflet-reader-external{
+  background:var(--d-raised)!important;color:var(--d-text)!important;border-color:var(--d-line)!important;box-shadow:none!important;
+}
+html.theme-dark .utility-btn svg,html.theme-dark .mobile-more-grid svg,html.theme-dark .nav-btn svg{stroke:var(--d-text)!important}
+html.theme-dark .prepare-missal-btn,html.theme-dark .desktop-leaflet-btn,html.theme-dark .mobile-more-grid .prepare-action,
+html.theme-dark .prepare-missal-done{background:var(--d-wine)!important;color:#fff!important;border-color:transparent!important}
+html.theme-dark .prepare-missal-btn svg,html.theme-dark .desktop-leaflet-btn svg,html.theme-dark .mobile-more-grid .prepare-action svg{stroke:#fff!important}
+html.theme-dark .calendar-icon,html.theme-dark .date-picker-btn .calendar-icon{color:var(--d-gold)!important}
+
+/* calendário */
+html.theme-dark .calendar-day{background:transparent!important;color:var(--d-text)!important;border-color:transparent!important;box-shadow:none!important}
+html.theme-dark .calendar-day.unavailable,html.theme-dark .calendar-empty{color:rgba(238,234,229,.28)!important;background:transparent!important}
+html.theme-dark .calendar-day.today{border:1px solid var(--d-gold)!important}
+html.theme-dark .calendar-day.active{background:var(--d-wine)!important;color:#fff!important}
+
+/* barra inferior e "Mais" */
+html.theme-dark .mobile-nav{background:rgba(26,26,31,.96)!important}
+html.theme-dark .mobile-nav button,html.theme-dark .mobile-nav button span{color:var(--d-muted)!important;background:transparent!important}
+html.theme-dark .mobile-nav svg{stroke:var(--d-muted)!important}
+html.theme-dark .mobile-nav button[aria-current],html.theme-dark .mobile-nav button.active,html.theme-dark .mobile-nav button[aria-pressed="true"],
+html.theme-dark .mobile-nav button[aria-current] span,html.theme-dark .mobile-nav button.active span{color:var(--d-gold)!important}
+html.theme-dark .mobile-more-handle{background:var(--d-line)!important}
+html.theme-dark .mobile-more-backdrop,html.theme-dark .leaflet-reader-backdrop{background:rgba(0,0,0,.6)!important}
+
+/* rodapé */
+html.theme-dark .footer a,html.theme-dark .footer-link{background:var(--d-raised)!important;color:var(--d-text)!important}
+html.theme-dark .footer svg{stroke:var(--d-gold)!important}
+
+/* selos do cabeçalho */
+html.theme-dark .hero-main .meta-item{background:var(--d-raised)!important;border-color:var(--d-line)!important}
+html.theme-dark .hero-main .meta .meta-item:nth-child(1),html.theme-dark .hero-main .meta .meta-item.meta-wide{background:none!important}
+html.theme-dark .hero-main .meta .meta-item.meta-wide{border-top-color:var(--d-line)!important}
+html.theme-dark .hero-main .meta .meta-item:nth-child(4){background:var(--liturgical)!important}
+html.theme-dark .hero-main .meta .meta-item:nth-child(4) strong,html.theme-dark .hero-main .meta .meta-item:nth-child(4) #colorName{color:#fff!important}
+html.theme-dark body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4){background:#efe2c2!important}
+html.theme-dark body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) strong,
+html.theme-dark body[data-liturgical-color="branco"] .hero-main .meta .meta-item:nth-child(4) #colorName{color:#4a3a1c!important}
+
+/* ===== Centralização ===== */
+/* "Mais ações": item ímpar ocupa a linha inteira, centralizado */
+.side-actions .pv-more-grid>*:last-child:nth-child(odd){grid-column:1/-1}
+/* Preparar o Missal (celular): número, página e nome alinhados */
+@media(max-width:620px){
+  .prepare-missal-page{display:grid!important;grid-template-columns:30px 64px 1fr!important;align-items:center!important;gap:10px!important;text-align:left!important}
+  .prepare-missal-page strong{text-align:center!important;font-size:22px!important}
+  .prepare-missal-page span:not(.prepare-missal-number){font-size:14px!important;text-align:left!important}
+}
+html.theme-dark body.celebration-mode .quick .quick-step,html.theme-dark body.celebration-mode .quick .quick-jump,
+html.theme-dark body.celebration-mode .quick-step{background:var(--d-raised)!important;color:var(--d-text)!important;border-color:var(--d-line)!important;box-shadow:none!important}
+html.theme-dark body.celebration-mode .quick{background:var(--d-surface)!important}
+html.theme-dark .leaflet-reader-help,html.theme-dark .leaflet-render-status{background:var(--d-raised)!important;color:var(--d-muted)!important;border-color:var(--d-line)!important}
+html.theme-dark .leaflet-reader-pages,html.theme-dark .leaflet-canvas-pages{background:#2a2a30!important}
+
+/* Escolha de tema (aba Mais / Mais ações) */
+.side-actions .pv-more-grid #installAppBtn{grid-column:1/-1}
+.theme-choice{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(125,23,34,.12)}
+.theme-choice-label{font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#6f635a}
+.theme-choice-options{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:100%;padding:4px;border-radius:14px;background:rgba(125,23,34,.06)}
+.theme-choice-options button{min-height:40px;border:0;border-radius:11px;background:transparent;color:#5b4f48;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.theme-choice-options button[aria-pressed="true"]{background:#fff;color:#7d1722;box-shadow:0 1px 3px rgba(61,44,34,.15)}
+.theme-choice-options button{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.theme-choice-options svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme-choice-help{font-size:12px;color:#6f635a;text-align:center}
+#mobileMoreSheet .theme-choice{margin:14px 0 4px}
+html.theme-dark .theme-choice{border-top-color:var(--d-line)}
+html.theme-dark .theme-choice-label{color:var(--d-gold)!important}
+html.theme-dark .theme-choice-options{background:var(--d-raised)!important}
+html.theme-dark .theme-choice-options button{color:var(--d-muted)!important;background:transparent!important}
+html.theme-dark .theme-choice-options button[aria-pressed="true"]{background:var(--d-wine)!important;color:#fff!important;box-shadow:none}
+html.theme-dark .theme-choice-help{color:var(--d-muted)!important}
+
+  </style>
 </head>
 <body>
   <div class="shell">
@@ -14757,6 +15082,65 @@ document.addEventListener("visibilitychange",async()=>{
     if(remote && local && remote[1]!==local[1]) location.reload();
   }catch(_error){ /* Sem rede, conserva o último conteúdo funcional. */ }
 });
+</script>
+<script id="novo-design-js">
+/* ===== Novo design (05/11/2026): botões, fitinha da cor litúrgica ===== */
+(function(){
+  // Ações secundárias dentro de "Mais ações"
+  function groupActions(){
+    var box=document.querySelector('.side-actions');
+    if(!box||box.querySelector('.pv-more'))return;
+    var more=document.createElement('details'); more.className='pv-more';
+    var sum=document.createElement('summary'); sum.textContent='Mais ações'; more.appendChild(sum);
+    var grid=document.createElement('div'); grid.className='pv-more-grid'; more.appendChild(grid);
+    ['todayBtn','celebrationModeBtn','shareQuickBtn','imageShareBtn','installAppBtn'].forEach(function(id){
+      var b=document.getElementById(id); if(b) grid.appendChild(b);
+    });
+    var prep=document.getElementById('prepareMissalBtn'); if(prep) box.insertBefore(prep,box.firstChild);
+    box.appendChild(more);
+  }
+  // Fitinha marcadora na cor litúrgica do dia (duas cores lado a lado quando houver opção)
+  var HEX={verde:'#2f6347',branco:'#f3e6c6',vermelho:'#8f2631',roxo:'#5a3f6d',roseo:'#a95870',preto:'#3a3536'};
+  var PATTERNS=[['verde',/verde/],['branco',/branc/],['vermelho',/vermelh/],['roxo',/rox|violet/],['roseo',/rose|rosa/],['preto',/pret/]];
+  function ribbon(){
+    var hero=document.querySelector('.hero-main'); if(!hero)return;
+    var rib=hero.querySelector('.pv-ribbon');
+    if(!rib){rib=document.createElement('div');rib.className='pv-ribbon';rib.setAttribute('aria-hidden','true');hero.appendChild(rib);}
+    var name=((document.getElementById('colorName')||{}).textContent||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+    var found=PATTERNS.filter(function(x){return x[1].test(name)}).sort(function(a,b){return name.search(a[1])-name.search(b[1])}).map(function(x){return x[0]});
+    var pill=document.querySelector('.hero-main .meta .meta-item:nth-child(4)');
+    if(found.length>1){
+      var g='linear-gradient(90deg,'+HEX[found[0]]+' 50%,'+HEX[found[1]]+' 50%)';
+      rib.style.setProperty('background',g,'important'); if(pill) pill.style.setProperty('background',g,'important');
+    }else{ rib.style.removeProperty('background'); if(pill) pill.style.removeProperty('background'); }
+  }
+  // Escolha de tema: Claro / Escuro / Automático
+  function themeControl(){
+    var html='<div class="theme-choice" role="group" aria-label="Tema do site">'+
+      '<span class="theme-choice-label">Tema</span>'+
+      '<div class="theme-choice-options">'+
+      '<button type="button" data-theme-choice="claro"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/></svg>Claro</button>'+
+      '<button type="button" data-theme-choice="escuro"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.5A7.5 7.5 0 0 1 9.5 4.5a7.5 7.5 0 1 0 10 10z"/></svg>Escuro</button>'+
+      '<button type="button" data-theme-choice="auto"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/></svg>Automático</button>'+
+      '</div><small class="theme-choice-help">Automático segue o modo do seu aparelho.</small></div>';
+    var sheet=document.querySelector('#mobileMoreSheet .mobile-more-grid');
+    if(sheet&&!document.querySelector('#mobileMoreSheet .theme-choice')) sheet.insertAdjacentHTML('afterend',html);
+    var grid=document.querySelector('.side-actions .pv-more-grid');
+    if(grid&&!grid.querySelector('.theme-choice')) grid.insertAdjacentHTML('beforeend',html);
+    document.querySelectorAll('[data-theme-choice]').forEach(function(b){
+      if(b.dataset.bound)return; b.dataset.bound='1';
+      b.addEventListener('click',function(){ if(window.setMissalTheme) window.setMissalTheme(b.getAttribute('data-theme-choice')); });
+    });
+    if(window.applyMissalTheme) window.applyMissalTheme();
+  }
+  function init(){
+    groupActions(); ribbon(); themeControl();
+    var el=document.getElementById('colorName');
+    if(el) new MutationObserver(ribbon).observe(el,{childList:true,characterData:true,subtree:true});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+
 </script>
 </body>
 </html>
