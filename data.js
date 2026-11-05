@@ -347,7 +347,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Memória de São Francisco de Assis omitida por coincidir com o domingo.",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "cycle": "Ano A",
@@ -1002,7 +1002,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "São João XXIII — memória facultativa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1105,7 +1105,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Solenidade celebrada neste dia.",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -1684,7 +1684,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Indicações do folheto oficial aplicadas. Onde o folheto não especifica uma parte, a marcação é sugestão, não escolha oficial.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "São Lucas, Evangelista — festa omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -2356,7 +2356,7 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Conferido pelo folheto oficial O Povo de Deus da Arquidiocese de Brasília. Partes não indicadas no folheto permanecem sinalizadas para conferência.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Santo Antônio de Sant’Ana Galvão — memória omitida por coincidir com domingo",
     "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
@@ -2398,7 +2398,7 @@ window.MISSAL_DATA = {
             "A Oração Eucarística indicada no folheto contém seu próprio prefácio. Consulte a p. 614 junto à Fita 4; não usar o Prefácio dos Domingos do Tempo Comum IV como se fosse indicação do folheto."
           ]
         ],
-        "suggestion": false
+        "suggestion": true
       },
       {
         "n": 4,
@@ -2432,7 +2432,11 @@ window.MISSAL_DATA = {
     "quick": "430 → 412 → 614 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-    "officialVerifiedParts": [1, 2, 4],
+    "officialVerifiedParts": [
+      1,
+      2,
+      4
+    ],
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
@@ -3003,9 +3007,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Solenidade celebrada neste dia.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Solenidade celebrada neste dia.",
-    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -3029,10 +3033,11 @@ window.MISSAL_DATA = {
         "title": "Todos os Santos",
         "details": [
           [
-            "Formulário",
-            "Missa do dia"
+            "Referência do Missal",
+            "Página 842 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
           ]
-        ]
+        ],
+        "folhetoPageNotSpecified": true
       },
       {
         "n": 3,
@@ -3043,7 +3048,8 @@ window.MISSAL_DATA = {
             "Título",
             "A glória de Jerusalém, nossa mãe"
           ]
-        ]
+        ],
+        "suggestion": true
       },
       {
         "n": 4,
@@ -3071,15 +3077,26 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Na festa de um Santo",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não indica bênção solene específica."
+          ],
+          [
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "notIndicated": true
       }
     ],
     "quick": "430 → 842 → 843 → 545 → 587",
-    "cycle": "Ano A"
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Prova-Final.pdf",
+    "officialVerifiedParts": [],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf"
   },
   "2026-11-02": {
     "label": "Segunda-feira • 02/11/2026",
@@ -3090,9 +3107,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Preta ou roxa",
     "colorHex": "#3f3646",
-    "note": "Comemoração celebrada neste dia.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Comemoração celebrada neste dia.",
-    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -3116,14 +3133,11 @@ window.MISSAL_DATA = {
         "title": "Comemoração de Todos os Fiéis Defuntos",
         "details": [
           [
-            "Formulários à escolha",
-            "1º formulário — p. 846; 2º formulário — p. 847; 3º formulário — p. 848."
-          ],
-          [
-            "Observação",
-            "O Missal permite escolher livremente uma das três Missas nesta comemoração."
+            "Referência do Missal",
+            "Página 846 / 847 / 848 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
           ]
-        ]
+        ],
+        "folhetoPageNotSpecified": true
       },
       {
         "n": 3,
@@ -3163,19 +3177,25 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Celebração pelos Fiéis Defuntos",
         "details": [
           [
-            "Uso",
-            "Pode-se utilizar esta bênção conforme o formulário da Comemoração de Todos os Fiéis Defuntos. Uso facultativo."
+            "Indicação",
+            "O folheto não indica bênção solene específica."
           ],
           [
-            "Referência no Missal Romano",
-            "Formulário: p. 846; bênção: p. 588. Indicação facultativa."
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "notIndicated": true
       }
     ],
     "quick": "430 → 846 / 847 / 848 → 518 → 536 → 588",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/59-Povo-Deus-61-02_11_FINADOS-Prova-Final-2.pdf",
+    "officialVerifiedParts": [],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/59-Povo-Deus-61-02_11_FINADOS-Prova-Final-2.pdf"
   },
   "2026-11-03": {
     "label": "Terça-feira • 03/11/2026",
@@ -3451,7 +3471,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 413 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-06": {
     "label": "Sexta-feira • 06/11/2026",

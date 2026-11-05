@@ -1,5 +1,5 @@
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-10-24",
+  "availableThrough": "2026-11-05",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -8,12 +8,11 @@ window.MISSAL_STATUS = {
     "dailyOfficialLeafletApplied": false,
     "unverifiedMissalPages": []
   },
-  "sundayPreview": "2026-10-25",
   "calendarDataThrough": "2026-12-31",
-  "sundayLeafletDate": "2026-10-25",
-  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf",
-  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Versao-celular.pdf",
-  "contentVersion": "273da4befa74350a493f",
-  "lastSuccessfulUpdateAt": "2026-10-24T04:29:19.544139-03:00"
+  "sundayLeafletDate": "2026-11-01",
+  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Prova-Final.pdf",
+  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf",
+  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf",
+  "contentVersion": "7abf748c9747420282fd",
+  "lastSuccessfulUpdateAt": "2026-11-05T10:12:55.730601-03:00"
 };
