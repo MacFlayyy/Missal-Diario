@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Missal Diário</title>
   <meta name="description" content="Prepare o Missal Romano com marcações diárias, páginas, prefácios, orações e sugestões litúrgicas, com folheto da Arquidiocese de Brasília quando disponível.">
   <meta name="robots" content="index,follow,max-image-preview:large">
@@ -17,7 +17,7 @@
 
   <meta name="theme-color" content="#7d1722" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Missal Diário" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="app-icon.svg" type="image/svg+xml" />
@@ -4027,6 +4027,16 @@ html:not(.theme-dark) .hero-main::before{display:none!important}
 @media(max-width:620px){
   .ios-top-cover{display:block;position:fixed;top:0;left:0;right:0;height:calc(8px + env(safe-area-inset-top,0px));background-color:#f7f4ef;z-index:29;pointer-events:none}
   html.theme-dark .ios-top-cover{background-color:#000}
+}
+/* App instalado na tela de início (iPhone): a área do relógio é desenhada pelo próprio site,
+   em vinho (claro) ou preto (escuro), com letras brancas do sistema — sem o efeito fosco do iOS */
+@media (display-mode: standalone){
+  body{padding-top:env(safe-area-inset-top,0px)!important}
+  .ios-top-cover{display:block;position:fixed;top:0;left:0;right:0;z-index:29;pointer-events:none;
+    height:calc(env(safe-area-inset-top,0px) + 8px);
+    background:linear-gradient(to bottom,#6e1622 0,#6e1622 env(safe-area-inset-top,0px),#f7f4ef env(safe-area-inset-top,0px))!important}
+  html.theme-dark .ios-top-cover{background:linear-gradient(to bottom,#000 0,#000 env(safe-area-inset-top,0px),#000 env(safe-area-inset-top,0px))!important}
+  .topbar{top:calc(env(safe-area-inset-top,0px) + 8px)!important}
 }
 html:not(.theme-dark) .hero-main{background:#fffdf9!important}
 html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
