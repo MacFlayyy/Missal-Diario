@@ -1,0 +1,205 @@
+{
+ "source": "Missal Romano CNBB 2023 (PDF enviado pelo usuário), títulos dos prefácios do Ordinário extraídos página a página",
+ "prefaces": {
+  "Prefácio do Advento I": {
+   "page": "451",
+   "subtitle": ""
+  },
+  "Prefácio do Advento II": {
+   "page": "453",
+   "subtitle": "A dupla espera de Cristo"
+  },
+  "Prefácio do Natal do Senhor I": {
+   "page": "455",
+   "subtitle": "Cristo luz"
+  },
+  "Prefácio do Natal do Senhor II": {
+   "page": "456",
+   "subtitle": "A restauração universal na encarnação"
+  },
+  "Prefácio do Natal do Senhor III": {
+   "page": "457",
+   "subtitle": "Intercâmbio no mistério da encarnação do Verbo"
+  },
+  "Prefácio da Epifania do Senhor": {
+   "page": "458",
+   "subtitle": "Cristo, luz dos povos"
+  },
+  "Prefácio da Quaresma I": {
+   "page": "459",
+   "subtitle": "O sentido espiritual da quaresma"
+  },
+  "Prefácio da Quaresma II": {
+   "page": "460",
+   "subtitle": "A penitência espiritual"
+  },
+  "Prefácio da Quaresma III": {
+   "page": "461",
+   "subtitle": "Os frutos da abstinência"
+  },
+  "Prefácio da Quaresma IV": {
+   "page": "462",
+   "subtitle": "Os frutos do jejum"
+  },
+  "Prefácio da Paixão do Senhor I": {
+   "page": "464",
+   "subtitle": "O poder da cruz"
+  },
+  "Prefácio da Paixão do Senhor II": {
+   "page": "465",
+   "subtitle": "A vitória da paixão"
+  },
+  "Prefácio da Páscoa I": {
+   "page": "466",
+   "subtitle": "O mistério pascal"
+  },
+  "Prefácio da Páscoa II": {
+   "page": "467",
+   "subtitle": "A vida nova em Cristo"
+  },
+  "Prefácio da Páscoa III": {
+   "page": "468",
+   "subtitle": "O Cristo vivo, que sempre intercede por nós"
+  },
+  "Prefácio da Páscoa IV": {
+   "page": "469",
+   "subtitle": "A restauração do universo pelo mistério pascal"
+  },
+  "Prefácio da Páscoa V": {
+   "page": "470",
+   "subtitle": "O Cristo sacerdote e vítima"
+  },
+  "Prefácio da Ascensão do Senhor I": {
+   "page": "471",
+   "subtitle": "O mistério da ascensão"
+  },
+  "Prefácio da Ascensão do Senhor II": {
+   "page": "472",
+   "subtitle": "O mistério da ascensão"
+  },
+  "Prefácio dos Domingos do Tempo Comum I": {
+   "page": "474",
+   "subtitle": "O mistério pascal e o povo de oeus"
+  },
+  "Prefácio dos Domingos do Tempo Comum II": {
+   "page": "475",
+   "subtitle": "O mistério da salvação"
+  },
+  "Prefácio dos Domingos do Tempo Comum III": {
+   "page": "476",
+   "subtitle": "A salvação da humanidade por Jesus Cristo feito homem"
+  },
+  "Prefácio dos Domingos do Tempo Comum IV": {
+   "page": "477",
+   "subtitle": "A história da salvação"
+  },
+  "Prefácio dos Domingos do Tempo Comum V": {
+   "page": "478",
+   "subtitle": "A criação"
+  },
+  "Prefácio dos Domingos do Tempo Comum VI": {
+   "page": "479",
+   "subtitle": "O penhor da páscoa eterna"
+  },
+  "Prefácio dos Domingos do Tempo Comum VII": {
+   "page": "480",
+   "subtitle": "A salvação pela obediência de Cristo"
+  },
+  "Prefácio dos Domingos do Tempo Comum VIII": {
+   "page": "481",
+   "subtitle": "A Igreja reunida na unidade da santíssima Trindade"
+  },
+  "Prefácio da Santíssima Eucaristia I": {
+   "page": "486",
+   "subtitle": "Sacrifício e sacramento de Cristo"
+  },
+  "Prefácio da Santíssima Eucaristia II": {
+   "page": "487",
+   "subtitle": "Os frutos da santíssima eucaristia"
+  },
+  "Prefácio da Bem-Aventurada Virgem Maria I": {
+   "page": "493",
+   "subtitle": "A maternidade da bem-aventurada virgem Maria"
+  },
+  "Prefácio da Bem-Aventurada Virgem Maria II": {
+   "page": "494",
+   "subtitle": "A Igreja louva a Deus com as palavras de Maria"
+  },
+  "Prefácio dos Apóstolos I": {
+   "page": "498",
+   "subtitle": "Os apóstolos, pastores do povo de Deus"
+  },
+  "Prefácio dos Apóstolos II": {
+   "page": "499",
+   "subtitle": "A Igreja fundada sobre os apóstolos e o seu testemunho"
+  },
+  "Prefácio dos Santos I": {
+   "page": "500",
+   "subtitle": "A glória dos santos"
+  },
+  "Prefácio dos Santos II": {
+   "page": "501",
+   "subtitle": "O exemplo e a intercessão dos santos"
+  },
+  "Prefácio dos Santos Mártires I": {
+   "page": "502",
+   "subtitle": "O testemunho do martírio"
+  },
+  "Prefácio dos Santos Mártires II": {
+   "page": "503",
+   "subtitle": ""
+  },
+  "Prefácio dos Santos Pastores I": {
+   "page": "504",
+   "subtitle": "A presença dos santos pastores na Igreja"
+  },
+  "Prefácio das Santas Virgens e Religiosos": {
+   "page": "508",
+   "subtitle": ""
+  },
+  "Prefácio Comum I": {
+   "page": "509",
+   "subtitle": "A restauração universal em Cristo"
+  },
+  "Prefácio Comum II": {
+   "page": "510",
+   "subtitle": "A salvação por Cristo"
+  },
+  "Prefácio Comum III": {
+   "page": "511",
+   "subtitle": "Louvor a Deus pela criação e salvação do gênero humano"
+  },
+  "Prefácio Comum IV": {
+   "page": "512",
+   "subtitle": "O louvor, dom de Deus"
+  },
+  "Prefácio Comum V": {
+   "page": "513",
+   "subtitle": "Proclamação do mistério de Cristo"
+  },
+  "Prefácio Comum VI": {
+   "page": "514",
+   "subtitle": "O mistério da salvação em Cristo"
+  },
+  "Prefácio dos Defuntos I": {
+   "page": "518",
+   "subtitle": "A esperança da ressurreição em Cristo"
+  },
+  "Prefácio dos Defuntos II": {
+   "page": "519",
+   "subtitle": "Morte de Cristo, vida do cristão"
+  },
+  "Prefácio dos Defuntos III": {
+   "page": "520",
+   "subtitle": "Cristo, salvação e vida"
+  },
+  "Prefácio dos Defuntos IV": {
+   "page": "521",
+   "subtitle": "Da vida terrena à glória do céu"
+  },
+  "Prefácio dos Defuntos V": {
+   "page": "522",
+   "subtitle": "Nossa ressurreição pela vitória de Cristo"
+  }
+ }
+}

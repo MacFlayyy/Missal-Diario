@@ -733,42 +733,189 @@ def update_entry(entry, text, url):
 # receber uma sugestão disfarçada de indicação oficial.
 LEAFLET_OPENINGS = {
     "A": "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco.",
-    "B": "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor.",
+    "B": "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor, estejam convosco.",
+    "C": "O Senhor, que encaminha os nossos corações para o amor de Deus e a constância de Cristo, esteja convosco.",
+    "D": "O Deus da esperança, que nos cumula de toda alegria e paz em nossa fé, pela ação do Espírito Santo, esteja convosco.",
     "E": "A vós, irmãos, paz e fé da parte de Deus, o Pai, e do Senhor Jesus Cristo.",
+    "F": "Irmãos eleitos segundo a presciência de Deus Pai, pela santificação do Espírito para obedecer a Jesus Cristo e participar da bênção da aspersão do seu sangue, graça e paz vos sejam concedidas abundantemente.",
+    "G": "A graça e a paz daquele que é, que era e que vem, estejam convosco.",
+    "H": "O Senhor esteja convosco.",
 }
+_INTRO_1 = "Irmãos e irmãs, reconheçamos os nossos pecados, para celebrarmos dignamente os santos mistérios."
 LEAFLET_ATO_OPENINGS = {
-    "Segunda fórmula, 3ª opção": "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.",
-    "Primeira fórmula, 3ª opção": "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova.",
+    "Primeira fórmula, 1ª opção": _INTRO_1,
     "Primeira fórmula, 2ª opção": "O Senhor Jesus, que nos convida à mesa da Palavra e da Eucaristia, nos chama a segui-lo fielmente.",
-    "Terceira fórmula, 2ª opção": "Em Jesus Cristo, o justo, que intercede por nós e nos reconcilia com o Pai.",
+    "Primeira fórmula, 3ª opção": "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova.",
+    "Segunda fórmula, 1ª opção": _INTRO_1,
+    "Segunda fórmula, 2ª opção": "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs.",
+    "Segunda fórmula, 3ª opção": "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores.",
+    "Terceira fórmula, 1ª opção": _INTRO_1,
+    "Terceira fórmula, 2ª opção": "Em Jesus Cristo, o justo, que intercede por nós e nos reconcilia com o Pai, abramos o nosso espírito ao arrependimento, para sermos menos indignos de nos aproximar da mesa do Senhor.",
+    "Terceira fórmula, 3ª opção": "O Senhor disse: “Quem dentre vós estiver sem pecado, atire a primeira pedra”. Reconheçamo-nos todos pecadores e perdoemo-nos mutuamente do fundo do coração.",
+}
+
+# Páginas de início das Orações Eucarísticas conferidas no PDF do Missal 2023.
+OE_BY_PAGE = {
+    "523": "Oração Eucarística I", "536": "Oração Eucarística II",
+    "537": "Oração Eucarística II", "545": "Oração Eucarística III",
+    "554": "Oração Eucarística IV",
+    "614": "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
+    "626": "Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai",
+}
+# Estas Orações têm prefácio próprio, que não pode ser trocado.
+OE_OWN_PREFACE = {"554", "614", "626"}
+BLESSING_TITLES = {
+    "578": "Bênção Solene — Advento", "579": "Bênção Solene — Natal",
+    "585": "Bênção Solene — Tempo Comum VI", "586": "Bênção Solene — Tempo Comum",
+    "587": "Bênção Solene — Na festa de um Santo",
+    "588": "Bênção Solene — Celebração pelos Fiéis Defuntos",
 }
 
 def leaflet_compact(value):
     return re.sub(r"[^a-z0-9]", "", norm(value))
 
-def leaflet_initial_choices(text):
-    """Identificar opções dentro de cada rito, sem presumir sempre Saudação A.
+def _rites_region(text):
+    """Trecho dos Ritos Iniciais. Quando o OCR perde os títulos (ex.: Finados),
+    usa o texto entre "Em nome do Pai" e o Glória/Oração do dia."""
+    sa = section(text, "SAUDAÇÃO INICIAL", ["ATO PENITENCIAL"])
+    at = section(text, "ATO PENITENCIAL", ["HINO DO GLÓRIA", "GLÓRIA", "COLETA", "ORAÇÃO DO DIA"])
+    if sa and at:
+        return sa, at
+    nt = norm(text)
+    pos = nt.find("em nome do pai")
+    if pos < 0:
+        return sa, at
+    ends = [p for p in (nt.find(h, pos) for h in ("hino do gloria", "oracao do dia", "coleta", "gloria a deus nas alturas")) if p > pos]
+    region = nt[pos:min(ends) if ends else pos + 2500]
+    return (sa or region), (at or region)
 
-    Prefixos compactos toleram espaços e hifenização do OCR do PDF.
-    """
-    sa = leaflet_compact(section(text, "SAUDAÇÃO INICIAL", ["ATO PENITENCIAL"]))
-    at = leaflet_compact(section(text, "ATO PENITENCIAL", ["HINO DO GLÓRIA", "COLETA"]))
+
+def leaflet_initial_choices(text):
+    """Identificar Saudação (A–H) e Ato Penitencial (fórmula + opção) pelo texto
+    do folheto, sem presumir. Prefixos compactos toleram espaços e hifenização do OCR."""
+    sa_raw, at_raw = _rites_region(text)
+    sa = leaflet_compact(sa_raw)
+    at = leaflet_compact(at_raw)
     greeting = next(
         (letter for letter, opening in SAUDACOES
          if leaflet_compact(opening)[:18] in sa), None
     )
-    options = (
-        ("Terceira fórmula, 2ª opção", "emjesuscristoojustoqueintercede"),
-        ("Terceira fórmula, 3ª opção", "osenhordissequemdentrevos"),
-        ("Segunda fórmula, 3ª opção", "decoracaocontritoehumilde"),
-        ("Segunda fórmula, 2ª opção", "noiniciodestacelebracaoeucaristica"),
-        ("Primeira fórmula, 3ª opção", "nodiaemquecelebramosavitoriadecristo"),
-        ("Primeira fórmula, 2ª opção", "osenhorjesusquenosconvida"),
-    )
-    penitential = next((label for label, prefix in options if prefix in at), None)
+    penitential = None
+    if "osenhordissequemdentrevos" in at:
+        penitential = "Terceira fórmula, 3ª opção"
+    elif "emjesuscristoojustoqueintercede" in at:
+        penitential = "Terceira fórmula, 2ª opção"
+    elif "decoracaocontritoehumilde" in at:
+        penitential = "Segunda fórmula, 3ª opção"
+    elif "noiniciodestacelebracaoeucaristica" in at:
+        penitential = "Segunda fórmula, 2ª opção"
+    elif "nodiaemquecelebramosavitoriadecristo" in at:
+        penitential = "Primeira fórmula, 3ª opção"
+    elif "osenhorjesusquenosconvida" in at:
+        penitential = "Primeira fórmula, 2ª opção"
+    elif "irmaoseirmasreconhecamososnossospecados" in at:
+        # A introdução da 1ª opção é comum às três fórmulas: o que vem depois decide.
+        if "confessemososnossospecados" in at or "confessoadeus" in at:
+            penitential = "Primeira fórmula, 1ª opção"
+        elif "tendecompaixaodenossenhor" in at:
+            penitential = "Segunda fórmula, 1ª opção"
+        elif "tendepiedadedenos" in at:
+            penitential = "Terceira fórmula, 1ª opção"
     return greeting, penitential
 
+
+# Bênçãos Solenes ocupam as páginas 578–588 do Missal Romano 2023.
+VALID_BLESSING_PAGES = {str(n) for n in range(578, 589)}
+
+
+def _valid_blessing_page(excerpt):
+    """Página da bênção no folheto, aceitando só páginas da seção de Bênçãos.
+    Em uma faixa "587-588" usa a primeira; se o OCR trocar um dígito do início
+    (ex.: "567-588"), usa a página anterior ao fim da faixa."""
+    m = re.search(r"\bp(?:ag)?\.\s*(\d{3})(?:\s*[-–]\s*(\d{3}))?", excerpt)
+    if not m:
+        return None
+    first, last = m.group(1), m.group(2)
+    if first in VALID_BLESSING_PAGES:
+        return first
+    if last and last in VALID_BLESSING_PAGES:
+        prev = str(int(last) - 1)
+        return prev if prev in VALID_BLESSING_PAGES else last
+    return None
+
+def _flat_leaflet_text(text):
+    # Junta hifenização de fim de linha ("De-\nfuntos") e normaliza espaços.
+    flat = re.sub(r"-\s*\n\s*", "", text)
+    return re.sub(r"\s+", " ", flat)
+
+
+def _verified_prefaces():
+    path = ROOT / "missal-prefaces-verified.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("prefaces", {})
+    except (OSError, ValueError):
+        return {}
+
+
+def _match_preface(folheto_title):
+    """Encontra o prefácio do Missal pelo nome/subtítulo escrito no folheto.
+    Retorna (título, página, subtítulo) do Missal ou None."""
+    want = leaflet_compact(folheto_title).replace("fieis", "").replace("prefacio", "")
+    if not want:
+        return None
+    best = None
+    for title, info in _verified_prefaces().items():
+        key = leaflet_compact(title).replace("prefacio", "")
+        sub = leaflet_compact(info.get("subtitle", ""))
+        exact_name = key and want.startswith(key) and (
+            len(want) == len(key) or want[len(key)] not in "ivx")
+        if (sub and len(sub) >= 12 and sub in want) or exact_name:
+            # Prefere o nome mais longo (evita "Defuntos I" casar com "Defuntos IV").
+            if best is None or len(key) > len(leaflet_compact(best[0])):
+                best = (title, info.get("page"), info.get("subtitle", ""))
+    return best
+
+
 def leaflet_oe_prefacio(text):
+    flat = _flat_leaflet_text(text)
+    oe = None
+    m = re.search(r"ORA[ÇC][ÃA]O\s+EUCAR[ÍI]STICA[^\n]{0,120}?\b(?:MR|UR|ur|mr|Mr)\b[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
+    if m and m.group(1) in OE_BY_PAGE:
+        oe = (OE_BY_PAGE[m.group(1)], m.group(1))
+    pref = None
+    pm = re.search(r"Pref[áa]cio\s*:?\s*(.{3,140}?)\s*[-–—]+\s*(?:MR|UR|ur|mr|Mr)\b[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
+    if pm:
+        folheto_title = re.sub(r"\s*[-–—]+\s*", " — ", pm.group(1)).strip(" .,-—")
+        folheto_page = pm.group(2)
+        matched = _match_preface("Prefácio " + folheto_title)
+        if matched:
+            title, page, subtitle = matched
+            pref = (title + (" — " + subtitle if subtitle else ""), page)
+            if page != folheto_page:
+                pref = pref + ("O folheto indica p. " + folheto_page + "; no Missal Romano 2023 este prefácio está na p. " + page + ".",)
+        else:
+            nice = folheto_title[:1].upper() + folheto_title[1:]
+            try:
+                anchors = json.loads((ROOT / "missal-reference-index.json").read_text(encoding="utf-8")).get("anchors", {})
+            except (OSError, ValueError):
+                anchors = {}
+            anchor = str(anchors.get(folheto_page, ""))
+            if "prefácio" in anchor.lower():
+                pref = (anchor + " — " + nice, folheto_page)
+            else:
+                pref = ("Prefácio — " + nice, folheto_page)
+    if oe and not pref and oe[1] in OE_OWN_PREFACE:
+        pref = ("Prefácio próprio da " + oe[0], oe[1])
+    if oe or pref:
+        if not oe or not pref:
+            legacy_pref, legacy_oe = _legacy_leaflet_oe_prefacio(text)
+            oe = oe or legacy_oe
+            pref = pref or legacy_pref
+        return pref, oe
+    return _legacy_leaflet_oe_prefacio(text)
+
+
+def _legacy_leaflet_oe_prefacio(text):
     c = leaflet_compact(text)
     # No folheto de 18/10/2026, o OCR lê "circuntancias" e
     # "je- sus, caminho para o Pai". O prefácio é parte da própria OE III.
@@ -902,9 +1049,18 @@ def update_entry_verified(entry, text, url):
 
     t1 = tapes[1]
     if saud and ato and saud in LEAFLET_OPENINGS and ato in LEAFLET_ATO_OPENINGS:
+        ato_row = ["Ato Penitencial — " + ato, LEAFLET_ATO_OPENINGS[ato]]
+        formula = ato.split(",")[0]
+        for row in t1.get("details", []):
+            if (isinstance(row, list) and len(row) >= 2
+                    and str(row[0]).startswith("Ato Penitencial — " + formula)
+                    and leaflet_compact(str(row[1])).startswith(leaflet_compact(LEAFLET_ATO_OPENINGS[ato])[:40])
+                    and " • sugestão" not in str(row[0])):
+                ato_row = [str(row[0]), str(row[1])]
+                break
         t1["details"] = [
             ["Saudação " + saud, LEAFLET_OPENINGS[saud]],
-            ["Ato Penitencial — " + ato, LEAFLET_ATO_OPENINGS[ato]],
+            ato_row,
         ]
         t1["verifiedByFolheto"] = True
         t1.pop("notIndicated", None)
@@ -955,8 +1111,10 @@ def update_entry_verified(entry, text, url):
 
     t3 = tapes[3]
     if pref:
-        t3["title"], t3["page"] = pref
+        t3["title"], t3["page"] = pref[0], pref[1]
         t3["details"] = [["Indicação", "Prefácio indicado no folheto oficial"]]
+        if len(pref) > 2 and pref[2]:
+            t3["details"].append(["Atenção", pref[2]])
         t3["verifiedByFolheto"] = True
         t3.pop("notIndicated", None)
     elif not _keep_as_suggestion(t3):
@@ -999,20 +1157,26 @@ def update_entry_verified(entry, text, url):
     blessing_mentioned = False
     normalized_lines = [norm(line) for line in text.splitlines()]
     for idx, line in enumerate(normalized_lines):
-        if "bencao solene" not in line or len(line) > 160:
+        is_solemn = "bencao solene" in line
+        is_final = bool(re.search(r"\bben[cç]ao final\b", line))
+        if not (is_solemn or is_final) or len(line) > 160:
+            continue
+        excerpt = " ".join(normalized_lines[idx:idx+3])
+        m = re.search(r"(?:\b(?:mr|ur|missal romano)\b[.,:\s-]*)?\bp(?:ag)?\.\s*(\d{3})\b", excerpt)
+        if is_final and not m:
+            # "Bênção final" sem página = bênção simples; não indica bênção solene.
             continue
         blessing_mentioned = True
-        excerpt = " ".join(normalized_lines[idx:idx+3])
-        m = re.search(r"(?:mr|missal romano)?[.,:\s-]*p(?:ag)?\.?\s*(\d{3})\b", excerpt)
         if m:
-            blessing_page = m.group(1)
+            blessing_page = _valid_blessing_page(excerpt) or None
         break
 
     t5 = tapes[5]
     if blessing_mentioned:
         if blessing_page:
             t5.update({
-                "page": blessing_page, "title": "Bênção Solene — conforme o folheto",
+                "page": blessing_page,
+                "title": BLESSING_TITLES.get(blessing_page, "Bênção Solene — conforme o folheto"),
                 "details": [["Indicação", "Bênção Solene indicada no folheto oficial."]],
             })
             t5.pop("pageSuggestion", None)

@@ -841,10 +841,12 @@ def check_corrective_audit_2026():
         finados_blessing=entries["2026-11-02"]["tapes"][4]
         assert finados_blessing["page"]=="588"
         assert finados_blessing["title"]=="Bênção Solene — Celebração pelos Fiéis Defuntos"
-        assert finados_blessing.get("suggestion") is True
     if data["2026-11-02"].get("folhetoUrl"):
-        finados_details=str(data["2026-11-02"]["tapes"][4].get("details", []))
-        assert "folheto não indica" in finados_details.lower()
+        # O folheto de Finados (02/11/2026) indica "BÊNÇÃO FINAL — MR, p. 588":
+        # é indicação oficial, não sugestão.
+        finados=data["2026-11-02"]["tapes"][4]
+        assert finados.get("verifiedByFolheto") is True and not finados.get("suggestion")
+        assert "indicada no folheto" in str(finados.get("details", [])).lower()
     assert data["2026-10-28"]["tapes"][4]["page"]=="586"
     assert data["2026-11-30"]["tapes"][4]["page"]=="586"
     assert data["2026-12-12"]["tapes"][4]["page"]=="585"
