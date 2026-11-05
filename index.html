@@ -4016,6 +4016,12 @@ html.theme-dark .mobile-nav{
   box-shadow:none!important;
 }
 html.theme-dark .quick,html.theme-dark .prepare-missal-sequence{background:var(--d-raised)!important}
+/* topo nítido no modo claro: faixa vinho sólida, sem efeito fosco, e fundo liso atrás da barra do celular */
+html:not(.theme-dark) .topbar{background:linear-gradient(135deg,#6e1622,#861b28)!important;border-color:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html:not(.theme-dark),html:not(.theme-dark) body{background:#f7f4ef!important}
+html:not(.theme-dark) body::before{display:none!important}
+html:not(.theme-dark) .hero-main::before{display:none!important}
+html:not(.theme-dark) .hero-main{background:#fffdf9!important}
 html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important}
 html.theme-dark .note,html.theme-dark .today-kicker,html.theme-dark .source-status,html.theme-dark .sunday-preview-note{
   background:var(--d-raised)!important;border-color:var(--d-line)!important;color:var(--d-muted)!important;
