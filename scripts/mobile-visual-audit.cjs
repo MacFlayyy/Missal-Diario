@@ -79,13 +79,14 @@ async function runCase(def) {
     emit(row, 'menu-mais-abre', await page.locator('#mobileMoreBtn').getAttribute('aria-expanded') === 'true');
     emit(row, 'menu-mais-cabe-na-tela', more.y >= -3 && more.bottom <= def.height + 3, JSON.stringify(more));
     await page.screenshot({ path: path.join(out, def.name + '-menu.png'), fullPage: false });
-    await page.locator('#mobileMoreSheet [data-action="install"]').focus();
+    // o último controle do menu "Mais" agora é a escolha de tema "Automático"
+    await page.locator('#mobileMoreSheet [data-theme-choice="auto"]').focus();
     await page.keyboard.press('Tab');
     emit(row, 'menu-mais-foco-nao-escapa', await page.evaluate(() =>
       document.activeElement?.id==='mobileMoreClose'));
     await page.keyboard.press('Shift+Tab');
     emit(row, 'menu-mais-shift-tab-ciclico', await page.evaluate(() =>
-      document.activeElement?.dataset?.action==='install'));
+      document.activeElement?.dataset?.themeChoice==='auto'));
     await page.keyboard.press('Escape');
     emit(row, 'menu-mais-escape-restaura-foco', await page.evaluate(()=>
       !document.getElementById('mobileMoreSheet').classList.contains('open') &&
