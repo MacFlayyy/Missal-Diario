@@ -4021,6 +4021,11 @@ html:not(.theme-dark) .topbar{background:linear-gradient(135deg,#6e1622,#861b28)
 html:not(.theme-dark),html:not(.theme-dark) body{background:#f7f4ef!important}
 html:not(.theme-dark) body::before{display:none!important}
 html:not(.theme-dark) .hero-main::before{display:none!important}
+/* faixa lisa atrás do relógio/bateria: o conteúdo não aparece borrado acima da faixa vinho ao rolar */
+@media(max-width:620px){
+  html::before{content:"";position:fixed;left:0;right:0;top:-80px;height:calc(88px + env(safe-area-inset-top,0px));background:#f7f4ef;z-index:29;pointer-events:none}
+  html.theme-dark::before{background:#000}
+}
 html:not(.theme-dark) .hero-main{background:#fffdf9!important}
 html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important}
 html.theme-dark .note,html.theme-dark .today-kicker,html.theme-dark .source-status,html.theme-dark .sunday-preview-note{
