@@ -4022,13 +4022,15 @@ html:not(.theme-dark) .topbar{background:linear-gradient(135deg,#6e1622,#861b28)
 html:not(.theme-dark),html:not(.theme-dark) body{background:#f7f4ef!important}
 html:not(.theme-dark) body::before{display:none!important}
 html:not(.theme-dark) .hero-main::before{display:none!important}
-/* faixa lisa atrás do relógio/bateria: o conteúdo não aparece borrado acima da faixa vinho ao rolar */
+/* faixa lisa colada no topo: o Safari do iOS 26 usa um elemento fixo no topo (≥6px, cor sólida)
+   para pintar a área do relógio/bateria; sem ele, borra a faixa vinho e fica fosco */
+.ios-top-cover{display:none}
 @media(max-width:620px){
-  html::before{content:"";position:fixed;left:0;right:0;top:-80px;height:calc(88px + env(safe-area-inset-top,0px));background:#f7f4ef;z-index:29;pointer-events:none}
-  html.theme-dark::before{background:#000}
+  .ios-top-cover{display:block;position:fixed;top:0;left:0;right:0;height:calc(8px + env(safe-area-inset-top,0px));background-color:#f7f4ef;z-index:29;pointer-events:none}
+  html.theme-dark .ios-top-cover{background-color:#000}
 }
 html:not(.theme-dark) .hero-main{background:#fffdf9!important}
-html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important}
+html.theme-dark .topbar{background:linear-gradient(135deg,#4a1018,#6b1822)!important;border-color:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html.theme-dark .note,html.theme-dark .today-kicker,html.theme-dark .source-status,html.theme-dark .sunday-preview-note{
   background:var(--d-raised)!important;border-color:var(--d-line)!important;color:var(--d-muted)!important;
 }
@@ -4157,6 +4159,7 @@ html.theme-dark .theme-choice-help{color:var(--d-muted)!important}
   </style>
 </head>
 <body>
+  <div class="ios-top-cover" aria-hidden="true"></div>
   <div class="shell">
     <header class="topbar">
       <div class="brand">
