@@ -3345,7 +3345,7 @@ body.celebration-mode .section-title{text-align:center}
   }
   .mobile-nav button{position:relative;border-radius:18px!important}
   .mobile-nav button.active,.mobile-nav button[aria-expanded="true"]{
-    background:rgba(125,23,34,.045)!important;color:var(--wine)!important;
+    background:rgba(125,23,34,.10)!important;color:var(--wine)!important;
   }
   .mobile-nav button.active::after,.mobile-nav button[aria-expanded="true"]::after{
     content:"";position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;
@@ -4001,10 +4001,10 @@ body[data-liturgical-color="branco"] .pv-ribbon::before{border-color:rgba(154,11
 html.theme-dark{
   color-scheme:dark;
   --d-bg:#000000; --d-surface:#1c1c1e; --d-raised:#2c2c2e; --d-hover:#3a3a3c;
-  --d-line:#38383a; --d-text:#ffffff; --d-muted:#98989f;
+  --d-line:#38383a; --d-text:#ffffff; --d-muted:#c7c7cc;
   --d-gold:#d6b26e; --d-wine:#8e2633; --d-wine-2:#8e2633;
 }
-html.theme-dark body{background:var(--d-bg)!important;color:var(--d-text)!important}
+html.theme-dark,html.theme-dark body{background:var(--d-bg)!important;color:var(--d-text)!important}
 html.theme-dark body::before,html.theme-dark body::after{opacity:.25!important}
 
 /* superfícies */
@@ -4048,7 +4048,9 @@ html.theme-dark .tape .page-number{color:var(--d-text)!important}
 html.theme-dark .tape .tape-icon{background:var(--d-raised)!important}
 html.theme-dark .tape .tape-icon svg{stroke:var(--d-gold)!important}
 html.theme-dark .tape{border-left-color:var(--d-wine-2)!important}
-html.theme-dark .detail b,html.theme-dark .tape .tape-kicker,html.theme-dark .tape .page-caption{color:var(--d-muted)!important}
+html.theme-dark .detail b{color:#f2f2f7!important}
+html.theme-dark .detail-text,html.theme-dark .tape p,html.theme-dark .note,html.theme-dark .subtitle{color:#e5e5ea!important}
+html.theme-dark .tape .tape-kicker,html.theme-dark .tape .page-caption{color:var(--d-muted)!important}
 html.theme-dark .suggestion{background:rgba(216,180,106,.12)!important;color:var(--d-gold)!important}
 html.theme-dark .inline-suggestion{color:var(--d-muted)!important}
 
@@ -4088,6 +4090,9 @@ html.theme-dark .mobile-nav button,html.theme-dark .mobile-nav button span{color
 html.theme-dark .mobile-nav svg{stroke:var(--d-muted)!important}
 html.theme-dark .mobile-nav button[aria-current],html.theme-dark .mobile-nav button.active,html.theme-dark .mobile-nav button[aria-pressed="true"],
 html.theme-dark .mobile-nav button[aria-current] span,html.theme-dark .mobile-nav button.active span{color:var(--d-gold)!important}
+html.theme-dark .mobile-nav button.active,html.theme-dark .mobile-nav button[aria-current],html.theme-dark .mobile-nav button[aria-expanded="true"]{background:rgba(142,38,51,.35)!important}
+html.theme-dark .mobile-nav button.active span,html.theme-dark .mobile-nav button[aria-expanded="true"],html.theme-dark .mobile-nav button[aria-expanded="true"] span{color:#ffffff!important}
+html.theme-dark .mobile-nav button.active svg,html.theme-dark .mobile-nav button[aria-current] svg,html.theme-dark .mobile-nav button[aria-expanded="true"] svg{stroke:#ffffff!important}
 html.theme-dark .mobile-more-handle{background:var(--d-line)!important}
 html.theme-dark .mobile-more-backdrop,html.theme-dark .leaflet-reader-backdrop{background:rgba(0,0,0,.6)!important}
 
