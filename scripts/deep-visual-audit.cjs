@@ -95,7 +95,7 @@ async function runView(v){
    return{res,errors};
   });
   row.holidayProbes=probes;
-  mark(row,'five-cards-all-special-dates',probes.errors.length===0&&probes.res.every(x=>x.tapes===5&&x.quickSteps===5),probes);
+  mark(row,'five-cards-all-special-dates',probes.errors.length===0&&probes.res.every(x=>x.tapes===5&&x.quickSteps===x.pages.filter((p,i,a)=>p&&p!=='—'&&(i===0||p!==a[i-1])).length),probes);
   const overlaps=probes.res.filter(x=>x.quickDocWidth>x.quickClientWidth+4);
   if(overlaps.length)warn(row,'quick-steps-overflow-on-complex-dates',overlaps);
   if(['android-320','iphone-390','desktop-1280'].includes(v.name)){
