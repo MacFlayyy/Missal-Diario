@@ -2366,7 +2366,7 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação E",
+            "Saudação F",
             "Irmãos eleitos segundo a presciência de Deus Pai, pela santificação do Espírito para obedecer a Jesus Cristo e participar da bênção da aspersão do seu sangue, graça e paz vos sejam concedidas abundantemente."
           ],
           [
@@ -2383,35 +2383,35 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do 30º Domingo do Tempo Comum — Ano A. Missal Romano, p. 412."
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
         ],
         "verifiedByFolheto": true
       },
       {
         "n": 3,
-        "page": "614",
-        "title": "Prefácio integrado à Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
+        "page": "554",
+        "title": "Prefácio próprio da Oração Eucarística IV",
         "details": [
           [
             "Indicação",
-            "A Oração Eucarística indicada no folheto contém seu próprio prefácio. Consulte a p. 614 junto à Fita 4; não usar o Prefácio dos Domingos do Tempo Comum IV como se fosse indicação do folheto."
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "614",
-        "title": "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
+        "page": "554",
+        "title": "Oração Eucarística IV",
         "details": [
           [
-            "Fonte no folheto",
-            "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade. Missal Romano, p. 614."
+            "Aclamação",
+            "Mistério da fé e do amor!"
           ],
           [
-            "Aclamação após a consagração",
-            "Mistério da fé para a salvação do mundo! Resposta: Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
+            "Resposta",
+            "Todas as vezes que comemos deste pão e bebemos deste cálice, anunciamos, Senhor, a vossa morte, enquanto esperamos a vossa vinda!"
           ]
         ],
         "verifiedByFolheto": true
@@ -2422,19 +2422,25 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Tempo Comum VI (2Ts 2,16-17)",
         "details": [
           [
-            "Uso",
-            "O folheto não indica bênção solene específica. Sugestão pelo tempo litúrgico, conforme o Missal Romano."
+            "Indicação",
+            "O folheto não indica bênção solene específica."
+          ],
+          [
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "notIndicated": true
       }
     ],
-    "quick": "430 → 412 → 614 → 585",
+    "quick": "430 → 412 → 554 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/57-Povo-Deus-61-25_10_30o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [
       1,
       2,
+      3,
       4
     ],
     "officialLeafletApplied": true,
@@ -3017,15 +3023,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação G",
+            "A graça e a paz daquele que é, que era e que vem, estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Segunda fórmula, 3ª opção",
+            "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -3042,34 +3048,30 @@ window.MISSAL_DATA = {
       {
         "n": 3,
         "page": "843",
-        "title": "Prefácio próprio de Todos os Santos",
+        "title": "Prefácio de Todos os Santos — A Glória de Jerusalém, nossa mãe",
         "details": [
           [
-            "Título",
-            "A glória de Jerusalém, nossa mãe"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "523",
+        "title": "Oração Eucarística I",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -3078,24 +3080,24 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Indicação",
-            "O folheto não indica bênção solene específica."
-          ],
-          [
-            "Sugestão",
-            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
+            "Bênção Solene indicada no folheto oficial."
           ]
         ],
-        "suggestion": true,
-        "notIndicated": true
+        "verifiedByFolheto": true
       }
     ],
-    "quick": "430 → 842 → 843 → 545 → 587",
+    "quick": "430 → 842 → 843 → 523 → 587",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Prova-Final.pdf",
-    "officialVerifiedParts": [],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf",
+    "officialVerifiedParts": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/58-Povo-Deus-61-01_11_Todos-os-SANTOS-Versao-Celular.pdf"
   },
   "2026-11-02": {
@@ -3117,15 +3119,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
+            "Saudação A",
             "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Primeira fórmula, 1ª opção",
+            "Irmãos e irmãs, reconheçamos os nossos pecados, para celebrarmos dignamente os santos mistérios."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -3141,35 +3143,35 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "518",
-        "title": "Prefácio dos Defuntos I",
+        "page": "521",
+        "title": "Prefácio dos Defuntos IV — Da vida terrena à glória do céu",
         "details": [
           [
-            "Uso",
-            "Sugestão apropriada à comemoração"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
+          ],
+          [
+            "Atenção",
+            "O folheto indica p. 518; no Missal Romano 2023 este prefácio está na p. 521."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "536",
+        "page": "537",
         "title": "Oração Eucarística II",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -3178,23 +3180,23 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Indicação",
-            "O folheto não indica bênção solene específica."
-          ],
-          [
-            "Sugestão",
-            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
+            "Bênção Solene indicada no folheto oficial."
           ]
         ],
-        "suggestion": true,
-        "notIndicated": true
+        "verifiedByFolheto": true
       }
     ],
-    "quick": "430 → 846 / 847 / 848 → 518 → 536 → 588",
+    "quick": "430 → 846 / 847 / 848 → 521 → 537 → 588",
     "cycle": "Ano II",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/59-Povo-Deus-61-02_11_FINADOS-Prova-Final-2.pdf",
-    "officialVerifiedParts": [],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
+    "officialVerifiedParts": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/59-Povo-Deus-61-02_11_FINADOS-Prova-Final-2.pdf"
   },
   "2026-11-03": {
