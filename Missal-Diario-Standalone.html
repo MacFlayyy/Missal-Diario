@@ -3800,6 +3800,12 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
     /* Revisão 05/11/2026: mesmos tons, um pouco mais escuros, para atingir
        contraste mínimo de leitura (WCAG AA 4,5:1) em textos pequenos. */
     .note[hidden]{display:none!important}
+    /* Subtítulo "Missa do dia" acima do nome da celebração (Fita 2) */
+    /* Rótulo "Folheto" com o mesmo tamanho dos outros botões da barra */
+    @media(max-width:620px){.mobile-nav #mobileLeafletBtn span{font-size:11px!important}}
+    @media(max-width:340px){.mobile-nav #mobileLeafletBtn span{font-size:10px!important}}
+    .tape .tape-kicker{display:block;margin:0 0 3px;font-size:10px;font-weight:800;
+      letter-spacing:.105em;text-transform:uppercase;color:var(--wine)}
     .calendar-head strong{text-transform:none!important}
     .side>.eyebrow{color:#6f635a!important}
     .color-chip small{color:#665d55!important}
@@ -3886,7 +3892,7 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
           <button class="utility-btn prepare-missal-btn" id="prepareMissalBtn" type="button" title="Abrir preparação rápida do Missal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12v15H6z"/><path d="M9 4.5v6l3-1.8 3 1.8v-6"/><path d="M9 14.5h6M9 17h4"/></svg><span>Preparar o Missal</span></button>
           <button class="utility-btn" id="imageShareBtn" type="button" title="Gerar imagem para WhatsApp e redes sociais"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M6.5 16l4.2-4.2 2.8 2.8 2.2-2.2 2.8 3.6"/></svg><span>Imagem para compartilhar</span></button>
           <button class="utility-btn" id="installAppBtn" type="button" title="Instalar Missal Diário"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v10"/><path d="M8.5 11l3.5 3.5 3.5-3.5"/><path d="M5 17.5h14"/></svg><span>Instalar app</span></button>
-          <button class="utility-btn desktop-leaflet-btn" id="desktopLeafletBtn" type="button" title="Abrir folheto dominical"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h8l4 4v12.4H6z"/><path d="M14 3.8v4h4"/><path d="M9 12h6M9 15.5h6"/></svg><span>Folheto dominical</span></button>
+          <button class="utility-btn desktop-leaflet-btn" id="desktopLeafletBtn" type="button" title="Abrir folheto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h8l4 4v12.4H6z"/><path d="M14 3.8v4h4"/><path d="M9 12h6M9 15.5h6"/></svg><span>Folheto</span></button>
         </div>
       </aside>
     </section>
@@ -3937,9 +3943,9 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="4.5" width="15" height="15" rx="2.5"/><path d="M9 8.5h6M8.5 12h7M9 15.5h6"/></svg>
       <span>Celebração</span>
     </button>
-    <button type="button" id="mobileLeafletBtn" aria-label="Abrir folheto dominical">
+    <button type="button" id="mobileLeafletBtn" aria-label="Abrir folheto">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h8l4 4v12.4H6z"/><path d="M14 3.8v4h4"/><path d="M9 12h6M9 15.5h6"/></svg>
-      <span>Folheto dominical</span>
+      <span>Folheto</span>
     </button>
     <button type="button" id="mobileMoreBtn" aria-label="Abrir mais opções" aria-expanded="false" aria-controls="mobileMoreSheet" aria-haspopup="dialog">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="12" r="1.2" class="fill-dot"/><circle cx="12" cy="12" r="1.2" class="fill-dot"/><circle cx="18" cy="12" r="1.2" class="fill-dot"/></svg>
@@ -13776,6 +13782,7 @@ function render(dateKey){
             ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
           </div>
         </div>
+        ${t.n===2 ? `<span class="tape-kicker">Missa do dia</span>` : ``}
         <h4>${prepareEscapeHtml(t.title)}</h4>
       </div>
       <div class="tape-content">
@@ -14718,7 +14725,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261105-b9c913d87435",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261105-8635da977d95",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
