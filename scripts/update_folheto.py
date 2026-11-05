@@ -1004,6 +1004,17 @@ def update_entry_verified(entry, text, url):
     if (entry.get("officialLeafletApplied")
             and entry.get("officialVerifiedParts") == [1, 2, 3, 4]
             and saved_url == url):
+        # Mesmo com o folheto já aplicado, a aclamação do "Mistério da fé"
+        # precisa seguir o folheto (ex.: 11/10/2026 tinha ficado como sugestão).
+        acl = detect_acclamation(text)
+        t4 = next((t for t in entry.get("tapes", []) if t.get("n") == 4), None)
+        if acl and t4 is not None:
+            rows = [r for r in t4.get("details", []) if isinstance(r, list) and len(r) >= 2]
+            current = next((r for r in rows if str(r[0]).startswith("Aclamação")), None)
+            if current is None or current[1] != acl or "sugestão" in (str(current[0]) + str(current[1])).lower():
+                response = response_for_acclamation(acl)
+                others = [r for r in rows if not str(r[0]).startswith(("Aclamação", "Resposta", "Uso"))]
+                t4["details"] = [["Aclamação", acl]] + ([["Resposta", response.strip("“”")]] if response else []) + others
         return fill_folheto_gaps(entry)
     # Um PDF alternativo não pode apagar partes já verificadas só porque
     # sua extração está incompleta. Isso vale também quando a página da Missa
@@ -1094,8 +1105,7 @@ def update_entry_verified(entry, text, url):
             t2["details"] = [[
                 "Referência do Missal",
                 "Página " + registered_page + " confirmada no índice do Missal "
-                "Romano CNBB 2023. O folheto não permitiu confirmar esta "
-                "referência; suas demais indicações ainda exigem conferência."
+                "Romano CNBB 2023 (o folheto não imprime o número desta página)."
             ]]
             t2.pop("pageUnverified", None)
             t2.pop("suggestion", None)

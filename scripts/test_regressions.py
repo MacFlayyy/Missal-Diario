@@ -528,9 +528,10 @@ def check_verified_leaflet_days():
         for tape in item["tapes"][:4]:
             assert not tape.get("suggestion"),f"{day}: fita oficial marcada como sugestão"
         if day == "2026-10-11":
+            # O folheto nº 54 (11/10/2026) imprime "Mistério da fé para a salvação do mundo!".
             details=item["tapes"][3]["details"]
-            assert any(row[0]=="Aclamação" and "sugestão" in row[1].lower()
-                       for row in details),"Aclamação não indicada no folheto precisa de sugestão"
+            assert any(row[0]=="Aclamação" and row[1]=="Mistério da fé para a salvação do mundo!"
+                       for row in details),"Aclamação de 11/10 deve seguir o folheto"
             assert item["tapes"][3].get("verifiedByFolheto"),"Oração Eucarística permanece oficial"
         else:
             assert all("sugestão" not in str(row[1]).lower()

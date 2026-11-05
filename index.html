@@ -3795,6 +3795,18 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
   .leaflet-render-status{padding:16px 9px;font-size:11px}
 }
 </style>
+<style id="audit-acessibilidade-2026-11">
+    /* Revisão 05/11/2026: mesmos tons, um pouco mais escuros, para atingir
+       contraste mínimo de leitura (WCAG AA 4,5:1) em textos pequenos. */
+    .note[hidden]{display:none!important}
+    .calendar-head strong{text-transform:none!important}
+    .side>.eyebrow{color:#6f635a!important}
+    .color-chip small{color:#665d55!important}
+    .section-title span{color:#6b5853!important}
+    .source p{color:#6b6058!important}
+    .footer-auto{color:#6f645c!important}
+    .last-update{color:#6b5e58!important}
+  </style>
 </head>
 <body>
   <div class="shell">
@@ -4299,7 +4311,9 @@ function buildDetailedCopyText(dateKey){
       lines.push(title+"     ","");
       (t.details||[]).forEach(function(pair){
         const meta=labelWithSuggestion(pair[0]);
-        lines.push("- **"+meta.clean+":** "+pair[1]+(meta.isSuggestion?" *(sugestão)*":""));
+        const valueSuggestion=/\s*•\s*sugestão\s*$/i.test(String(pair[1]||""));
+        const value=String(pair[1]||"").replace(/\s*•\s*sugestão\s*$/i,"").trim();
+        lines.push("- **"+meta.clean+":** "+value+((meta.isSuggestion||valueSuggestion)?" *(sugestão)*":""));
       });
       lines.push("");
       return;
@@ -4948,6 +4962,13 @@ function saintDisplayName(d){
   return (!value || value === "—") ? "Sem memória litúrgica própria neste dia" : value;
 }
 
+function formatDetailValue(value){
+  const txt=String(value ?? "");
+  const isSuggestion=/\s*•\s*sugestão\s*$/i.test(txt);
+  const clean=txt.replace(/\s*•\s*sugestão\s*$/i,"").trim();
+  return prepareEscapeHtml(clean)+(isSuggestion?' <em class="inline-suggestion">(sugestão)</em>':'');
+}
+
 function formatDetailLabel(label){
   const isSuggestion = /•\s*sugestão/i.test(label);
   const clean = label.replace(/\s*•\s*sugestão/ig, "").trim();
@@ -5034,7 +5055,11 @@ function render(dateKey){
   document.getElementById("liturgicalNote").textContent = d.liturgicalNote || "—";
   document.getElementById("colorSide").textContent = d.color;
   document.getElementById("colorDot").style.background = palette.dot || d.colorHex;
-  document.getElementById("note").textContent = [d.note,window.MISSAL_STATUS?.calendarWarning].filter(Boolean).join(" ");
+  const noteText=[d.note,window.MISSAL_STATUS?.calendarWarning].filter(Boolean).join(" ");
+  const noteNode=document.getElementById("note");
+  noteNode.textContent = noteText;
+  // Quando a nota é idêntica à "Observação litúrgica", o mesmo texto aparecia duas vezes.
+  noteNode.hidden = !noteText || noteText.trim()===String(d.liturgicalNote||"").trim();
   document.getElementById("quickSep").textContent = d.quick;
   renderQuickSteps(d.quick);
   const decChoice=document.getElementById("dec24MassChoice");
@@ -5067,7 +5092,7 @@ function render(dateKey){
         <h4>${prepareEscapeHtml(t.title)}</h4>
       </div>
       <div class="tape-content">
-        ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${prepareEscapeHtml(x[1])}</span></div>`).join("")}
+        ${t.details.map(x=>`<div class="detail"><b>${formatDetailLabel(x[0])}:</b><br><span class="detail-text">${formatDetailValue(x[1])}</span></div>`).join("")}
         ${t.suggestion ? `<span class="suggestion">Sugestão</span>` : ``}
       </div>
     `;
@@ -5233,7 +5258,8 @@ function buildDateMenu(){
   const first=new Date(year,month-1,1,12);
   const daysInMonth=new Date(year,month,0,12).getDate();
   const startMonday=(first.getDay()+6)%7;
-  const title=first.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+  const monthYear=first.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+  const title=monthYear.charAt(0).toUpperCase()+monthYear.slice(1);
   const today=brasiliaTodayKey();
 
   let cells="";

@@ -1053,15 +1053,11 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé para a salvação do mundo!"
           ],
           [
             "Resposta",
-            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
-          ],
-          [
-            "Uso",
-            "Somente a aclamação é sugestão; a Oração Eucarística segue o folheto."
+            "Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
           ]
         ],
         "verifiedByFolheto": true
@@ -3040,7 +3036,7 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Referência do Missal",
-            "Página 842 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
+            "Página 842 confirmada no índice do Missal Romano CNBB 2023 (o folheto não imprime o número desta página)."
           ]
         ],
         "folhetoPageNotSpecified": true
@@ -3136,7 +3132,7 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Referência do Missal",
-            "Página 846 / 847 / 848 confirmada no índice do Missal Romano CNBB 2023. O folheto não permitiu confirmar esta referência; suas demais indicações ainda exigem conferência."
+            "Página 846 / 847 / 848 confirmada no índice do Missal Romano CNBB 2023 (o folheto não imprime o número desta página)."
           ]
         ],
         "folhetoPageNotSpecified": true
