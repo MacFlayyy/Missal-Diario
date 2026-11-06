@@ -3565,7 +3565,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 413 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-07": {
     "label": "Sábado • 07/11/2026",
@@ -3668,9 +3672,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "32º Domingo do Tempo Comum — Ano A.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "32º Domingo do Tempo Comum — Ano A.",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -3678,15 +3682,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
+            "Saudação A",
             "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Segunda fórmula, 3ª opção",
+            "De coração contrito e humilde, aproximemo-nos do Deus justo e santo, para que tenha piedade de nós, pecadores."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -3695,25 +3699,22 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
-        "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV",
+        "page": "483",
+        "title": "Prefácio dos Domingos do Tempo Comum X — A ação do Espírito Santo na Igreja",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
-            "Uso",
-            "Sugestão"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
@@ -3722,18 +3723,14 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé para a salvação do mundo!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -3741,15 +3738,31 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Tempo Comum VI",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não indica bênção solene específica."
+          ],
+          [
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "notIndicated": true
       }
     ],
-    "quick": "430 → 414 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "quick": "430 → 414 → 483 → 545 → 585",
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf"
   },
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",
