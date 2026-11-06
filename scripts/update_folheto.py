@@ -422,7 +422,8 @@ def detect_eucharistic(text):
     return None
 
 def detect_acclamation(text):
-    n = norm(text)
+    # junta palavras quebradas no fim da linha ("salvação do mun-\ndo")
+    n = norm(re.sub(r"-\s*\n\s*", "", text))
     choices = [
         ("Mistério da fé para a salvação do mundo!", "misterio da fe para a salvacao do mundo"),
         ("Mistério da fé e do amor!", "misterio da fe e do amor"),
@@ -879,7 +880,8 @@ def _match_preface(folheto_title):
 def leaflet_oe_prefacio(text):
     flat = _flat_leaflet_text(text)
     oe = None
-    m = re.search(r"ORA[ÇC][ÃA]O\s+EUCAR[ÍI]STICA[^\n]{0,120}?\b(?:MR|UR|ur|mr|Mr)\b[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
+    # O OCR às vezes lê "MR" como "M." e "EUCARÍSTICA" como "EUCARIÍSTICA" (folheto de 08/11/2026).
+    m = re.search(r"ORA[ÇC][ÃA]O\s+EUCAR[ÍI]{1,2}STICA[^\n]{0,120}?(?:\b(?:MR|UR)\b|\bM\.)[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
     if m and m.group(1) in OE_BY_PAGE:
         oe = (OE_BY_PAGE[m.group(1)], m.group(1))
     pref = None
