@@ -90,6 +90,8 @@ try{
   await capture(page,c.name+'-celebration');
   await page.locator('#celebrationModeExit').click();
  }else{
+  // no novo design o botão fica dentro de "Mais ações": abre o grupo antes de clicar
+  await page.evaluate(()=>{const d=document.getElementById('celebrationModeBtn')?.closest('details');if(d)d.open=true;});
   await page.locator('#celebrationModeBtn').click();
   test(c.name,'celebration-mode',await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
   await capture(page,c.name+'-celebration');

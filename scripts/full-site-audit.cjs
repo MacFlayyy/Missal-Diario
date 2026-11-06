@@ -335,6 +335,8 @@ async function run(config){
      await page.locator('#celebrationModeExit').click();
      mark(row,'celebration-mode-exits',!await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
    } else {
+     // no novo design o botão fica dentro de "Mais ações": abre o grupo antes de clicar
+     await page.evaluate(()=>{const d=document.getElementById('celebrationModeBtn')?.closest('details');if(d)d.open=true;});
      await page.locator('#celebrationModeBtn').click();
      mark(row,'desktop-celebration-mode-opens',await page.locator('body').evaluate(el=>el.classList.contains('celebration-mode')));
      const exitLayout=await page.evaluate(()=>{
