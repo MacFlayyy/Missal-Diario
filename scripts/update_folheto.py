@@ -430,8 +430,10 @@ def detect_acclamation(text):
         ("Tudo isto é mistério da fé!", "tudo isto e misterio da fe"),
         ("Mistério da fé!", "misterio da fe"),
     ]
+    # compara também sem espaços: o OCR às vezes separa ou junta palavras ("mun do", "dafé")
+    flat_n = n.replace(" ", "")
     for label, sig in choices:
-        if sig in n:
+        if sig in n or sig.replace(" ", "") in flat_n:
             return label
     return None
 
@@ -850,6 +852,14 @@ def _flat_leaflet_text(text):
     return re.sub(r"\s+", " ", flat)
 
 
+def _preface_by_page(page):
+    """Se o nome do prefácio veio truncado pelo OCR, a página do Missal identifica o prefácio."""
+    for title, info in _verified_prefaces().items():
+        if str(info.get("page")) == str(page):
+            return (title, info.get("page"), info.get("subtitle", ""))
+    return None
+
+
 def _verified_prefaces():
     path = ROOT / "missal-prefaces-verified.json"
     try:
@@ -877,19 +887,34 @@ def _match_preface(folheto_title):
     return best
 
 
+_ACCENT_MAP = str.maketrans("ÁÀÂÃÄáàâãäÉÈÊËéèêëÍÌÎÏíìîïÓÒÔÕÖóòôõöÚÙÛÜúùûüÇç",
+                             "AAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUUuuuuCc")
+# "MR" como o OCR costuma ler: MR, M.R., M R, UR, MN, M., Mr.
+_MR = r"(?:\b[MU]\.?\s?[RN]\b\.?|\bM\.)"
+
+
+def _plain(s):
+    """Sem acentos, minúsculo e com o MESMO comprimento (os índices batem com o original)."""
+    return s.translate(_ACCENT_MAP).lower()
+
+
 def leaflet_oe_prefacio(text):
     flat = _flat_leaflet_text(text)
+    plain = _plain(flat)
     oe = None
-    # O OCR às vezes lê "MR" como "M." e "EUCARÍSTICA" como "EUCARIÍSTICA" (folheto de 08/11/2026).
-    m = re.search(r"ORA[ÇC][ÃA]O\s+EUCAR[ÍI]{1,2}STICA[^\n]{0,120}?(?:\b(?:MR|UR)\b|\bM\.)[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
-    if m and m.group(1) in OE_BY_PAGE:
-        oe = (OE_BY_PAGE[m.group(1)], m.group(1))
+    # Tolerante a erros de OCR ("EUCARIÍSTICA", "Ill" no lugar de "III", "M." no lugar de "MR"):
+    # o que decide é o número da página logo depois do título, conferido com as páginas
+    # das Orações Eucarísticas no Missal.
+    for m in re.finditer(r"ora[cç]?[a-z]{0,2}o\s+eu[cg]ar[a-z]{1,4}stica.{0,120}?\bp(?:ag)?\.?\s*(\d{3})\b", plain):
+        if m.group(1) in OE_BY_PAGE:
+            oe = (OE_BY_PAGE[m.group(1)], m.group(1))
+            break
     pref = None
-    pm = re.search(r"Pref[áa]cio\s*:?\s*(.{3,140}?)\s*[-–—]+\s*(?:MR|UR|ur|mr|Mr)\b[\s.,;:]*p\.?\s*(\d{3})", flat, re.I)
+    pm = re.search(r"pref[a-z]{0,2}cio\s*:?\s*(.{3,140}?)\s*[-–—]+\s*" + _MR + r"[\s.,;:]*p(?:ag)?\.?\s*(\d{3})\b", plain, re.I)
     if pm:
-        folheto_title = re.sub(r"\s*[-–—]+\s*", " — ", pm.group(1)).strip(" .,-—")
+        folheto_title = re.sub(r"\s*[-–—]+\s*", " — ", flat[pm.start(1):pm.end(1)]).strip(" .,-—")
         folheto_page = pm.group(2)
-        matched = _match_preface("Prefácio " + folheto_title)
+        matched = _match_preface("Prefácio " + folheto_title) or _preface_by_page(folheto_page)
         if matched:
             title, page, subtitle = matched
             pref = (title + (" — " + subtitle if subtitle else ""), page)

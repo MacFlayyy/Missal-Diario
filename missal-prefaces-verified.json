@@ -5,9 +5,17 @@
    "page": "451",
    "subtitle": ""
   },
+  "Prefácio do Advento IA": {
+   "page": "452",
+   "subtitle": "Cristo, Senhor e Juiz da história"
+  },
   "Prefácio do Advento II": {
    "page": "453",
    "subtitle": "A dupla espera de Cristo"
+  },
+  "Prefácio do Advento IIA": {
+   "page": "454",
+   "subtitle": "Maria, a nova Eva"
   },
   "Prefácio do Natal do Senhor I": {
    "page": "455",
@@ -40,6 +48,10 @@
   "Prefácio da Quaresma IV": {
    "page": "462",
    "subtitle": "Os frutos do jejum"
+  },
+  "Prefácio da Quaresma V": {
+   "page": "463",
+   "subtitle": "O êxodo no deserto quaresmal"
   },
   "Prefácio da Paixão do Senhor I": {
    "page": "464",
@@ -77,6 +89,10 @@
    "page": "472",
    "subtitle": "O mistério da ascensão"
   },
+  "Prefácio Depois da Ascensão do Senhor": {
+   "page": "473",
+   "subtitle": "Na espera da vinda do Espírito"
+  },
   "Prefácio dos Domingos do Tempo Comum I": {
    "page": "474",
    "subtitle": "O mistério pascal e o povo de oeus"
@@ -109,6 +125,22 @@
    "page": "481",
    "subtitle": "A Igreja reunida na unidade da santíssima Trindade"
   },
+  "Prefácio dos Domingos do Tempo Comum IX": {
+   "page": "482",
+   "subtitle": "Dia do Senhor"
+  },
+  "Prefácio dos Domingos do Tempo Comum X": {
+   "page": "483",
+   "subtitle": "A ação do Espírito Santo na Igreja"
+  },
+  "Prefácio do Sacramento do Batismo": {
+   "page": "484",
+   "subtitle": "O Batismo, começo de vida nova"
+  },
+  "Prefácio do Sacramento da Crisma": {
+   "page": "485",
+   "subtitle": "Confirmados com o selo do Espírito"
+  },
   "Prefácio da Santíssima Eucaristia I": {
    "page": "486",
    "subtitle": "Sacrifício e sacramento de Cristo"
@@ -117,6 +149,26 @@
    "page": "487",
    "subtitle": "Os frutos da santíssima eucaristia"
   },
+  "Prefácio da Santíssima Eucaristia III": {
+   "page": "488",
+   "subtitle": "A Eucaristia, viático para a Páscoa eterna"
+  },
+  "Prefácio da Reconciliação": {
+   "page": "489",
+   "subtitle": "A reconciliação no Espírito"
+  },
+  "Prefácio do Sacramento da Unção dos Enfermos": {
+   "page": "490",
+   "subtitle": "O sofrimento, participação na Páscoa de Cristo"
+  },
+  "Prefácio do Sacramento da Ordem": {
+   "page": "491",
+   "subtitle": "Cristo, fonte dos ministérios da Igreja"
+  },
+  "Prefácio do Sacramento do Matrimônio": {
+   "page": "492",
+   "subtitle": "A dignidade da aliança matrimonial"
+  },
   "Prefácio da Bem-Aventurada Virgem Maria I": {
    "page": "493",
    "subtitle": "A maternidade da bem-aventurada virgem Maria"
@@ -124,6 +176,18 @@
   "Prefácio da Bem-Aventurada Virgem Maria II": {
    "page": "494",
    "subtitle": "A Igreja louva a Deus com as palavras de Maria"
+  },
+  "Prefácio da Bem-Aventurada Virgem Maria III": {
+   "page": "495",
+   "subtitle": "Maria, imagem e mãe da Igreja"
+  },
+  "Prefácio da Bem-Aventurada Virgem Maria IV": {
+   "page": "496",
+   "subtitle": "Maria, sinal de consolação e esperança"
+  },
+  "Prefácio da Bem-Aventurada Virgem Maria V": {
+   "page": "497",
+   "subtitle": "Maria, imagem da nova humanidade"
   },
   "Prefácio dos Apóstolos I": {
    "page": "498",
@@ -153,6 +217,18 @@
    "page": "504",
    "subtitle": "A presença dos santos pastores na Igreja"
   },
+  "Prefácio dos Santos Pastores II": {
+   "page": "505",
+   "subtitle": "Os pastores da Igreja, imagem de Cristo, o Bom Pastor"
+  },
+  "Prefácio dos Santos Doutores da Igreja I": {
+   "page": "506",
+   "subtitle": "Os doutores da Igreja, reflexo da sabedoria"
+  },
+  "Prefácio dos Santos Doutores da Igreja II": {
+   "page": "507",
+   "subtitle": "Os doutores da Igreja, profetas da sublime beleza de Deus"
+  },
   "Prefácio das Santas Virgens e Religiosos": {
    "page": "508",
    "subtitle": ""
@@ -181,6 +257,18 @@
    "page": "514",
    "subtitle": "O mistério da salvação em Cristo"
   },
+  "Prefácio Comum VII": {
+   "page": "515",
+   "subtitle": "Cristo, hóspede e peregrino no meio de nós"
+  },
+  "Prefácio Comum VIII": {
+   "page": "516",
+   "subtitle": "Jesus, o bom samaritano"
+  },
+  "Prefácio Comum IX": {
+   "page": "517",
+   "subtitle": "A glória de Deus é o homem vivo"
+  },
   "Prefácio dos Defuntos I": {
    "page": "518",
    "subtitle": "A esperança da ressurreição em Cristo"
@@ -200,14 +288,6 @@
   "Prefácio dos Defuntos V": {
    "page": "522",
    "subtitle": "Nossa ressurreição pela vitória de Cristo"
-  },
-  "Prefácio dos Domingos do Tempo Comum IX": {
-   "page": "482",
-   "subtitle": "Dia do Senhor"
-  },
-  "Prefácio dos Domingos do Tempo Comum X": {
-   "page": "483",
-   "subtitle": "A ação do Espírito Santo na Igreja"
   }
  }
 }

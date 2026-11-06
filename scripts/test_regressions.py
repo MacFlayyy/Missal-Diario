@@ -831,7 +831,12 @@ def check_corrective_audit_2026():
     assert seed["2026-11-02"]["tapes"][1]["page"]=="846 / 847 / 848"
     for date_key,backup in seed.items():
         original = data[date_key]
-        if not original.get("officialLeafletApplied") and not original.get("ritesPendingOfficial"):
+        # Os ritos podem vir do folheto mesmo quando outra parte dele não foi
+        # identificada (folheto parcial): nesse caso não precisam bater com o backup.
+        rites_from_leaflet = bool(original["tapes"][0].get("verifiedByFolheto")
+                                  or original["tapes"][0].get("ritesOfficialUrl"))
+        if (not original.get("officialLeafletApplied") and not original.get("ritesPendingOfficial")
+                and not rites_from_leaflet):
             assert backup["tapes"][0]["details"]==original["tapes"][0]["details"], date_key
         for line in backup["tapes"][0]["details"]:
             assert "Consultar o texto integral no Missal Romano" not in str(line[1]), date_key
@@ -872,6 +877,33 @@ def check_corrective_audit_2026():
         assert icon in sw
     print("PASSOU correções de liturgia, SEO, landmarks, logo e menu mobile")
 
+def check_leaflet_ocr_tolerance():
+    """Erros reais de OCR dos folhetos escaneados não podem impedir a leitura."""
+    import importlib, sys as _sys
+    _sys.path.insert(0, str(ROOT / "scripts"))
+    u = importlib.import_module("update_folheto")
+    casos = {
+        # 08/11/2026: "EUCARIÍSTICA", "Ill" e "M." no lugar de "MR"
+        "ORAÇÃO EUCARIÍSTICA Ill - M., p.545 - Prefácio dos domingos do Tempo Comum X: A ação do Espirito Santo na Igreja - MR., p.483": ("545", "483"),
+        "ORAÇÃO EUCARÍSTICA II – MR, p. 536\nPrefácio Comum IV – MR, p. 512": ("536", "512"),
+        "ORACAO EUCARISTICA I - M R p 523. Prefácio da Quaresma I - UR, p.459": ("523", "459"),
+        "ORAÇÃO EUCARÍSTICA IV — MR, p. 554": ("554", "554"),
+        # nome do prefácio truncado: a página identifica
+        "ORAÇÃO EUCARÍSTICA III - MR, p. 545 - Prefácio dos domin - MR, p. 516": ("545", "516"),
+    }
+    for texto, (oe_page, pref_page) in casos.items():
+        pref, oe = u.leaflet_oe_prefacio(texto)
+        assert oe and oe[1] == oe_page, (texto, oe)
+        assert pref and pref[1] == pref_page, (texto, pref)
+    assert u.detect_acclamation("Mistério da fé para a salvação do mun-\ndo!") == "Mistério da fé para a salvação do mundo!"
+    assert u.detect_acclamation("Mistério da fé para a salvação do mun do!") == "Mistério da fé para a salvação do mundo!"
+    # Todos os prefácios do Ordinário do Missal (p. 451–522) estão conferidos.
+    import json
+    pref = json.loads((ROOT / "missal-prefaces-verified.json").read_text(encoding="utf-8"))["prefaces"]
+    assert len(pref) >= 72, len(pref)
+    print("PASSOU folheto: leitura tolerante a erros de OCR e lista completa de prefácios")
+
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -882,6 +914,7 @@ def main():
     check_cache_safety()
     check_christmas_choice()
     check_corrective_audit_2026()
+    check_leaflet_ocr_tolerance()
     check_specific_missal_pages()
     check_rites_texts()
     check_official_leaflet_extraction()

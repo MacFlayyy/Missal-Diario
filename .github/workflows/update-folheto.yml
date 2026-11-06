@@ -8,6 +8,7 @@ on:
       - "scripts/update_folheto.py"
       - "scripts/ritos_texts.py"
       - "scripts/test_regressions.py"
+      - "scripts/daily_pipeline.sh"
   schedule:
     # GitHub Actions usa UTC; Brasília é UTC-3.
     # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
@@ -37,6 +38,7 @@ jobs:
     if: github.event_name == 'schedule' || github.event_name == 'push' || github.actor == 'MacFlayyy'
     permissions:
       contents: write
+      issues: write
       pages: write
       id-token: write
     environment:
@@ -73,29 +75,22 @@ jobs:
       - name: Otimizar logo da paróquia
         run: python scripts/build_brand_logo.py
 
-      - name: Gerar datas ainda não cadastradas por consulta litúrgica diária
-        run: python scripts/generate_daily.py
+      # Gera o dia, aplica os folhetos e roda todas as verificações.
+      # Se um folheto mal lido quebrar alguma verificação, publica o dia pelo
+      # Missal (de novo com todas as verificações) e avisa no passo seguinte.
+      - name: Gerar o dia, aplicar folhetos e verificar tudo
+        id: pipeline
+        run: bash scripts/daily_pipeline.sh
 
-      - name: Verificar folhetos e atualizar o site
-        run: python scripts/update_folheto.py
-
-      - name: Revisar e liberar o Missal do dia
-        run: python scripts/validate_daily.py
-
-      - name: Atualizar versão diária e evitar cache antigo
-        run: python scripts/bump_daily_version.py
-
-      - name: Atualizar versão HTML completa do ChatGPT
-        run: python scripts/build_standalone.py
-
-      - name: Validar tudo antes de publicar
-        run: python scripts/verify_daily.py
-
-      - name: Testar regressões antes da publicação
-        run: python scripts/test_regressions.py
-
-      - name: Conferir páginas com o índice do Missal Romano 2023
-        run: python scripts/check_missal_references.py
+      - name: Avisar que um folheto não foi aplicado
+        if: steps.pipeline.outputs.fallback == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Folheto não aplicado — $(TZ=America/Sao_Paulo date +%d/%m/%Y)"
+          if ! gh issue list --state open --search "$title in:title" --json number -q '.[0].number' | grep -q .; then
+            gh issue create --title "$title" --body-file /tmp/folheto-falha.md || true
+          fi
 
       - name: Salvar alterações no repositório
         run: |
