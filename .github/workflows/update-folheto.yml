@@ -51,6 +51,8 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
         with:
+          # sempre a versão mais recente do site (execuções na fila não partem de uma cópia antiga)
+          ref: main
           fetch-depth: 0
 
       - name: Preparar Python
@@ -94,20 +96,29 @@ jobs:
 
       - name: Salvar alterações no repositório
         run: |
-          if git diff --quiet; then
-            echo "Arquivos do dia já estavam corretos."
-            exit 0
-          fi
-
           git config user.name "Missal Diário Bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data.js status.js index.html sw.js Missal-Diario-Standalone.html
-          git commit -m "Atualiza Missal Diário automaticamente"
-
-          # Se houve alguma alteração no main enquanto esta execução rodava,
-          # reaplica o commit sobre a versão mais recente antes do push.
-          git pull --rebase origin main
-          git push origin main
+          # Se outra atualização chegou ao main durante esta execução, os arquivos
+          # gerados entram em conflito. Nesse caso refaz o dia sobre a versão nova
+          # (com todas as verificações) e tenta de novo.
+          for attempt in 1 2 3; do
+            if git diff --quiet; then
+              echo "Arquivos do dia já estavam corretos."
+              exit 0
+            fi
+            git add data.js status.js index.html sw.js Missal-Diario-Standalone.html
+            git commit -q -m "Atualiza Missal Diário automaticamente"
+            if git pull --rebase origin main && git push origin main; then
+              exit 0
+            fi
+            echo "::warning::O main mudou durante a execução (tentativa $attempt). Refazendo o dia sobre a versão mais recente."
+            git rebase --abort 2>/dev/null || true
+            git fetch origin main
+            git reset --hard origin/main
+            bash scripts/daily_pipeline.sh || exit 1
+          done
+          echo "::error::Não foi possível salvar depois de 3 tentativas."
+          exit 1
 
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
