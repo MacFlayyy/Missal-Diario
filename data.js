@@ -3661,7 +3661,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 413 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-08": {
     "label": "Domingo • 08/11/2026",
@@ -3762,7 +3766,11 @@ window.MISSAL_DATA = {
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
-    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf"
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",

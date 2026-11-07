@@ -8035,7 +8035,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 413 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-08": {
     "label": "Domingo • 08/11/2026",
@@ -8136,7 +8140,11 @@ window.MISSAL_DATA = {
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
-    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf"
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",
@@ -13036,22 +13044,23 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-06",
+  "availableThrough": "2026-11-08",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
     "structureAndPageIndexChecked": true,
     "originalMissalPdfCheckedInThisRun": false,
-    "dailyOfficialLeafletApplied": false,
+    "dailyOfficialLeafletApplied": true,
     "unverifiedMissalPages": []
   },
+  "sundayPreview": "2026-11-08",
   "calendarDataThrough": "2026-12-31",
   "sundayLeafletDate": "2026-11-08",
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
-  "contentVersion": "eaba8d319bf7c172b3ba",
-  "lastSuccessfulUpdateAt": "2026-11-06T07:35:23.573380-03:00"
+  "contentVersion": "704b5aba538a24c82d92",
+  "lastSuccessfulUpdateAt": "2026-11-07T09:32:35.710522-03:00"
 };
 </script>
 <script>
@@ -15091,7 +15100,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261106-a1999a384a1b",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261107-7fe1dfa251fe",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
