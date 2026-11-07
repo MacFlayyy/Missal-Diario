@@ -90,9 +90,16 @@ def save_status(key, data):
     # Aos sábados, deixa o domingo seguinte preparado para liberação
     # APENAS após 05:00, quando status do sábado já estiver publicado.
     # O front-end também verifica o horário e availableThrough.
+    # Também quando o sábado é liberado com antecedência (execução da noite de sexta):
+    # o site só mostra o sábado — e a prévia do domingo — a partir das 05h.
+    from datetime import date as _date, timedelta
+    saturday = None
     if now.weekday() == 5:
-        from datetime import timedelta
-        sunday_key = (now.date() + timedelta(days=1)).isoformat()
+        saturday = now.date()
+    elif _date.fromisoformat(key).weekday() == 5:
+        saturday = _date.fromisoformat(key)
+    if saturday is not None:
+        sunday_key = (saturday + timedelta(days=1)).isoformat()
         sunday = data.get(sunday_key)
         tapes = sunday.get("tapes", []) if isinstance(sunday, dict) else []
         # O dia é domingo pelo calendário, mesmo quando a celebração se
@@ -127,9 +134,10 @@ def save_status(key, data):
     # O domingo liberado no sábado continua acessível durante a madrugada.
     # A execução antecipada (04h) não pode retirar uma prévia já autorizada
     # antes da liberação ordinária das 05h de domingo.
+    today_iso = now.date().isoformat()
     if (now.weekday() == 6 and now.hour < 5
-            and existing.get("sundayPreview") == key and key in data):
-        payload["sundayPreview"] = key
+            and existing.get("sundayPreview") == today_iso and today_iso in data):
+        payload["sundayPreview"] = today_iso
 
     # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
     # Nunca gera páginas do Missal por adivinhação.
@@ -355,48 +363,55 @@ def repair_entry(entry):
     return fixes
 
 def main():
+    from datetime import timedelta
     now = datetime.now(TZ)
     today_key = now.strftime("%Y-%m-%d")
+    # Prepara HOJE e AMANHÃ. O GitHub costuma atrasar (às vezes horas) as execuções
+    # agendadas da madrugada; liberando o dia seguinte já na véspera, o site não
+    # depende desse horário: o próprio site só mostra cada dia a partir das 05h.
+    keys = [today_key, (now.date() + timedelta(days=1)).isoformat()]
     data = load_js_object(DATA_FILE, "window.MISSAL_DATA")
 
-    print(f"Revisando o Missal de {today_key} antes da publicação...")
+    all_fixes = []
+    for key in keys:
+        print(f"Revisando o Missal de {key} antes da publicação...")
 
-    # A partir de 2027, obtém a celebração e a cor em fonte litúrgica
-    # pública no próprio dia, sem depender de cadastro anual.
-    if today_key not in data:
-        ensure_dates(data, now.date())
+        # A partir de 2027, obtém a celebração e a cor em fonte litúrgica
+        # pública, sem depender de cadastro anual.
+        if key not in data:
+            ensure_dates(data, datetime.fromisoformat(key).date())
 
-    # Fallback somente para registros históricos previamente revisados.
-    if today_key not in data:
-        if not SEED_FILE.exists():
-            raise RuntimeError(
-                f"Data {today_key} ausente e calendar_seed.json não existe. "
-                "A publicação foi interrompida para não fingir sucesso."
-            )
+        # Fallback somente para registros históricos previamente revisados.
+        if key not in data:
+            if not SEED_FILE.exists():
+                raise RuntimeError(
+                    f"Data {key} ausente e calendar_seed.json não existe. "
+                    "A publicação foi interrompida para não fingir sucesso."
+                )
+            seed = json.loads(SEED_FILE.read_text(encoding="utf-8"))
+            if key not in seed:
+                raise RuntimeError(
+                    f"Data {key} ausente em data.js e no calendário-base. "
+                    "A publicação foi interrompida para revisão."
+                )
+            data[key] = seed[key]
+            print(f"Data {key} recuperada automaticamente do calendário-base.")
 
-        seed = json.loads(SEED_FILE.read_text(encoding="utf-8"))
-        if today_key not in seed:
-            raise RuntimeError(
-                f"Data {today_key} ausente em data.js e no calendário-base. "
-                "A publicação foi interrompida para revisão."
-            )
+        apply_rite_suggestions(data[key])
+        fill_folheto_gaps(data[key])
+        all_fixes += [f"{key}: {item}" for item in repair_entry(data[key])]
 
-        data[today_key] = seed[today_key]
-        print(f"Data {today_key} recuperada automaticamente do calendário-base.")
-
-    apply_rite_suggestions(data[today_key])
-    fill_folheto_gaps(data[today_key])
-    fixes = repair_entry(data[today_key])
     save_data(data)
-    save_status(today_key, data)
+    save_status(keys[-1], data)
 
-    if fixes:
+    if all_fixes:
         print("Correções automáticas realizadas:")
-        for item in fixes:
+        for item in all_fixes:
             print(f"- {item}")
     else:
         print("Nenhuma correção necessária.")
 
+    today_key = " e ".join(keys)
     print(f"Data {today_key} revisada e liberada para publicação.")
 
 if __name__ == "__main__":

@@ -22,6 +22,11 @@ on:
     - cron: "0 14 * * *"  # 11:00 Brasília — novo folheto publicado durante a manhã
     - cron: "0 19 * * *"  # 16:00 Brasília — nova checagem à tarde
     - cron: "0 23 * * *"  # 20:00 Brasília — checagem noturna
+    # Véspera: libera o dia seguinte com antecedência (o site só o mostra às 05h).
+    # O GitHub costuma atrasar as execuções da madrugada em várias horas.
+    - cron: "0 21 * * *"  # 18:00 Brasília
+    - cron: "0 1 * * *"   # 22:00 Brasília
+    - cron: "0 2 * * *"   # 23:00 Brasília
 
 # Compartilhada com pages.yml: serializa o deploy do atualizador e do site.
 concurrency:
@@ -133,4 +138,4 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Confirmar publicação pública
-        run: python scripts/check_publication.py
+        run: python scripts/check_publication.py --expected-from-local

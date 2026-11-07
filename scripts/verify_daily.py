@@ -28,12 +28,18 @@ def main():
     errors = []
     if today not in data:
         errors.append(f"data.js não contém {today}")
-    if status.get("availableThrough") != today:
+    # O dia seguinte é liberado com antecedência (o site só o mostra a partir das 05h).
+    tomorrow = (datetime.now(TZ).date() + timedelta(days=1)).isoformat()
+    released = str(status.get("availableThrough") or "")
+    if released not in (today, tomorrow):
         errors.append(
-            f"status.js disponível até {status.get('availableThrough')!r}, esperado {today!r}"
+            f"status.js disponível até {released!r}, esperado {today!r} ou {tomorrow!r}"
         )
-    if f'"{today}"' not in standalone:
-        errors.append(f"standalone não contém {today}")
+    for key in sorted({today, released} - {""}):
+        if key not in data:
+            errors.append(f"data.js não contém {key}")
+        if f'"{key}"' not in standalone:
+            errors.append(f"standalone não contém {key}")
     item=data.get(today)
     if item and item.get("dailySourceVerified"):
         if not item.get("dailySourceUrl", "").startswith("https://"):
