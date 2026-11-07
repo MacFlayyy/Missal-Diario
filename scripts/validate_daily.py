@@ -260,6 +260,12 @@ def infer_blessing(entry):
 def repair_entry(entry):
     fixes = []
 
+    # Fita com página sugerida não pode ficar marcada como "sem página indicada".
+    for tape in entry.get("tapes", []):
+        if tape.get("notIndicated") and re.search(r"\d", str(tape.get("page", ""))):
+            tape.pop("notIndicated", None)
+            fixes.append(f"Fita {tape.get('n')}: página {tape.get('page')} passa a aparecer (era 'sem página').")
+
     # Cabeçalho: só corrige campos em branco usando dados coerentes e genéricos.
     if not str(entry.get("celebration","")).strip():
         raise RuntimeError("Celebração litúrgica não cadastrada.")

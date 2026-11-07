@@ -1239,7 +1239,7 @@ def update_entry_verified(entry, text, url):
             proposed_page, proposed_title = suggested_blessing(entry)
         t5.update({
             "page": proposed_page, "title": proposed_title,
-            "notIndicated": True, "suggestion": True,
+            "suggestion": True,
             "details": [
                 ["Indicação", "O folheto não indica bênção solene específica."],
                 ["Sugestão", "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."],
@@ -1247,6 +1247,11 @@ def update_entry_verified(entry, text, url):
         })
         t5.pop("verifiedByFolheto", None)
         t5.pop("pageSuggestion", None)
+        # Com página sugerida, a fita não é "sem página": o site mostra a página.
+        if any(ch.isdigit() for ch in str(proposed_page)):
+            t5.pop("notIndicated", None)
+        else:
+            t5["notIndicated"] = True
 
     verified = [n for n, t in tapes.items() if t.get("verifiedByFolheto")]
     entry["officialVerifiedParts"] = sorted(verified)

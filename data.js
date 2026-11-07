@@ -2426,8 +2426,7 @@ window.MISSAL_DATA = {
             "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true,
-        "notIndicated": true
+        "suggestion": true
       }
     ],
     "quick": "430 → 412 → 554 → 585",
@@ -3750,8 +3749,7 @@ window.MISSAL_DATA = {
             "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
-        "suggestion": true,
-        "notIndicated": true
+        "suggestion": true
       }
     ],
     "quick": "430 → 414 → 483 → 545 → 585",

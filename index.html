@@ -4370,8 +4370,8 @@ html.theme-dark .theme-choice-help{color:var(--d-muted)!important}
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261107-7fe1dfa251fe"></script>
-<script src="status.js?v=20261107-7fe1dfa251fe"></script>
+<script src="data.js?v=20261107-0c1942af0d3e"></script>
+<script src="status.js?v=20261107-0c1942af0d3e"></script>
 <script>
 const dataLoaded = Boolean(
   window.MISSAL_DATA &&
@@ -4654,7 +4654,7 @@ function buildDetailedCopyText(dateKey){
 
   (d.tapes||[]).forEach(function(t){
     const info=detailMap(t);
-    const page=t.pageUnverified ? "a conferir" : (t.notIndicated ? "não indicada" : String(t.page||"—"));
+    const page=t.pageUnverified ? "a conferir" : (noPageIndicated(t) ? "não indicada" : String(t.page||"—"));
 
     if(t.n===1){
       lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
@@ -4929,7 +4929,7 @@ async function buildShareImageBlob(){
       return meta.clean+(meta.isSuggestion?" (sugestão)":"")+": "+String(pair[1]||"");
     });
     if(tape.pageUnverified) parts.unshift("Página ainda não conferida no Missal Romano.");
-    if(tape.notIndicated) parts.unshift("O folheto não indica página específica.");
+    if(noPageIndicated(tape)) parts.unshift("O folheto não indica página específica.");
     if(tape.suggestion && !parts.some(t=>/sugestão/i.test(t))) parts.unshift("Escolha sugerida, não confirmada pelo folheto.");
     return parts.join(" • ");
   }
@@ -5214,7 +5214,7 @@ async function buildShareImageBlob(){
     ctx.restore();
 
     const pageText=t.pageUnverified?"PÁGINA A CONFERIR":
-      (t.notIndicated?"SEM PÁGINA INDICADA":"PÁGINA "+String(t.page||"—").replace(/^Página\s*/i,""));
+      (noPageIndicated(t)?"SEM PÁGINA INDICADA":"PÁGINA "+String(t.page||"—").replace(/^Página\s*/i,""));
     ctx.font="800 12px Arial, sans-serif";
     const pageW=Math.max(92,ctx.measureText(pageText).width+22);
     fillRound(pad+18,y+14,pageW,28,14,"#f6edef");
@@ -5462,8 +5462,8 @@ function render(dateKey){
       <div class="tape-heading">
         <div class="tape-heading-top">
           <div class="tape-top"><div class="tape-icon" aria-hidden="true">${tapeIconSvg(t)}</div></div>
-          <div class="page" aria-label="${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : "Página "+prepareEscapeHtml(t.page))}">
-            ${t.pageUnverified ? "Página a conferir" : (t.notIndicated ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
+          <div class="page" aria-label="${t.pageUnverified ? "Página a conferir" : (noPageIndicated(t) ? "Sem página indicada" : "Página "+prepareEscapeHtml(t.page))}">
+            ${t.pageUnverified ? "Página a conferir" : (noPageIndicated(t) ? "Sem página indicada" : `<span class="page-caption">PÁGINA</span><span class="page-number">${prepareEscapeHtml(t.page)}</span>`)}
           </div>
         </div>
         ${t.n===2 ? `<span class="tape-kicker">Missa do dia</span>` : ``}
@@ -5514,6 +5514,12 @@ function getAvailableThrough(){
   const releaseLimit=Number(p.hour)<5 ? addDaysKey(today,-1) : today;
   const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);
   return statusDate < releaseLimit ? statusDate : releaseLimit;
+}
+
+// "Sem página" só quando não há página: uma sugestão (ex.: bênção que o
+// folheto não especifica) sempre mostra a página sugerida.
+function noPageIndicated(t){
+  return Boolean(t && t.notIndicated && !/\d/.test(String(t.page||"")));
 }
 
 function addDaysKey(key,days){
@@ -5847,7 +5853,7 @@ function setPrepareMissal(open){
     const tapes=Array.isArray(d.tapes)?d.tapes:[];
     pages.innerHTML=prepareLabels.map((label,index)=>{
       const tape=tapes[index] || {};
-      const page=tape.pageUnverified?"A conferir":(tape.notIndicated?"Não indicada":String(tape.page || "—"));
+      const page=tape.pageUnverified?"A conferir":(noPageIndicated(tape)?"Não indicada":String(tape.page || "—"));
       const labelText=label+(tape.suggestion?" (sugestão)":"");
       return '<div class="prepare-missal-page"><span class="prepare-missal-number">'+(index+1)+'</span><strong>'+prepareEscapeHtml(page)+'</strong><span>'+prepareEscapeHtml(labelText)+'</span></div>';
     }).join("");
@@ -6409,7 +6415,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261107-7fe1dfa251fe",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261107-0c1942af0d3e",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
