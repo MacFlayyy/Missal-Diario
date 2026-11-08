@@ -3860,7 +3860,11 @@ window.MISSAL_DATA = {
     ],
     "quick": "430 → 850 → 852 → 545 → 588",
     "cycle": "Ano II",
-    "missalPageReferenceVerified": true
+    "missalPageReferenceVerified": true,
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-10": {
     "label": "Terça-feira • 10/11/2026",
