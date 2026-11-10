@@ -4052,7 +4052,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 854 → 504 → 536 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-12": {
     "label": "Quinta-feira • 12/11/2026",

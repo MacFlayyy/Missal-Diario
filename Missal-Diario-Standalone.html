@@ -8426,7 +8426,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 854 → 504 → 536 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-12": {
     "label": "Quinta-feira • 12/11/2026",
@@ -13050,7 +13054,7 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-10",
+  "availableThrough": "2026-11-11",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -13064,8 +13068,8 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
-  "contentVersion": "d3a9a8d7847be947bf42",
-  "lastSuccessfulUpdateAt": "2026-11-09T04:48:58.404422-03:00"
+  "contentVersion": "57dfd7340fac0a818d92",
+  "lastSuccessfulUpdateAt": "2026-11-10T00:18:30.970306-03:00"
 };
 </script>
 <script>
@@ -15111,7 +15115,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261109-f9460cb71f6b",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261110-f0cbb8a8671f",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
