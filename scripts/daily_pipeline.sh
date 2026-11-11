@@ -25,6 +25,12 @@ python scripts/generate_daily.py || exit 1
 
 for f in $FILES; do cp "$f" "$SNAP/$f"; done
 
+if [ "${SKIP_FOLHETO:-0}" = "1" ]; then
+  echo "Leitor de folhetos indisponível: mantendo os folhetos já aplicados."
+  run_checks || exit 1
+  exit 0
+fi
+
 LOG="$(mktemp)"
 if { python scripts/update_folheto.py && run_checks; } 2>&1 | tee "$LOG"; [ "${PIPESTATUS[0]}" -eq 0 ]; then
   echo "Pipeline completo com folhetos: OK"

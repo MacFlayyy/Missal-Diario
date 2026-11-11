@@ -69,11 +69,24 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
+      # Se o espelho do Ubuntu estiver fora do ar, tenta de novo algumas vezes.
+      # Sem o leitor (OCR), os folhetos ficam como estão e o dia é publicado normalmente.
       - name: Preparar OCR em português para PDFs digitalizados
         run: |
-          if ! command -v tesseract >/dev/null || ! tesseract --list-langs 2>/dev/null | grep -qx por; then
-            sudo apt-get update -qq
-            sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-por poppler-utils
+          ok() { command -v tesseract >/dev/null && command -v pdftoppm >/dev/null && tesseract --list-langs 2>/dev/null | grep -qx por; }
+          for attempt in 1 2 3; do
+            ok && break
+            sudo timeout 300 apt-get update -qq || true
+            sudo timeout 300 apt-get install -y -qq tesseract-ocr tesseract-ocr-por poppler-utils || true
+            ok && break
+            echo "Tentativa $attempt de instalar o OCR falhou; aguardando para tentar de novo..."
+            sleep 30
+          done
+          if ok; then
+            echo "SKIP_FOLHETO=0" >> "$GITHUB_ENV"
+          else
+            echo "::warning title=Leitor de folhetos indisponível::Não foi possível instalar o OCR (servidores do Ubuntu fora do ar). Os folhetos já aplicados foram mantidos e o dia foi publicado normalmente."
+            echo "SKIP_FOLHETO=1" >> "$GITHUB_ENV"
           fi
 
       - name: Gerar ícones PNG do PWA
