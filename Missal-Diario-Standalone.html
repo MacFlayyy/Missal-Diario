@@ -15131,7 +15131,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261111-420db34bee2d",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261111-63b0c99df2af",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
