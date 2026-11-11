@@ -69,19 +69,34 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      # Se o espelho do Ubuntu estiver fora do ar, tenta de novo algumas vezes.
+      # Cópia guardada dos pacotes do leitor de folhetos (OCR): se os servidores
+      # do Ubuntu caírem, instala a partir dela.
+      - name: Restaurar cópia do leitor de folhetos
+        uses: actions/cache@v4
+        with:
+          path: ~/ocr-debs
+          key: ocr-debs-${{ runner.os }}-noble-v1
+
+      # Se o espelho do Ubuntu estiver fora do ar, usa a cópia guardada ou tenta de novo.
       # Sem o leitor (OCR), os folhetos ficam como estão e o dia é publicado normalmente.
       - name: Preparar OCR em português para PDFs digitalizados
         run: |
           ok() { command -v tesseract >/dev/null && command -v pdftoppm >/dev/null && tesseract --list-langs 2>/dev/null | grep -qx por; }
+          mkdir -p ~/ocr-debs
+          if ! ok && ls ~/ocr-debs/*.deb >/dev/null 2>&1; then
+            sudo dpkg -i ~/ocr-debs/*.deb >/dev/null 2>&1 || true
+          fi
           for attempt in 1 2 3; do
             ok && break
-            sudo timeout 300 apt-get update -qq || true
-            sudo timeout 300 apt-get install -y -qq tesseract-ocr tesseract-ocr-por poppler-utils || true
+            sudo timeout 150 apt-get update -qq || true
+            sudo timeout 150 apt-get install -y -qq -o APT::Keep-Downloaded-Packages=true tesseract-ocr tesseract-ocr-por poppler-utils || true
             ok && break
             echo "Tentativa $attempt de instalar o OCR falhou; aguardando para tentar de novo..."
             sleep 30
           done
+          # guarda os pacotes baixados para a próxima vez
+          sudo cp -n /var/cache/apt/archives/*.deb ~/ocr-debs/ 2>/dev/null || true
+          sudo chown -R "$USER" ~/ocr-debs || true
           if ok; then
             echo "SKIP_FOLHETO=0" >> "$GITHUB_ENV"
           else
