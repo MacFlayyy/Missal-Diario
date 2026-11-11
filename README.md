@@ -114,7 +114,7 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - **Sem folheto**: mantém sugestões claramente identificadas, sem fingir que são escolhas oficiais.
 - **Bênção Solene**: quando o folheto não indica, sugerir uma bênção adequada ao tempo/celebração. Nos domingos do Tempo Comum: *Tempo Comum VI*, p.585. Em celebrações marianas: *Bem-aventurada Virgem Maria*, p.585. A seta da separação rápida inclui a página sugerida.
 - **Aclamação da Oração Eucarística**: quando o folheto indica a Oração Eucarística, mas não indica a aclamação, somente a aclamação fica como sugestão. A Oração Eucarística continua identificada como escolha oficial.
-- O botão extra de abrir PDF dentro dos Ritos Iniciais permanece removido; a função geral **Folheto dominical** continua disponível.
+- O botão extra de abrir PDF dentro dos Ritos Iniciais permanece removido; a função geral **Folheto** continua disponível.
 
 ## Auditoria técnica de 14/10/2026
 
@@ -198,3 +198,12 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **SEO:** índice principal tem `meta robots`, descrição e URL canônica. O arquivo `robots.txt` do subdiretório não substitui `https://macflayyy.github.io/robots.txt`, que precisaria ser mantido na raiz do host.
 - **Visibilidade futura:** o controle no site é de interface. Como `data.js` e `calendar_seed.json` são públicos no GitHub Pages/repositório, não há sigilo técnico sobre dias ainda não liberados; isso exigiria migrar a fonte de dados para hospedagem privada.
 - **Status:** `validationDetails` diferencia a conferência estrutural/numérica da consulta integral ao PDF (que não é executada automaticamente no GitHub).
+
+
+## Atualizações de novembro/2026
+
+- **Publicação sem depender do horário do GitHub:** cada execução prepara e confere HOJE e AMANHÃ; o próprio site só mostra o dia a partir das 05h (Brasília). Há execuções à noite (18h, 20h, 22h, 23h) além das da madrugada.
+- **Rede de segurança (`scripts/daily_pipeline.sh`):** se um folheto mal lido quebrar alguma verificação, o dia é publicado pelo Missal (com todas as verificações) e uma issue avisa qual folheto ficou de fora. Se o leitor de folhetos (OCR) não puder ser instalado, os folhetos já aplicados são mantidos.
+- **Leitura de folhetos tolerante a erros de OCR:** Oração Eucarística e prefácio identificados pela página; todos os 72 prefácios do Ordinário (p. 451–522) conferidos no PDF do Missal em `missal-prefaces-verified.json`.
+- **Tema:** claro por padrão; escuro e automático em "Mais" / "Mais ações".
+- **Pendência conhecida:** os dados conferidos vão até 31/12/2026. O gerador automático de 2027 (`scripts/generate_daily.py`) ainda não informa a página da Missa do dia nem reconhece todas as celebrações móveis.

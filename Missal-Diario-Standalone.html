@@ -4017,6 +4017,7 @@ html.theme-dark .mobile-nav{
   box-shadow:none!important;
 }
 html.theme-dark .quick,html.theme-dark .prepare-missal-sequence{background:var(--d-raised)!important}
+html:not(.theme-dark) .prepare-missal-page span:last-child{color:#6a6059!important}
 /* topo nítido no modo claro: faixa vinho sólida, sem efeito fosco, e fundo liso atrás da barra do celular */
 html:not(.theme-dark) .topbar{background:linear-gradient(135deg,#6e1622,#861b28)!important;border-color:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html:not(.theme-dark),html:not(.theme-dark) body{background:#f7f4ef!important}
@@ -4074,6 +4075,9 @@ html.theme-dark .tape{border-left-color:var(--d-wine-2)!important}
 html.theme-dark .detail b{color:#f2f2f7!important}
 html.theme-dark .detail-text,html.theme-dark .tape p,html.theme-dark .note,html.theme-dark .subtitle{color:#e5e5ea!important}
 html.theme-dark .tape .tape-kicker,html.theme-dark .tape .page-caption{color:var(--d-muted)!important}
+/* contraste (auditoria 11/2026): crédito do rodapé e setas da separação rápida no escuro */
+html.theme-dark .footer-credit{color:var(--d-muted)!important}
+html.theme-dark .quick .quick-step .quick-arrow,html.theme-dark .quick .quick-steps .quick-arrow,html.theme-dark body .quick-arrow{color:#c7c7cc!important;opacity:1!important}
 html.theme-dark .suggestion{background:rgba(216,180,106,.12)!important;color:var(--d-gold)!important}
 html.theme-dark .inline-suggestion{color:var(--d-muted)!important}
 
@@ -13331,7 +13335,8 @@ function sentenceFromUsage(value){
   if(!raw) return "";
   if(/^sugest[aã]o[,.]?/i.test(raw)){
     const rest=raw.replace(/^sugest[aã]o[,.]?\s*/i,"").trim();
-    return "*(sugestão)*"+(rest ? ". "+rest : ".");
+    // "Sugestão adequada ao tempo…" → "(sugestão adequada ao tempo…)." — sem frase solta depois do ponto
+    return rest ? "*(sugestão "+rest.replace(/\.$/,"")+")*." : "*(sugestão)*.";
   }
   return raw.endsWith(".") ? raw : raw+".";
 }

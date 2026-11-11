@@ -178,9 +178,10 @@ def candidate_months():
         while m < 1: y, m = y-1, m+12
         while m > 12: y, m = y+1, m-12
         months.add((y,m))
-    # Também cobre todo o período cadastrado de 2026.
-    for m in range(9, 13):
-        months.add((2026,m))
+    # Também cobre o período inicial cadastrado de 2026 (enquanto ainda for o ano corrente).
+    if today.year == 2026:
+        for m in range(9, 13):
+            months.add((2026,m))
     return sorted(months)
 
 def list_pdfs(year, month):
@@ -219,7 +220,7 @@ def discover_recent_media():
                 break
             for record in records:
                 url = str(record.get("source_url") or "")
-                if (url.lower().endswith(".pdf") and "2026" in url
+                if (url.lower().endswith(".pdf") and re.search(r"/20\d{2}/\d{2}/", url)
                         and any(term in norm(url) for term in ("povo", "opd"))):
                     results.append(url)
             if len(records) < 100:
@@ -268,16 +269,27 @@ def leaflet_date_from_filename(url):
     filename = name.lower()
     if not filename.endswith(".pdf"):
         return None
-    year_match = re.search(r"/(20\d{2})/\d{2}/", url)
+    year_match = re.search(r"/(20\d{2})/(\d{2})/", url)
     year = int(year_match.group(1)) if year_match else datetime.now(ZoneInfo("America/Sao_Paulo")).year
+    upload_month = int(year_match.group(2)) if year_match else None
     for match in re.finditer(r"(?<!\d)([0-3]?\d)[_-]([01]?\d)(?!\d)", filename):
         day, month = (int(x) for x in match.groups())
+        # Folheto de janeiro/fevereiro enviado em novembro/dezembro pertence ao ano seguinte
+        # (e o contrário: folheto de dezembro enviado em janeiro é do ano anterior).
+        file_year = year
+        if upload_month:
+            if upload_month >= 11 and month <= 2:
+                file_year = year + 1
+            elif upload_month <= 2 and month >= 11:
+                file_year = year - 1
         try:
-            result = date(year, month, day)
+            result = date(file_year, month, day)
         except ValueError:
             continue
-        # URLs só são consideradas se houver data exata no calendário do projeto.
-        if date(2026, 9, 30) <= result <= date(2026, 12, 31):
+        # Só datas plausíveis: do início do projeto até dois meses à frente de hoje.
+        from datetime import timedelta as _td  # import local: o teste executa esta função isolada
+        limit = datetime.now(ZoneInfo("America/Sao_Paulo")).date() + _td(days=62)
+        if date(2026, 9, 30) <= result <= limit:
             return result.isoformat()
     return None
 
