@@ -723,7 +723,9 @@ def check_pending_page_copy():
     html=INDEX.read_text(encoding="utf-8")
     assert "existe página do Missal ainda não conferida" in html
     assert 't.pageUnverified ? "Página a conferir"' in html
-    assert 'return lines.join("\\n").replace(' in html
+    assert 'return lines.join("\\n")' in html
+    # o texto copiado sai limpo, sem símbolos de formatação (###, **)
+    assert "Texto limpo para colar" in html and '.replace(/\\*\\*/g,"")' in html
     print("PASSOU: páginas sem verificação explícitas também no conteúdo copiado")
 
 
