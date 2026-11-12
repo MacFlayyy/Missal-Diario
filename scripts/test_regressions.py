@@ -812,6 +812,14 @@ def check_on_demand_calendar():
     lent = lc.build_entry(date(2027, 3, 8))
     assert lent["grade"] == "Dia de semana" and "comemoração" in lent["note"]
 
+    # O Missal só depende do Ano A/B/C nos 3º, 4º e 5º Domingos da Quaresma (prefácio).
+    year_a, year_b = lc.build_entry(date(2029, 3, 4)), lc.build_entry(date(2027, 2, 28))
+    assert year_a["cycle"] == "Ano A" and year_a["tapes"][2]["page"] == "187", year_a["tapes"][2]
+    assert year_b["cycle"] == "Ano B" and year_b["tapes"][2]["page"] == "459", year_b["tapes"][2]
+    assert "p. 187" in str(year_b["tapes"][2]["details"]) and year_b["tapes"][1]["page"] == "186"
+    for (y, m, d), page in {(2029, 3, 11): "196", (2029, 3, 18): "204", (2028, 3, 26): "459", (2028, 4, 2): "459"}.items():
+        assert lc.build_entry(date(y, m, d))["tapes"][2]["page"] == page, (y, m, d)
+
     # 4) Dez anos inteiros: todo dia tem as cinco fitas, página numérica da Missa,
     #    nenhum "?", e passa nas mesmas verificações usadas na publicação.
     current, total = date(2027, 1, 1), 0

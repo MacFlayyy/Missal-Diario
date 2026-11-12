@@ -446,6 +446,7 @@ def _ordinary_preface(page):
     return {"page": str(page), "title": title, "subtitle": subtitle}
 
 
+GOSPEL_PREFACES = {"qua-3-0": "da Samaritana", "qua-4-0": "do cego de nascença", "qua-5-0": "de Lázaro"}
 SEASON_PREFACE = {"Advento": 451, "Natal": 455, "Quaresma": 459, "Páscoa": 466}
 KIND_PREFACE = {"martyr": 502, "doctor": 506, "religious": 508, "pastor": 504, "mary": 493,
                 "apostle": 498, "saint": 500, "lord": 500}
@@ -462,6 +463,17 @@ def _preface(info, t):
             return _ordinary_preface(453)
         return _ordinary_preface(SEASON_PREFACE.get(t["season"], 509))
     own = TEMPORAL[t["key"]].get("preface")
+    if own and t["key"] in GOSPEL_PREFACES:
+        # Único ponto em que o Missal depende do Ano A/B/C: 3º, 4º e 5º Domingos
+        # da Quaresma têm prefácio próprio ligado ao Evangelho do Ano A.
+        gospel = GOSPEL_PREFACES[t["key"]]
+        if sunday_cycle(info["date"]) == "Ano A":
+            return dict(own, alt=f"Se não for proclamado o Evangelho {gospel}, diz-se o Prefácio da Quaresma I ou II, p. 459–460.")
+        general = _ordinary_preface(459)
+        general["alt"] = (f"{sunday_cycle(info['date'])}: se forem usadas as leituras do Ano A (Evangelho {gospel}), "
+                          f"diz-se o prefácio próprio “{own['subtitle']}”, p. {own['page']}.")
+        general["by_year"] = True
+        return general
     if own:
         return dict(own)
     if t["season"] == "Tempo Comum":
@@ -538,10 +550,12 @@ def _tape_preface(pref):
     if not pref:
         return {"n": 3, "page": "—", "title": "Prefácio — não há neste dia", "notIndicated": True,
                 "details": [["Indicação", "Nesta celebração não há Prefácio."]]}
+    extra = [["Atenção", pref["alt"]]] if pref.get("alt") else []
     if pref["title"] == "Prefácio próprio":
         return {"n": 3, "page": pref["page"], "title": "Prefácio próprio — " + pref["subtitle"],
-                "details": [["Uso", "No próprio formulário da celebração"]]}
-    details = ([["Título", pref["subtitle"]]] if pref.get("subtitle") else []) + [["Uso", "Sugestão"]]
+                "details": [["Uso", "No próprio formulário da celebração"]] + extra}
+    use = "Indicado pelo Missal para este ano litúrgico" if pref.get("by_year") else "Sugestão"
+    details = ([["Título", pref["subtitle"]]] if pref.get("subtitle") else []) + [["Uso", use]] + extra
     return {"n": 3, "page": pref["page"], "title": pref["title"], "details": details, "suggestion": True}
 
 
