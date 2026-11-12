@@ -820,6 +820,14 @@ def check_on_demand_calendar():
     for (y, m, d), page in {(2029, 3, 11): "196", (2029, 3, 18): "204", (2028, 3, 26): "459", (2028, 4, 2): "459"}.items():
         assert lc.build_entry(date(y, m, d))["tapes"][2]["page"] == page, (y, m, d)
 
+    # Outras rubricas que dependem da data.
+    pref = lambda y, m, d: lc.build_entry(date(y, m, d))["tapes"][2]["page"]
+    assert pref(2027, 1, 2) == "455" and pref(2027, 1, 5) == "458"       # antes / depois da Epifania
+    assert pref(2028, 12, 17) == "453" and pref(2027, 12, 12) == "451"   # 3º Dom. do Advento em 17/12
+    assert pref(2027, 5, 6) == "466" and pref(2027, 5, 13) == "473"      # antes / depois da Ascensão
+    assert lc._kind("Santos Joaquim e Ana, pais da Bem-aventurada Virgem Maria") == "saint"
+    assert lc._kind("Nossa Senhora do Carmo") == "mary"
+
     # 4) Dez anos inteiros: todo dia tem as cinco fitas, página numérica da Missa,
     #    nenhum "?", e passa nas mesmas verificações usadas na publicação.
     current, total = date(2027, 1, 1), 0

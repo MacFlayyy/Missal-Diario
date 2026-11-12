@@ -240,7 +240,8 @@ def _ordinary(out, week, wd):
 # ------------------------------------------------------------------ Santos
 def _kind(name):
     n = _plain(name)
-    if any(w in n for w in ("virgem maria", "imaculad", "assuncao", "visitacao")):
+    if "pais da bem-aventurada" not in n and any(
+            w in n for w in ("virgem maria", "nossa senhora", "imaculad", "assuncao", "visitacao")):
         return "mary"
     if any(w in n for w in ("apresentacao do senhor", "transfiguracao", "exaltacao", "anunciacao",
                             "dedicacao", "todos os santos", "fieis defuntos")):
@@ -251,7 +252,7 @@ def _kind(name):
         return "martyr"
     if "doutor" in n:
         return "doctor"
-    if any(w in n for w in ("virgem", "religios", "abade", "eremita", "monge")):
+    if any(w in n.replace("virgem maria", "") for w in ("virgem", "religios", "abade", "eremita", "monge")):
         return "religious"
     if any(w in n for w in ("bispo", "papa", "presbitero", "diacono")):
         return "pastor"
@@ -452,6 +453,26 @@ KIND_PREFACE = {"martyr": 502, "doctor": 506, "religious": 508, "pastor": 504, "
                 "apostle": 498, "saint": 500, "lord": 500}
 
 
+def _season_preface(info, t):
+    """Prefácio do tempo para o dia, seguindo as rubricas que dependem da data."""
+    day, season = info["date"], t["season"]
+    if season == "Advento":
+        # Advento II a partir de 17 de dezembro (inclusive no 3º domingo, se cair nesse dia).
+        return _ordinary_preface(453 if (day.month == 12 and day.day >= 17) else 451)
+    if season == "Natal" and day.month == 1 and day > epiphany(day.year):
+        pref = _ordinary_preface(458)
+        pref["alt"] = "Depois da Epifania: Prefácio da Epifania (p. 458) ou do Natal (p. 455–457)."
+        pref["by_rubric"] = True
+        return pref
+    if season == "Páscoa" and 42 < (day - easter(day.year)).days < 49:
+        pref = _ordinary_preface(473)
+        pref["alt"] = ("Dias entre a Ascensão e Pentecostes: este prefácio, ou o da Páscoa "
+                       "ou da Ascensão (p. 466–472).")
+        pref["by_rubric"] = True
+        return pref
+    return _ordinary_preface(SEASON_PREFACE.get(season, 509))
+
+
 def _preface(info, t):
     if info["source"] == "santos" and not info.get("seasonal_preface"):
         own = info["sanct"].get("preface")
@@ -459,9 +480,7 @@ def _preface(info, t):
             return dict(own)
         return _ordinary_preface(KIND_PREFACE[info["kind"]])
     if info["source"] == "santos":          # memória em tempo forte
-        if t["season"] == "Advento" and info["date"].day >= 17 and info["date"].month == 12:
-            return _ordinary_preface(453)
-        return _ordinary_preface(SEASON_PREFACE.get(t["season"], 509))
+        return _season_preface(info, t)
     own = TEMPORAL[t["key"]].get("preface")
     if own and t["key"] in GOSPEL_PREFACES:
         # Único ponto em que o Missal depende do Ano A/B/C: 3º, 4º e 5º Domingos
@@ -474,6 +493,8 @@ def _preface(info, t):
                           f"diz-se o prefácio próprio “{own['subtitle']}”, p. {own['page']}.")
         general["by_year"] = True
         return general
+    if t["key"].startswith(("natal-feria-", "pas-7-")) or t["key"] == "adv-3-0":
+        return _season_preface(info, t)
     if own:
         return dict(own)
     if t["season"] == "Tempo Comum":
@@ -554,7 +575,8 @@ def _tape_preface(pref):
     if pref["title"] == "Prefácio próprio":
         return {"n": 3, "page": pref["page"], "title": "Prefácio próprio — " + pref["subtitle"],
                 "details": [["Uso", "No próprio formulário da celebração"]] + extra}
-    use = "Indicado pelo Missal para este ano litúrgico" if pref.get("by_year") else "Sugestão"
+    use = ("Indicado pelo Missal para este ano litúrgico" if pref.get("by_year")
+           else "Indicado pela rubrica do Missal para estes dias" if pref.get("by_rubric") else "Sugestão")
     details = ([["Título", pref["subtitle"]]] if pref.get("subtitle") else []) + [["Uso", use]] + extra
     return {"n": 3, "page": pref["page"], "title": pref["title"], "details": details, "suggestion": True}
 
