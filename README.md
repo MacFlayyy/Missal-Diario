@@ -65,7 +65,7 @@ As sugestões continuam identificadas como `(sugestão)`.
 
 ## Cadastro e liberação diária
 
-O calendário de 2026 permanece guardado como histórico. **Não é necessário cadastrar antecipadamente o ano de 2027:** antes da atualização diária, `scripts/generate_daily.py` consulta uma referência brasileira de liturgia diária para verificar **data, celebração, tempo e cor litúrgica**. Aos sábados, prepara também o domingo. Depois, `update_folheto.py` procura indicações oficiais e `validate_daily.py` revisa o resultado. A fonte litúrgica online **não fornece páginas do Missal Romano**: quando não houver indicação confiável, a Fita 2 exibirá **Página a conferir** em vez de uma página inventada. Se a consulta do dia falhar, a publicação é bloqueada e as próximas tentativas agendadas poderão recuperá-la.
+O calendário de 2026 permanece guardado como histórico. **Não é necessário cadastrar nenhum ano:** `scripts/liturgical_calendar.py` calcula a liturgia de qualquer dia (calendário litúrgico perpétuo do Brasil) e busca as páginas em `missal-calendar-index.json`.
 
 Execuções antes das 05:00 preparam os dados e o status, enquanto o navegador impede a liberação do novo dia antes das 05:00 de Brasília. A pontualidade do início dos trabalhos agendados pelo GitHub Actions não é garantida; a preparação antecipada reduz o risco.
 
@@ -119,7 +119,7 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 ## Auditoria técnica de 14/10/2026
 
 - A rotina diária gera datas sob demanda; não existe exigência de pré-cadastro anual, mas a identificação das **páginas** do Missal continua condicionada a uma referência conferível.
-- Fonte suplementar utilizada apenas para celebração/tempo/cor: `https://carmosaodomingos.com.br/liturgia` (paróquia que apresenta dados com referência à CNBB). Prioridade das escolhas: folheto oficial `O Povo de Deus` da Arquidiocese.
+- Nenhuma fonte externa é consultada para a liturgia do dia: celebração, grau, cor e páginas vêm do calendário perpétuo e do índice do Missal.
 - Fitas cuja escolha não consta do folheto recebem **sugestão**, nunca rótulo de indicação oficial. A Fita 2 só é confirmada como página oficial se o código encontrar o mesmo número referenciado no PDF; caso contrário, mostra a necessidade de conferência.
 - O Service Worker armazena no máximo uma cópia por arquivo essencial, independentemente dos parâmetros usados na URL, e ignora PDFs e outros recursos externos.
 - O texto copiado não contém identificadores técnicos internos. O site ganhou foco visível e legendas maiores no menu mobile.
@@ -205,4 +205,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Rede de segurança (`scripts/daily_pipeline.sh`):** se um folheto mal lido quebrar alguma verificação, o dia é publicado pelo Missal (com todas as verificações) e uma issue avisa qual folheto ficou de fora. Se o leitor de folhetos (OCR) não puder ser instalado, os folhetos já aplicados são mantidos.
 - **Leitura de folhetos tolerante a erros de OCR:** Oração Eucarística e prefácio identificados pela página; todos os 72 prefácios do Ordinário (p. 451–522) conferidos no PDF do Missal em `missal-prefaces-verified.json`.
 - **Tema:** claro por padrão; escuro e automático em "Mais" / "Mais ações".
-- **Pendência conhecida:** os dados conferidos vão até 31/12/2026. O gerador automático de 2027 (`scripts/generate_daily.py`) ainda não informa a página da Missa do dia nem reconhece todas as celebrações móveis.
+- **Calendário litúrgico perpétuo (sem cadastro anual):**
+  - `scripts/liturgical_calendar.py` calcula Páscoa, tempos litúrgicos, precedências e transferências (Normas Universais do Ano Litúrgico + calendário próprio do Brasil: Epifania, Ascensão, Pedro e Paulo, Assunção e Todos os Santos no domingo etc.).
+  - `missal-calendar-index.json` guarda, para cada formulário do Próprio do Tempo e dos Santos, a página, o prefácio e a bênção indicados no próprio Missal (extraídos uma única vez do PDF; somente metadados).
+  - `scripts/generate_daily.py` gera os dias com 40 dias de antecedência; `check_missal_references.py` recalcula cada dia gerado e compara; `test_regressions.py` confere 2026 já revisado, casos de precedência e dez anos completos sem nenhum "?".

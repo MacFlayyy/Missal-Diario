@@ -14075,7 +14075,7 @@ function formatDetailLabel(label){
 let december24Choice=null; // null = visão geral; manhã ou vigília somente com escolha explícita.
 function getDisplayEntry(dateKey){
   const base=data[dateKey];
-  if(!base || dateKey!=="2026-12-24") return base;
+  if(!base || !String(dateKey).endsWith("-12-24")) return base; // 24/12 de qualquer ano
 
   // A escolha depende do horário da celebração da paróquia, não de um meio-dia
   // arbitrário. Por padrão mostramos as duas possibilidades sem confundir fitas.
@@ -14109,7 +14109,7 @@ document.getElementById("dec24MassChoice")?.addEventListener("click",event=>{
   const btn=event.target.closest("button[data-dec24-mass]");
   if(!btn) return;
   december24Choice=btn.dataset.dec24Mass;
-  render("2026-12-24");
+  render(String(window.currentDateKey||"").endsWith("-12-24") ? window.currentDateKey : "2026-12-24");
 });
 
 function render(dateKey){
@@ -14161,7 +14161,7 @@ function render(dateKey){
   renderQuickSteps(d.quick);
   const decChoice=document.getElementById("dec24MassChoice");
   if(decChoice){
-    decChoice.hidden=dateKey!=="2026-12-24";
+    decChoice.hidden=!String(dateKey).endsWith("-12-24");
     const actualChoice=december24Choice || "combined";
     decChoice.querySelectorAll("button[data-dec24-mass]").forEach(btn=>{
       btn.setAttribute("aria-pressed",String(btn.dataset.dec24Mass===actualChoice));

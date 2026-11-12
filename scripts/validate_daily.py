@@ -290,7 +290,8 @@ def repair_entry(entry):
     # Fita 1 — nomenclatura usada no site:
     # "Saudação A" e "Ato Penitencial — Segunda fórmula, 2ª opção".
     f1 = by_n[1]
-    if not is_valid_page(f1.get("page")):
+    no_rites = bool(f1.get("notIndicated") and f1.get("page") == "—")   # Sexta-feira Santa, Vigília Pascal
+    if not no_rites and not is_valid_page(f1.get("page")):
         raise RuntimeError("Página dos Ritos Iniciais ausente ou inválida.")
     if not str(f1.get("title","")).strip():
         raise RuntimeError("Título dos Ritos Iniciais ausente.")
@@ -307,14 +308,16 @@ def repair_entry(entry):
         None
     )
 
-    if saud_row is None or not re.search(r"Saudação\s+[A-H]", str(saud_row[0]), re.I):
+    if no_rites:
+        pass
+    elif saud_row is None or not re.search(r"Saudação\s+[A-H]", str(saud_row[0]), re.I):
         raise RuntimeError("Saudação não identificada: conferir a fórmula indicada no folheto.")
 
-    if ato_row is None or not re.search(
+    if not no_rites and (ato_row is None or not re.search(
         r"(Primeira|Segunda|Terceira)\s+fórmula(?:,\s*\dª\s+opção)?",
         str(ato_row[0]),
         re.I
-    ):
+    )):
         if not (ato_row and "Invocações alternativas para os diversos tempos" in str(ato_row[0])):
             raise RuntimeError("Ato Penitencial não identificado: conferir fórmula ou invocações.")
 
@@ -341,7 +344,7 @@ def repair_entry(entry):
     f4 = by_n[4]
     if not (str(f4.get("page","")) in {"523","536","545","554","564","614","626"} or (f4.get("notIndicated") and f4.get("page") == "—")) or "oração eucarística" not in str(f4.get("title","")).lower():
         raise RuntimeError("Oração Eucarística ausente/inválida: conferir o folheto.")
-    if not entry.get("officialLeafletApplied"):
+    if not entry.get("officialLeafletApplied") and not f4.get("notIndicated"):
         ensure_detail(f4, "Aclamação", "Mistério da fé! • sugestão")
 
     # Fita 5 — Bênção
@@ -382,8 +385,8 @@ def main():
     for key in keys:
         print(f"Revisando o Missal de {key} antes da publicação...")
 
-        # A partir de 2027, obtém a celebração e a cor em fonte litúrgica
-        # pública, sem depender de cadastro anual.
+        # Dias fora do cadastro de 2026 são calculados pelo calendário
+        # litúrgico perpétuo, com as páginas do índice do Missal.
         if key not in data:
             ensure_dates(data, datetime.fromisoformat(key).date())
 

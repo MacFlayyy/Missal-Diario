@@ -1,0 +1,3295 @@
+{
+ "schema_version": 1,
+ "source": "Missal Romano, 3ª edição típica, CNBB 2023 — índice de páginas extraído do PDF do usuário (somente metadados: nomes, graus e páginas).",
+ "temporal": {
+  "adv-1-0": {
+   "page": "96",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   },
+   "blessing": {
+    "page": "578"
+   }
+  },
+  "adv-1-1": {
+   "page": "97",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-1-2": {
+   "page": "98",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-1-3": {
+   "page": "99",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-1-4": {
+   "page": "100",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-1-5": {
+   "page": "101",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-1-6": {
+   "page": "102",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-0": {
+   "page": "103",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   },
+   "blessing": {
+    "page": "578"
+   }
+  },
+  "adv-2-1": {
+   "page": "104",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-2": {
+   "page": "105",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-3": {
+   "page": "106",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-4": {
+   "page": "107",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-5": {
+   "page": "108",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-2-6": {
+   "page": "109",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-3-0": {
+   "page": "110",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   },
+   "blessing": {
+    "page": "578"
+   }
+  },
+  "adv-3-1": {
+   "page": "111",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-3-2": {
+   "page": "112",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-3-3": {
+   "page": "113",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-3-4": {
+   "page": "114",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-3-5": {
+   "page": "115",
+   "preface": {
+    "page": "451",
+    "title": "Prefácio do Advento I",
+    "subtitle": ""
+   }
+  },
+  "adv-4-0": {
+   "page": "116",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   },
+   "blessing": {
+    "page": "578"
+   }
+  },
+  "dec-17": {
+   "page": "117",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-18": {
+   "page": "118",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-19": {
+   "page": "119",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-20": {
+   "page": "120",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-21": {
+   "page": "121",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-22": {
+   "page": "122",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-23": {
+   "page": "123",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "dec-24": {
+   "page": "124",
+   "preface": {
+    "page": "453",
+    "title": "Prefácio do Advento II",
+    "subtitle": "A dupla espera de Cristo"
+   }
+  },
+  "natal-vigilia": {
+   "page": "126",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   },
+   "blessing": {
+    "page": "127",
+    "own": true
+   }
+  },
+  "natal-noite": {
+   "page": "128",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   },
+   "blessing": {
+    "page": "129",
+    "own": true
+   }
+  },
+  "natal-aurora": {
+   "page": "130",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   },
+   "blessing": {
+    "page": "131",
+    "own": true
+   }
+  },
+  "natal-dia": {
+   "page": "132",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   },
+   "blessing": {
+    "page": "133",
+    "own": true
+   }
+  },
+  "sagrada-familia": {
+   "page": "134",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "dec-29": {
+   "page": "135",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "dec-30": {
+   "page": "136",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "dec-31": {
+   "page": "137",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "mae-de-deus": {
+   "page": "138",
+   "preface": {
+    "page": "493",
+    "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+    "subtitle": "A maternidade da bem-aventurada virgem Maria"
+   },
+   "blessing": {
+    "page": "139",
+    "own": true
+   }
+  },
+  "epifania-vigilia": {
+   "page": "142",
+   "preface": {
+    "page": "458",
+    "title": "Prefácio da Epifania do Senhor",
+    "subtitle": "Cristo, luz dos povos"
+   },
+   "blessing": {
+    "page": "143",
+    "own": true
+   }
+  },
+  "epifania": {
+   "page": "144",
+   "preface": {
+    "page": "458",
+    "title": "Prefácio da Epifania do Senhor",
+    "subtitle": "Cristo, luz dos povos"
+   },
+   "blessing": {
+    "page": "145",
+    "own": true
+   }
+  },
+  "natal-feria-1": {
+   "page": "146",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "natal-feria-2": {
+   "page": "148",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "natal-feria-3": {
+   "page": "150",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "natal-feria-4": {
+   "page": "152",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "natal-feria-5": {
+   "page": "154",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "natal-feria-6": {
+   "page": "156",
+   "preface": {
+    "page": "455",
+    "title": "Prefácio do Natal do Senhor I",
+    "subtitle": "Cristo luz"
+   }
+  },
+  "batismo": {
+   "page": "158",
+   "preface": {
+    "page": "159",
+    "title": "Prefácio próprio",
+    "subtitle": "O Batismo do Senhor"
+   }
+  },
+  "cinzas": {
+   "page": "163",
+   "preface": {
+    "page": "461",
+    "title": "Prefácio da Quaresma III",
+    "subtitle": "Os frutos da abstinência"
+   },
+   "povo": {
+    "page": "166"
+   }
+  },
+  "cinzas-4": {
+   "page": "167",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "167"
+   }
+  },
+  "cinzas-5": {
+   "page": "168",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "168"
+   }
+  },
+  "cinzas-6": {
+   "page": "169",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "169"
+   }
+  },
+  "qua-1-0": {
+   "page": "170",
+   "preface": {
+    "page": "171",
+    "title": "Prefácio próprio",
+    "subtitle": "A Tentação do Senhor"
+   },
+   "povo": {
+    "page": "171"
+   }
+  },
+  "qua-1-1": {
+   "page": "172",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "172"
+   }
+  },
+  "qua-1-2": {
+   "page": "173",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "173"
+   }
+  },
+  "qua-1-3": {
+   "page": "174",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "174"
+   }
+  },
+  "qua-1-4": {
+   "page": "175",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "175"
+   }
+  },
+  "qua-1-5": {
+   "page": "176",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "176"
+   }
+  },
+  "qua-1-6": {
+   "page": "177",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "177"
+   }
+  },
+  "qua-2-0": {
+   "page": "178",
+   "preface": {
+    "page": "178",
+    "title": "Prefácio próprio",
+    "subtitle": "A Transfiguração do Senhor"
+   },
+   "povo": {
+    "page": "179"
+   }
+  },
+  "qua-2-1": {
+   "page": "180",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "180"
+   }
+  },
+  "qua-2-2": {
+   "page": "181",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "181"
+   }
+  },
+  "qua-2-3": {
+   "page": "182",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "182"
+   }
+  },
+  "qua-2-4": {
+   "page": "183",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "183"
+   }
+  },
+  "qua-2-5": {
+   "page": "184",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "184"
+   }
+  },
+  "qua-2-6": {
+   "page": "185",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "185"
+   }
+  },
+  "qua-3-0": {
+   "page": "186",
+   "preface": {
+    "page": "187",
+    "title": "Prefácio próprio",
+    "subtitle": "A Samaritana"
+   },
+   "povo": {
+    "page": "188"
+   }
+  },
+  "qua-3-1": {
+   "page": "189",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "189"
+   }
+  },
+  "qua-3-2": {
+   "page": "190",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "190"
+   }
+  },
+  "qua-3-3": {
+   "page": "191",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "191"
+   }
+  },
+  "qua-3-4": {
+   "page": "192",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "192"
+   }
+  },
+  "qua-3-5": {
+   "page": "193",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "193"
+   }
+  },
+  "qua-3-6": {
+   "page": "194",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "194"
+   }
+  },
+  "qua-4-0": {
+   "page": "195",
+   "preface": {
+    "page": "196",
+    "title": "Prefácio próprio",
+    "subtitle": "O Cego de Nascença"
+   },
+   "povo": {
+    "page": "197"
+   }
+  },
+  "qua-4-1": {
+   "page": "198",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "198"
+   }
+  },
+  "qua-4-2": {
+   "page": "199",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "199"
+   }
+  },
+  "qua-4-3": {
+   "page": "200",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "200"
+   }
+  },
+  "qua-4-4": {
+   "page": "201",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "201"
+   }
+  },
+  "qua-4-5": {
+   "page": "202",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "202"
+   }
+  },
+  "qua-4-6": {
+   "page": "203",
+   "preface": {
+    "page": "459",
+    "title": "Prefácio da Quaresma I",
+    "subtitle": "O sentido espiritual da quaresma"
+   },
+   "povo": {
+    "page": "203"
+   }
+  },
+  "qua-5-0": {
+   "page": "204",
+   "preface": {
+    "page": "205",
+    "title": "Prefácio próprio",
+    "subtitle": "Lázaro"
+   },
+   "povo": {
+    "page": "206"
+   }
+  },
+  "qua-5-1": {
+   "page": "207",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "208"
+   }
+  },
+  "qua-5-2": {
+   "page": "209",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "209"
+   }
+  },
+  "qua-5-3": {
+   "page": "210",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "210"
+   }
+  },
+  "qua-5-4": {
+   "page": "211",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "211"
+   }
+  },
+  "qua-5-5": {
+   "page": "212",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "213"
+   }
+  },
+  "qua-5-6": {
+   "page": "214",
+   "preface": {
+    "page": "464",
+    "title": "Prefácio da Paixão do Senhor I",
+    "subtitle": "O poder da cruz"
+   },
+   "povo": {
+    "page": "215"
+   }
+  },
+  "ramos": {
+   "page": "216",
+   "preface": {
+    "page": "226",
+    "title": "Prefácio próprio",
+    "subtitle": "A Paixão do Senhor"
+   },
+   "povo": {
+    "page": "226"
+   }
+  },
+  "ss-1": {
+   "page": "227",
+   "preface": {
+    "page": "465",
+    "title": "Prefácio da Paixão do Senhor II",
+    "subtitle": "A vitória da paixão"
+   },
+   "povo": {
+    "page": "228"
+   }
+  },
+  "ss-2": {
+   "page": "229",
+   "preface": {
+    "page": "465",
+    "title": "Prefácio da Paixão do Senhor II",
+    "subtitle": "A vitória da paixão"
+   },
+   "povo": {
+    "page": "229"
+   }
+  },
+  "ss-3": {
+   "page": "230",
+   "preface": {
+    "page": "465",
+    "title": "Prefácio da Paixão do Senhor II",
+    "subtitle": "A vitória da paixão"
+   },
+   "povo": {
+    "page": "231"
+   }
+  },
+  "crisma": {
+   "page": "232",
+   "preface": {
+    "page": "242",
+    "title": "Prefácio próprio",
+    "subtitle": "O Sacerdócio de Cristo e o Ministério dos Sacerdotes"
+   }
+  },
+  "ceia": {
+   "page": "246",
+   "preface": {
+    "page": "486",
+    "title": "Prefácio da Santíssima Eucaristia I",
+    "subtitle": "Sacrifício e sacramento de Cristo"
+   }
+  },
+  "paixao": {
+   "page": "257"
+  },
+  "vigilia-pascal": {
+   "page": "274",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "312",
+    "own": true
+   }
+  },
+  "pascoa": {
+   "page": "313",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "314",
+    "own": true
+   }
+  },
+  "oitava-1": {
+   "page": "315",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "oitava-2": {
+   "page": "316",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "oitava-3": {
+   "page": "317",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "oitava-4": {
+   "page": "318",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "oitava-5": {
+   "page": "319",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "oitava-6": {
+   "page": "320",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-0": {
+   "page": "321",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "322",
+    "own": true
+   }
+  },
+  "pas-2-1": {
+   "page": "323",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-2": {
+   "page": "324",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-3": {
+   "page": "325",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-4": {
+   "page": "326",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-5": {
+   "page": "327",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-2-6": {
+   "page": "328",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-0": {
+   "page": "330",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "581"
+   }
+  },
+  "pas-3-1": {
+   "page": "331",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-2": {
+   "page": "332",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-3": {
+   "page": "333",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-4": {
+   "page": "334",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-5": {
+   "page": "335",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-3-6": {
+   "page": "336",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-0": {
+   "page": "337",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "581"
+   }
+  },
+  "pas-4-1": {
+   "page": "338",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-2": {
+   "page": "339",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-3": {
+   "page": "340",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-4": {
+   "page": "341",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-5": {
+   "page": "342",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-4-6": {
+   "page": "343",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-0": {
+   "page": "344",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "581"
+   }
+  },
+  "pas-5-1": {
+   "page": "345",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-2": {
+   "page": "346",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-3": {
+   "page": "347",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-4": {
+   "page": "348",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-5": {
+   "page": "349",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-5-6": {
+   "page": "350",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-0": {
+   "page": "351",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "581"
+   }
+  },
+  "pas-6-1": {
+   "page": "352",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-2": {
+   "page": "353",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-3": {
+   "page": "354",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-4": {
+   "page": "360",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-5": {
+   "page": "361",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-6-6": {
+   "page": "363",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "ascensao-vigilia": {
+   "page": "356",
+   "preface": {
+    "page": "471",
+    "title": "Prefácio da Ascensão do Senhor I",
+    "subtitle": "O mistério da ascensão"
+   },
+   "blessing": {
+    "page": "357",
+    "own": true
+   }
+  },
+  "ascensao": {
+   "page": "358",
+   "preface": {
+    "page": "471",
+    "title": "Prefácio da Ascensão do Senhor I",
+    "subtitle": "O mistério da ascensão"
+   },
+   "blessing": {
+    "page": "359",
+    "own": true
+   }
+  },
+  "pas-7-0": {
+   "page": "365",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   },
+   "blessing": {
+    "page": "581"
+   }
+  },
+  "pas-7-1": {
+   "page": "366",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-7-2": {
+   "page": "367",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-7-3": {
+   "page": "368",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-7-4": {
+   "page": "369",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-7-5": {
+   "page": "370",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pas-7-6": {
+   "page": "371",
+   "preface": {
+    "page": "466",
+    "title": "Prefácio da Páscoa I",
+    "subtitle": "O mistério pascal"
+   }
+  },
+  "pentecostes-vigilia": {
+   "page": "373",
+   "blessing": {
+    "page": "582"
+   },
+   "preface": {
+    "page": "379",
+    "title": "Prefácio próprio",
+    "subtitle": "O Mistério de Pentecostes"
+   }
+  },
+  "pentecostes": {
+   "page": "378",
+   "preface": {
+    "page": "379",
+    "title": "Prefácio próprio",
+    "subtitle": "O Mistério de Pentecostes"
+   },
+   "blessing": {
+    "page": "380",
+    "own": true
+   }
+  },
+  "tc-1": {
+   "page": "383"
+  },
+  "tc-2": {
+   "page": "384"
+  },
+  "tc-3": {
+   "page": "385"
+  },
+  "tc-4": {
+   "page": "386"
+  },
+  "tc-5": {
+   "page": "387"
+  },
+  "tc-6": {
+   "page": "388"
+  },
+  "tc-7": {
+   "page": "389"
+  },
+  "tc-8": {
+   "page": "390"
+  },
+  "tc-9": {
+   "page": "391"
+  },
+  "tc-10": {
+   "page": "392"
+  },
+  "tc-11": {
+   "page": "393"
+  },
+  "tc-12": {
+   "page": "394"
+  },
+  "tc-13": {
+   "page": "395"
+  },
+  "tc-14": {
+   "page": "396"
+  },
+  "tc-15": {
+   "page": "397"
+  },
+  "tc-16": {
+   "page": "398"
+  },
+  "tc-17": {
+   "page": "399"
+  },
+  "tc-18": {
+   "page": "400"
+  },
+  "tc-19": {
+   "page": "401"
+  },
+  "tc-20": {
+   "page": "402"
+  },
+  "tc-21": {
+   "page": "403"
+  },
+  "tc-22": {
+   "page": "404"
+  },
+  "tc-23": {
+   "page": "405"
+  },
+  "tc-24": {
+   "page": "406"
+  },
+  "tc-25": {
+   "page": "407"
+  },
+  "tc-26": {
+   "page": "408"
+  },
+  "tc-27": {
+   "page": "409"
+  },
+  "tc-28": {
+   "page": "410"
+  },
+  "tc-29": {
+   "page": "411"
+  },
+  "tc-30": {
+   "page": "412"
+  },
+  "tc-31": {
+   "page": "413"
+  },
+  "tc-32": {
+   "page": "414"
+  },
+  "tc-33": {
+   "page": "415"
+  },
+  "tc-34": {
+   "page": "416"
+  },
+  "trindade": {
+   "page": "417",
+   "preface": {
+    "page": "418",
+    "title": "Prefácio próprio",
+    "subtitle": "O Mistério da Santíssima Trindade"
+   }
+  },
+  "corpus-christi": {
+   "page": "420",
+   "preface": {
+    "page": "486",
+    "title": "Prefácio da Santíssima Eucaristia I",
+    "subtitle": "Sacrifício e sacramento de Cristo"
+   }
+  },
+  "sagrado-coracao": {
+   "page": "422",
+   "preface": {
+    "page": "423",
+    "title": "Prefácio próprio",
+    "subtitle": "O Imenso Amor de Cristo"
+   }
+  },
+  "cristo-rei": {
+   "page": "425",
+   "preface": {
+    "page": "426",
+    "title": "Prefácio próprio",
+    "subtitle": "Jesus Cristo, Rei do Universo"
+   }
+  }
+ },
+ "movable": {
+  "mae-da-igreja": {
+   "page": "720",
+   "name": "Bem-aventurada Virgem Maria, Mãe da Igreja",
+   "preface": {
+    "page": "721",
+    "title": "Prefácio próprio",
+    "subtitle": "Maria, Imagem e Mãe da Igreja"
+   },
+   "blessing": {
+    "page": "585"
+   }
+  },
+  "imaculado-coracao": {
+   "page": "722",
+   "name": "Imaculado Coração da Bem-aventurada Virgem Maria",
+   "preface": {
+    "page": "493",
+    "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+    "subtitle": "A maternidade da bem-aventurada virgem Maria"
+   },
+   "blessing": {
+    "page": "585"
+   }
+  }
+ },
+ "sanctoral": {
+  "01-01": [
+   {
+    "rank": "S",
+    "name": "Santa Maria, Mãe de Deus"
+   }
+  ],
+  "01-02": [
+   {
+    "rank": "M",
+    "name": "Santos Basílio Magno e Gregório Nazianzeno, bispos e doutores da Igreja",
+    "page": "659"
+   }
+  ],
+  "01-03": [
+   {
+    "rank": "O",
+    "name": "Santíssimo Nome de Jesus"
+   }
+  ],
+  "01-07": [
+   {
+    "rank": "O",
+    "name": "São Raimundo de Penhaforte, presbítero"
+   }
+  ],
+  "01-13": [
+   {
+    "rank": "O",
+    "name": "Santo Hilário, bispo e doutor da Igreja"
+   }
+  ],
+  "01-17": [
+   {
+    "rank": "M",
+    "name": "Santo Antão, abade",
+    "page": "662"
+   }
+  ],
+  "01-20": [
+   {
+    "rank": "O",
+    "name": "São Fabiano, papa e mártir"
+   },
+   {
+    "rank": "O",
+    "name": "São Sebastião, mártir"
+   }
+  ],
+  "01-21": [
+   {
+    "rank": "M",
+    "name": "Santa Inês, virgem e mártir",
+    "page": "664"
+   }
+  ],
+  "01-22": [
+   {
+    "rank": "O",
+    "name": "São Vicente, diácono e mártir"
+   }
+  ],
+  "01-24": [
+   {
+    "rank": "M",
+    "name": "São Francisco de Sales, bispo e doutor da Igreja",
+    "page": "665"
+   }
+  ],
+  "01-25": [
+   {
+    "rank": "F",
+    "name": "Conversão de São Paulo, Apóstolo",
+    "page": "666",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "01-26": [
+   {
+    "rank": "M",
+    "name": "Santos Timóteo e Tito, bispos",
+    "page": "667"
+   }
+  ],
+  "01-27": [
+   {
+    "rank": "O",
+    "name": "Santa Ângela Mérici, virgem"
+   }
+  ],
+  "01-28": [
+   {
+    "rank": "M",
+    "name": "Santo Tomás de Aquino, presbítero e doutor da Igreja",
+    "page": "669"
+   }
+  ],
+  "01-31": [
+   {
+    "rank": "M",
+    "name": "São João Bosco, presbítero",
+    "page": "669"
+   }
+  ],
+  "02-02": [
+   {
+    "rank": "F",
+    "name": "Apresentação do Senhor",
+    "page": "673",
+    "preface": {
+     "page": "674",
+     "title": "Prefácio próprio",
+     "subtitle": "O Mistério da Apresentação do Senhor"
+    }
+   }
+  ],
+  "02-03": [
+   {
+    "rank": "O",
+    "name": "São Brás, bispo e mártir"
+   },
+   {
+    "rank": "O",
+    "name": "Santo Oscar, bispo"
+   }
+  ],
+  "02-05": [
+   {
+    "rank": "M",
+    "name": "Santa Águeda, virgem e mártir",
+    "page": "676"
+   }
+  ],
+  "02-06": [
+   {
+    "rank": "M",
+    "name": "São Paulo Miki e companheiros, mártires",
+    "page": "677"
+   }
+  ],
+  "02-08": [
+   {
+    "rank": "O",
+    "name": "São Jerônimo Emiliani"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Josefina Bakhita, virgem"
+   }
+  ],
+  "02-10": [
+   {
+    "rank": "M",
+    "name": "Santa Escolástica, virgem",
+    "page": "678"
+   }
+  ],
+  "02-11": [
+   {
+    "rank": "O",
+    "name": "Bem-aventurada Virgem Maria de Lourdes"
+   }
+  ],
+  "02-14": [
+   {
+    "rank": "M",
+    "name": "Santos Cirilo, monge, e Metódio, bispo",
+    "page": "679"
+   }
+  ],
+  "02-17": [
+   {
+    "rank": "O",
+    "name": "Os sete Santos Fundadores da Ordem dos Servos de Maria"
+   }
+  ],
+  "02-21": [
+   {
+    "rank": "O",
+    "name": "São Pedro Damião, bispo e doutor da Igreja"
+   }
+  ],
+  "02-22": [
+   {
+    "rank": "F",
+    "name": "Cátedra de São Pedro, Apóstolo",
+    "page": "682",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "02-23": [
+   {
+    "rank": "M",
+    "name": "São Policarpo, bispo e mártir",
+    "page": "683"
+   }
+  ],
+  "02-27": [
+   {
+    "rank": "O",
+    "name": "São Gregório de Narek, abade e doutor da Igreja"
+   }
+  ],
+  "03-04": [
+   {
+    "rank": "O",
+    "name": "São Casimiro"
+   }
+  ],
+  "03-07": [
+   {
+    "rank": "M",
+    "name": "Santas Perpétua e Felicidade, mártires",
+    "page": "684"
+   }
+  ],
+  "03-08": [
+   {
+    "rank": "O",
+    "name": "São João de Deus, religioso"
+   }
+  ],
+  "03-09": [
+   {
+    "rank": "O",
+    "name": "Santa Francisca Romana, religiosa"
+   }
+  ],
+  "03-17": [
+   {
+    "rank": "O",
+    "name": "São Patrício, bispo"
+   }
+  ],
+  "03-18": [
+   {
+    "rank": "O",
+    "name": "São Cirilo de Jerusalém, bispo e doutor da Igreja"
+   }
+  ],
+  "03-19": [
+   {
+    "rank": "S",
+    "name": "São José, Esposo da Bem-aventurada Virgem Maria",
+    "page": "689",
+    "preface": {
+     "page": "690",
+     "title": "Prefácio próprio",
+     "subtitle": "A Missão de São José"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "03-23": [
+   {
+    "rank": "O",
+    "name": "São Turíbio de Mogrovejo, bispo"
+   }
+  ],
+  "03-25": [
+   {
+    "rank": "S",
+    "name": "Anunciação do Senhor",
+    "page": "693",
+    "preface": {
+     "page": "694",
+     "title": "Prefácio próprio",
+     "subtitle": "O Mistério da Encarnação"
+    }
+   }
+  ],
+  "04-02": [
+   {
+    "rank": "O",
+    "name": "São Francisco de Paula, eremita"
+   }
+  ],
+  "04-04": [
+   {
+    "rank": "O",
+    "name": "Santo Isidoro, bispo e doutor da Igreja"
+   }
+  ],
+  "04-05": [
+   {
+    "rank": "O",
+    "name": "São Vicente Ferrer, presbítero"
+   }
+  ],
+  "04-07": [
+   {
+    "rank": "M",
+    "name": "São João Batista de la Salle, presbítero",
+    "page": "697"
+   }
+  ],
+  "04-11": [
+   {
+    "rank": "M",
+    "name": "Santo Estanislau, bispo e mártir",
+    "page": "698"
+   }
+  ],
+  "04-13": [
+   {
+    "rank": "O",
+    "name": "São Martinho I, papa e mártir"
+   }
+  ],
+  "04-21": [
+   {
+    "rank": "O",
+    "name": "Santo Anselmo, bispo e doutor da Igreja"
+   }
+  ],
+  "04-23": [
+   {
+    "rank": "O",
+    "name": "São Jorge, mártir"
+   },
+   {
+    "rank": "O",
+    "name": "Santo Adalberto, bispo e mártir"
+   }
+  ],
+  "04-24": [
+   {
+    "rank": "O",
+    "name": "São Fidélis de Sigmaringa, presbítero e mártir"
+   }
+  ],
+  "04-25": [
+   {
+    "rank": "F",
+    "name": "São Marcos, Evangelista",
+    "page": "701",
+    "preface": {
+     "page": "499",
+     "title": "Prefácio dos Apóstolos II",
+     "subtitle": "A Igreja fundada sobre os apóstolos e o seu testemunho"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "04-28": [
+   {
+    "rank": "O",
+    "name": "São Pedro Chanel, presbítero e mártir"
+   },
+   {
+    "rank": "O",
+    "name": "São Luís Maria Grignion de Montfort, presbítero"
+   }
+  ],
+  "04-29": [
+   {
+    "rank": "M",
+    "name": "Santa Catarina de Sena, virgem e doutora da Igreja",
+    "page": "703"
+   }
+  ],
+  "04-30": [
+   {
+    "rank": "O",
+    "name": "São Pio V, papa"
+   }
+  ],
+  "05-01": [
+   {
+    "rank": "O",
+    "name": "São José Operário"
+   }
+  ],
+  "05-02": [
+   {
+    "rank": "M",
+    "name": "Santo Atanásio, bispo e doutor da Igreja",
+    "page": "708"
+   }
+  ],
+  "05-03": [
+   {
+    "rank": "F",
+    "name": "Santos Filipe e Tiago, Apóstolos",
+    "page": "709",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "05-10": [
+   {
+    "rank": "O",
+    "name": "São João de Ávila, presbítero e doutor da Igreja"
+   }
+  ],
+  "05-12": [
+   {
+    "rank": "O",
+    "name": "Santos Nereu e Aquiles, mártires"
+   },
+   {
+    "rank": "O",
+    "name": "São Pancrácio, mártir"
+   }
+  ],
+  "05-13": [
+   {
+    "rank": "O",
+    "name": "Bem-aventurada Virgem Maria de Fátima"
+   }
+  ],
+  "05-14": [
+   {
+    "rank": "F",
+    "name": "São Matias, Apóstolo",
+    "page": "712",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "05-18": [
+   {
+    "rank": "O",
+    "name": "São João I, papa e mártir"
+   }
+  ],
+  "05-20": [
+   {
+    "rank": "O",
+    "name": "São Bernardino de Sena, presbítero"
+   }
+  ],
+  "05-21": [
+   {
+    "rank": "O",
+    "name": "São Cristóvão Magalhães, presbítero, e companheiros, mártires"
+   }
+  ],
+  "05-22": [
+   {
+    "rank": "O",
+    "name": "Santa Rita de Cássia, religiosa"
+   }
+  ],
+  "05-25": [
+   {
+    "rank": "O",
+    "name": "São Beda, o Venerável, presbítero e doutor da Igreja"
+   },
+   {
+    "rank": "O",
+    "name": "São Gregório VII, papa"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Maria Madalena de Pazzi, virgem"
+   }
+  ],
+  "05-26": [
+   {
+    "rank": "M",
+    "name": "São Filipe Néri, presbítero",
+    "page": "717"
+   }
+  ],
+  "05-27": [
+   {
+    "rank": "O",
+    "name": "Santo Agostinho de Cantuária, bispo"
+   }
+  ],
+  "05-29": [
+   {
+    "rank": "O",
+    "name": "São Paulo VI, papa"
+   }
+  ],
+  "05-31": [
+   {
+    "rank": "F",
+    "name": "Visitação da Bem-aventurada Virgem Maria",
+    "page": "719",
+    "preface": {
+     "page": "494",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria II",
+     "subtitle": "A Igreja louva a Deus com as palavras de Maria"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "06-01": [
+   {
+    "rank": "M",
+    "name": "São Justino, mártir",
+    "page": "724"
+   }
+  ],
+  "06-02": [
+   {
+    "rank": "O",
+    "name": "Santos Marcelino e Pedro, mártires"
+   }
+  ],
+  "06-03": [
+   {
+    "rank": "M",
+    "name": "São Carlos Lwanga e companheiros, mártires",
+    "page": "725"
+   }
+  ],
+  "06-05": [
+   {
+    "rank": "M",
+    "name": "São Bonifácio, bispo e mártir",
+    "page": "727"
+   }
+  ],
+  "06-06": [
+   {
+    "rank": "O",
+    "name": "São Norberto, bispo"
+   }
+  ],
+  "06-08": [
+   {
+    "rank": "O",
+    "name": "Santo Efrém, diácono e doutor da Igreja"
+   }
+  ],
+  "06-09": [
+   {
+    "rank": "M",
+    "name": "São José de Anchieta, presbítero",
+    "page": "728"
+   }
+  ],
+  "06-11": [
+   {
+    "rank": "M",
+    "name": "São Barnabé, apóstolo",
+    "page": "729",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    }
+   }
+  ],
+  "06-13": [
+   {
+    "rank": "M",
+    "name": "Santo Antônio de Pádua, presbítero e doutor da Igreja",
+    "page": "730"
+   }
+  ],
+  "06-19": [
+   {
+    "rank": "O",
+    "name": "São Romualdo, abade"
+   }
+  ],
+  "06-21": [
+   {
+    "rank": "M",
+    "name": "São Luís Gonzaga, religioso",
+    "page": "731"
+   }
+  ],
+  "06-22": [
+   {
+    "rank": "O",
+    "name": "São Paulino de Nola, bispo"
+   },
+   {
+    "rank": "O",
+    "name": "Santos João Fisher, bispo, e Tomás More, mártires"
+   }
+  ],
+  "06-24": [
+   {
+    "rank": "S",
+    "name": "Natividade de São João Batista",
+    "page": "734",
+    "preface": {
+     "page": "735",
+     "title": "Prefácio próprio",
+     "subtitle": "A Missão do Precursor"
+    },
+    "blessing": {
+     "page": "587"
+    },
+    "vigil": "733"
+   }
+  ],
+  "06-27": [
+   {
+    "rank": "O",
+    "name": "São Cirilo de Alexandria, bispo e doutor da Igreja"
+   }
+  ],
+  "06-28": [
+   {
+    "rank": "M",
+    "name": "Santo Irineu, bispo e mártir",
+    "page": "737"
+   }
+  ],
+  "06-29": [
+   {
+    "rank": "S",
+    "name": "Santos Pedro e Paulo, Apóstolos",
+    "page": "740",
+    "preface": {
+     "page": "741",
+     "title": "Prefácio próprio",
+     "subtitle": "A Dupla Missão de Pedro e Paulo na Igreja"
+    },
+    "blessing": {
+     "page": "586"
+    },
+    "vigil": "739"
+   }
+  ],
+  "06-30": [
+   {
+    "rank": "O",
+    "name": "Santos Protomártires da Igreja de Roma"
+   }
+  ],
+  "07-03": [
+   {
+    "rank": "F",
+    "name": "São Tomé, Apóstolo",
+    "page": "743",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "07-04": [
+   {
+    "rank": "O",
+    "name": "Santa Isabel de Portugal"
+   }
+  ],
+  "07-05": [
+   {
+    "rank": "O",
+    "name": "Santo Antônio Maria Zaccaria, presbítero"
+   }
+  ],
+  "07-06": [
+   {
+    "rank": "O",
+    "name": "Santa Maria Goretti, virgem e mártir"
+   }
+  ],
+  "07-08": [
+   {
+    "rank": "O",
+    "name": "Santo Agostinho Zhao Rong, presbítero, e companheiros, mártires."
+   }
+  ],
+  "07-09": [
+   {
+    "rank": "M",
+    "name": "Santa Paulina do Coração Agonizante de Jesus, virgem",
+    "page": "746",
+    "preface": {
+     "page": "508",
+     "title": "Prefácio das Santas Virgens e Religiosos",
+     "subtitle": ""
+    }
+   }
+  ],
+  "07-11": [
+   {
+    "rank": "M",
+    "name": "São Bento, abade",
+    "page": "748"
+   }
+  ],
+  "07-13": [
+   {
+    "rank": "O",
+    "name": "Santo Henrique"
+   }
+  ],
+  "07-14": [
+   {
+    "rank": "O",
+    "name": "São Camilo de Lellis, presbítero"
+   }
+  ],
+  "07-15": [
+   {
+    "rank": "M",
+    "name": "São Boaventura, bispo e doutor da Igreja",
+    "page": "750"
+   }
+  ],
+  "07-16": [
+   {
+    "rank": "F",
+    "name": "Bem-aventurada Virgem Maria do Monte Carmelo",
+    "page": "750",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "07-17": [
+   {
+    "rank": "O",
+    "name": "Bem-aventurado Inácio de Azevedo, presbítero, e companheiros, mártires"
+   }
+  ],
+  "07-20": [
+   {
+    "rank": "O",
+    "name": "Santo Apolinário, bispo e mártir"
+   }
+  ],
+  "07-21": [
+   {
+    "rank": "O",
+    "name": "São Lourenço de Bríndisi, presbítero e doutor da Igreja"
+   }
+  ],
+  "07-22": [
+   {
+    "rank": "F",
+    "name": "Santa Maria Madalena",
+    "page": "754",
+    "preface": {
+     "page": "755",
+     "title": "Prefácio próprio",
+     "subtitle": "Apóstola dos Apóstolos"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "07-23": [
+   {
+    "rank": "O",
+    "name": "Santa Brígida, religiosa"
+   }
+  ],
+  "07-24": [
+   {
+    "rank": "O",
+    "name": "São Charbel Makhluf, presbítero"
+   }
+  ],
+  "07-25": [
+   {
+    "rank": "F",
+    "name": "São Tiago, Apóstolo",
+    "page": "757",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "07-26": [
+   {
+    "rank": "M",
+    "name": "Santos Joaquim e Ana, pais da Bem-aventurada Virgem Maria",
+    "page": "758"
+   }
+  ],
+  "07-29": [
+   {
+    "rank": "M",
+    "name": "Santos Marta, Maria e Lázaro",
+    "page": "759"
+   }
+  ],
+  "07-30": [
+   {
+    "rank": "O",
+    "name": "São Pedro Crisólogo, bispo e doutor da Igreja"
+   }
+  ],
+  "07-31": [
+   {
+    "rank": "M",
+    "name": "Santo Inácio de Loyola, presbítero",
+    "page": "761"
+   }
+  ],
+  "08-01": [
+   {
+    "rank": "M",
+    "name": "Santo Afonso Maria de Ligório, bispo e doutor da Igreja",
+    "page": "763"
+   }
+  ],
+  "08-02": [
+   {
+    "rank": "O",
+    "name": "Santo Eusébio de Vercelli, bispo"
+   },
+   {
+    "rank": "O",
+    "name": "São Pedro Julião Eymard, presbítero"
+   }
+  ],
+  "08-04": [
+   {
+    "rank": "M",
+    "name": "São João Maria Vianney, presbítero",
+    "page": "765"
+   }
+  ],
+  "08-05": [
+   {
+    "rank": "O",
+    "name": "Dedicação da Basílica de Santa Maria"
+   }
+  ],
+  "08-06": [
+   {
+    "rank": "F",
+    "name": "Transfiguração do Senhor",
+    "page": "768",
+    "preface": {
+     "page": "768",
+     "title": "Prefácio próprio",
+     "subtitle": "O Mistério da Transfiguração"
+    }
+   }
+  ],
+  "08-07": [
+   {
+    "rank": "O",
+    "name": "São Sisto II, papa, e companheiros, mártires"
+   },
+   {
+    "rank": "O",
+    "name": "São Caetano, presbítero"
+   }
+  ],
+  "08-08": [
+   {
+    "rank": "M",
+    "name": "São Domingos, presbítero",
+    "page": "771"
+   }
+  ],
+  "08-09": [
+   {
+    "rank": "O",
+    "name": "Santa Teresa Benedita da Cruz, virgem e mártir"
+   }
+  ],
+  "08-10": [
+   {
+    "rank": "F",
+    "name": "São Lourenço, Diácono e Mártir",
+    "page": "773",
+    "preface": {
+     "page": "502",
+     "title": "Prefácio dos Santos Mártires I",
+     "subtitle": "O testemunho do martírio"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "08-11": [
+   {
+    "rank": "M",
+    "name": "Santa Clara, virgem",
+    "page": "774"
+   }
+  ],
+  "08-12": [
+   {
+    "rank": "O",
+    "name": "Santa Joana Francisca de Chantal, religiosa"
+   },
+   {
+    "rank": "O",
+    "name": "Santos Ponciano, papa, e Hipólito, presbítero, mártires"
+   }
+  ],
+  "08-13": [
+   {
+    "rank": "M",
+    "name": "Santa Dulce Lopes Pontes, virgem",
+    "page": "775"
+   }
+  ],
+  "08-14": [
+   {
+    "rank": "M",
+    "name": "São Maximiliano Maria Kolbe, presbítero e mártir",
+    "page": "777"
+   }
+  ],
+  "08-15": [
+   {
+    "rank": "S",
+    "name": "Assunção da Bem-aventurada Virgem Maria",
+    "page": "780",
+    "preface": {
+     "page": "781",
+     "title": "Prefácio próprio",
+     "subtitle": "A Glória da Assunção de Maria"
+    },
+    "blessing": {
+     "page": "585"
+    },
+    "vigil": "779"
+   }
+  ],
+  "08-16": [
+   {
+    "rank": "O",
+    "name": "Santo Estêvão da Hungria"
+   }
+  ],
+  "08-19": [
+   {
+    "rank": "O",
+    "name": "São João Eudes, presbítero"
+   }
+  ],
+  "08-20": [
+   {
+    "rank": "M",
+    "name": "São Bernardo, abade e doutor da Igreja",
+    "page": "783"
+   }
+  ],
+  "08-21": [
+   {
+    "rank": "M",
+    "name": "São Pio X, papa",
+    "page": "785"
+   }
+  ],
+  "08-22": [
+   {
+    "rank": "M",
+    "name": "Bem-aventurada Virgem Maria Rainha",
+    "page": "785",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    }
+   }
+  ],
+  "08-23": [
+   {
+    "rank": "F",
+    "name": "Santa Rosa de Lima, virgem",
+    "page": "787",
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "08-24": [
+   {
+    "rank": "F",
+    "name": "São Bartolomeu, Apóstolo",
+    "page": "788",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "08-25": [
+   {
+    "rank": "O",
+    "name": "São Luís de França"
+   },
+   {
+    "rank": "O",
+    "name": "São José de Calazans, presbítero"
+   }
+  ],
+  "08-27": [
+   {
+    "rank": "M",
+    "name": "Santa Mônica",
+    "page": "790"
+   }
+  ],
+  "08-28": [
+   {
+    "rank": "M",
+    "name": "Santo Agostinho, bispo e doutor da Igreja",
+    "page": "791"
+   }
+  ],
+  "08-29": [
+   {
+    "rank": "M",
+    "name": "Martírio de São João Batista",
+    "page": "792",
+    "preface": {
+     "page": "793",
+     "title": "Prefácio próprio",
+     "subtitle": "A Missão do Precursor"
+    }
+   }
+  ],
+  "09-03": [
+   {
+    "rank": "M",
+    "name": "São Gregório Magno, papa e doutor da Igreja",
+    "page": "795"
+   }
+  ],
+  "09-08": [
+   {
+    "rank": "F",
+    "name": "Natividade da Bem-aventurada Virgem Maria",
+    "page": "796",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "09-09": [
+   {
+    "rank": "O",
+    "name": "São Pedro Claver, presbítero"
+   }
+  ],
+  "09-12": [
+   {
+    "rank": "O",
+    "name": "Santíssimo Nome de Maria"
+   }
+  ],
+  "09-13": [
+   {
+    "rank": "M",
+    "name": "São João Crisóstomo, bispo e doutor da Igreja",
+    "page": "799"
+   }
+  ],
+  "09-14": [
+   {
+    "rank": "F",
+    "name": "Exaltação da Santa Cruz",
+    "page": "800",
+    "preface": {
+     "page": "801",
+     "title": "Prefácio próprio",
+     "subtitle": "A Vitória da Cruz Gloriosa"
+    }
+   }
+  ],
+  "09-15": [
+   {
+    "rank": "M",
+    "name": "Bem-aventurada Virgem Maria das Dores",
+    "page": "802",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    }
+   }
+  ],
+  "09-16": [
+   {
+    "rank": "M",
+    "name": "Santos Cornélio, papa, e Cipriano, bispo, mártires",
+    "page": "803"
+   }
+  ],
+  "09-17": [
+   {
+    "rank": "O",
+    "name": "São Roberto Belarmino, bispo e doutor da Igreja"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Hildegarda de Bingen, virgem e doutora da Igreja"
+   }
+  ],
+  "09-19": [
+   {
+    "rank": "O",
+    "name": "São Januário, bispo e mártir"
+   }
+  ],
+  "09-20": [
+   {
+    "rank": "M",
+    "name": "Santos André Kim Tae-gon, presbítero, Paulo Chóng Hasang e companheiros, mártires",
+    "page": "806"
+   }
+  ],
+  "09-21": [
+   {
+    "rank": "F",
+    "name": "São Mateus, Apóstolo e Evangelista",
+    "page": "807",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    }
+   }
+  ],
+  "09-23": [
+   {
+    "rank": "M",
+    "name": "São Pio de Pietrelcina, presbítero",
+    "page": "808"
+   }
+  ],
+  "09-26": [
+   {
+    "rank": "O",
+    "name": "Santos Cosme e Damião, mártires"
+   }
+  ],
+  "09-27": [
+   {
+    "rank": "M",
+    "name": "São Vicente de Paulo, presbítero",
+    "page": "810"
+   }
+  ],
+  "09-28": [
+   {
+    "rank": "O",
+    "name": "São Venceslau, mártir"
+   },
+   {
+    "rank": "O",
+    "name": "São Lourenço Ruiz e companheiros, mártires"
+   }
+  ],
+  "09-29": [
+   {
+    "rank": "F",
+    "name": "Santos Miguel, Gabriel e Rafael, Arcanjos",
+    "page": "812",
+    "preface": {
+     "page": "813",
+     "title": "Prefácio próprio",
+     "subtitle": "A Glorificação de Deus Pela Veneração dos Anjos"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "09-30": [
+   {
+    "rank": "M",
+    "name": "São Jerônimo, presbítero e doutor da Igreja",
+    "page": "814"
+   }
+  ],
+  "10-01": [
+   {
+    "rank": "M",
+    "name": "Santa Teresa do Menino Jesus, virgem e doutora da Igreja",
+    "page": "816"
+   }
+  ],
+  "10-02": [
+   {
+    "rank": "M",
+    "name": "Santos Anjos da Guarda",
+    "page": "817",
+    "preface": {
+     "page": "818",
+     "title": "Prefácio próprio",
+     "subtitle": "A Glorificação de Deus Pela Veneração dos Anjos"
+    }
+   }
+  ],
+  "10-03": [
+   {
+    "rank": "M",
+    "name": "Santos André de Soveral e Ambrósio Francisco Ferro, presbíteros, Mateus Moreira e companheiros, mártires",
+    "page": "819"
+   }
+  ],
+  "10-04": [
+   {
+    "rank": "M",
+    "name": "São Francisco de Assis",
+    "page": "820"
+   }
+  ],
+  "10-05": [
+   {
+    "rank": "O",
+    "name": "São Benedito, o Negro, religioso"
+   }
+  ],
+  "10-06": [
+   {
+    "rank": "O",
+    "name": "São Bruno, presbítero"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Faustina Kowalska, virgem"
+   }
+  ],
+  "10-07": [
+   {
+    "rank": "M",
+    "name": "Bem-aventurada Virgem Maria do Rosário",
+    "page": "823",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    }
+   }
+  ],
+  "10-09": [
+   {
+    "rank": "O",
+    "name": "São Dionísio, bispo, e companheiros, mártires"
+   },
+   {
+    "rank": "O",
+    "name": "São João Leonardi, presbítero"
+   }
+  ],
+  "10-11": [
+   {
+    "rank": "O",
+    "name": "São João XXIII, papa"
+   }
+  ],
+  "10-12": [
+   {
+    "rank": "S",
+    "name": "Bem-aventurada Virgem Maria da Conceição Aparecida",
+    "page": "827",
+    "preface": {
+     "page": "828",
+     "title": "Prefácio próprio",
+     "subtitle": "Do Mistério de Maria e da Igreja"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "10-14": [
+   {
+    "rank": "O",
+    "name": "São Calisto I, papa e mártir"
+   }
+  ],
+  "10-15": [
+   {
+    "rank": "M",
+    "name": "Santa Teresa de Jesus, virgem e doutora da Igreja",
+    "page": "830"
+   }
+  ],
+  "10-16": [
+   {
+    "rank": "O",
+    "name": "Santa Edviges, religiosa"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Margarida Maria Alacoque, virgem"
+   }
+  ],
+  "10-17": [
+   {
+    "rank": "M",
+    "name": "Santo Inácio de Antioquia, bispo e mártir",
+    "page": "832"
+   }
+  ],
+  "10-18": [
+   {
+    "rank": "F",
+    "name": "São Lucas, Evangelista",
+    "page": "833",
+    "preface": {
+     "page": "499",
+     "title": "Prefácio dos Apóstolos II",
+     "subtitle": "A Igreja fundada sobre os apóstolos e o seu testemunho"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "10-19": [
+   {
+    "rank": "O",
+    "name": "São Pedro de Alcântara, presbítero"
+   },
+   {
+    "rank": "O",
+    "name": "Santos João de Brébeuf e Isaac Jogues, presbíteros, e companheiros, mártires"
+   },
+   {
+    "rank": "O",
+    "name": "São Paulo da Cruz, presbítero"
+   }
+  ],
+  "10-22": [
+   {
+    "rank": "O",
+    "name": "São João Paulo II, papa"
+   }
+  ],
+  "10-23": [
+   {
+    "rank": "O",
+    "name": "São João de Capistrano, presbítero"
+   }
+  ],
+  "10-24": [
+   {
+    "rank": "O",
+    "name": "Santo Antônio Maria Claret, bispo"
+   }
+  ],
+  "10-25": [
+   {
+    "rank": "M",
+    "name": "Santo Antônio de Sant'Ana Galvão, religioso",
+    "page": "838"
+   }
+  ],
+  "10-28": [
+   {
+    "rank": "F",
+    "name": "Santos Simão e Judas, Apóstolos",
+    "page": "839",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "11-01": [
+   {
+    "rank": "S",
+    "name": "Todos os Santos",
+    "page": "842",
+    "preface": {
+     "page": "843",
+     "title": "Prefácio próprio",
+     "subtitle": "A Glória de Jerusalém, Nossa Mãe"
+    },
+    "blessing": {
+     "page": "587"
+    }
+   }
+  ],
+  "11-02": [
+   {
+    "rank": "C",
+    "name": "Comemoração de Todos os Fiéis Defuntos",
+    "page": "846 / 847 / 848",
+    "preface": {
+     "page": "521",
+     "title": "Prefácio dos Defuntos IV",
+     "subtitle": "Da vida terrena à glória celeste"
+    },
+    "blessing": {
+     "page": "588"
+    }
+   }
+  ],
+  "11-03": [
+   {
+    "rank": "O",
+    "name": "São Martinho (de Lima), religioso"
+   }
+  ],
+  "11-04": [
+   {
+    "rank": "M",
+    "name": "São Carlos Borromeu, bispo",
+    "page": "849"
+   }
+  ],
+  "11-09": [
+   {
+    "rank": "F",
+    "name": "Dedicação da Basílica do Latrão",
+    "page": "850",
+    "preface": {
+     "page": "852",
+     "title": "Prefácio próprio",
+     "subtitle": "O Mistério da Igreja,"
+    },
+    "blessing": {
+     "page": "588"
+    }
+   }
+  ],
+  "11-10": [
+   {
+    "rank": "M",
+    "name": "São Leão Magno, papa e doutor da Igreja",
+    "page": "853"
+   }
+  ],
+  "11-11": [
+   {
+    "rank": "M",
+    "name": "São Martinho de Tours, bispo",
+    "page": "854"
+   }
+  ],
+  "11-12": [
+   {
+    "rank": "M",
+    "name": "São Josafá, bispo e mártir",
+    "page": "855"
+   }
+  ],
+  "11-15": [
+   {
+    "rank": "O",
+    "name": "Santo Alberto Magno, bispo e doutor da Igreja"
+   }
+  ],
+  "11-16": [
+   {
+    "rank": "O",
+    "name": "Santa Margarida da Escócia"
+   },
+   {
+    "rank": "O",
+    "name": "Santa Gertrudes, virgem"
+   }
+  ],
+  "11-17": [
+   {
+    "rank": "M",
+    "name": "Santa Isabel da Hungria, religiosa",
+    "page": "858"
+   }
+  ],
+  "11-18": [
+   {
+    "rank": "O",
+    "name": "Dedicação das basílicas dos Santos Pedro e Paulo, apóstolos"
+   }
+  ],
+  "11-19": [
+   {
+    "rank": "M",
+    "name": "Santos Roque González, Afonso Rodríguez e João de Castillo, presbíteros e mártires",
+    "page": "860"
+   }
+  ],
+  "11-21": [
+   {
+    "rank": "M",
+    "name": "Apresentação da Bem-aventurada Virgem Maria",
+    "page": "861"
+   }
+  ],
+  "11-22": [
+   {
+    "rank": "M",
+    "name": "Santa Cecília, virgem e mártir",
+    "page": "861"
+   }
+  ],
+  "11-23": [
+   {
+    "rank": "O",
+    "name": "São Clemente I, papa e mártir"
+   },
+   {
+    "rank": "O",
+    "name": "São Columbano, abade"
+   }
+  ],
+  "11-24": [
+   {
+    "rank": "M",
+    "name": "Santo André Dung-Lac, presbítero, e companheiros, mártires",
+    "page": "863"
+   }
+  ],
+  "11-25": [
+   {
+    "rank": "O",
+    "name": "Santa Catarina de Alexandria, virgem e mártir"
+   }
+  ],
+  "11-30": [
+   {
+    "rank": "F",
+    "name": "Santo André, Apóstolo",
+    "page": "865",
+    "preface": {
+     "page": "498",
+     "title": "Prefácio dos Apóstolos I",
+     "subtitle": "Os apóstolos, pastores do povo de Deus"
+    },
+    "blessing": {
+     "page": "586"
+    }
+   }
+  ],
+  "12-03": [
+   {
+    "rank": "M",
+    "name": "São Francisco Xavier, presbítero",
+    "page": "867"
+   }
+  ],
+  "12-04": [
+   {
+    "rank": "O",
+    "name": "São João Damasceno, presbítero e doutor da Igreja"
+   }
+  ],
+  "12-06": [
+   {
+    "rank": "O",
+    "name": "São Nicolau, bispo"
+   }
+  ],
+  "12-07": [
+   {
+    "rank": "M",
+    "name": "Santo Ambrósio, bispo e doutor da Igreja",
+    "page": "869"
+   }
+  ],
+  "12-08": [
+   {
+    "rank": "S",
+    "name": "Imaculada Conceição da Bem-aventurada Virgem Maria",
+    "page": "872",
+    "preface": {
+     "page": "873",
+     "title": "Prefácio próprio",
+     "subtitle": "Do Mistério de Maria e da Igreja"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "12-09": [
+   {
+    "rank": "O",
+    "name": "São João Diego Cuauhtlatoatzin"
+   }
+  ],
+  "12-10": [
+   {
+    "rank": "O",
+    "name": "Bem-aventurada Virgem Maria de Loreto"
+   }
+  ],
+  "12-11": [
+   {
+    "rank": "O",
+    "name": "São Dâmaso I, papa"
+   }
+  ],
+  "12-12": [
+   {
+    "rank": "F",
+    "name": "Bem-aventurada Virgem Maria de Guadalupe",
+    "page": "876",
+    "preface": {
+     "page": "493",
+     "title": "Prefácio da Bem-Aventurada Virgem Maria I",
+     "subtitle": "A maternidade da bem-aventurada virgem Maria"
+    },
+    "blessing": {
+     "page": "585"
+    }
+   }
+  ],
+  "12-13": [
+   {
+    "rank": "M",
+    "name": "Santa Luzia, virgem e mártir",
+    "page": "877"
+   }
+  ],
+  "12-14": [
+   {
+    "rank": "M",
+    "name": "São João da Cruz, presbítero e doutor da Igreja",
+    "page": "877"
+   }
+  ],
+  "12-21": [
+   {
+    "rank": "O",
+    "name": "São Pedro Canísio, presbítero e doutor da Igreja"
+   }
+  ],
+  "12-23": [
+   {
+    "rank": "O",
+    "name": "São João Câncio, presbítero"
+   }
+  ],
+  "12-25": [
+   {
+    "rank": "S",
+    "name": "Natal do Senhor"
+   }
+  ],
+  "12-26": [
+   {
+    "rank": "F",
+    "name": "Santo Estêvão, Protomártir",
+    "page": "880",
+    "preface": {
+     "page": "455",
+     "title": "Prefácio do Natal do Senhor I",
+     "subtitle": "Cristo luz"
+    },
+    "blessing": {
+     "page": "579"
+    }
+   }
+  ],
+  "12-27": [
+   {
+    "rank": "F",
+    "name": "São João, Apóstolo e Evangelista",
+    "page": "881",
+    "preface": {
+     "page": "455",
+     "title": "Prefácio do Natal do Senhor I",
+     "subtitle": "Cristo luz"
+    },
+    "blessing": {
+     "page": "579"
+    }
+   }
+  ],
+  "12-28": [
+   {
+    "rank": "F",
+    "name": "Os Santos Inocentes, Mártires",
+    "page": "882",
+    "preface": {
+     "page": "455",
+     "title": "Prefácio do Natal do Senhor I",
+     "subtitle": "Cristo luz"
+    },
+    "blessing": {
+     "page": "579"
+    }
+   }
+  ],
+  "12-29": [
+   {
+    "rank": "O",
+    "name": "São Tomás Becket, bispo e mártir"
+   }
+  ],
+  "12-31": [
+   {
+    "rank": "O",
+    "name": "São Silvestre I, papa"
+   }
+  ]
+ }
+}

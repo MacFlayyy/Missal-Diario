@@ -730,63 +730,106 @@ def check_pending_page_copy():
 
 
 def check_on_demand_calendar():
-    """Valida geração de Janeiro/2027 e prévia de domingo com fonte simulada."""
-    from datetime import date
-    from generate_daily import read_liturgical_day, new_entry, ensure_dates, liturgical_year
-    day=date(2027,1,1)
-    def fake_page(day):
-        months=["janeiro","fevereiro"]
-        name={1:"Santa Maria, Mãe de Deus, Solenidade, Ano B",
-              2:"Sábado, 2 de Janeiro de 2027",
-              3:"Epifania do Senhor, Solenidade, Ano B"}.get(day.day,"")
-        return ("<html><main><h1>Liturgia Diária</h1>"
-                "<p>A Palavra de Deus para hoje, sincronizada com a CNBB.</p>"
-                "<p>Tempo do Natal · Cor litúrgica: Branco</p>"
-                "<strong>"+f"{day.day:02d} de janeiro de {day.year}"+"</strong>"
-                "<p>Tempo</p><div>Tempo do Natal</div>"
-                "<p>Memória/Celebração</p><div>"+name+"</div>"+
-                ("<p>Leituras do dia e evangelho. </p>"*12)+"</main></html>")
-    def mock(url):
-        from urllib.parse import parse_qs, urlsplit
-        key=parse_qs(urlsplit(url).query)["data"][0]
-        return fake_page(date.fromisoformat(key))
-    info=read_liturgical_day(day,fetch=mock)
-    assert info["grade"]=="Solenidade",info
-    assert info["season"]=="Natal" and info["color"]=="Branca",info
-    assert info["cycle"]=="Ano I", f"Solenidade ferial não deve receber ciclo dominical: {info}"
-    data={}
-    assert ensure_dates(data,day,fetch=mock)==["2027-01-01"]
-    new=data["2027-01-01"]
-    assert new["dailySourceVerified"] and new["dailySourceUrl"].startswith("https://")
-    assert new["tapes"][1]["pageUnverified"] and new["tapes"][1]["page"]=="—"
-    assert "?" in new["quick"] and "—" not in new["quick"]
-    assert new["tapes"][0]["details"][0][0].endswith("sugestão")
-    assert ensure_dates(data,day,fetch=mock)==[], "Data duplicada"
-    assert ensure_dates(data,date(2027,1,2),fetch=mock)==["2027-01-02","2027-01-03"]
-    assert data["2027-01-02"]["cycle"]=="Ano I", "Sábado utiliza ciclo ferial"
-    assert data["2027-01-03"]["cycle"]=="Ano B", "Domingo utiliza ciclo dominical"
+    """Calendário litúrgico perpétuo: qualquer dia sai completo, com as páginas do Missal."""
+    from datetime import date, timedelta
+    import re as _re
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import liturgical_calendar as lc
+    from generate_daily import ensure_dates, liturgical_year
+    from validate_daily import repair_entry
+    from check_missal_references import check_perpetual_day
 
-    # Fonte do próximo domingo pode não estar disponível na madrugada.
-    # Isso não deve impedir a publicação do sábado, mas faltar o dia
-    # obrigatório deve continuar causando erro.
-    def sunday_missing(url):
-        from urllib.parse import parse_qs, urlsplit
-        key=parse_qs(urlsplit(url).query)["data"][0]
-        if key == "2027-01-03":
-            raise RuntimeError("O domingo ainda não foi publicado na fonte")
-        return fake_page(date.fromisoformat(key))
-    incomplete={}
-    assert ensure_dates(incomplete,date(2027,1,2),fetch=sunday_missing)==["2027-01-02"]
-    assert "2027-01-02" in incomplete and "2027-01-03" not in incomplete
-    try:
-        ensure_dates({},date(2027,1,3),fetch=sunday_missing)
-    except RuntimeError:
-        pass
-    else:
-        raise AssertionError("A fonte do dia obrigatório não pode falhar silenciosamente")
-    assert liturgical_year(date(2027,11,28))=="Ano C"
-    assert liturgical_year(date(2027,11,27))=="Ano B"
-    print("PASSOU 2027 sem calendário pré-cadastrado e com prévia do domingo")
+    # 1) Datas móveis conferidas de forma independente (tabelas de Páscoa).
+    for year, (m, d) in {2024: (3, 31), 2025: (4, 20), 2026: (4, 5), 2027: (3, 28), 2028: (4, 16),
+                         2029: (4, 1), 2030: (4, 21), 2031: (4, 13), 2035: (3, 25), 2038: (4, 25)}.items():
+        assert lc.easter(year) == date(year, m, d), year
+    assert lc.advent_start(2026) == date(2026, 11, 29) and lc.advent_start(2027) == date(2027, 11, 28)
+    assert liturgical_year(date(2027, 11, 28)) == "Ano C" and liturgical_year(date(2027, 11, 27)) == "Ano B"
+
+    # 2) O motor reproduz os dias de 2026 já conferidos com o Missal.
+    data = read_js_json(DATA,"window.MISSAL_DATA")
+    known_differences = {
+        "2026-10-02", "2026-10-05", "2026-10-06",   # cadastro antigo divergia do Calendário do Missal
+        "2026-10-12", "2026-12-08", "2026-12-12",   # página do título × página das orações
+        "2026-12-24", "2026-12-25",                 # formato com várias Missas (tratado à parte)
+    }
+    compared = 0
+    for key, old in data.items():
+        if key > "2026-12-31" or key in known_differences:
+            continue
+        info = lc.liturgical_day(date.fromisoformat(key))
+        assert info["page"] == old["tapes"][1]["page"], (key, info["page"], old["tapes"][1]["page"])
+        assert info["color"] == old["color"], (key, info["color"], old["color"])
+        if old["grade"] != "Memória facultativa" or info["grade"] != "Dia de semana":
+            assert info["grade"] == old["grade"], (key, info["grade"], old["grade"])
+        compared += 1
+    assert compared >= 80, compared
+    for key in ("2026-12-24", "2026-12-25"):
+        new = lc.build_entry(date.fromisoformat(key))
+        assert [t["page"] for t in new["tapes"]] == [t["page"] for t in data[key]["tapes"]], key
+
+    # 3) Casos de precedência e transferências (Normas do Ano Litúrgico e Brasil).
+    def day(y, m, d):
+        e = lc.build_entry(date(y, m, d))
+        return e["celebration"], e["grade"], e["tapes"][1]["page"]
+    expected = {
+        (2027, 1, 1): ("Santa Maria, Mãe de Deus", "Solenidade", "138"),
+        (2027, 1, 3): ("Epifania do Senhor", "Solenidade", "144"),
+        (2027, 1, 10): ("Batismo do Senhor", "Festa", "158"),
+        (2029, 1, 8): ("Batismo do Senhor", "Festa", "158"),            # Epifania em 7/1 → segunda-feira
+        (2027, 2, 10): ("Quarta-feira de Cinzas", "Quarta-feira de Cinzas", "163"),
+        (2027, 3, 21): ("Domingo de Ramos da Paixão do Senhor", "Domingo de Ramos", "216"),
+        (2027, 3, 25): ("Quinta-feira da Ceia do Senhor", "Tríduo Pascal", "246"),
+        (2027, 3, 26): ("Sexta-feira da Paixão do Senhor", "Tríduo Pascal", "257"),
+        (2027, 3, 28): ("Domingo da Páscoa na Ressurreição do Senhor", "Solenidade", "313"),
+        (2027, 4, 5): ("Anunciação do Senhor", "Solenidade", "693"),     # transferida da Semana Santa
+        (2035, 3, 17): ("São José, Esposo da Bem-aventurada Virgem Maria", "Solenidade", "689"),
+        (2028, 3, 20): ("São José, Esposo da Bem-aventurada Virgem Maria", "Solenidade", "689"),
+        (2027, 5, 9): ("Ascensão do Senhor", "Solenidade", "358"),
+        (2027, 5, 16): ("Domingo de Pentecostes", "Solenidade", "378"),
+        (2027, 5, 17): ("Bem-aventurada Virgem Maria, Mãe da Igreja", "Memória", "720"),
+        (2027, 5, 23): ("Santíssima Trindade", "Solenidade", "417"),
+        (2027, 5, 27): ("Santíssimo Corpo e Sangue de Cristo", "Solenidade", "420"),
+        (2027, 6, 4): ("Sagrado Coração de Jesus", "Solenidade", "422"),
+        (2022, 6, 23): ("Natividade de São João Batista", "Solenidade", "734"),  # coincidiu com o Sagrado Coração
+        (2027, 7, 4): ("Santos Pedro e Paulo, Apóstolos", "Solenidade", "740"),
+        (2027, 8, 15): ("Assunção da Bem-aventurada Virgem Maria", "Solenidade", "780"),
+        (2028, 8, 20): ("Assunção da Bem-aventurada Virgem Maria", "Solenidade", "780"),
+        (2027, 11, 7): ("Todos os Santos", "Solenidade", "842"),
+        (2031, 11, 1): ("Todos os Santos", "Solenidade", "842"),         # 2/11 no domingo → sábado
+        (2031, 11, 2): ("Comemoração de Todos os Fiéis Defuntos", "Comemoração", "846 / 847 / 848"),
+        (2027, 11, 21): ("Nosso Senhor Jesus Cristo, Rei do Universo", "Solenidade", "425"),
+        (2027, 11, 28): ("1º Domingo do Advento", "Domingo do Advento", "96"),
+        (2030, 12, 9): ("Imaculada Conceição da Bem-aventurada Virgem Maria", "Solenidade", "872"),
+        (2033, 12, 30): ("Sagrada Família de Jesus, Maria e José", "Festa", "134"),
+        (2027, 2, 7): ("5º Domingo do Tempo Comum", "Domingo do Tempo Comum", "387"),
+        (2027, 5, 30): ("9º Domingo do Tempo Comum", "Domingo do Tempo Comum", "391"),
+    }
+    for (y, m, d), want in expected.items():
+        assert day(y, m, d) == want, ((y, m, d), day(y, m, d), want)
+    # Festa de santo cede ao domingo; memória cede à Quaresma (só comemoração).
+    assert lc.build_entry(date(2027, 4, 25))["celebration"] == "5º Domingo da Páscoa"
+    lent = lc.build_entry(date(2027, 3, 8))
+    assert lent["grade"] == "Dia de semana" and "comemoração" in lent["note"]
+
+    # 4) Dez anos inteiros: todo dia tem as cinco fitas, página numérica da Missa,
+    #    nenhum "?", e passa nas mesmas verificações usadas na publicação.
+    current, total = date(2027, 1, 1), 0
+    while current < date(2037, 1, 1):
+        probe = {}
+        ensure_dates(probe, current, 0)
+        entry = probe[current.isoformat()]
+        repair_entry(entry)
+        assert not check_perpetual_day(current.isoformat(), entry), check_perpetual_day(current.isoformat(), entry)
+        assert "?" not in entry["quick"], (current, entry["quick"])
+        assert _re.fullmatch(r"\d{2,3}( / \d{2,3})*", entry["tapes"][1]["page"]), (current, entry["tapes"][1])
+        total += 1
+        current += timedelta(days=1)
+    assert total == 3653, total
+    data2 = {}
+    assert ensure_dates(data2, date(2027, 1, 1), 1) == ["2027-01-01", "2027-01-02"]
+    assert ensure_dates(data2, date(2027, 1, 1), 1) == [], "Data duplicada"
+    print("PASSOU calendário litúrgico perpétuo: 2026 reproduzido, precedências e 10 anos completos sem '?'")
 
 
 def check_specific_missal_pages():

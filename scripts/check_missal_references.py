@@ -57,6 +57,66 @@ def referenced_pages(value):
     return [int(x) for x in parts]
 
 
+def _allowed_pages():
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import liturgical_calendar as lc
+    prefaces = set(lc.PREFACE_BY_PAGE)
+    blessings = {str(p) for p in range(578, 590)}
+    for entry in list(lc.TEMPORAL.values()) + list(lc.MOVABLE.values()) + \
+            [e for items in lc.SANCTORAL.values() for e in items]:
+        if entry.get("preface"):
+            prefaces.add(str(entry["preface"]["page"]))
+        for field in ("blessing", "povo"):
+            if entry.get(field):
+                blessings.add(str(entry[field]["page"]))
+    return lc, prefaces, blessings
+
+
+def check_perpetual_day(key, day):
+    """Recalcula o dia e confere páginas, celebração e separação rápida."""
+    lc, prefaces, blessings = _allowed_pages()
+    from ritos_texts import quick_from_tapes
+    errors = []
+    try:
+        expected = lc.build_entry(date.fromisoformat(key))
+    except Exception as exc:  # noqa: BLE001
+        return [f"{key}: o calendário perpétuo não conseguiu recalcular o dia ({exc})"]
+    tapes = day.get("tapes") or []
+    if [t.get("n") for t in tapes] != [1, 2, 3, 4, 5]:
+        return [f"{key}: fitas 1–5 ausentes ou desordenadas"]
+    for field in ("celebration", "grade", "season", "color"):
+        if day.get(field) != expected[field]:
+            errors.append(f"{key}: {field} {day.get(field)!r} diverge do calendário litúrgico ({expected[field]!r})")
+    leaflet = bool(day.get("officialLeafletApplied") or day.get("folhetoUrl") or day.get("folhetoDesktopUrl"))
+    for tape, exp in zip(tapes, expected["tapes"]):
+        n, page = tape.get("n"), str(tape.get("page", "")).strip()
+        from_leaflet = tape.get("verifiedByFolheto") or (leaflet and not tape.get("suggestion"))
+        if page in ("", "?") or tape.get("pageUnverified"):
+            if not from_leaflet and not leaflet:
+                errors.append(f"{key}, fita {n}: página não informada em dia do calendário perpétuo")
+            continue
+        try:
+            pages = referenced_pages(page)
+        except ValueError as exc:
+            errors.append(f"{key}, fita {n}: {exc}")
+            continue
+        if not pages and not tape.get("notIndicated"):
+            errors.append(f"{key}, fita {n}: sem página e sem aviso")
+        if from_leaflet:
+            continue
+        if n == 2 and page != exp["page"]:
+            errors.append(f"{key}: página da Missa {page!r} diverge do índice do Missal ({exp['page']!r})")
+        if n == 3 and any(str(x) not in prefaces for x in pages):
+            errors.append(f"{key}: prefácio p. {page} não consta do índice de prefácios do Missal")
+        if n == 4 and any(str(x) not in ("523", "536", "537", "545", "554") for x in pages):
+            errors.append(f"{key}: Oração Eucarística p. {page} fora das páginas conhecidas")
+        if n == 5 and any(str(x) not in blessings for x in pages):
+            errors.append(f"{key}: bênção p. {page} não consta do índice de bênçãos do Missal")
+    if day.get("quick") != quick_from_tapes(tapes):
+        errors.append(f"{key}: separação rápida diverge das fitas")
+    return errors
+
+
 def check_index_and_data():
     idx = json.loads((ROOT / "missal-reference-index.json").read_text(encoding="utf-8"))
     data = load_js(ROOT / "data.js", "window.MISSAL_DATA")
@@ -86,7 +146,14 @@ def check_index_and_data():
     }
     errors, suggestions, total = [], [], 0
     unmatched_dates = []
+    perpetual = 0
     for key,day in data.items():
+        if day.get("generated") == "calendario-perpetuo":
+            # Dias gerados pelo calendário perpétuo: conferência independente,
+            # recalculando o dia e comparando com o índice extraído do Missal.
+            errors.extend(check_perpetual_day(key, day))
+            perpetual += 1
+            continue
         # Advento inicia quatro domingos antes do Natal. A festa do santo
         # não altera o tempo litúrgico, embora possa ter cor própria.
         try:
@@ -189,9 +256,10 @@ def check_index_and_data():
     print(f"Conferência de índice: {len(data)} dias, {total} páginas referenciadas; "
           f"{len(suggestions)} fitas aguardam conferência.")
     print(f"Vínculos de celebração e página verificados: "
-          f"{len(data)-len(unmatched_dates)}; "
+          f"{len(data)-len(unmatched_dates)-perpetual}; "
           f"datas ainda sem vínculo próprio: {len(unmatched_dates)}.")
     print(f"Remissões de bênçãos verificadas no PDF: {len(blessing_rules)} datas.")
+    print(f"Dias do calendário perpétuo recalculados e conferidos: {perpetual}.")
     if unmatched_dates:
         print("::warning::Datas sem vínculo próprio no índice do PDF: "
               + ", ".join(unmatched_dates[:8])
