@@ -15467,7 +15467,10 @@ function refreshIfBrasiliaDayChanged(){
 }
 
 function refreshAtDailyRelease(){
-  if(loadedBeforeDailyRelease && Number(brasiliaClockParts().hour)>=5){
+  // Recarrega às 05h tanto quando a página foi aberta na madrugada quanto
+  // quando ficou aberta desde a véspera (ex.: aberta às 22h e mantida na tela).
+  if(Number(brasiliaClockParts().hour)>=5 &&
+     (loadedBeforeDailyRelease || brasiliaTodayKey()!==loadedBrasiliaDay)){
     location.reload();
   }
 }
@@ -15509,10 +15512,9 @@ document.addEventListener("visibilitychange",()=>{
 // A transição das 05h é agendada ao segundo, com checagem de segurança
 // após retorno à aba e a cada minuto (evita trabalho por segundo).
 function scheduleNextFiveAMRelease(){
-  if(!loadedBeforeDailyRelease) return;
   const now=brasiliaClockParts();
   const elapsed=Number(now.hour)*3600+Number(now.minute)*60+Number(now.second);
-  const untilFive=Math.max(0,(5*3600-elapsed)*1000+120);
+  const untilFive=((5*3600-elapsed+86400)%86400)*1000+120;
   setTimeout(refreshAtDailyRelease,untilFive);
 }
 scheduleNextFiveAMRelease();
@@ -15748,7 +15750,7 @@ document.addEventListener("visibilitychange",async()=>{
     $("v3Title").textContent=d?d.celebration:$("celebration").textContent;
     var status=($("sourceStatusText")||{}).textContent||"";
     $("v3Sub").textContent=d?[d.season,(d.cycle && d.cycle!=="—")?d.cycle:"",status].filter(function(x){return x && x!=="—";}).join(" · "):"";
-    $("v3Kick").textContent="Modo Celebração · "+(d?d.label:"");
+    $("v3Kick").textContent="Modo Celebração · "+(d?String(d.label).replace(/ • /g,"\u00a0•\u00a0"):"");
     var dec=$("v3Dec24"); dec.hidden=!String(key).endsWith("-12-24");
     var choice=december24Choice||"combined";
     dec.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.dec24Mass===choice));});

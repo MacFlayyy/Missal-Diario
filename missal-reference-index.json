@@ -133,7 +133,9 @@
       545,
       554,
       614,
-      626
+      620,
+      626,
+      632
     ],
     "bencaos_solenes": [
       578,
@@ -278,7 +280,9 @@
     "519": "Prefácio dos Defuntos II",
     "520": "Prefácio dos Defuntos III",
     "521": "Prefácio dos Defuntos IV",
-    "522": "Prefácio dos Defuntos V"
+    "522": "Prefácio dos Defuntos V",
+    "620": "Oração Eucarística para Diversas Circunstâncias II — Deus conduz sua Igreja no caminho da salvação",
+    "632": "Oração Eucarística para Diversas Circunstâncias IV — Jesus que passa fazendo o bem"
   },
   "supplemental_page_provenance": {
     "626": {

@@ -320,8 +320,7 @@ def pdf_text(url, allow_ocr=False):
         # pequenos erros e, por isso, não pontuam nos marcadores exatos.
         if score(recognized) > score(text) or len(recognized) > max(500, len(text) * 1.15):
             text = recognized
-    audit_day = target_sunday().strftime("%d_%m")
-    if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10", audit_day)):
+    if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10")):
         lines = [line.strip() for line in text.splitlines() if line.strip()]
         words = ("saudacao inicial", "ato penitencial", "prefacio", "eucaristica",
                  "bencao", "misterio da fe", "gloria", "oracao sobre")
@@ -776,10 +775,12 @@ OE_BY_PAGE = {
     "537": "Oração Eucarística II", "545": "Oração Eucarística III",
     "554": "Oração Eucarística IV",
     "614": "Oração Eucarística para Diversas Circunstâncias I — A Igreja a caminho da unidade",
+    "620": "Oração Eucarística para Diversas Circunstâncias II — Deus conduz sua Igreja no caminho da salvação",
     "626": "Oração Eucarística para Diversas Circunstâncias III — Jesus, caminho para o Pai",
+    "632": "Oração Eucarística para Diversas Circunstâncias IV — Jesus que passa fazendo o bem",
 }
 # Estas Orações têm prefácio próprio, que não pode ser trocado.
-OE_OWN_PREFACE = {"554", "614", "626"}
+OE_OWN_PREFACE = {"554", "614", "620", "626", "632"}
 BLESSING_TITLES = {
     "578": "Bênção Solene — Advento", "579": "Bênção Solene — Natal",
     "585": "Bênção Solene — Tempo Comum VI", "586": "Bênção Solene — Tempo Comum",
@@ -810,7 +811,9 @@ def leaflet_initial_choices(text):
     """Identificar Saudação (A–H) e Ato Penitencial (fórmula + opção) pelo texto
     do folheto, sem presumir. Prefixos compactos toleram espaços e hifenização do OCR."""
     sa_raw, at_raw = _rites_region(text)
-    sa = leaflet_compact(sa_raw)
+    # Folhetos costumam dizer "irmãos e irmãs" onde o Missal diz "irmãos"
+    # (ex.: Saudação E em 15/11/2026).
+    sa = leaflet_compact(sa_raw).replace("irmaoseirmas", "irmaos")
     at = leaflet_compact(at_raw)
     greeting = next(
         (letter for letter, opening in SAUDACOES
@@ -945,7 +948,11 @@ def leaflet_oe_prefacio(text):
             else:
                 pref = ("Prefácio — " + nice, folheto_page)
     if oe and not pref and oe[1] in OE_OWN_PREFACE:
-        pref = ("Prefácio próprio da " + oe[0], oe[1])
+        if " — " in oe[0]:
+            # Diversas Circunstâncias: o prefácio leva o nome da própria Oração.
+            pref = ("Prefácio próprio — " + oe[0].split(" — ", 1)[1], oe[1])
+        else:
+            pref = ("Prefácio próprio da " + oe[0], oe[1])
     if oe or pref:
         if not oe or not pref:
             legacy_pref, legacy_oe = _legacy_leaflet_oe_prefacio(text)

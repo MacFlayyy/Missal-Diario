@@ -992,6 +992,27 @@ def check_design_v3():
     assert 'id="design-v3-js"' in standalone and "<!-- design-v3:início -->" in standalone,"standalone deve trazer o design novo"
     print("PASSOU design v3: barra, etiquetas, contatos, imagem e regras de liberação preservadas")
 
+def check_diverse_circumstances_leaflet():
+    """Folheto de 15/11/2026: OE para Diversas Circunstâncias IV (p. 632) e
+    Saudação E com "irmãos e irmãs" precisam ser reconhecidas."""
+    sys.path.insert(0, str(ROOT/"scripts"))
+    import update_folheto as U
+    sample = "\n".join([
+        "SAUDAÇÃO INICIAL", "Em nome do Pai e do Filho e do Espírito Santo.", "AMÉM.",
+        ".: Avós, irmãos e irmãs, paz e fé da", "parte de Deus, o Pai, e do Senhor Je-", "sus Cristo.",
+        "ATO PENITENCIAL", "Irmãos e irmãs, reconheçamos os", "nossos pecados para celebrarmos dig-",
+        "namente os santos mistérios.", "Senhor, que viestes salvar os cora-", "ções arrependidos, tende piedade de nós.",
+        "HINO DO GLÓRIA",
+        "ORAÇÃO EUCARÍSTICA PARA", "DIVERSAS CIRCUNSTÂNCIAS IV -", "Jesus que passa fazendo o bem -MR,,", "p.632",
+    ])
+    assert U.leaflet_initial_choices(sample)[0] == "E", U.leaflet_initial_choices(sample)
+    pref, oe = U.leaflet_oe_prefacio(sample)
+    assert oe and oe[1] == "632" and "Diversas Circunstâncias IV" in oe[0], oe
+    assert pref and pref[1] == "632" and pref[0] == "Prefácio próprio — Jesus que passa fazendo o bem", pref
+    for page in ("614", "620", "626", "632"):
+        assert page in U.OE_BY_PAGE and page in U.OE_OWN_PREFACE, page
+    print("PASSOU folheto com Oração Eucarística para Diversas Circunstâncias e saudação adaptada")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -1015,6 +1036,7 @@ def main():
     check_pending_page_copy()
     check_known_sunday_page_survives_leaflet_ocr()
     check_design_v3()
+    check_diverse_circumstances_leaflet()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":
