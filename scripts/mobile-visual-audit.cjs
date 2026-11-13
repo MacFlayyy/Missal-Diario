@@ -94,8 +94,9 @@ async function runCase(def) {
     await page.screenshot({ path: path.join(out, def.name + '-menu.png'), fullPage: false });
     await page.locator('#v3MoreSheet [data-theme-choice="auto"]').focus();
     await page.keyboard.press('Tab');
-    emit(row, 'menu-mais-foco-nao-escapa', await page.evaluate(() => document.activeElement?.hasAttribute('data-v3-close') &&
-      document.getElementById('v3MoreSheet').contains(document.activeElement)));
+    const focusAfterTab = await page.evaluate(() => ({ html: document.activeElement?.outerHTML.slice(0, 90),
+      ok: !!document.activeElement?.hasAttribute('data-v3-close') && document.getElementById('v3MoreSheet').contains(document.activeElement) }));
+    emit(row, 'menu-mais-foco-nao-escapa', focusAfterTab.ok, focusAfterTab.html);
     await page.keyboard.press('Shift+Tab');
     emit(row, 'menu-mais-shift-tab-ciclico', await page.evaluate(() => document.activeElement?.dataset?.themeChoice === 'auto'));
     await page.keyboard.press('Escape');

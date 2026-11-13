@@ -4318,8 +4318,8 @@ body.v3-cel #v3 .v3-title{font-size:30px;margin:10px 56px 4px 0}
 .v3-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;opacity:0;pointer-events:none;transition:opacity .28s ease}
 .v3-dim.open{opacity:1;pointer-events:auto}
 .v3-sheet{position:fixed;left:0;right:0;bottom:0;background:var(--v-card);color:var(--v-ink);border-radius:28px 28px 0 0;padding:10px 16px calc(22px + env(safe-area-inset-bottom));z-index:160;
-  transform:translateY(105%);transition:transform .36s var(--v-ease),visibility 0s .36s;visibility:hidden;max-height:92vh;overflow:auto}
-.v3-sheet.open{transform:none;visibility:visible;transition:transform .36s var(--v-ease)}
+  transform:translateY(105%);transition:transform .36s var(--v-ease);pointer-events:none;max-height:92vh;overflow:auto}
+.v3-sheet.open{transform:none;pointer-events:auto}
 .v3-sheet::before{content:"";display:block;width:40px;height:5px;border-radius:9px;background:var(--v-line);margin:0 auto 12px}
 .v3-shh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
 #v3 .v3-shh h2{font-size:26px;line-height:1.1}
@@ -4380,8 +4380,8 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
   .v3-f{margin:0 0 12px;padding:20px 24px}
   .v3-cred{margin:14px 0 0}
   .v3-glass{display:none}
-  .v3-sheet{left:50%;right:auto;bottom:auto;top:50%;width:440px;border-radius:28px;padding:18px 20px 22px;transform:translate(-50%,-46%);opacity:0;transition:transform .28s var(--v-ease),opacity .22s ease,visibility 0s .28s}
-  .v3-sheet.open{transform:translate(-50%,-50%);opacity:1;transition:transform .28s var(--v-ease),opacity .22s ease}
+  .v3-sheet{left:50%;right:auto;bottom:auto;top:50%;width:440px;border-radius:28px;padding:18px 20px 22px;transform:translate(-50%,-46%);opacity:0;transition:transform .28s var(--v-ease),opacity .22s ease}
+  .v3-sheet.open{transform:translate(-50%,-50%);opacity:1}
   .v3-sheet::before{display:none}
   .v3-toast{bottom:32px}
 }
@@ -7064,7 +7064,9 @@ document.addEventListener("visibilitychange",async()=>{
     sheet.inert=false; sheet.classList.add("open"); $("v3Dim").classList.add("open");
     lockBg();
     syncTab();
-    var first=sheet.querySelector("[data-v3-close]"); if(first) first.focus({preventScroll:true});
+    var first=sheet.querySelector("[data-v3-close]");
+    var into=function(){ if(openSheetId===id && first && !sheet.contains(document.activeElement)) first.focus({preventScroll:true}); };
+    into(); requestAnimationFrame(into); setTimeout(into,80);
   }
   function closeSheet(restore){
     if(!openSheetId) return;
