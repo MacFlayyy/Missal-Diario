@@ -12,6 +12,17 @@ Site preparado para funcionar sem atualização manual.
 - quando encontra um novo PDF de **O Povo de Deus**, tenta identificar Saudação, Ato Penitencial, Prefácio, Oração Eucarística, aclamação e presença de bênção solene; a página do formulário não é declarada confirmada se não tiver correspondência verificável no folheto;
 - só grava alterações quando encontrou informação nova.
 
+## Design v3 (novembro de 2026)
+
+- **Tela inicial**: cabeçalho vinho com a semana (o destaque desliza até o dia tocado), fitinha na cor litúrgica do dia, as cinco páginas no topo e uma lista resumida das fitas. A observação litúrgica fica no fim, antes do rodapé com os contatos.
+- **Modo Celebração**: é uma aba; mostra todos os textos de cada fita. Tocar em uma fita ou em uma página da tela inicial abre o modo já naquela fita.
+- **Barra inferior de vidro** (celular): Celebração, Calendário, **Início** (centro), Folheto e Mais. No computador, o cabeçalho vira um painel fixo à esquerda com os mesmos comandos.
+- **Etiqueta da Missa do dia**: "Própria do dia", "Missa do domingo da semana" (dias de semana do Tempo Comum sem santo) ou "Conferido no folheto".
+- **Modo escuro**: fundo preto, cabeçalho vinho e números brancos em negrito.
+- **Imagem gerada** no mesmo visual, com as cinco páginas e o resumo das fitas.
+- A "Preparação rápida" foi retirada: a tela inicial já mostra as páginas na ordem da Missa.
+- A camada nova (`design-v3` em `index.html`) só desenha a tela: dados, liberação das 05h, folheto, cópia e calendário perpétuo continuam nas rotinas de antes. As auditorias em `scripts/*.cjs` conferem essa tela; `AUDIT_CHROMIUM_ONLY=1` e `AUDIT_ORIGIN=http://127.0.0.1:8765/` permitem rodá-las localmente antes de publicar.
+
 ## Publicação
 
 Este projeto foi preparado para GitHub Pages.

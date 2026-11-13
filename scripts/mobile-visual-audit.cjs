@@ -1,4 +1,4 @@
-/* Auditoria visual mobile do Missal Diário — não altera os dados do site. */
+/* Auditoria visual mobile do Missal Diário (design v3) — não altera os dados do site. */
 const { chromium, webkit, devices } = require('playwright');
 const fs = require('fs');
 const path = require('path');
@@ -26,7 +26,7 @@ const rects = async (page, selector) => page.locator(selector).first().evaluate(
 });
 async function runCase(def) {
   const row = { name: def.name, engine: def.engine, viewport: [def.width, def.height], checks: [], consoleErrors: [], pageErrors: [] };
-  const browser = await (def.engine === 'webkit' ? webkit : chromium).launch({ headless: true });
+  const browser = await (def.engine === 'webkit' && process.env.AUDIT_CHROMIUM_ONLY !== '1' ? webkit : chromium).launch({ headless: true });
   const context = await browser.newContext({
     viewport: { width: def.width, height: def.height }, deviceScaleFactor: 2,
     isMobile: true, hasTouch: true, reducedMotion: 'reduce',
@@ -40,91 +40,100 @@ async function runCase(def) {
     const resp = await page.goto(target, { waitUntil: 'domcontentloaded', timeout: 30000 });
     emit(row, 'pagina-http', !!resp && resp.status() === 200, String(resp?.status()));
     await page.waitForTimeout(650);
-    const celebration = (await page.locator('#celebration').textContent() || '').trim();
+    const celebration = (await page.locator('#v3Title').textContent() || '').trim();
     emit(row, 'celebracao-carregada', !/carregando|^—$|^$/i.test(celebration), celebration.slice(0, 90));
-    const layout = await page.evaluate(() => ({
-      viewport: innerWidth,
-      scrollWidth: document.documentElement.scrollWidth,
-      bodyWidth: document.body.scrollWidth,
-      quickCount: document.querySelectorAll('#quickSteps .quick-step').length,
-      navVisible: !!document.querySelector('.mobile-nav') && getComputedStyle(document.querySelector('.mobile-nav')).display !== 'none'
-    }));
+    const layout = await page.evaluate(() => {
+      const glass = document.getElementById('v3Glass'), g = glass.getBoundingClientRect();
+      return { viewport: innerWidth, scrollWidth: document.documentElement.scrollWidth, bodyWidth: document.body.scrollWidth,
+        quickCount: document.querySelectorAll('#v3Quick button').length, rows: document.querySelectorAll('#v3List .v3-r').length,
+        navVisible: getComputedStyle(glass).display !== 'none', nav: { top: g.top, bottom: g.bottom, left: g.left, right: g.right },
+        oldHidden: getComputedStyle(document.querySelector('.shell')).display === 'none' };
+    });
+    emit(row, 'design-novo-ativo', layout.oldHidden);
     emit(row, 'sem-rolagem-horizontal', layout.scrollWidth <= layout.viewport + 2 && layout.bodyWidth <= layout.viewport + 2, JSON.stringify(layout));
-    emit(row, 'barra-inferior-visivel', layout.navVisible);
-    emit(row, 'separacao-rapida-com-paginas', layout.quickCount >= 3, 'Marcadores: ' + layout.quickCount);
+    emit(row, 'barra-inferior-visivel', layout.navVisible && layout.nav.left >= -1 && layout.nav.right <= def.width + 1 && layout.nav.bottom <= def.height + 1, JSON.stringify(layout.nav));
+    emit(row, 'paginas-no-topo', layout.quickCount === 5 && layout.rows === 5, 'Páginas: ' + layout.quickCount + ' • fitas: ' + layout.rows);
     await page.screenshot({ path: path.join(out, def.name + '-inicio.png'), fullPage: false });
-    if (await page.locator('#quickSteps .quick-step').count()) {
-      const info = await page.locator('#quickSteps').evaluate(el => {
-        const p = el.getBoundingClientRect();
-        return { width: p.width, scrollWidth: el.scrollWidth, clientWidth: el.clientWidth,
-          steps: [...el.querySelectorAll('.quick-step')].map(n => ({ x: n.getBoundingClientRect().left, right: n.getBoundingClientRect().right, text: n.textContent.trim() })) };
-      });
-      emit(row, 'marcadores-sem-corte', info.steps.every(x => x.x >= -2 && x.right <= def.width + 2), JSON.stringify(info).slice(0, 400));
+    const info = await page.locator('#v3Quick').evaluate(el => ({
+      steps: [...el.querySelectorAll('button')].map(n => ({ x: n.getBoundingClientRect().left, right: n.getBoundingClientRect().right,
+        text: n.textContent.trim(), clipped: n.scrollWidth > n.clientWidth + 2 })) }));
+    emit(row, 'paginas-sem-corte', info.steps.every(x => x.x >= -2 && x.right <= def.width + 2 && !x.clipped), JSON.stringify(info).slice(0, 400));
+    const firstScreen = await page.evaluate(() => document.getElementById('v3Quick').getBoundingClientRect().bottom);
+    emit(row, 'paginas-visiveis-sem-rolar', firstScreen <= def.height + 2, 'Fim do cartão de páginas: ' + Math.round(firstScreen));
+    const targets = await page.evaluate(() => [...document.querySelectorAll('#v3 button, #v3 a')].filter(e => e.getClientRects().length && !e.closest('.v3-sheet'))
+      .map(e => { const r = e.getBoundingClientRect(); return { t: (e.getAttribute('aria-label') || e.textContent || '').trim().slice(0, 28), w: Math.round(r.width), h: Math.round(r.height) }; })
+      .filter(x => x.h < 36 || x.w < 36));
+    emit(row, 'alvos-de-toque-confortaveis', targets.length === 0, JSON.stringify(targets).slice(0, 300));
+    const week = page.locator('#v3Week button:not([disabled])');
+    if (await week.count() > 1) {
+      const key = await week.first().getAttribute('data-date');
+      await week.first().click();
+      await page.waitForTimeout(120);
+      emit(row, 'semana-troca-o-dia', await page.evaluate(k => window.currentDateKey === k &&
+        document.querySelector('#v3Week button[aria-pressed="true"]')?.dataset.date === k &&
+        document.getElementById('v3Title').textContent.trim() === getDisplayEntry(k).celebration, key), key);
+      await page.evaluate(() => { const d = getVisibleDates(); render(d.includes(brasiliaTodayKey()) ? brasiliaTodayKey() : d[d.length - 1]); });
     }
-    await page.locator('#tapes').scrollIntoViewIfNeeded();
-    await page.screenshot({ path: path.join(out, def.name + '-marcacoes.png'), fullPage: false });
     await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
     await page.waitForTimeout(250);
     await page.screenshot({ path: path.join(out, def.name + '-rodape.png'), fullPage: false });
-    const back = await page.locator('#backToTop').evaluate(el => ({ shown: el.classList.contains('show'), r: { ...el.getBoundingClientRect().toJSON() } }));
-    const nav = await rects(page, '.mobile-nav');
-    emit(row, 'subir-ao-topo-acima-menu', back.shown && back.r.bottom < nav.y + 2,
-      JSON.stringify({ back: back.r, nav }));
-    await page.locator('#mobileMoreBtn').click();
-    await page.waitForFunction(() => {
-      const el = document.getElementById('mobileMoreSheet');
-      return !!el && el.classList.contains('open') && el.getBoundingClientRect().bottom <= window.innerHeight + 3;
-    }, null, { timeout: 5000 }).catch(() => {});
-    const more = await rects(page, '#mobileMoreSheet');
-    emit(row, 'menu-mais-abre', await page.locator('#mobileMoreBtn').getAttribute('aria-expanded') === 'true');
+    const foot = await page.evaluate(() => { const c = document.querySelector('.v3-cred').getBoundingClientRect(), g = document.getElementById('v3Glass').getBoundingClientRect();
+      return { credBottom: c.bottom, glassTop: g.top, links: document.querySelectorAll('.v3-cred a').length }; });
+    emit(row, 'rodape-com-contatos-acima-da-barra', foot.links === 2 && foot.credBottom <= foot.glassTop + 2, JSON.stringify(foot));
+    await page.evaluate(() => window.scrollTo(0, 0));
+    const tab = name => page.locator('.v3-gt[data-v3-tab="' + name + '"]');
+    const activeTab = () => page.evaluate(() => [...document.querySelectorAll('.v3-gt.on')].map(b => b.dataset.v3Tab).join());
+    const waitSheet = id => page.waitForFunction(i => { const el = document.getElementById(i);
+      return !!el && el.classList.contains('open') && el.getBoundingClientRect().bottom <= window.innerHeight + 3; }, id, { timeout: 5000 }).catch(() => {});
+    await tab('more').click();
+    await waitSheet('v3MoreSheet');
+    const more = await rects(page, '#v3MoreSheet');
+    emit(row, 'menu-mais-abre', await activeTab() === 'more' && await page.locator('#v3MoreSheet').evaluate(e => e.classList.contains('open')));
     emit(row, 'menu-mais-cabe-na-tela', more.y >= -3 && more.bottom <= def.height + 3, JSON.stringify(more));
+    emit(row, 'menu-mais-sem-preparar-missal', await page.locator('#v3MoreSheet [data-v3-act]').evaluateAll(els => !els.some(e => /preparar/i.test(e.textContent))));
     await page.screenshot({ path: path.join(out, def.name + '-menu.png'), fullPage: false });
-    // o último controle do menu "Mais" agora é a escolha de tema "Automático"
-    await page.locator('#mobileMoreSheet [data-theme-choice="auto"]').focus();
+    await page.locator('#v3MoreSheet [data-theme-choice="auto"]').focus();
     await page.keyboard.press('Tab');
-    emit(row, 'menu-mais-foco-nao-escapa', await page.evaluate(() =>
-      document.activeElement?.id==='mobileMoreClose'));
+    emit(row, 'menu-mais-foco-nao-escapa', await page.evaluate(() => document.activeElement?.hasAttribute('data-v3-close') &&
+      document.getElementById('v3MoreSheet').contains(document.activeElement)));
     await page.keyboard.press('Shift+Tab');
-    emit(row, 'menu-mais-shift-tab-ciclico', await page.evaluate(() =>
-      document.activeElement?.dataset?.themeChoice==='auto'));
+    emit(row, 'menu-mais-shift-tab-ciclico', await page.evaluate(() => document.activeElement?.dataset?.themeChoice === 'auto'));
     await page.keyboard.press('Escape');
-    emit(row, 'menu-mais-escape-restaura-foco', await page.evaluate(()=>
-      !document.getElementById('mobileMoreSheet').classList.contains('open') &&
-      document.activeElement?.id==='mobileMoreBtn'));
-    await page.locator('#mobileMoreBtn').click();
-    await page.locator('#mobileMoreClose').click();
-    emit(row, 'menu-mais-fecha', await page.locator('#mobileMoreBtn').getAttribute('aria-expanded') === 'false');
-    await page.locator('#datePickerBtn').click();
-    emit(row, 'calendario-abre', await page.locator('#dateMenu').isVisible());
-    const oldTitle = (await page.locator('.calendar-head strong').textContent() || '').trim();
-    const prev = page.locator('#calendarPrev');
+    emit(row, 'menu-mais-escape-restaura-foco', await page.evaluate(() =>
+      !document.getElementById('v3MoreSheet').classList.contains('open') && document.activeElement?.dataset?.v3Tab === 'more'));
+    await tab('more').click();
+    await waitSheet('v3MoreSheet');
+    await page.locator('#v3MoreSheet [data-v3-close]').click();
+    emit(row, 'menu-mais-fecha', await activeTab() === 'home' && !(await page.locator('#v3MoreSheet').evaluate(e => e.classList.contains('open'))));
+    await tab('cal').click();
+    await waitSheet('v3CalSheet');
+    const cal = await rects(page, '#v3CalSheet');
+    emit(row, 'calendario-abre', await activeTab() === 'cal' && cal.y >= -3 && cal.bottom <= def.height + 3, JSON.stringify(cal));
+    const oldTitle = (await page.locator('#v3CalTitle').textContent() || '').trim();
+    const prev = page.locator('#v3CalPrev');
     if (await prev.isEnabled()) {
       await prev.click();
-      const newTitle = (await page.locator('.calendar-head strong').textContent() || '').trim();
-      emit(row, 'troca-mes-sem-fechar', await page.locator('#dateMenu').isVisible() && newTitle !== oldTitle,
-        oldTitle + ' => ' + newTitle);
+      const newTitle = (await page.locator('#v3CalTitle').textContent() || '').trim();
+      emit(row, 'troca-mes-sem-fechar', await page.locator('#v3CalSheet').evaluate(e => e.classList.contains('open')) && newTitle !== oldTitle, oldTitle + ' => ' + newTitle);
     } else {
       emit(row, 'troca-mes-sem-fechar', true, 'Seta anterior desabilitada no limite de datas');
     }
     await page.screenshot({ path: path.join(out, def.name + '-calendario.png'), fullPage: false });
-    await page.locator('#calendarClose').click();
-    emit(row, 'calendario-fecha', !(await page.locator('#dateMenu').isVisible()));
-    await page.locator('#mobileCelebrationBtn').click();
+    await page.locator('#v3CalSheet [data-v3-close]').click();
+    emit(row, 'calendario-fecha', !(await page.locator('#v3CalSheet').evaluate(e => e.classList.contains('open'))) && await activeTab() === 'home');
+    await tab('cel').click();
     await page.waitForTimeout(200);
-    emit(row, 'modo-celebracao-abre', await page.locator('body').evaluate(el => el.classList.contains('celebration-mode')));
+    emit(row, 'modo-celebracao-abre', await page.evaluate(() => document.body.classList.contains('v3-cel') &&
+      document.querySelectorAll('#v3Cards .v3-f').length === 5) && await activeTab() === 'cel');
+    emit(row, 'modo-celebracao-sem-rolagem-horizontal', await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2));
     await page.screenshot({ path: path.join(out, def.name + '-celebracao.png'), fullPage: false });
-    const exit = page.locator('#celebrationModeExit');
-    await exit.click();
-    emit(row, 'modo-celebracao-fecha', !(await page.locator('body').evaluate(el => el.classList.contains('celebration-mode'))));
-    await page.locator('#mobileMoreBtn').click();
-    await page.locator('#mobileMoreSheet [data-action="prepare"]').click();
-    await page.waitForTimeout(180);
-    emit(row, 'preparar-missal-abre', await page.locator('#prepareMissalOverlay').isVisible());
-    const prep = await rects(page, '#prepareMissalOverlay .prepare-missal-dialog');
-    emit(row, 'dialogo-preparar-cabe-na-tela', prep.x >= -3 && prep.right <= def.width + 3, JSON.stringify(prep));
-    await page.screenshot({ path: path.join(out, def.name + '-preparar.png'), fullPage: false });
-    await page.locator('#prepareMissalClose').click();
-    emit(row, 'preparar-missal-fecha', !(await page.locator('#prepareMissalOverlay').isVisible()));
+    await tab('home').click();
+    emit(row, 'modo-celebracao-fecha', !(await page.evaluate(() => document.body.classList.contains('v3-cel'))) && await activeTab() === 'home');
+    await page.locator('#v3List .v3-r[data-tape="4"]').click();
+    await page.waitForTimeout(350);
+    emit(row, 'fita-abre-no-modo-celebracao', await page.evaluate(() => document.body.classList.contains('v3-cel') &&
+      document.getElementById('v3-tape-4').getBoundingClientRect().top < innerHeight));
+    await tab('home').click();
     const after = await page.evaluate(() => ({ viewport: innerWidth, scroll: document.documentElement.scrollWidth }));
     emit(row, 'sem-rolagem-horizontal-final', after.scroll <= after.viewport + 2, JSON.stringify(after));
     const appErrors = row.pageErrors.filter(msg => !/cloudflareinsights\.com|\/cdn-cgi\/rum/i.test(msg));

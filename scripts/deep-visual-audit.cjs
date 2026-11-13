@@ -2,6 +2,7 @@ const {chromium,webkit}=require('playwright');
 const fs=require('fs');
 const path=require('path');
 const out=path.resolve('deep-audit-results');fs.mkdirSync(out,{recursive:true});
+/* Design v3: cabeçalho com semana, páginas no topo, modo Celebração e barra de vidro. */
 const base='http://127.0.0.1:8765/';
 const publicUrl='https://macflayyy.github.io/Missal-Diario/';
 const views=[
@@ -29,16 +30,16 @@ async function screenshot(page,name,full=false){
 }
 async function visibleMetrics(page){
 return page.evaluate(()=>{
- const ids=['.topbar','.hero-main','.side','.section-title','#tapes','.mobile-nav'];
+ const ids=['#v3Hero','#v3Main','#v3Quick','#v3List','#v3Glass'];
  const m=Object.fromEntries(ids.map(id=>{const e=document.querySelector(id);if(!e)return[id,null];const b=e.getBoundingClientRect(),s=getComputedStyle(e);return[id,{x:b.x,y:b.y,w:b.width,h:b.height,opacity:Number(s.opacity),visibility:s.visibility,display:s.display}] }));
  const viewport={width:innerWidth,height:innerHeight,documentWidth:document.documentElement.scrollWidth,bodyWidth:document.body.scrollWidth};
- const colors=[...document.querySelectorAll('.meta-item span,.calendar-week span,.mobile-nav button span,.detail-text')].slice(0,22).map(x=>({element:x.tagName,selector:x.className,text:x.textContent.slice(0,50),color:getComputedStyle(x).color,fontSize:parseFloat(getComputedStyle(x).fontSize)}));
- return {elements:m,viewport,colors,title:document.querySelector('#celebration')?.textContent||'',ready:document.body.classList.contains('is-ready')};
+ const colors=[...document.querySelectorAll('.v3-q small,.v3-r p,.v3-gt span,.v3-d span')].slice(0,22).map(x=>({element:x.tagName,selector:x.className,text:x.textContent.slice(0,50),color:getComputedStyle(x).color,fontSize:parseFloat(getComputedStyle(x).fontSize)}));
+ return {elements:m,viewport,colors,title:document.querySelector('#v3Title')?.textContent||'',ready:document.body.classList.contains('is-ready')};
 });
 }
 async function runView(v){
  const row={name:v.name,width:v.w,height:v.h,tests:[],runtimeErrors:[]};result.screens.push(row);
- const browser=await (v.engine==='webkit'?webkit:chromium).launch({headless:true});
+ const browser=await (v.engine==='webkit'&&process.env.AUDIT_CHROMIUM_ONLY!=='1'?webkit:chromium).launch({headless:true});
  const context=await browser.newContext({
    viewport:{width:v.w,height:v.h},deviceScaleFactor:1,isMobile:v.mobile,hasTouch:v.mobile,
    timezoneId:'America/Sao_Paulo',locale:'pt-BR',serviceWorkers:'block',
@@ -57,24 +58,24 @@ async function runView(v){
   row.stable=await visibleMetrics(page);
   await screenshot(page,v.name+'-stable',false);
   mark(row,'no-document-overflow',row.stable.viewport.documentWidth<=v.w+1,{doc:row.stable.viewport.documentWidth,w:v.w});
-  const el=row.stable.elements['.hero-main'];
+  const el=row.stable.elements['#v3Hero'];
   mark(row,'main-visible-after-settle',el?.opacity>=0.95&&el?.visibility==='visible'&&el?.h>80,el);
-  if(row.firstPaint.elements['.hero-main']?.opacity<0.4)warn(row,'flash-of-blank-or-faded-content',{initial:row.firstPaint.elements['.hero-main'].opacity,settled:el?.opacity});
+  if(row.firstPaint.elements['#v3Hero']?.opacity<0.4)warn(row,'flash-of-blank-or-faded-content',{initial:row.firstPaint.elements['#v3Hero'].opacity,settled:el?.opacity});
   mark(row,'no-runtime-error',row.runtimeErrors.length===0,row.runtimeErrors);
-  const nav=row.stable.elements['.mobile-nav'];
-  if(v.w<=620)mark(row,'bottom-menu-visible',nav?.display!=='none'&&nav?.y>=0&&nav?.y+nav?.h<=v.h+1,nav);
-  await page.locator('#datePickerBtn').click();
-  await page.waitForTimeout(250);
-  const calendar=await page.locator('#dateMenu').evaluate(el=>{const b=el.getBoundingClientRect();return{open:!el.hidden,x:b.x,right:b.right,y:b.y,bottom:b.bottom,height:b.height,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}});
+  const nav=row.stable.elements['#v3Glass'];
+  if(v.w<900)mark(row,'bottom-menu-visible',nav?.display!=='none'&&nav?.y>=0&&nav?.y+nav?.h<=v.h+1,nav);
+  await page.locator('#v3MonthBtn').click();
+  await page.waitForTimeout(650);
+  const calendar=await page.locator('#v3CalSheet').evaluate(el=>{const b=el.getBoundingClientRect();return{open:el.classList.contains('open'),x:b.x,right:b.right,y:b.y,bottom:b.bottom,height:b.height,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}});
   mark(row,'calendar-fits-viewport',calendar.open&&calendar.x>=-2&&calendar.right<=v.w+2&&calendar.y>=-2&&calendar.bottom<=v.h+2,calendar);
   mark(row,'calendar-no-inner-overflow',calendar.scrollWidth<=calendar.clientWidth+3,calendar);
   const focusBefore=await page.evaluate(()=>document.activeElement?.id);
   await page.keyboard.press('Tab');
-  const focusAfter=await page.evaluate(()=>({id:document.activeElement?.id,within:document.getElementById('dateMenu').contains(document.activeElement)}));
+  const focusAfter=await page.evaluate(()=>({id:document.activeElement?.id,within:document.getElementById('v3CalSheet').contains(document.activeElement)}));
   mark(row,'calendar-keyboard-focus-enters-dialog',focusAfter.within,{before:focusBefore,after:focusAfter},true);
   if(!focusAfter.within)warn(row,'calendar-keyboard-accessibility',{before:focusBefore,after:focusAfter});
-  const close=page.locator('#calendarClose');
-  if(await close.count()){await close.click();mark(row,'calendar-close-control-works',await page.locator('#dateMenu').isHidden(),{});}
+  const close=page.locator('#v3CalSheet [data-v3-close]');
+  if(await close.count()){await close.click();mark(row,'calendar-close-control-works',await page.evaluate(()=>!document.getElementById('v3CalSheet').classList.contains('open')),{});}
   // Archive and tricky special days. Not released to users; inspected in a test-only browser.
   const probes=await page.evaluate(()=>{
    const picks=['2026-10-11','2026-11-02','2026-12-24','2026-12-25','2026-12-31'];
@@ -83,19 +84,19 @@ async function runView(v){
     for(const k of picks){
      try{
       render(k);
-      const m=document.querySelector('.quick .quick-steps'), d=window.MISSAL_DATA[k];
-      res.push({date:k,tapes:document.querySelectorAll('#tapes .tape').length,
-       quickSteps:document.querySelectorAll('#quickSteps .quick-step').length,
+      const m=document.querySelector('#v3Quick'), d=window.MISSAL_DATA[k];
+      res.push({date:k,tapes:document.querySelectorAll('#v3Cards .v3-f').length,rows:document.querySelectorAll('#v3List .v3-r').length,
+       quickSteps:document.querySelectorAll('#v3Quick button').length,
        quickDocWidth:m?.scrollWidth,quickClientWidth:m?.clientWidth,
-       pages:d?.tapes?.map(t=>t.page),title:document.querySelector('#celebration')?.textContent,
-       pageLabels:[...document.querySelectorAll('#tapes .page')].map(x=>x.textContent)});
+       pages:d?.tapes?.map(t=>t.page),title:document.querySelector('#v3Title')?.textContent,
+       pageLabels:[...document.querySelectorAll('#v3Quick b')].map(x=>x.textContent)});
      }catch(e){errors.push({date:k,message:String(e.message)})}
     }
    }finally{render(original)}
    return{res,errors};
   });
   row.holidayProbes=probes;
-  mark(row,'five-cards-all-special-dates',probes.errors.length===0&&probes.res.every(x=>x.tapes===5&&x.quickSteps===x.pages.filter((p,i,a)=>p&&p!=='—'&&(i===0||p!==a[i-1])).length),probes);
+  mark(row,'five-cards-all-special-dates',probes.errors.length===0&&probes.res.every(x=>x.tapes===5&&x.rows===5&&x.quickSteps===5&&x.pageLabels.every((p,i)=>p===String(x.pages[i]))),probes);
   const overlaps=probes.res.filter(x=>x.quickDocWidth>x.quickClientWidth+4);
   if(overlaps.length)warn(row,'quick-steps-overflow-on-complex-dates',overlaps);
   if(['android-320','iphone-390','desktop-1280'].includes(v.name)){
@@ -124,7 +125,8 @@ async function runView(v){
    const all=await page.evaluate(()=>{
     const keys=Object.keys(window.MISSAL_DATA).sort(),issues=[],original=window.currentDateKey;
     for(const key of keys){
-     try{render(key);const d=window.MISSAL_DATA[key];if(document.querySelectorAll('#tapes article').length!==5)issues.push(key+': fitas');
+     try{render(key);const d=window.MISSAL_DATA[key];if(document.querySelectorAll('#v3Cards .v3-f').length!==5||document.querySelectorAll('#v3Quick button').length!==5)issues.push(key+': fitas');
+     if(document.documentElement.scrollWidth>innerWidth+1)issues.push(key+': largura');
      if(!d.quick || !d.celebration || !d.tapes?.length)issues.push(key+': dados');}
      catch(e){issues.push(key+': '+String(e.message))}
     }

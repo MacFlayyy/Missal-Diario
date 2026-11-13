@@ -965,6 +965,33 @@ def check_leaflet_ocr_tolerance():
     print("PASSOU folheto: leitura tolerante a erros de OCR e lista completa de prefácios")
 
 
+def check_design_v3():
+    """Design v3 (11/2026): a tela nova usa as rotinas existentes e mantém o que o autor pediu."""
+    html=INDEX.read_text(encoding="utf-8")
+    start=html.index("<!-- design-v3:início -->"); end=html.index("<!-- design-v3:fim -->")
+    markup=html[start:end]
+    script=html[html.index('<script id="design-v3-js">'):]
+    style=html[html.index('<style id="design-v3">'):html.index("</head>")]
+    assert "if(window.v3Render) window.v3Render(dateKey);" in html,"render() deve atualizar a tela nova"
+    for tab in ("cel","cal","home","leaflet","more"):
+        assert f'data-v3-tab="{tab}"' in markup,f"aba ausente na barra: {tab}"
+    order=[markup.index(f'data-v3-tab="{t}"') for t in ("cel","cal","home","leaflet","more")]
+    assert order==sorted(order),"Início deve ficar no centro da barra"
+    assert "Preparar o Missal" not in markup and "prepare" not in markup.lower(),"Preparação rápida foi removida do design novo"
+    assert 'href="mailto:macflay.contact@gmail.com"' in markup and "instagram.com/macflayyy" in markup,"contatos do autor no rodapé"
+    assert "Site criado por Ronielly Macflay" in markup
+    for label in ("Conferido no folheto","Própria do dia","Missa do domingo da semana","Sugestão"):
+        assert label in script,f"etiqueta de origem ausente: {label}"
+    assert "window.buildShareImageBlob=v3ShareImage" in script,"imagem gerada deve seguir o visual novo"
+    assert "getVisibleDates()" in script and "getSundayPreview()" in script,"a semana e o calendário respeitam a liberação das 05h"
+    assert "december24Choice=b.dataset.dec24Mass" in script,"24/12 continua exigindo escolha explícita"
+    assert "body.v3 .shell" in style and "prefers-reduced-motion" in style
+    assert "--v-num:#fff" in style,"números brancos no modo escuro"
+    assert "-webkit-text-stroke:1.2px" in style,"título do dia com traço reforçado"
+    standalone=STANDALONE.read_text(encoding="utf-8")
+    assert 'id="design-v3-js"' in standalone and "<!-- design-v3:início -->" in standalone,"standalone deve trazer o design novo"
+    print("PASSOU design v3: barra, etiquetas, contatos, imagem e regras de liberação preservadas")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -987,6 +1014,7 @@ def main():
     check_on_demand_calendar()
     check_pending_page_copy()
     check_known_sunday_page_survives_leaflet_ocr()
+    check_design_v3()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

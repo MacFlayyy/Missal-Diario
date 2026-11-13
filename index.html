@@ -4173,8 +4173,337 @@ html.theme-dark .theme-choice-options button[aria-pressed="true"]{background:var
 html.theme-dark .theme-choice-help{color:var(--d-muted)!important}
 
   </style>
+<style id="design-v3">
+/* ===== Design v3 (11/2026): cabeçalho com semana, páginas no topo, lista resumida,
+   modo Celebração como aba, barra de vidro. O layout antigo (.shell) continua no
+   documento para as rotinas existentes, mas não é exibido. ===== */
+body.v3 .shell,body.v3 .mobile-nav,body.v3 .mobile-more-sheet,body.v3 .mobile-more-backdrop,
+body.v3 .prepare-missal-overlay,body.v3 .back-to-top,body.v3 .celebration-exit,body.v3 .ios-top-cover,
+body.v3>#dateMenu{display:none!important}
+body.v3{--v-bg:#f3efe9;--v-card:#fff;--v-ink:#241c1a;--v-soft:#5f5550;--v-faint:#756a63;--v-line:#efe7de;--v-num:#7a1824;
+  --v-tint:#f7eaea;--v-ok:#2f6a37;--v-okbg:#e7f1e6;--v-tag:#f1ebe3;--v-sh:0 8px 24px rgba(60,30,20,.07);
+  --gl-sat:135%;--gl-t:rgba(255,255,255,.26);--gl-b:rgba(255,255,255,.10);--gl-br:1.02;--gl-line:rgba(255,255,255,.7);--gl-hi:rgba(255,255,255,.95);
+  --gl-ind:rgba(255,255,255,.42);--gl-indl:rgba(255,255,255,.85);--gl-ink:#3d3532;--gl-on:#7a1824;--gl-hole:#fff;--gl-ts:rgba(255,255,255,.5);
+  --v-ease:cubic-bezier(.22,.8,.24,1);
+  background:var(--v-bg)!important;color:var(--v-ink)!important;margin:0!important;padding:0!important;min-height:100vh;
+  font:400 17px/1.5 "Crimson Pro",Georgia,serif!important;font-variant-numeric:lining-nums;-webkit-font-smoothing:antialiased}
+html.theme-dark body.v3{--v-bg:#000;--v-card:#1c1c1e;--v-ink:#fff;--v-soft:#b8b8bf;--v-faint:#98989f;--v-line:#38383a;--v-num:#fff;
+  --v-tint:#2c2c2e;--v-ok:#8fd19a;--v-okbg:#1f3323;--v-tag:#2c2c2e;--v-sh:none;
+  --gl-sat:180%;--gl-t:rgba(60,60,64,.42);--gl-b:rgba(30,30,32,.38);--gl-br:.92;--gl-line:rgba(255,255,255,.22);--gl-hi:rgba(255,255,255,.28);
+  --gl-ind:rgba(255,255,255,.16);--gl-indl:rgba(255,255,255,.22);--gl-ink:#e5e5ea;--gl-on:#fff;--gl-hole:#4a4a4e;--gl-ts:rgba(0,0,0,.4)}
+html:has(body.v3){background:#f3efe9!important}
+html.theme-dark:has(body.v3){background:#000!important}
+body.v3::before,body.v3::after{display:none!important}
+#v3,#v3 *{box-sizing:border-box}
+#v3{display:block;padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+#v3 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;margin:0;padding:0;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+#v3 button:disabled{cursor:default}
+#v3 svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#v3 :focus-visible{outline:3px solid #e9b949;outline-offset:2px;border-radius:12px}
+#v3 h1,#v3 h2,#v3 h3,#v3 p{margin:0;padding:0}
+#v3 h1,#v3 h2,#v3 h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;color:inherit}
+
+/* ---------- cabeçalho ---------- */
+.v3-hero{background:linear-gradient(160deg,#5e121c,#8f2030 60%,#a8323c);color:#fff;border-radius:0 0 32px 32px;
+  padding:calc(14px + env(safe-area-inset-top)) 16px 64px;position:relative}
+.v3-rib,.v3-ribw{position:absolute;top:0;clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);pointer-events:none}
+.v3-ribw{right:20px;width:38px;height:calc(82px + env(safe-area-inset-top));background:rgba(255,255,255,.92)}
+.v3-rib{right:22px;width:34px;height:calc(78px + env(safe-area-inset-top));background:#d92c3a;transition:background .3s ease}
+.v3-rib::after{content:"";position:absolute;inset:0 6px;border-left:1px dashed rgba(255,255,255,.6);border-right:1px dashed rgba(255,255,255,.6)}
+.v3-rib.light::after{border-color:rgba(122,24,36,.35)}
+.v3-tb{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-right:56px}
+.v3-tb img{width:36px;height:36px;border-radius:10px;display:block}
+.v3-tb b{font:700 23px/1.1 "Cormorant Garamond",Georgia,serif}
+#v3 .v3-mon{display:inline-flex;align-items:center;gap:4px;font-weight:700;font-size:15px;color:#fff;background:rgba(255,255,255,.14);border-radius:999px;padding:0 10px 0 14px;min-height:36px;margin-bottom:10px;position:relative}
+#v3 .v3-mon::after{content:"";position:absolute;inset:-5px 0}
+#v3 .v3-mon svg{width:16px;height:16px}
+.v3-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:18px;position:relative}
+#v3 .v3-week button{height:54px;border-radius:16px;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative}
+.v3-week small{font-size:12px;font-weight:700;text-transform:uppercase;opacity:.82;line-height:1.3}
+.v3-week b{font-size:19px;line-height:1.2;font-weight:700}
+#v3 .v3-week button:disabled{opacity:.42}
+.v3-wi{position:absolute;top:0;left:0;height:54px;width:calc((100% - 24px)/7);border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.18);overflow:hidden;pointer-events:none;z-index:1;
+  transform:translateX(calc(var(--d,0)*(100% + 4px)));transition:transform .32s var(--v-ease)}
+.v3-wi[hidden]{display:none}
+.v3-wi-in{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:calc(700% + 24px);height:100%;color:#7a1824;
+  transform:translateX(calc(var(--d,0)*(-14.2857% - .5714px)));transition:transform .32s var(--v-ease)}
+.v3-wi,.v3-wi-in,#v3 .v3-wi-in *{font-style:normal!important;color:#7a1824!important}
+.v3-wi-in span{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.v3-chip{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border-radius:999px;padding:6px 14px;font-weight:600;font-size:15px;line-height:1.3}
+.v3-chip i{width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 2px #fff;flex:none;background:#d92c3a}
+#v3 .v3-kick{display:none;font:700 13px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.4px;text-transform:uppercase;opacity:.95;padding-right:56px}
+#v3 .v3-title{font-size:34px;line-height:1.05;margin:14px 0 8px;-webkit-text-stroke:1.2px currentColor;letter-spacing:.5px;color:#fff;overflow-wrap:anywhere}
+#v3 .v3-sub{opacity:.92;font-size:17px;line-height:1.4;color:#fff}
+.v3-dec24{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.v3-dec24[hidden]{display:none}
+#v3 .v3-dec24 button{min-height:40px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font-weight:600;font-size:15px}
+#v3 .v3-dec24 button[aria-pressed="true"]{background:#fff;color:#7a1824}
+.v3-hb{display:none}
+
+/* ---------- páginas no topo ---------- */
+.v3-q{margin:-44px 12px 0;background:var(--v-card);border-radius:24px;padding:14px;box-shadow:0 12px 30px rgba(60,30,20,.12);display:grid;grid-template-columns:repeat(5,1fr);gap:6px;position:relative}
+html.theme-dark .v3-q{box-shadow:0 12px 30px rgba(0,0,0,.4)}
+#v3 .v3-q button{background:var(--v-tint);border-radius:14px;text-align:center;padding:10px 2px 8px;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+.v3-q b{display:block;font:700 26px/1.1 "Crimson Pro",Georgia,serif;color:var(--v-num);white-space:nowrap}
+.v3-q b.sm{font-size:17px;white-space:normal;line-height:1.05}
+.v3-q small{font-size:12px;font-weight:600;color:var(--v-soft);display:block;line-height:1.3}
+.v3-q .v3-empty{grid-column:1/-1;color:var(--v-soft);padding:8px 6px;font-size:16.5px;text-align:center}
+html.theme-dark .v3-q b,html.theme-dark .v3-num{font-weight:800!important;letter-spacing:.2px}
+.v3-pill{margin:12px 12px 0;display:flex}
+.v3-pill[hidden]{display:none}
+#v3 .v3-pill button{width:100%;min-height:46px;border-radius:16px;background:var(--v-card);box-shadow:var(--v-sh);font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--v-ink);padding:6px 14px}
+.v3-pill i{width:10px;height:10px;border-radius:50%;background:#2e9b57;flex:none}
+
+/* ---------- lista resumida (início) ---------- */
+.v3-sec{font:700 13px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.6px;text-transform:uppercase;color:var(--v-faint);margin:22px 20px 10px}
+.v3-ls{margin:0 12px;background:var(--v-card);border-radius:24px;overflow:hidden;box-shadow:var(--v-sh)}
+#v3 .v3-r{display:grid;grid-template-columns:36px 1fr auto 16px;gap:12px;align-items:center;padding:14px 16px;width:100%;text-align:left}
+#v3 .v3-r+.v3-r{border-top:1px solid var(--v-line)}
+.v3-o{width:36px;height:36px;border-radius:50%;background:var(--v-tint);color:var(--v-num);display:grid;place-items:center;font:800 17px/1 "Crimson Pro",Georgia,serif}
+#v3 .v3-r h3{font-size:20px;line-height:1.15}
+#v3 .v3-r p{color:var(--v-soft);font-size:15.5px;line-height:1.3}
+.v3-num{font:700 30px/1 "Crimson Pro",Georgia,serif;color:var(--v-num);white-space:nowrap;text-align:right}
+.v3-num.sm{font-size:16px;white-space:normal;max-width:92px;line-height:1.15}
+#v3 .v3-r>svg{color:var(--v-faint);width:16px;height:16px}
+.v3-r em,.v3-tg{font-style:normal;font-size:12.5px;font-weight:700;color:var(--v-faint)}
+.v3-r em.ok{color:var(--v-ok)}
+.v3-note{margin:14px 12px 0;padding:12px 16px;border-radius:18px;background:var(--v-card);font-size:16px;color:var(--v-soft);box-shadow:var(--v-sh)}
+.v3-note b{color:var(--v-ink);display:block}
+.v3-hint{text-align:center;color:var(--v-faint);font-size:14.5px;margin:14px 20px 0}
+
+/* ---------- modo Celebração ---------- */
+#v3Cel[hidden],#v3Home[hidden]{display:none}
+.v3-f{margin:0 12px 12px;background:var(--v-card);border-radius:24px;padding:16px 18px;box-shadow:var(--v-sh);scroll-margin-top:16px}
+.v3-fh{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center}
+.v3-fh small{display:block;font:700 12px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--v-num)}
+html.theme-dark .v3-fh small{color:#d1d1d6}
+#v3 .v3-fh h3{font-size:21px;line-height:1.15}
+.v3-fh .v3-num{font-size:34px}
+.v3-fh .v3-num small{letter-spacing:1px;color:var(--v-faint);font-size:11px;text-align:right}
+.v3-d{margin-top:12px;padding-top:12px;border-top:1px solid var(--v-line)}
+.v3-d b{display:block;font-size:16px;color:var(--v-ink)}
+.v3-d span{display:block;font-size:17px;color:var(--v-soft);line-height:1.45}
+.v3-d .inline-suggestion{font-style:italic;font-weight:500;color:var(--v-faint)}
+.v3-tg{display:inline-block;margin-top:12px;padding:3px 11px;border-radius:999px;background:var(--v-tag);color:var(--v-soft)}
+.v3-tg.ok{background:var(--v-okbg);color:var(--v-ok)}
+body.v3-cel .v3-mon,body.v3-cel .v3-week,body.v3-cel .v3-chip{display:none!important}
+body.v3-cel #v3 .v3-kick{display:block}
+body.v3-cel .v3-tb{display:none}
+body.v3-cel #v3 .v3-title{font-size:30px;margin:10px 56px 4px 0}
+
+/* ---------- rodapé ---------- */
+.v3-cred{margin:22px 12px 0;padding:18px 16px;border-radius:24px;background:var(--v-card);text-align:center;box-shadow:var(--v-sh)}
+.v3-cred b{font-size:16.5px;color:var(--v-ink)}
+.v3-cred div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:12px 0 10px}
+#v3 .v3-cred a{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:999px;background:var(--v-tint);color:var(--v-num);font-weight:700;font-size:15px;text-decoration:none}
+#v3 .v3-cred a svg{width:18px;height:18px}
+.v3-cred small{color:var(--v-faint);font-size:13.5px;display:block;line-height:1.5}
+
+/* ---------- barra de vidro ---------- */
+.v3-glass{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:66px;border-radius:999px;display:grid;grid-template-columns:repeat(5,1fr);padding:5px;z-index:145;overflow:hidden;
+  background:linear-gradient(180deg,var(--gl-t),var(--gl-b));border:1px solid var(--gl-line);
+  backdrop-filter:blur(10px) saturate(var(--gl-sat)) brightness(var(--gl-br));-webkit-backdrop-filter:blur(10px) saturate(var(--gl-sat)) brightness(var(--gl-br));
+  box-shadow:inset 0 1.5px 1px var(--gl-hi),inset 0 -1px 1px rgba(0,0,0,.14),inset 0 0 0 .5px rgba(0,0,0,.06),0 10px 28px rgba(0,0,0,.22)}
+.v3-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 90% at 18% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(80% 70% at 100% 130%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
+.v3-ind{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/5);border-radius:999px;background:var(--gl-ind);border:1px solid var(--gl-indl);
+  box-shadow:inset 0 1px 1px var(--gl-hi),0 2px 8px rgba(0,0,0,.10);transform:translateX(calc(var(--i,2)*100%));transition:transform .32s var(--v-ease)}
+#v3 .v3-gt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--gl-ink);font-size:11.5px;font-weight:600;text-shadow:0 1px 1px var(--gl-ts);transition:color .22s ease;min-width:0}
+#v3 .v3-gt svg{width:24px;height:24px}
+#v3 .v3-gt svg *{transition:fill .22s ease,stroke .22s ease}
+#v3 .v3-gt.on{color:var(--gl-on);font-weight:700}
+#v3 .v3-gt.on .f{fill:currentColor}
+#v3 .v3-gt.on .h{stroke:var(--gl-hole)}
+
+/* ---------- folhas (calendário e mais) ---------- */
+.v3-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:150;opacity:0;pointer-events:none;transition:opacity .28s ease}
+.v3-dim.open{opacity:1;pointer-events:auto}
+.v3-sheet{position:fixed;left:0;right:0;bottom:0;background:var(--v-card);color:var(--v-ink);border-radius:28px 28px 0 0;padding:10px 16px calc(22px + env(safe-area-inset-bottom));z-index:160;
+  transform:translateY(105%);transition:transform .36s var(--v-ease),visibility 0s .36s;visibility:hidden;max-height:92vh;overflow:auto}
+.v3-sheet.open{transform:none;visibility:visible;transition:transform .36s var(--v-ease)}
+.v3-sheet::before{content:"";display:block;width:40px;height:5px;border-radius:9px;background:var(--v-line);margin:0 auto 12px}
+.v3-shh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px}
+#v3 .v3-shh h2{font-size:26px;line-height:1.1}
+.v3-shh small{display:block;font:700 12px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.4px;text-transform:uppercase;color:var(--v-num)}
+html.theme-dark .v3-shh small{color:#d1d1d6}
+.v3-mnav{display:flex;align-items:center;gap:6px}
+#v3 .v3-xb{width:44px;height:44px;border-radius:50%;background:var(--v-tint);display:grid;place-items:center;color:var(--v-ink)}
+#v3 .v3-xb:disabled{opacity:.35}
+.v3-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.v3-cal small{font-size:12px;font-weight:700;text-transform:uppercase;color:var(--v-faint);padding:4px 0}
+#v3 .v3-cal button,.v3-cal span.v3-cd{height:48px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-weight:600;font-size:17px;color:var(--v-ink);line-height:1}
+.v3-cal i{width:7px;height:7px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+#v3 .v3-cal button.on{background:#7a1824;color:#fff}
+.v3-cal span.v3-cd{opacity:.35}
+#v3 .v3-cal button.td:not(.on){box-shadow:inset 0 0 0 2px #b3262f}
+.v3-leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13.5px;color:var(--v-soft);margin-top:12px}
+.v3-leg span{display:flex;align-items:center;gap:6px}
+.v3-leg i{width:9px;height:9px;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+#v3 .v3-done{width:100%;min-height:54px;border-radius:18px;background:#7a1824;color:#fff;font-weight:700;font-size:18px;margin-top:14px}
+.v3-acts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+#v3 .v3-acts button{min-height:84px;border-radius:18px;background:var(--v-tint);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-weight:600;font-size:15px;color:var(--v-ink);padding:6px}
+#v3 .v3-acts svg{color:var(--v-num);width:24px;height:24px}
+.v3-lab{font:700 12px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.4px;text-transform:uppercase;color:var(--v-faint);margin-top:16px}
+.v3-seg{display:grid;grid-template-columns:repeat(3,1fr);background:var(--v-tint);border-radius:14px;padding:4px;margin-top:8px}
+#v3 .v3-seg button{min-height:44px;border-radius:11px;font-weight:700;font-size:16px;color:var(--v-soft)}
+#v3 .v3-seg button[aria-pressed="true"]{background:var(--v-card);color:var(--v-ink);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.v3-upd{color:var(--v-faint);font-size:13.5px;text-align:center;margin-top:14px}
+.v3-toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:rgba(36,28,26,.94);color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;font-size:15.5px;z-index:170;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;max-width:90vw;text-align:center}
+.v3-toast.open{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- computador ---------- */
+@media (min-width:900px){
+  #v3{padding-bottom:0}
+  .v3-lay{max-width:1180px;margin:0 auto;padding:24px 32px 40px;display:grid;grid-template-columns:420px 1fr;gap:24px;align-items:start}
+  .v3-hero{border-radius:32px;padding:24px;position:sticky;top:24px;min-height:min(640px,calc(100vh - 48px));display:flex;flex-direction:column;align-items:flex-start}
+  .v3-week{width:100%}
+  .v3-ribw{right:28px;width:42px;height:96px}.v3-rib{right:30px;width:38px;height:92px}
+  #v3 .v3-title{font-size:44px}
+  body.v3-cel #v3 .v3-title{font-size:40px}
+  body.v3-cel .v3-tb{display:flex}
+  .v3-hb{margin-top:auto;display:grid;gap:10px;width:100%;padding-top:24px}
+  #v3 .v3-hb button{min-height:54px;border-radius:18px;font-weight:700;font-size:15.5px;display:flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.14);color:#fff;padding:0 8px}
+  #v3 .v3-hb button:hover{background:rgba(255,255,255,.22)}
+  #v3 .v3-hb .v3-p{background:#fff;color:#7a1824;font-size:17px}
+  #v3 .v3-hb .v3-p:hover{background:#fbf3f3}
+  .v3-hb div{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .v3-q{margin:0;padding:18px;gap:10px}
+  #v3 .v3-q button{padding:16px 4px 12px;border-radius:18px}
+  .v3-q b{font-size:40px}.v3-q b.sm{font-size:22px}.v3-q small{font-size:15px}
+  .v3-pill{margin:12px 0 0}
+  .v3-sec{margin:22px 8px 10px}.v3-ls{margin:0}
+  #v3 .v3-r{padding:18px 22px;grid-template-columns:40px 1fr auto 16px}
+  #v3 .v3-r:hover{background:color-mix(in srgb,var(--v-tint) 45%,transparent)}
+  #v3 .v3-r h3{font-size:23px}#v3 .v3-r p{font-size:16.5px}
+  .v3-r .v3-num{font-size:38px}.v3-r .v3-num.sm{font-size:19px;max-width:150px}
+  .v3-note{margin:14px 0 0}.v3-hint{display:none}
+  .v3-f{margin:0 0 12px;padding:20px 24px}
+  .v3-cred{margin:14px 0 0}
+  .v3-glass{display:none}
+  .v3-sheet{left:50%;right:auto;bottom:auto;top:50%;width:440px;border-radius:28px;padding:18px 20px 22px;transform:translate(-50%,-46%);opacity:0;transition:transform .28s var(--v-ease),opacity .22s ease,visibility 0s .28s}
+  .v3-sheet.open{transform:translate(-50%,-50%);opacity:1;transition:transform .28s var(--v-ease),opacity .22s ease}
+  .v3-sheet::before{display:none}
+  .v3-toast{bottom:32px}
+}
+@media (max-width:359px){
+  .v3-q b{font-size:22px}.v3-q small{font-size:11px}#v3 .v3-title{font-size:30px}
+  #v3 .v3-gt{font-size:10.5px}#v3 .v3-r{gap:8px;padding:12px}
+}
+@media (max-width:330px){
+  .v3-glass{left:8px;right:8px;padding:4px}.v3-ind{top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/5)}
+  #v3 .v3-gt{font-size:9.5px;letter-spacing:-.2px}#v3 .v3-gt svg{width:22px;height:22px}
+  .v3-hero{padding-left:12px;padding-right:12px}.v3-week{gap:2px}.v3-wi{width:calc((100% - 12px)/7);transform:translateX(calc(var(--d,0)*(100% + 2px)))}
+  .v3-wi-in{gap:2px;width:calc(700% + 12px);transform:translateX(calc(var(--d,0)*(-14.2857% - .2857px)))}
+  .v3-q{margin-left:8px;margin-right:8px;padding:10px;gap:4px}.v3-ls,.v3-note,.v3-cred,.v3-f{margin-left:8px;margin-right:8px}
+}
+@media (prefers-reduced-motion:reduce){
+  .v3-wi,.v3-wi-in,.v3-ind,.v3-sheet,.v3-dim,.v3-toast,#v3 .v3-gt,.v3-rib{transition:none!important}
+}
+@media print{.v3-glass,.v3-sheet,.v3-dim,.v3-hb,.v3-mon,.v3-week{display:none!important}}
+</style>
 </head>
 <body>
+<!-- design-v3:início -->
+  <div id="v3">
+    <div class="v3-lay">
+      <header class="v3-hero" id="v3Hero">
+        <i class="v3-ribw" aria-hidden="true"></i><i class="v3-rib" id="v3Rib" aria-hidden="true"></i>
+        <div class="v3-tb"><picture><source type="image/webp" srcset="brand-logo.webp"><img src="brand-logo.png" alt="" width="36" height="36" decoding="async"></picture><b>Missal Diário</b></div>
+        <button class="v3-mon" id="v3MonthBtn" type="button" aria-haspopup="dialog" aria-controls="v3CalSheet"><span id="v3MonthLabel">Calendário</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="v3-week" id="v3Week" role="group" aria-label="Dias da semana"></div>
+        <div class="v3-kick" id="v3Kick"></div>
+        <span class="v3-chip"><i id="v3Dot" aria-hidden="true"></i><span id="v3Chip">—</span></span>
+        <h2 class="v3-title" id="v3Title">Carregando celebração...</h2>
+        <p class="v3-sub" id="v3Sub"></p>
+        <div class="v3-dec24" id="v3Dec24" role="group" aria-label="Escolher celebração de 24 de dezembro" hidden>
+          <button type="button" data-dec24-mass="combined" aria-pressed="true">Visão geral</button>
+          <button type="button" data-dec24-mass="morning" aria-pressed="false">Missa da manhã</button>
+          <button type="button" data-dec24-mass="vigil" aria-pressed="false">Vigília do Natal</button>
+        </div>
+        <div class="v3-hb">
+          <button class="v3-p" type="button" id="v3DeskCel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5zM12 6v13"/></svg><span>Modo Celebração</span></button>
+          <div>
+            <button type="button" data-v3-act="leaflet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l4 4v14H7z"/><path d="M10 12h5M10 16h5"/></svg>Folheto</button>
+            <button type="button" data-v3-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>Copiar</button>
+            <button type="button" data-v3-act="image"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M20 15l-4-4-7 8"/></svg>Imagem</button>
+          </div>
+          <div>
+            <button type="button" data-v3-act="calendar"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Calendário</button>
+            <button type="button" data-v3-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/></svg>Compartilhar</button>
+            <button type="button" data-v3-act="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg>Mais</button>
+          </div>
+        </div>
+      </header>
+      <main class="v3-main" id="v3Main">
+        <div class="v3-q" id="v3Quick" role="group" aria-label="Páginas das fitas, na ordem da Missa"></div>
+        <div class="v3-pill" id="v3SundayNote" hidden><button type="button" id="v3SundayBtn"><i aria-hidden="true"></i>Domingo disponível — Missa dominical já preparada</button></div>
+        <div id="v3Home">
+          <div class="v3-sec">Marcações do Missal</div>
+          <div class="v3-ls" id="v3List"></div>
+          <div class="v3-note" id="v3NoteHome"></div>
+          <p class="v3-hint">Toque em uma fita para ver tudo no modo Celebração.</p>
+        </div>
+        <div id="v3Cel" hidden>
+          <div class="v3-note" id="v3NoteCel"></div>
+          <div class="v3-sec">Marcações do Missal</div>
+          <div id="v3Cards"></div>
+        </div>
+        <footer class="v3-cred">
+          <b>Site criado por Ronielly Macflay</b>
+          <div>
+            <a href="mailto:macflay.contact@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>macflay.contact@gmail.com</a>
+            <a href="https://www.instagram.com/macflayyy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @macflayyy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.6" cy="7.4" r=".6"/></svg>@macflayyy</a>
+          </div>
+          <small>Missal Romano CNBB 2023 + folheto O Povo de Deus da Arquidiocese de Brasília quando disponível.</small>
+          <small id="v3Upd"></small>
+        </footer>
+      </main>
+    </div>
+    <nav class="v3-glass" id="v3Glass" aria-label="Navegação principal">
+      <i class="v3-ind" aria-hidden="true"></i>
+      <button class="v3-gt" type="button" data-v3-tab="cel"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M12 6c-2-1.5-5-2-8-1.5v13c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-13c-3-.5-6 0-8 1.5z"/><path class="h" d="M12 6.5v12"/></svg><span>Celebração</span></button>
+      <button class="v3-gt" type="button" data-v3-tab="cal" aria-haspopup="dialog" aria-controls="v3CalSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><rect class="f" x="4" y="5" width="16" height="15" rx="3"/><path class="h" d="M4.5 10h15"/><path d="M9 3v4M15 3v4"/></svg><span>Calendário</span></button>
+      <button class="v3-gt on" type="button" data-v3-tab="home" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"/></svg><span>Início</span></button>
+      <button class="v3-gt" type="button" data-v3-tab="leaflet"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M7 3h7l4 4v14H7z"/><path class="h" d="M10 12h5M10 16h5"/></svg><span>Folheto</span></button>
+      <button class="v3-gt" type="button" data-v3-tab="more" aria-haspopup="dialog" aria-controls="v3MoreSheet"><svg viewBox="0 0 24 24" aria-hidden="true"><circle class="f" cx="5" cy="12" r="1.3"/><circle class="f" cx="12" cy="12" r="1.3"/><circle class="f" cx="19" cy="12" r="1.3"/></svg><span>Mais</span></button>
+    </nav>
+    <div class="v3-dim" id="v3Dim"></div>
+    <section class="v3-sheet" id="v3CalSheet" role="dialog" aria-modal="true" aria-labelledby="v3CalTitle" inert>
+      <div class="v3-shh">
+        <div><small>Escolher data</small><h2 id="v3CalTitle">Calendário</h2></div>
+        <div class="v3-mnav">
+          <button class="v3-xb" type="button" id="v3CalPrev" aria-label="Mês anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+          <button class="v3-xb" type="button" id="v3CalNext" aria-label="Próximo mês"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="v3-xb" type="button" data-v3-close aria-label="Fechar calendário"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        </div>
+      </div>
+      <div class="v3-cal" id="v3CalGrid"></div>
+      <div class="v3-leg" aria-hidden="true"><span><i style="background:#2e9b57"></i>Verde</span><span><i style="background:#d92c3a"></i>Vermelho</span><span><i style="background:#f4f1ea"></i>Branco</span><span><i style="background:#7b3fb0"></i>Roxo</span><span><i style="background:#e58fb0"></i>Rosa</span></div>
+      <button class="v3-done" type="button" id="v3CalToday">Ir para hoje</button>
+    </section>
+    <section class="v3-sheet" id="v3MoreSheet" role="dialog" aria-modal="true" aria-labelledby="v3MoreTitle" inert>
+      <div class="v3-shh">
+        <div><small>Ferramentas</small><h2 id="v3MoreTitle">Mais opções</h2></div>
+        <button class="v3-xb" type="button" data-v3-close aria-label="Fechar mais opções"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+      <div class="v3-acts">
+        <button type="button" data-v3-act="copy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></svg>Copiar</button>
+        <button type="button" data-v3-act="image"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="3"/><circle cx="9" cy="10" r="1.5"/><path d="M20 15l-4-4-7 8"/></svg>Gerar imagem</button>
+        <button type="button" data-v3-act="calendar"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="3"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>Calendário</button>
+        <button type="button" data-v3-act="today"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>Hoje</button>
+        <button type="button" data-v3-act="share"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6"/></svg>Compartilhar</button>
+        <button type="button" data-v3-act="install"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M8 11l4 4 4-4M5 20h14"/></svg>Instalar app</button>
+      </div>
+      <div class="v3-lab" id="v3ThemeLab">Tema</div>
+      <div class="v3-seg" role="group" aria-labelledby="v3ThemeLab">
+        <button type="button" data-theme-choice="claro">Claro</button>
+        <button type="button" data-theme-choice="escuro">Escuro</button>
+        <button type="button" data-theme-choice="auto">Automático</button>
+      </div>
+    </section>
+    <div class="v3-toast" id="v3Toast" role="status" aria-live="polite"></div>
+  </div>
+<!-- design-v3:fim -->
   <div class="ios-top-cover" aria-hidden="true"></div>
   <div class="shell">
     <header class="topbar">
@@ -5493,6 +5822,7 @@ function render(dateKey){
   });
 
   buildDateMenu();
+  if(window.v3Render) window.v3Render(dateKey);
   requestAnimationFrame(()=>{
     animateUpdatedContent();
     observeReveals();
@@ -6522,6 +6852,426 @@ document.addEventListener("visibilitychange",async()=>{
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 
+</script>
+<script id="design-v3-js">
+/* ===== Design v3 (11/2026) — camada de interface. Usa as rotinas já existentes
+   (dados, liberação das 05h, folheto, cópia, imagem) e apenas desenha a tela nova. ===== */
+(function(){
+  "use strict";
+  var $=function(id){return document.getElementById(id);};
+  var root=$("v3"); if(!root) return;
+  document.body.classList.add("v3");
+  var view="home", openSheetId=null, sheetOpener=null, calCursor=null, lastWeekStart=null, toastTimer=null;
+  var KIND=["","Ritos Iniciais","Missa do dia","Prefácio","Oração Eucarística","Bênção"];
+  var SHORT=["","Ritos","Missa","Prefácio","Or. Euc.","Bênção"];
+  var DN=["seg","ter","qua","qui","sex","sáb","dom"];
+  var TABS=["cel","cal","home","leaflet","more"];
+  var COLORS=[["verde",/verde/,"#2e9b57"],["branco",/branc/,"#f4f1ea"],["vermelho",/vermelh/,"#d92c3a"],["roxo",/rox|violet/,"#7b3fb0"],["roseo",/rose|rosa/,"#e58fb0"],["preto",/pret/,"#3a3536"]];
+  var CHEV='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+  var reduce=function(){return window.matchMedia("(prefers-reduced-motion: reduce)").matches;};
+  var esc=function(v){return prepareEscapeHtml(v==null?"":v);};
+  var clean=function(v){return String(v==null?"":v).replace(/\s*•\s*sugestão\s*$/i,"").trim();};
+
+  /* Cores litúrgicas do dia: uma, ou duas lado a lado quando o Missal dá opção. */
+  function dayColors(d,key){
+    if(!d) return ["#c8a96a"];
+    var raw=normalizeColorName(d.color);
+    var found=COLORS.filter(function(c){return c[1].test(raw);}).sort(function(a,b){return raw.search(a[1])-raw.search(b[1]);}).map(function(c){return c[2];});
+    return found.length?found.slice(0,2):[d.colorHex||"#c8a96a"];
+  }
+  function paint(colors){return colors.length>1?"linear-gradient(90deg,"+colors[0]+" 50%,"+colors[1]+" 50%)":colors[0];}
+
+  function origin(d,t){
+    if(t.verifiedByFolheto) return ["Conferido no folheto",true];
+    if(t.suggestion) return ["Sugestão",false];
+    if(t.n===2 && !t.pageUnverified && !noPageIndicated(t)){
+      if(d.grade==="Dia de semana" && /Tempo Comum/i.test(String(d.season||""))) return ["Missa do domingo da semana",false];
+      return ["Própria do dia",true];
+    }
+    return null;
+  }
+  function pageText(t){return t.pageUnverified?"a conferir":(noPageIndicated(t)?"—":String(t.page==null?"—":t.page));}
+  function rowTitle(t){
+    if(t.n===4) return String(t.title||KIND[4]);
+    if(t.n===5) return String(t.title||KIND[5]).split("—")[0].replace(/\s*:\s*$/,"").trim()||KIND[5];
+    return KIND[t.n]||String(t.title||"");
+  }
+  function summary(t){
+    var det=t.details||[];
+    if(t.n===1) return det.map(function(r){return clean(r[0]);}).filter(Boolean).join(" · ");
+    if(t.n===2) return String(t.title||"");
+    if(t.n===3) return String(t.title||"").replace(/^Prefácio\s+(d[aeo]s?\s+)?/i,"");
+    if(t.n===4){var a=det.filter(function(r){return /^Aclamação/i.test(r[0]);})[0];return a?clean(a[1]):"";}
+    if(t.n===5){var parts=String(t.title||"").split("—");return parts.length>1?parts.slice(1).join("—").trim():"";}
+    return "";
+  }
+  function numClass(p){return String(p).length>4?"v3-num sm":"v3-num";}
+
+  /* ---------- semana ---------- */
+  function buildWeek(key){
+    var box=$("v3Week"), wd=(weekdayForKey(key)+6)%7, start=addDaysKey(key,-wd);
+    var visible=new Set(getVisibleDates());
+    if(!box.firstChild){
+      var h='<i class="v3-wi" aria-hidden="true"><span class="v3-wi-in">';
+      for(var i=0;i<7;i++) h+='<span><small></small><b></b></span>';
+      h+='</span></i>';
+      for(var j=0;j<7;j++) h+='<button type="button"><small></small><b></b></button>';
+      box.innerHTML=h;
+      box.querySelectorAll("button").forEach(function(b){
+        b.addEventListener("click",function(){ if(b.dataset.date && !b.disabled && b.dataset.date!==window.currentDateKey) render(b.dataset.date); });
+      });
+    }
+    var wi=box.querySelector(".v3-wi"), ghosts=box.querySelectorAll(".v3-wi-in span"), btns=box.querySelectorAll("button");
+    if(lastWeekStart!==start && !reduce()){ wi.style.transition="none"; wi.firstChild.style.transition="none"; }
+    for(var k=0;k<7;k++){
+      var dk=addDaysKey(start,k), num=String(Number(dk.slice(8)));
+      var b=btns[k];
+      b.dataset.date=dk; b.disabled=!visible.has(dk);
+      b.setAttribute("aria-pressed",String(dk===key));
+      b.setAttribute("aria-label",new Date(dk+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"})+(b.disabled?" (ainda não disponível)":""));
+      b.children[0].textContent=DN[k]; b.children[1].textContent=num;
+      ghosts[k].children[0].textContent=DN[k]; ghosts[k].children[1].textContent=num;
+    }
+    box.style.setProperty("--d",wd);
+    wi.hidden=!visible.has(key) && !(typeof data==="object" && data[key]);
+    if(lastWeekStart!==start){ void wi.offsetWidth; wi.style.transition=""; wi.firstChild.style.transition=""; }
+    lastWeekStart=start;
+    var m=new Date(key+"T12:00:00").toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+    $("v3MonthLabel").textContent=m.charAt(0).toUpperCase()+m.slice(1);
+  }
+
+  /* ---------- conteúdo do dia ---------- */
+  function noteHtml(d){
+    var main=String(d.liturgicalNote||"").trim(), extra=[d.note,(window.MISSAL_STATUS||{}).calendarWarning].filter(Boolean).join(" ").trim();
+    var h="";
+    if(main && main!=="—") h+="<b>Observação litúrgica</b>"+esc(main);
+    if(extra && extra!==main) h+=(h?'<span style="display:block;margin-top:6px">':"<span>")+esc(extra)+"</span>";
+    return h;
+  }
+  function renderDay(key){
+    var d=getDisplayEntry(key), has=Boolean(d && Array.isArray(d.tapes) && d.tapes.length);
+    var colors=dayColors(d,key), rib=$("v3Rib");
+    rib.style.background=paint(colors);
+    rib.classList.toggle("light",colors.length===1 && colors[0]==="#f4f1ea");
+    $("v3Dot").style.background=paint(colors);
+    $("v3Chip").textContent=d?[d.color,d.grade].filter(function(x){return x && x!=="—";}).join(" · ")||"—":"—";
+    $("v3Title").textContent=d?d.celebration:$("celebration").textContent;
+    var status=($("sourceStatusText")||{}).textContent||"";
+    $("v3Sub").textContent=d?[d.season,(d.cycle && d.cycle!=="—")?d.cycle:"",status].filter(function(x){return x && x!=="—";}).join(" · "):"";
+    $("v3Kick").textContent="Modo Celebração · "+(d?d.label:"");
+    var dec=$("v3Dec24"); dec.hidden=!String(key).endsWith("-12-24");
+    var choice=december24Choice||"combined";
+    dec.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.dec24Mass===choice));});
+
+    var quick=$("v3Quick"), list=$("v3List"), cards=$("v3Cards");
+    if(!has){
+      quick.innerHTML='<div class="v3-empty">'+esc($("note").textContent||"Esta data ainda não está disponível.")+"</div>";
+      list.innerHTML=""; cards.innerHTML="";
+      $("v3Home").hidden=true; $("v3Cel").hidden=true;
+    }else{
+      quick.innerHTML=d.tapes.map(function(t){
+        var p=pageText(t);
+        return '<button type="button" data-tape="'+t.n+'" aria-label="'+esc((KIND[t.n]||"Fita "+t.n)+": página "+p)+'"><b'+(String(p).length>4?' class="sm"':"")+">"+esc(p)+"</b><small>"+esc(SHORT[t.n]||"Fita "+t.n)+"</small></button>";
+      }).join("");
+      list.innerHTML=d.tapes.map(function(t){
+        var o=origin(d,t), s=summary(t), p=pageText(t);
+        return '<button type="button" class="v3-r" data-tape="'+t.n+'" aria-label="'+esc("Fita "+t.n+", "+rowTitle(t)+", página "+p+". Ver detalhes")+'">'+
+          '<span class="v3-o" aria-hidden="true">'+t.n+"</span><span><h3>"+esc(rowTitle(t))+"</h3>"+(s?"<p>"+esc(s)+"</p>":"")+
+          (o?'<em class="'+(o[1]?"ok":"")+'">'+esc(o[0])+"</em>":"")+'</span><span class="'+numClass(p)+'">'+esc(p)+"</span>"+CHEV+"</button>";
+      }).join("");
+      cards.innerHTML=d.tapes.map(function(t){
+        var o=origin(d,t), p=pageText(t);
+        return '<article class="v3-f" id="v3-tape-'+t.n+'"><div class="v3-fh"><span class="v3-o" aria-hidden="true">'+t.n+"</span><div><small>"+esc(KIND[t.n]||"Fita "+t.n)+"</small><h3>"+esc(t.title)+"</h3></div>"+
+          '<div class="'+numClass(p)+'">'+(/\d/.test(p)?"<small>PÁGINA</small>":"")+esc(p)+"</div></div>"+
+          (t.details||[]).map(function(r){return '<div class="v3-d"><b>'+formatDetailLabel(String(r[0]))+"</b><span>"+formatDetailValue(r[1])+"</span></div>";}).join("")+
+          (o?'<span class="v3-tg'+(o[1]?" ok":"")+'">'+esc(o[0])+"</span>":"")+"</article>";
+      }).join("");
+      $("v3Home").hidden=view!=="home"; $("v3Cel").hidden=view!=="cel";
+    }
+    var nh=noteHtml(d||{});
+    $("v3NoteHome").innerHTML=nh; $("v3NoteHome").hidden=!nh;
+    $("v3NoteCel").innerHTML=nh; $("v3NoteCel").hidden=!nh;
+    var sp=getSundayPreview();
+    $("v3SundayNote").hidden=!sp || key===sp;
+    $("v3Upd").textContent=($("lastUpdateText")||{}).textContent||"";
+  }
+  var lastKey=null;
+  window.v3Render=function(key){
+    key=key||window.currentDateKey; if(!key) return;
+    buildWeek(key); renderDay(key);
+    if(openSheetId==="v3CalSheet"){calCursor=key.slice(0,7);buildCalendar();}
+    if(lastKey && lastKey!==key && !reduce()){
+      [$("v3Quick"),$("v3Home"),$("v3Cel")].forEach(function(el){
+        if(el && !el.hidden) el.animate([{opacity:.35},{opacity:1}],{duration:240,easing:"ease-out"});
+      });
+    }
+    lastKey=key;
+  };
+
+  /* ---------- abas e telas ---------- */
+  function setTab(name){
+    var i=TABS.indexOf(name); if(i<0) return;
+    $("v3Glass").style.setProperty("--i",i);
+    root.querySelectorAll(".v3-gt").forEach(function(b){
+      var on=b.dataset.v3Tab===name; b.classList.toggle("on",on);
+      if(on) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+    });
+  }
+  function readerOpen(){var r=$("leafletReader");return Boolean(r && !r.hidden);}
+  function syncTab(){setTab(openSheetId==="v3CalSheet"?"cal":openSheetId==="v3MoreSheet"?"more":readerOpen()?"leaflet":view);}
+  function setView(v,tape){
+    var changed=view!==v; view=v;
+    document.body.classList.toggle("v3-cel",v==="cel");
+    var has=Boolean($("v3Cards").firstChild);
+    $("v3Home").hidden=v!=="home"||!has; $("v3Cel").hidden=v!=="cel"||!has;
+    var desk=$("v3DeskCel"); if(desk) desk.lastElementChild.textContent=v==="cel"?"Voltar ao início":"Modo Celebração";
+    syncTab();
+    var target=tape?$("v3-tape-"+tape):null, smooth=reduce()?"instant":"smooth";
+    if(target){
+      window.scrollTo({top:0,behavior:"instant"});
+      requestAnimationFrame(function(){target.scrollIntoView({behavior:smooth,block:"start"});});
+    }else if(changed) window.scrollTo({top:0,behavior:"instant"});
+    if(changed && !reduce()){
+      var el=v==="cel"?$("v3Cel"):$("v3Home");
+      el.animate([{opacity:0,transform:"translateY(8px)"},{opacity:1,transform:"none"}],{duration:260,easing:"cubic-bezier(.22,.8,.24,1)"});
+    }
+  }
+  window.v3SetView=setView;
+
+  /* ---------- folhas ---------- */
+  /* Trava própria do fundo (inclusive no Safari do iPhone). A trava do calendário antigo
+     não serve aqui: qualquer clique fora dele a desfaz. */
+  var lockState=null;
+  function lockBg(){
+    if(lockState) return;
+    var b=document.body, r=document.documentElement;
+    lockState={y:window.scrollY,p:b.style.position,t:b.style.top,l:b.style.left,rt:b.style.right,w:b.style.width,o:r.style.overflow,ob:r.style.overscrollBehavior};
+    r.style.overflow="hidden"; r.style.overscrollBehavior="none";
+    b.style.position="fixed"; b.style.top="-"+lockState.y+"px"; b.style.left="0"; b.style.right="0"; b.style.width="100%";
+  }
+  function unlockBg(){
+    if(!lockState) return;
+    var s=lockState, b=document.body, r=document.documentElement; lockState=null;
+    b.style.position=s.p; b.style.top=s.t; b.style.left=s.l; b.style.right=s.rt; b.style.width=s.w;
+    r.style.overflow=s.o; r.style.overscrollBehavior=s.ob;
+    var prev=r.style.scrollBehavior; r.style.scrollBehavior="auto"; window.scrollTo(0,s.y); r.style.scrollBehavior=prev;
+  }
+  function focusables(el){return [].slice.call(el.querySelectorAll("button:not([disabled]),a[href]")).filter(function(x){return x.getClientRects().length;});}
+  function openSheet(id){
+    if(openSheetId && openSheetId!==id) closeSheet(false);
+    if(!sheetOpener) sheetOpener=document.activeElement;
+    var sheet=$(id); openSheetId=id;
+    sheet.inert=false; sheet.classList.add("open"); $("v3Dim").classList.add("open");
+    lockBg();
+    syncTab();
+    var first=sheet.querySelector("[data-v3-close]"); if(first) first.focus({preventScroll:true});
+  }
+  function closeSheet(restore){
+    if(!openSheetId) return;
+    var sheet=$(openSheetId); sheet.classList.remove("open"); sheet.inert=true; openSheetId=null;
+    $("v3Dim").classList.remove("open"); unlockBg();
+    syncTab();
+    if(restore!==false){ if(sheetOpener && sheetOpener.focus && document.contains(sheetOpener)) sheetOpener.focus({preventScroll:true}); sheetOpener=null; }
+  }
+  $("v3Dim").addEventListener("click",function(){closeSheet();});
+  root.querySelectorAll("[data-v3-close]").forEach(function(b){b.addEventListener("click",function(){closeSheet();});});
+  document.addEventListener("keydown",function(e){
+    if(!openSheetId) return;
+    if(e.key==="Escape"){e.preventDefault();closeSheet();return;}
+    if(e.key!=="Tab") return;
+    var sheet=$(openSheetId), f=focusables(sheet); if(!f.length) return;
+    var a=document.activeElement, first=f[0], last=f[f.length-1];
+    if(e.shiftKey && (a===first || !sheet.contains(a))){e.preventDefault();last.focus();}
+    else if(!e.shiftKey && (a===last || !sheet.contains(a))){e.preventDefault();first.focus();}
+  });
+
+  /* ---------- calendário ---------- */
+  function buildCalendar(){
+    var dates=getVisibleDates(), set=new Set(dates), today=brasiliaTodayKey();
+    var range=visibleMonthRange();
+    if(!calCursor) calCursor=(window.currentDateKey||today).slice(0,7);
+    if(calCursor<range.min) calCursor=range.min;
+    if(calCursor>range.max) calCursor=range.max;
+    var y=Number(calCursor.slice(0,4)), m=Number(calCursor.slice(5,7));
+    var first=new Date(y,m-1,1,12), days=new Date(y,m,0,12).getDate(), lead=(first.getDay()+6)%7;
+    var title=first.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
+    $("v3CalTitle").textContent=title.charAt(0).toUpperCase()+title.slice(1);
+    var h=DN.map(function(n){return "<small>"+n+"</small>";}).join("");
+    for(var i=0;i<lead;i++) h+="<span></span>";
+    for(var day=1;day<=days;day++){
+      var key=calCursor+"-"+String(day).padStart(2,"0");
+      if(set.has(key)){
+        var cls=[key===window.currentDateKey?"on":"",key===today?"td":""].filter(Boolean).join(" ");
+        h+='<button type="button" class="'+cls+'" data-date="'+key+'" aria-label="'+esc(calendarTitleForDate(key))+'"'+(key===window.currentDateKey?' aria-current="date"':"")+">"+day+'<i style="background:'+paint(dayColors(data[key],key))+'"></i></button>';
+      }else h+='<span class="v3-cd">'+day+"</span>";
+    }
+    $("v3CalGrid").innerHTML=h;
+    $("v3CalPrev").disabled=calCursor<=range.min; $("v3CalNext").disabled=calCursor>=range.max;
+  }
+  $("v3CalGrid").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-date]"); if(!b) return;
+    closeSheet(); render(b.dataset.date);
+  });
+  $("v3CalPrev").addEventListener("click",function(){calCursor=monthShift(calCursor,-1);buildCalendar();});
+  $("v3CalNext").addEventListener("click",function(){calCursor=monthShift(calCursor,1);buildCalendar();});
+  function goToday(){
+    var dates=getVisibleDates(), today=brasiliaTodayKey();
+    render(dates.indexOf(today)>=0?today:(dates[dates.length-1]||today));
+    window.scrollTo({top:0,behavior:reduce()?"instant":"smooth"});
+  }
+  $("v3CalToday").addEventListener("click",function(){closeSheet();goToday();});
+  function openCalendar(){calCursor=(window.currentDateKey||brasiliaTodayKey()).slice(0,7);buildCalendar();openSheet("v3CalSheet");}
+
+  /* ---------- ações ---------- */
+  function toast(msg){
+    var t=$("v3Toast"); t.textContent=msg; t.classList.add("open");
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove("open");},2200);
+  }
+  window.v3Toast=toast;
+  function act(name){
+    if(name==="calendar"){openCalendar();return;}
+    if(name==="more"){openSheet("v3MoreSheet");return;}
+    closeSheet(false); sheetOpener=null;
+    if(name==="copy") copyQuickSeparation(false).then(function(ok){toast(ok?"Separação copiada":"Não foi possível copiar");});
+    if(name==="image"){toast("Gerando imagem…");shareCurrentImage();}
+    if(name==="today") goToday();
+    if(name==="share") shareCurrent();
+    if(name==="install"){var b=$("installAppBtn"); if(b) b.click();}
+    if(name==="leaflet") openDominicalLeaflet();
+  }
+  root.querySelectorAll("[data-v3-act]").forEach(function(b){b.addEventListener("click",function(){act(b.dataset.v3Act);});});
+  root.querySelectorAll("[data-theme-choice]").forEach(function(b){
+    b.dataset.bound="1";
+    b.addEventListener("click",function(){ if(window.setMissalTheme) window.setMissalTheme(b.getAttribute("data-theme-choice")); });
+  });
+  root.querySelectorAll(".v3-gt").forEach(function(b){
+    b.addEventListener("click",function(){
+      var tab=b.dataset.v3Tab;
+      if((tab==="cal"||tab==="more") && readerOpen()) closeLeafletReader(false);
+      if(tab==="cal"){ if(openSheetId==="v3CalSheet") closeSheet(); else {sheetOpener=b;openCalendar();} return; }
+      if(tab==="more"){ if(openSheetId==="v3MoreSheet") closeSheet(); else {sheetOpener=b;openSheet("v3MoreSheet");} return; }
+      closeSheet(false); sheetOpener=null;
+      if(tab==="leaflet"){ if(readerOpen()) closeLeafletReader(false); else openDominicalLeaflet(); syncTab(); return; }
+      if(readerOpen()) closeLeafletReader(false);
+      setView(tab);
+    });
+  });
+  $("v3MonthBtn").addEventListener("click",openCalendar);
+  $("v3DeskCel").addEventListener("click",function(){setView(view==="cel"?"home":"cel");});
+  $("v3Quick").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
+  $("v3List").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
+  $("v3SundayBtn").addEventListener("click",function(){var sp=getSundayPreview(); if(sp) render(sp);});
+  $("v3Dec24").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-dec24-mass]"); if(!b) return;
+    december24Choice=b.dataset.dec24Mass; render(window.currentDateKey);
+  });
+  if(window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone){
+    var ib=root.querySelector('[data-v3-act="install"]'); if(ib) ib.hidden=true;
+  }
+  if(window.applyMissalTheme) window.applyMissalTheme();
+
+  /* ---------- imagem para compartilhar, no visual novo ---------- */
+  function loadFonts(){
+    if(!document.fonts||!document.fonts.load) return Promise.resolve();
+    return Promise.all(['700 80px "Cormorant Garamond"','700 60px "Crimson Pro"','600 30px "Crimson Pro"','400 30px "Crimson Pro"'].map(function(f){return document.fonts.load(f).catch(function(){});}));
+  }
+  function wrap(ctx,text,max){
+    var words=String(text||"").split(/\s+/).filter(Boolean), lines=[], line="";
+    words.forEach(function(w){var t=line?line+" "+w:w; if(ctx.measureText(t).width>max && line){lines.push(line);line=w;}else line=t;});
+    if(line) lines.push(line); return lines;
+  }
+  function rr(ctx,x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  async function v3ShareImage(){
+    var key=window.currentDateKey, d=getDisplayEntry(key); if(!d) return null;
+    await loadFonts();
+    var logo=null; try{logo=await loadImage("brand-logo.png");}catch(_e){}
+    var W=1080, P=56, serif='"Cormorant Garamond",Georgia,serif', text='"Crimson Pro",Georgia,serif';
+    var wine="#7a1824", ink="#241c1a", soft="#5f5550", faint="#756a63", tint="#f7eaea", ok="#2f6a37";
+    var m=document.createElement("canvas").getContext("2d");
+    m.font="700 84px "+serif; var titleLines=wrap(m,d.celebration,W-P*2-20).slice(0,4);
+    var tapes=(d.tapes||[]).slice(0,5);
+    var rows=tapes.map(function(t){
+      m.font="400 31px "+text; var s=wrap(m,summary(t),W-80-190-250).slice(0,2);
+      var o=origin(d,t), h=40+50+s.length*40+(o?40:0)+32;
+      return {t:t,s:s,o:o,h:Math.max(h,150)};
+    });
+    var headH=56+88+44+44+34+62+34+titleLines.length*88+18+44+150;
+    var quickH=tapes.length?188:0, listH=rows.reduce(function(a,r){return a+r.h;},0);
+    var H=headH-92+quickH+(rows.length?36+listH:0)+110;
+    var c=document.createElement("canvas"); c.width=W; c.height=H; var ctx=c.getContext("2d");
+    ctx.fillStyle="#f3efe9"; ctx.fillRect(0,0,W,H);
+    var g=ctx.createLinearGradient(0,0,W*.8,headH); g.addColorStop(0,"#5e121c"); g.addColorStop(.6,"#8f2030"); g.addColorStop(1,"#a8323c");
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,headH);
+    // fitinha na cor do dia
+    var cols=dayColors(d,key), rx=W-P-84, rw=76, rh=176;
+    function ribbon(x,w,h){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+w,0);ctx.lineTo(x+w,h);ctx.lineTo(x+w/2,h*.8);ctx.lineTo(x,h);ctx.closePath();}
+    ctx.fillStyle="rgba(255,255,255,.92)"; ribbon(rx-4,rw+8,rh+8); ctx.fill();
+    ctx.save(); ribbon(rx,rw,rh); ctx.clip();
+    ctx.fillStyle=cols[0]; ctx.fillRect(rx,0,rw,rh);
+    if(cols.length>1){ctx.fillStyle=cols[1];ctx.fillRect(rx+rw/2,0,rw/2,rh);}
+    ctx.restore();
+    var y=56;
+    if(logo){ctx.save();rr(ctx,P,y,88,88,22);ctx.clip();ctx.drawImage(logo,P,y,88,88);ctx.restore();}
+    ctx.fillStyle="#fff"; ctx.textBaseline="alphabetic"; ctx.font="700 56px "+serif; ctx.fillText("Missal Diário",P+(logo?110:0),y+62);
+    y+=88+44;
+    ctx.font="700 28px "+text; try{ctx.letterSpacing="3px";}catch(_e){}
+    ctx.globalAlpha=.92; ctx.fillText(String(d.label||"").toUpperCase(),P,y+28); ctx.globalAlpha=1; try{ctx.letterSpacing="0px";}catch(_e){}
+    y+=44+34;
+    var chip=[d.color,d.grade].filter(function(x){return x && x!=="—";}).join(" · ");
+    ctx.font="600 30px "+text; var cw=Math.min(ctx.measureText(chip).width+96,W-P*2-110);
+    ctx.fillStyle="rgba(255,255,255,.16)"; rr(ctx,P,y,cw,62,31); ctx.fill();
+    ctx.fillStyle="#fff"; ctx.beginPath(); ctx.arc(P+34,y+31,18,0,Math.PI*2); ctx.fill();
+    ctx.save(); ctx.beginPath(); ctx.arc(P+34,y+31,14,0,Math.PI*2); ctx.clip();
+    ctx.fillStyle=cols[0]; ctx.fillRect(P+20,y+17,28,28); if(cols.length>1){ctx.fillStyle=cols[1];ctx.fillRect(P+34,y+17,14,28);} ctx.restore();
+    ctx.fillStyle="#fff"; ctx.fillText(chip,P+64,y+41,cw-80);
+    y+=62+34;
+    ctx.font="700 84px "+serif; ctx.lineWidth=2.4; ctx.strokeStyle="#fff"; ctx.lineJoin="round";
+    titleLines.forEach(function(l){y+=88;ctx.fillText(l,P,y-14);ctx.strokeText(l,P,y-14);});
+    y+=18;
+    ctx.font="400 34px "+text; ctx.globalAlpha=.9;
+    ctx.fillText([d.season,(d.cycle&&d.cycle!=="—")?d.cycle:""].filter(Boolean).join(" · "),P,y+34,W-P*2); ctx.globalAlpha=1;
+    y=headH-92;
+    function card(x,yy,w,h,r){ctx.save();ctx.shadowColor="rgba(60,30,20,.14)";ctx.shadowBlur=40;ctx.shadowOffsetY=16;ctx.fillStyle="#fff";rr(ctx,x,yy,w,h,r);ctx.fill();ctx.restore();}
+    if(tapes.length){
+      card(40,y,W-80,quickH-4,48);
+      var gap=12, tw=(W-80-56-gap*(tapes.length-1))/tapes.length;
+      tapes.forEach(function(t,i){
+        var x=40+28+i*(tw+gap), p=pageText(t);
+        ctx.fillStyle=tint; rr(ctx,x,y+28,tw,quickH-60,28); ctx.fill();
+        ctx.textAlign="center"; ctx.fillStyle=wine; ctx.font="700 "+(String(p).length>4?"30":"62")+"px "+text;
+        ctx.fillText(p,x+tw/2,y+28+(String(p).length>4?62:70),tw-12);
+        ctx.fillStyle=soft; ctx.font="600 26px "+text; ctx.fillText(SHORT[t.n]||"Fita "+t.n,x+tw/2,y+28+106,tw-8);
+        ctx.textAlign="left";
+      });
+      y+=quickH+32;
+    }
+    if(rows.length){
+      card(40,y,W-80,listH,48);
+      rows.forEach(function(r,i){
+        var t=r.t, x=40+36, top=y;
+        if(i){ctx.fillStyle="#efe7de";ctx.fillRect(40,top,W-80,2);}
+        ctx.fillStyle=tint; ctx.beginPath(); ctx.arc(x+36,top+r.h/2,36,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle=wine; ctx.textAlign="center"; ctx.font="800 34px "+text; ctx.fillText(String(t.n),x+36,top+r.h/2+12); ctx.textAlign="left";
+        var tx=x+100, ty=top+40+40;
+        ctx.fillStyle=ink; ctx.font="700 44px "+serif; ctx.fillText(rowTitle(t),tx,ty,W-80-190-250);
+        ctx.fillStyle=soft; ctx.font="400 31px "+text; r.s.forEach(function(l){ty+=40;ctx.fillText(l,tx,ty);});
+        if(r.o){ty+=38;ctx.fillStyle=r.o[1]?ok:faint;ctx.font="700 25px "+text;ctx.fillText(r.o[0],tx,ty);}
+        var p=pageText(t); ctx.fillStyle=wine; ctx.textAlign="right"; ctx.font="700 "+(String(p).length>4?"30":"66")+"px "+text;
+        ctx.fillText(p,W-40-40,top+r.h/2+(String(p).length>4?10:22),230); ctx.textAlign="left";
+        y+=r.h;
+      });
+    }
+    ctx.fillStyle=faint; ctx.font="600 30px "+text; ctx.fillText("Missal Diário",P,H-44);
+    ctx.textAlign="right"; ctx.fillText("criado por @macflayyy",W-P,H-44); ctx.textAlign="left";
+    return await new Promise(function(res){c.toBlob(res,"image/png");});
+  }
+  window.buildShareImageBlob=v3ShareImage;
+
+  new MutationObserver(syncTab).observe($("leafletReader"),{attributes:true,attributeFilter:["hidden"]});
+  window.addEventListener("resize",syncTab,{passive:true});
+  window.v3Render(window.currentDateKey);
+  syncTab();
+})();
 </script>
 </body>
 </html>
