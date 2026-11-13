@@ -80,6 +80,8 @@ async function runView(v){
   const probes=await page.evaluate(()=>{
    const picks=['2026-10-11','2026-11-02','2026-12-24','2026-12-25','2026-12-31'];
    const original=window.currentDateKey,errors=[],res=[];
+   // os cartões completos só são montados no modo Celebração
+   window.v3SetView('cel');
    try{
     for(const k of picks){
      try{
@@ -92,7 +94,7 @@ async function runView(v){
        pageLabels:[...document.querySelectorAll('#v3Quick b')].map(x=>x.textContent)});
      }catch(e){errors.push({date:k,message:String(e.message)})}
     }
-   }finally{render(original)}
+   }finally{render(original);window.v3SetView('home')}
    return{res,errors};
   });
   row.holidayProbes=probes;
@@ -124,13 +126,14 @@ async function runView(v){
   if(v.name==='desktop-1280'){
    const all=await page.evaluate(()=>{
     const keys=Object.keys(window.MISSAL_DATA).sort(),issues=[],original=window.currentDateKey;
+    window.v3SetView('cel');
     for(const key of keys){
      try{render(key);const d=window.MISSAL_DATA[key];if(document.querySelectorAll('#v3Cards .v3-f').length!==5||document.querySelectorAll('#v3Quick button').length!==5)issues.push(key+': fitas');
      if(document.documentElement.scrollWidth>innerWidth+1)issues.push(key+': largura');
      if(!d.quick || !d.celebration || !d.tapes?.length)issues.push(key+': dados');}
      catch(e){issues.push(key+': '+String(e.message))}
     }
-    render(original);return{tested:keys.length,issues};
+    render(original);window.v3SetView('home');return{tested:keys.length,issues};
    });
    mark(row,'every-registered-day-renders',all.issues.length===0,all);
   }

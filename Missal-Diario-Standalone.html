@@ -4209,7 +4209,7 @@ body.v3::before,body.v3::after{display:none!important}
   padding:calc(14px + env(safe-area-inset-top)) 16px 64px;position:relative}
 .v3-rib,.v3-ribw{position:absolute;top:0;clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%);pointer-events:none}
 .v3-ribw{right:20px;width:38px;height:calc(82px + env(safe-area-inset-top));background:rgba(255,255,255,.92)}
-.v3-rib{right:22px;width:34px;height:calc(78px + env(safe-area-inset-top));background:#d92c3a;transition:background .3s ease}
+.v3-rib{right:22px;width:34px;height:calc(78px + env(safe-area-inset-top));background:#d92c3a}
 .v3-rib::after{content:"";position:absolute;inset:0 6px;border-left:1px dashed rgba(255,255,255,.6);border-right:1px dashed rgba(255,255,255,.6)}
 .v3-rib.light::after{border-color:rgba(122,24,36,.35)}
 .v3-tb{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-right:56px}
@@ -4223,7 +4223,7 @@ body.v3::before,body.v3::after{display:none!important}
 .v3-week small{font-size:12px;font-weight:700;text-transform:uppercase;opacity:.82;line-height:1.3}
 .v3-week b{font-size:19px;line-height:1.2;font-weight:700}
 #v3 .v3-week button:disabled{opacity:.42}
-.v3-wi{position:absolute;top:0;left:0;height:54px;width:calc((100% - 24px)/7);border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.18);overflow:hidden;pointer-events:none;z-index:1;
+.v3-wi{position:absolute;top:0;left:0;height:54px;width:calc((100% - 24px)/7);border-radius:16px;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.18);overflow:hidden;pointer-events:none;z-index:1;will-change:transform;
   transform:translateX(calc(var(--d,0)*(100% + 4px)));transition:transform .32s var(--v-ease)}
 .v3-wi[hidden]{display:none}
 .v3-wi-in{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;width:calc(700% + 24px);height:100%;color:#7a1824;
@@ -4258,7 +4258,7 @@ html.theme-dark .v3-q b,html.theme-dark .v3-num{font-weight:800!important;letter
 /* ---------- lista resumida (início) ---------- */
 .v3-sec{font:700 13px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.6px;text-transform:uppercase;color:var(--v-faint);margin:22px 20px 10px}
 .v3-ls{margin:0 12px;background:var(--v-card);border-radius:24px;overflow:hidden;box-shadow:var(--v-sh)}
-#v3 .v3-r{display:grid;grid-template-columns:36px 1fr auto 16px;gap:12px;align-items:center;padding:14px 16px;width:100%;text-align:left}
+#v3 .v3-r{contain:layout paint;display:grid;grid-template-columns:36px 1fr auto 16px;gap:12px;align-items:center;padding:14px 16px;width:100%;text-align:left}
 #v3 .v3-r+.v3-r{border-top:1px solid var(--v-line)}
 .v3-o{width:36px;height:36px;border-radius:50%;background:var(--v-tint);color:var(--v-num);display:grid;place-items:center;font:800 17px/1 "Crimson Pro",Georgia,serif}
 #v3 .v3-r h3{font-size:20px;line-height:1.15}
@@ -4274,7 +4274,7 @@ html.theme-dark .v3-q b,html.theme-dark .v3-num{font-weight:800!important;letter
 
 /* ---------- modo Celebração ---------- */
 #v3Cel[hidden],#v3Home[hidden]{display:none}
-.v3-f{margin:0 12px 12px;background:var(--v-card);border-radius:24px;padding:16px 18px;box-shadow:var(--v-sh);scroll-margin-top:16px}
+.v3-f{contain:layout paint;margin:0 12px 12px;background:var(--v-card);border-radius:24px;padding:16px 18px;box-shadow:var(--v-sh);scroll-margin-top:16px}
 .v3-fh{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center}
 .v3-fh small{display:block;font:700 12px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.2px;text-transform:uppercase;color:var(--v-num)}
 html.theme-dark .v3-fh small{color:#d1d1d6}
@@ -4301,16 +4301,15 @@ body.v3-cel #v3 .v3-title{font-size:30px;margin:10px 56px 4px 0}
 .v3-cred small{color:var(--v-faint);font-size:13.5px;display:block;line-height:1.5}
 
 /* ---------- barra de vidro ---------- */
-.v3-glass{position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:66px;border-radius:999px;display:grid;grid-template-columns:repeat(5,1fr);padding:5px;z-index:145;overflow:hidden;
+.v3-glass{contain:layout paint;position:fixed;left:14px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));height:66px;border-radius:999px;display:grid;grid-template-columns:repeat(5,1fr);padding:5px;z-index:145;overflow:hidden;
   background:linear-gradient(180deg,var(--gl-t),var(--gl-b));border:1px solid var(--gl-line);
   backdrop-filter:blur(10px) saturate(var(--gl-sat)) brightness(var(--gl-br));-webkit-backdrop-filter:blur(10px) saturate(var(--gl-sat)) brightness(var(--gl-br));
   box-shadow:inset 0 1.5px 1px var(--gl-hi),inset 0 -1px 1px rgba(0,0,0,.14),inset 0 0 0 .5px rgba(0,0,0,.06),0 10px 28px rgba(0,0,0,.22)}
 .v3-glass::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(120% 90% at 18% -20%,rgba(255,255,255,.35),transparent 55%),radial-gradient(80% 70% at 100% 130%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
 .v3-ind{position:absolute;top:5px;bottom:5px;left:5px;width:calc((100% - 10px)/5);border-radius:999px;background:var(--gl-ind);border:1px solid var(--gl-indl);
-  box-shadow:inset 0 1px 1px var(--gl-hi),0 2px 8px rgba(0,0,0,.10);transform:translateX(calc(var(--i,2)*100%));transition:transform .32s var(--v-ease)}
-#v3 .v3-gt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--gl-ink);font-size:11.5px;font-weight:600;text-shadow:0 1px 1px var(--gl-ts);transition:color .22s ease;min-width:0}
+  box-shadow:inset 0 1px 1px var(--gl-hi),0 2px 8px rgba(0,0,0,.10);transform:translateX(calc(var(--i,2)*100%));transition:transform .32s var(--v-ease);will-change:transform}
+#v3 .v3-gt{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--gl-ink);font-size:11.5px;font-weight:600;text-shadow:0 1px 1px var(--gl-ts);min-width:0}
 #v3 .v3-gt svg{width:24px;height:24px}
-#v3 .v3-gt svg *{transition:fill .22s ease,stroke .22s ease}
 #v3 .v3-gt.on{color:var(--gl-on);font-weight:700}
 #v3 .v3-gt.on .f{fill:currentColor}
 #v3 .v3-gt.on .h{stroke:var(--gl-hole)}
@@ -13466,12 +13465,15 @@ function applyLiturgicalColor(name,fallbackHex){
   };
   const palette = (key && liturgicalPalettes[key]) || fallback;
   const root = document.documentElement;
-  root.style.setProperty("--liturgical",palette.accent);
-  root.style.setProperty("--liturgical-soft",palette.soft);
-  root.style.setProperty("--liturgical-deep",palette.deep);
-  root.style.setProperty("--liturgical-glow",palette.glow);
+  // Só grava quando muda: cada variável na raiz do documento faz o navegador
+  // recalcular o estilo da página inteira.
+  const setVar=(name,value)=>{ if(root.style.getPropertyValue(name)!==value) root.style.setProperty(name,value); };
+  setVar("--liturgical",palette.accent);
+  setVar("--liturgical-soft",palette.soft);
+  setVar("--liturgical-deep",palette.deep);
+  setVar("--liturgical-glow",palette.glow);
   window.activeLiturgicalPalette = palette;
-  document.body.dataset.liturgicalColor = key || "outro";
+  if(document.body.dataset.liturgicalColor !== (key || "outro")) document.body.dataset.liturgicalColor = key || "outro";
   return palette;
 }
 
@@ -14534,9 +14536,12 @@ function render(dateKey){
     tapes.appendChild(el);
   });
 
-  buildDateMenu();
+  // Com o design v3 a tela antiga fica escondida: não remonta o calendário
+  // nem anima/observa elementos que ninguém vê.
+  const legacyUi=!document.body.classList.contains("v3");
+  if(legacyUi) buildDateMenu();
   if(window.v3Render) window.v3Render(dateKey);
-  requestAnimationFrame(()=>{
+  if(legacyUi) requestAnimationFrame(()=>{
     animateUpdatedContent();
     observeReveals();
     observeTapeFocus();
@@ -14547,23 +14552,25 @@ function getRegisteredDates(){
   return Object.keys(data).sort();
 }
 
+// Formatadores criados uma única vez: criar um Intl.DateTimeFormat por chamada
+// pesava em cada toque (estas funções rodam dezenas de vezes por troca de dia).
+const BRASILIA_DAY_FORMAT=new Intl.DateTimeFormat("en-CA",{
+  timeZone:"America/Sao_Paulo",
+  year:"numeric", month:"2-digit", day:"2-digit"
+});
+const BRASILIA_CLOCK_FORMAT=new Intl.DateTimeFormat("en-CA",{
+  timeZone:"America/Sao_Paulo",
+  year:"numeric",month:"2-digit",day:"2-digit",
+  hour:"2-digit",minute:"2-digit",second:"2-digit",
+  hourCycle:"h23"
+});
 function brasiliaTodayKey(){
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone:"America/Sao_Paulo",
-    year:"numeric", month:"2-digit", day:"2-digit"
-  }).formatToParts(new Date());
-  const p = Object.fromEntries(parts.map(x => [x.type, x.value]));
+  const p = Object.fromEntries(BRASILIA_DAY_FORMAT.formatToParts(new Date()).map(x => [x.type, x.value]));
   return `${p.year}-${p.month}-${p.day}`;
 }
 
 function brasiliaClockParts(){
-  const parts=new Intl.DateTimeFormat("en-CA",{
-    timeZone:"America/Sao_Paulo",
-    year:"numeric",month:"2-digit",day:"2-digit",
-    hour:"2-digit",minute:"2-digit",second:"2-digit",
-    hourCycle:"h23"
-  }).formatToParts(new Date());
-  return Object.fromEntries(parts.map(x=>[x.type,x.value]));
+  return Object.fromEntries(BRASILIA_CLOCK_FORMAT.formatToParts(new Date()).map(x=>[x.type,x.value]));
 }
 
 function getAvailableThrough(){
@@ -15582,6 +15589,16 @@ document.addEventListener("visibilitychange",async()=>{
   var COLORS=[["verde",/verde/,"#2e9b57"],["branco",/branc/,"#f4f1ea"],["vermelho",/vermelh/,"#d92c3a"],["roxo",/rox|violet/,"#7b3fb0"],["roseo",/rose|rosa/,"#e58fb0"],["preto",/pret/,"#3a3536"]];
   var CHEV='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
   var reduce=function(){return window.matchMedia("(prefers-reduced-motion: reduce)").matches;};
+  /* Executa depois que o próximo quadro foi desenhado: a animação já começou
+     no compositor e o trabalho pesado não a faz engasgar. */
+  /* Formatadores criados uma vez: recriá-los a cada data pesa no celular. */
+  var FMT_DAY=new Intl.DateTimeFormat("pt-BR",{weekday:"long",day:"numeric",month:"long",timeZone:"UTC"});
+  var FMT_MONTH=new Intl.DateTimeFormat("pt-BR",{month:"long",year:"numeric",timeZone:"UTC"});
+  var asDate=function(k){return new Date(k.slice(0,7).length===7&&k.length===7?k+"-01T12:00:00Z":k+"T12:00:00Z");};
+  var cap=function(t){return t.charAt(0).toUpperCase()+t.slice(1);};
+  var dayLabel=function(k){return FMT_DAY.format(asDate(k));};
+  var monthLabel=function(k){return cap(FMT_MONTH.format(asDate(k)));};
+  var afterPaint=function(fn){requestAnimationFrame(function(){setTimeout(fn,0);});};
   var esc=function(v){return prepareEscapeHtml(v==null?"":v);};
   var clean=function(v){return String(v==null?"":v).replace(/\s*•\s*sugestão\s*$/i,"").trim();};
 
@@ -15631,7 +15648,13 @@ document.addEventListener("visibilitychange",async()=>{
       for(var j=0;j<7;j++) h+='<button type="button"><small></small><b></b></button>';
       box.innerHTML=h;
       box.querySelectorAll("button").forEach(function(b){
-        b.addEventListener("click",function(){ if(b.dataset.date && !b.disabled && b.dataset.date!==window.currentDateKey) render(b.dataset.date); });
+        b.addEventListener("click",function(){
+          var k=b.dataset.date; if(!k || b.disabled || k===window.currentDateKey) return;
+          var idx=[].indexOf.call(box.querySelectorAll("button"),b);
+          box.style.setProperty("--d",idx);
+          box.querySelectorAll("button").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));});
+          afterPaint(function(){ if(window.currentDateKey!==k) render(k); });
+        });
       });
     }
     var wi=box.querySelector(".v3-wi"), ghosts=box.querySelectorAll(".v3-wi-in span"), btns=box.querySelectorAll("button");
@@ -15641,7 +15664,7 @@ document.addEventListener("visibilitychange",async()=>{
       var b=btns[k];
       b.dataset.date=dk; b.disabled=!visible.has(dk);
       b.setAttribute("aria-pressed",String(dk===key));
-      b.setAttribute("aria-label",new Date(dk+"T12:00:00").toLocaleDateString("pt-BR",{weekday:"long",day:"numeric",month:"long"})+(b.disabled?" (ainda não disponível)":""));
+      b.setAttribute("aria-label",dayLabel(dk)+(b.disabled?" (ainda não disponível)":""));
       b.children[0].textContent=DN[k]; b.children[1].textContent=num;
       ghosts[k].children[0].textContent=DN[k]; ghosts[k].children[1].textContent=num;
     }
@@ -15649,8 +15672,7 @@ document.addEventListener("visibilitychange",async()=>{
     wi.hidden=!visible.has(key) && !(typeof data==="object" && data[key]);
     if(lastWeekStart!==start){ void wi.offsetWidth; wi.style.transition=""; wi.firstChild.style.transition=""; }
     lastWeekStart=start;
-    var m=new Date(key+"T12:00:00").toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
-    $("v3MonthLabel").textContent=m.charAt(0).toUpperCase()+m.slice(1);
+    $("v3MonthLabel").textContent=monthLabel(key.slice(0,7));
   }
 
   /* ---------- conteúdo do dia ---------- */
@@ -15679,7 +15701,7 @@ document.addEventListener("visibilitychange",async()=>{
     var quick=$("v3Quick"), list=$("v3List"), cards=$("v3Cards");
     if(!has){
       quick.innerHTML='<div class="v3-empty">'+esc($("note").textContent||"Esta data ainda não está disponível.")+"</div>";
-      list.innerHTML=""; cards.innerHTML="";
+      list.innerHTML=""; cards.innerHTML=""; cardsFor=key;
       $("v3Home").hidden=true; $("v3Cel").hidden=true;
     }else{
       quick.innerHTML=d.tapes.map(function(t){
@@ -15692,6 +15714,17 @@ document.addEventListener("visibilitychange",async()=>{
           '<span class="v3-o" aria-hidden="true">'+t.n+"</span><span><h3>"+esc(rowTitle(t))+"</h3>"+(s?"<p>"+esc(s)+"</p>":"")+
           (o?'<em class="'+(o[1]?"ok":"")+'">'+esc(o[0])+"</em>":"")+'</span><span class="'+numClass(p)+'">'+esc(p)+"</span>"+CHEV+"</button>";
       }).join("");
+      cardsFor=null; if(view==="cel") buildCards(key);
+      return finishDay(d,key);
+    }
+    finishDay(d,key);
+  }
+  var cardsFor=null;
+  function buildCards(key){
+    key=key||window.currentDateKey; if(cardsFor===key) return;
+    var d=getDisplayEntry(key), cards=$("v3Cards");
+    if(!d || !Array.isArray(d.tapes) || !d.tapes.length){cards.innerHTML="";cardsFor=key;return;}
+    cardsFor=key;
       cards.innerHTML=d.tapes.map(function(t){
         var o=origin(d,t), p=pageText(t);
         return '<article class="v3-f" id="v3-tape-'+t.n+'"><div class="v3-fh"><span class="v3-o" aria-hidden="true">'+t.n+"</span><div><small>"+esc(KIND[t.n]||"Fita "+t.n)+"</small><h3>"+esc(t.title)+"</h3></div>"+
@@ -15699,8 +15732,10 @@ document.addEventListener("visibilitychange",async()=>{
           (t.details||[]).map(function(r){return '<div class="v3-d"><b>'+formatDetailLabel(String(r[0]))+"</b><span>"+formatDetailValue(r[1])+"</span></div>";}).join("")+
           (o?'<span class="v3-tg'+(o[1]?" ok":"")+'">'+esc(o[0])+"</span>":"")+"</article>";
       }).join("");
-      $("v3Home").hidden=view!=="home"; $("v3Cel").hidden=view!=="cel";
-    }
+  }
+  function finishDay(d,key){
+    var has=Boolean(d && Array.isArray(d.tapes) && d.tapes.length);
+    if(has){ $("v3Home").hidden=view!=="home"; $("v3Cel").hidden=view!=="cel"; }
     var nh=noteHtml(d||{});
     $("v3NoteHome").innerHTML=nh; $("v3NoteHome").hidden=!nh;
     $("v3NoteCel").innerHTML=nh; $("v3NoteCel").hidden=!nh;
@@ -15713,11 +15748,7 @@ document.addEventListener("visibilitychange",async()=>{
     key=key||window.currentDateKey; if(!key) return;
     buildWeek(key); renderDay(key);
     if(openSheetId==="v3CalSheet"){calCursor=key.slice(0,7);buildCalendar();}
-    if(lastKey && lastKey!==key && !reduce()){
-      [$("v3Quick"),$("v3Home"),$("v3Cel")].forEach(function(el){
-        if(el && !el.hidden) el.animate([{opacity:.35},{opacity:1}],{duration:240,easing:"ease-out"});
-      });
-    }
+    if(lastKey && lastKey!==key && !reduce()) $("v3Quick").animate([{opacity:.4},{opacity:1}],{duration:200,easing:"ease-out"});
     lastKey=key;
   };
 
@@ -15735,7 +15766,8 @@ document.addEventListener("visibilitychange",async()=>{
   function setView(v,tape){
     var changed=view!==v; view=v;
     document.body.classList.toggle("v3-cel",v==="cel");
-    var has=Boolean($("v3Cards").firstChild);
+    if(v==="cel") buildCards();
+    var has=Boolean($("v3List").firstChild);
     $("v3Home").hidden=v!=="home"||!has; $("v3Cel").hidden=v!=="cel"||!has;
     var desk=$("v3DeskCel"); if(desk) desk.lastElementChild.textContent=v==="cel"?"Voltar ao início":"Modo Celebração";
     syncTab();
@@ -15774,9 +15806,8 @@ document.addEventListener("visibilitychange",async()=>{
     if(openSheetId && openSheetId!==id) closeSheet(false);
     if(!sheetOpener) sheetOpener=document.activeElement;
     var sheet=$(id); openSheetId=id;
-    sheet.inert=false; sheet.classList.add("open"); $("v3Dim").classList.add("open");
-    lockBg();
-    syncTab();
+    sheet.inert=false; lockBg(); syncTab();
+    requestAnimationFrame(function(){ if(openSheetId!==id) return; sheet.classList.add("open"); $("v3Dim").classList.add("open"); });
     var first=sheet.querySelector("[data-v3-close]");
     var into=function(){ if(openSheetId===id && first && !sheet.contains(document.activeElement)) first.focus({preventScroll:true}); };
     into(); requestAnimationFrame(into); setTimeout(into,80);
@@ -15809,15 +15840,14 @@ document.addEventListener("visibilitychange",async()=>{
     if(calCursor>range.max) calCursor=range.max;
     var y=Number(calCursor.slice(0,4)), m=Number(calCursor.slice(5,7));
     var first=new Date(y,m-1,1,12), days=new Date(y,m,0,12).getDate(), lead=(first.getDay()+6)%7;
-    var title=first.toLocaleDateString("pt-BR",{month:"long",year:"numeric"});
-    $("v3CalTitle").textContent=title.charAt(0).toUpperCase()+title.slice(1);
+    $("v3CalTitle").textContent=monthLabel(calCursor);
     var h=DN.map(function(n){return "<small>"+n+"</small>";}).join("");
     for(var i=0;i<lead;i++) h+="<span></span>";
     for(var day=1;day<=days;day++){
       var key=calCursor+"-"+String(day).padStart(2,"0");
       if(set.has(key)){
         var cls=[key===window.currentDateKey?"on":"",key===today?"td":""].filter(Boolean).join(" ");
-        h+='<button type="button" class="'+cls+'" data-date="'+key+'" aria-label="'+esc(calendarTitleForDate(key))+'"'+(key===window.currentDateKey?' aria-current="date"':"")+">"+day+'<i style="background:'+paint(dayColors(data[key],key))+'"></i></button>';
+        h+='<button type="button" class="'+cls+'" data-date="'+key+'" aria-label="'+esc(dayLabel(key)+(data[key]?" — "+data[key].celebration:""))+'"'+(key===window.currentDateKey?' aria-current="date"':"")+">"+day+'<i style="background:'+paint(dayColors(data[key],key))+'"></i></button>';
       }else h+='<span class="v3-cd">'+day+"</span>";
     }
     $("v3CalGrid").innerHTML=h;
@@ -15825,7 +15855,7 @@ document.addEventListener("visibilitychange",async()=>{
   }
   $("v3CalGrid").addEventListener("click",function(e){
     var b=e.target.closest("button[data-date]"); if(!b) return;
-    closeSheet(); render(b.dataset.date);
+    var k=b.dataset.date; closeSheet(); afterPaint(function(){render(k);});
   });
   $("v3CalPrev").addEventListener("click",function(){calCursor=monthShift(calCursor,-1);buildCalendar();});
   $("v3CalNext").addEventListener("click",function(){calCursor=monthShift(calCursor,1);buildCalendar();});
@@ -15834,7 +15864,7 @@ document.addEventListener("visibilitychange",async()=>{
     render(dates.indexOf(today)>=0?today:(dates[dates.length-1]||today));
     window.scrollTo({top:0,behavior:reduce()?"instant":"smooth"});
   }
-  $("v3CalToday").addEventListener("click",function(){closeSheet();goToday();});
+  $("v3CalToday").addEventListener("click",function(){closeSheet();afterPaint(goToday);});
   function openCalendar(){calCursor=(window.currentDateKey||brasiliaTodayKey()).slice(0,7);buildCalendar();openSheet("v3CalSheet");}
 
   /* ---------- ações ---------- */
@@ -15868,7 +15898,8 @@ document.addEventListener("visibilitychange",async()=>{
       closeSheet(false); sheetOpener=null;
       if(tab==="leaflet"){ if(readerOpen()) closeLeafletReader(false); else openDominicalLeaflet(); syncTab(); return; }
       if(readerOpen()) closeLeafletReader(false);
-      setView(tab);
+      // Início é leve e troca na hora; a Celebração monta os cartões depois que a pílula começou a deslizar.
+      if(tab==="cel"){ setTab(tab); afterPaint(function(){setView(tab);}); } else setView(tab);
     });
   });
   $("v3MonthBtn").addEventListener("click",openCalendar);
@@ -15983,6 +16014,7 @@ document.addEventListener("visibilitychange",async()=>{
   window.buildShareImageBlob=v3ShareImage;
 
   new MutationObserver(syncTab).observe($("leafletReader"),{attributes:true,attributeFilter:["hidden"]});
+  ["syncMarkingsActiveTab","updateMobileHeader","updateBackToTop"].forEach(function(n){ if(typeof window[n]==="function") window.removeEventListener("scroll",window[n]); });
   window.addEventListener("resize",syncTab,{passive:true});
   window.v3Render(window.currentDateKey);
   syncTab();

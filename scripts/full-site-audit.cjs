@@ -103,6 +103,8 @@ async function run(config){
    if(await day.count()){
      const selected=await day.getAttribute('data-date');
      await day.click();
+     // a data é aplicada no quadro seguinte, depois que a folha começou a fechar
+     await page.waitForFunction(k=>window.currentDateKey===k,selected,{timeout:3000}).catch(()=>{});
      mark(row,'calendar-select-historic-date',await page.evaluate(k=>window.currentDateKey===k&&!document.getElementById('v3CalSheet').classList.contains('open')&&
        document.getElementById('v3Title').textContent.trim()===getDisplayEntry(k).celebration,selected),{selected});
    }else await page.keyboard.press('Escape');
