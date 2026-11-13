@@ -4355,9 +4355,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Verde",
     "colorHex": "#3b6f50",
-    "note": "Santo Alberto Magno — memória facultativa omitida por coincidir com domingo",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Santo Alberto Magno — memória facultativa omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -4382,9 +4382,10 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -4428,15 +4429,27 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Tempo Comum VI",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não indica bênção solene específica."
+          ],
+          [
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
         "suggestion": true
       }
     ],
     "quick": "430 → 415 → 477 → 545 → 585",
-    "cycle": "Ano A"
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      2
+    ],
+    "officialLeafletApplied": false,
+    "ritesPendingOfficial": true,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf"
   },
   "2026-11-16": {
     "label": "Segunda-feira • 16/11/2026",
@@ -4999,9 +5012,9 @@ window.MISSAL_DATA = {
     "season": "Tempo Comum",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "Santa Cecília — memória omitida por coincidir com a solenidade dominical",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Santa Cecília — memória omitida por coincidir com a solenidade dominical",
-    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -5009,15 +5022,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação G",
+            "A graça e a paz daquele que é, que era e que vem, estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Primeira fórmula, 3ª opção",
+            "No dia em que celebramos a vitória de Cristo sobre o pecado e a morte, também nós somos convidados a morrer para o pecado e ressurgir para uma vida nova."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -5025,41 +5038,39 @@ window.MISSAL_DATA = {
         "title": "Nosso Senhor Jesus Cristo, Rei do Universo",
         "details": [
           [
-            "Formulário",
-            "Missa do dia"
+            "Referência do Missal",
+            "Página 425 confirmada no índice do Missal Romano CNBB 2023 (o folheto não imprime o número desta página)."
           ]
-        ]
+        ],
+        "folhetoPageNotSpecified": true
       },
       {
         "n": 3,
         "page": "426",
-        "title": "Prefácio próprio de Cristo Rei",
+        "title": "Prefácio de Cristo Rei — Cristo, Rei do Universo",
         "details": [
           [
-            "Uso",
-            "No próprio formulário da solenidade"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "523",
+        "title": "Oração Eucarística I",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -5067,15 +5078,28 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Tempo Comum VI",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "O folheto não indica bênção solene específica."
+          ],
+          [
+            "Sugestão",
+            "Bênção sugerida pelo tempo litúrgico ou pela celebração; uso facultativo."
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 425 → 426 → 545 → 585",
-    "cycle": "Ano A"
+    "quick": "430 → 425 → 426 → 523 → 585",
+    "cycle": "Ano A",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      1,
+      3,
+      4
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf"
   },
   "2026-11-23": {
     "label": "Segunda-feira • 23/11/2026",

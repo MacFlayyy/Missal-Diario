@@ -4735,8 +4735,8 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
   <button class="celebration-exit" id="celebrationModeExit" type="button" aria-label="Sair do modo celebração">× Sair</button>
   <button class="back-to-top" id="backToTop" type="button" aria-label="Voltar ao topo">↑</button>
 
-<script src="data.js?v=20261113-ccd487ddec82"></script>
-<script src="status.js?v=20261113-ccd487ddec82"></script>
+<script src="data.js?v=20261113-8ebb2e11ec6b"></script>
+<script src="status.js?v=20261113-8ebb2e11ec6b"></script>
 <script>
 const dataLoaded = Boolean(
   window.MISSAL_DATA &&
@@ -6797,7 +6797,7 @@ if("serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261113-ccd487ddec82",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261113-8ebb2e11ec6b",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{

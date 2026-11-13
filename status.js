@@ -10,10 +10,10 @@ window.MISSAL_STATUS = {
   },
   "sundayPreview": "2026-11-15",
   "calendarDataThrough": "2026-12-31",
-  "sundayLeafletDate": "2026-11-08",
-  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Prova-Final.pdf",
-  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
-  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/60-Povo-Deus-61-08_11_32o-Domingo-TC-Versao-Celular.pdf",
-  "contentVersion": "654d7f1f355178247e4d",
-  "lastSuccessfulUpdateAt": "2026-11-13T00:10:19.306712-03:00"
+  "sundayLeafletDate": "2026-11-15",
+  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
+  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
+  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
+  "contentVersion": "1f048e214bf891e45e92",
+  "lastSuccessfulUpdateAt": "2026-11-13T12:03:53.427655-03:00"
 };
