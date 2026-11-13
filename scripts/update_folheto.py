@@ -320,7 +320,8 @@ def pdf_text(url, allow_ocr=False):
         # pequenos erros e, por isso, não pontuam nos marcadores exatos.
         if score(recognized) > score(text) or len(recognized) > max(500, len(text) * 1.15):
             text = recognized
-    if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10")):
+    audit_day = target_sunday().strftime("%d_%m")
+    if allow_ocr and "Povo-Deus-61" in url and any(day in url for day in ("04_10", "11_10", "12_10", "25_10", audit_day)):
         lines = [line.strip() for line in text.splitlines() if line.strip()]
         words = ("saudacao inicial", "ato penitencial", "prefacio", "eucaristica",
                  "bencao", "misterio da fe", "gloria", "oracao sobre")
@@ -1322,6 +1323,9 @@ def main():
             seen.add(known_url)
             try:
                 source = pdf_text(known_url, allow_ocr=True)
+                print("[folheto-diagnostico]", key, "ritos=", leaflet_initial_choices(source),
+                      "prefacio/oe=", leaflet_oe_prefacio(source),
+                      "pagina=", detect_missal_page(source), "aclamacao=", detect_acclamation(source))
                 if update_entry(entry, source, known_url):
                     changed_any = True
                 if date.fromisoformat(key).weekday() == 6:
