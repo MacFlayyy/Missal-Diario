@@ -39,7 +39,7 @@ const ctx=await browser.newContext({viewport:{width:c.width,height:c.height},isM
  timezoneId:'America/Sao_Paulo',locale:'pt-BR',serviceWorkers:'block',acceptDownloads:true,
  ...(c.engine==='webkit'?{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Mobile/15E148 Safari/604.1'}:{})});
 const page=await ctx.newPage();page.setDefaultTimeout(8500);
-page.on('pageerror',e=>row.errors.push(e.message));
+page.on('pageerror',e=>{if(!/cloudflareinsights\.com|cdn-cgi\/rum/i.test(e.message))row.errors.push(e.message)});
 try{
  const r=await page.goto(origin,{waitUntil:'domcontentloaded',timeout:30000});
  test(c.name,'public-http-200',r?.status()===200,{code:r?.status()});
