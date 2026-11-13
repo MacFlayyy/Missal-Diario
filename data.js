@@ -4365,15 +4365,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação E",
+            "A vós, irmãos, paz e fé da parte de Deus, o Pai, e do Senhor Jesus Cristo."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Terceira fórmula, 1ª opção",
+            "Irmãos e irmãs, reconheçamos os nossos pecados, para celebrarmos dignamente os santos mistérios."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -4389,39 +4389,31 @@ window.MISSAL_DATA = {
       },
       {
         "n": 3,
-        "page": "477",
-        "title": "Prefácio dos Domingos do Tempo Comum IV",
+        "page": "632",
+        "title": "Prefácio próprio — Jesus que passa fazendo o bem",
         "details": [
           [
-            "Título",
-            "A história da salvação"
-          ],
-          [
-            "Uso",
-            "Sugestão"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "632",
+        "title": "Oração Eucarística para Diversas Circunstâncias IV — Jesus que passa fazendo o bem",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -4440,14 +4432,17 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 415 → 477 → 545 → 585",
+    "quick": "430 → 415 → 632 → 585",
     "cycle": "Ano A",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
     "officialVerifiedParts": [
-      2
+      1,
+      2,
+      3,
+      4
     ],
-    "officialLeafletApplied": false,
-    "ritesPendingOfficial": true,
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
     "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf"
   },
