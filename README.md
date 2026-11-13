@@ -144,7 +144,7 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - Após o deploy, `scripts/check_publication.py` compara a **data** e o **token de versão** entre os arquivos locais e a página pública. Um HTTP 200 isolado não basta para considerar a publicação concluída.
 - A auditoria visual mobile roda após modificações relevantes no site; a auditoria completa percorre também tablet, desktop, calendário, modo celebração, cópia, criação de PNG, folheto direto e comportamento offline do PWA.
 - Em larguras de até 950 px, o calendário funciona como painel central com altura limitada e rolagem interna, inclusive com o aparelho deitado.
-- A exportação em imagem e o painel **Preparar o Missal** distinguem escolha sugerida, página ainda não conferida e página não indicada.
+- A exportação em imagem e a lista de fitas do design v3 distinguem escolha sugerida, página ainda não conferida e página não indicada.
 - O status `requires-missal-page-check` significa que a data foi cadastrada, mas uma ou mais páginas do Missal precisam de referência externa. **Não é confirmação litúrgica completa.**
 - Nenhuma execução agendada do GitHub Actions tem garantia de começar exatamente no minuto configurado. Executar antes das 05h reduz o risco de atraso, mas não elimina o risco de falha na plataforma.
 - Não há fonte online confiável de correspondência completa de **todas as páginas** da edição CNBB 2023 do Missal para cada celebração futura. Na ausência de correspondência verificada, o site informa **Página a conferir** em vez de inventar uma referência.

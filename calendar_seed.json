@@ -6347,7 +6347,7 @@
       },
       {
         "n": 2,
-        "page": "871",
+        "page": "872",
         "title": "Imaculada Conceição da Bem-aventurada Virgem Maria",
         "details": [
           [
@@ -6358,12 +6358,16 @@
       },
       {
         "n": 3,
-        "page": "872",
-        "title": "Prefácio próprio da Imaculada Conceição",
+        "page": "873",
+        "title": "Prefácio próprio — Do mistério de Maria e da Igreja",
         "details": [
           [
             "Título",
             "Do mistério de Maria e da Igreja"
+          ],
+          [
+            "Uso",
+            "Prefácio próprio da Imaculada Conceição."
           ]
         ]
       },
@@ -6389,18 +6393,18 @@
       },
       {
         "n": 5,
-        "page": "586",
-        "title": "Bênção apropriada à Bem-aventurada Virgem Maria",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicada no próprio formulário do Missal (facultativa)"
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 871 → 872 → 545 → 586",
+    "quick": "430 → 872 → 873 → 545 → 585",
     "cycle": "—"
   },
   "2026-12-09": {
@@ -6710,7 +6714,7 @@
       },
       {
         "n": 2,
-        "page": "875",
+        "page": "876",
         "title": "Bem-aventurada Virgem Maria de Guadalupe",
         "details": [
           [
@@ -6767,7 +6771,7 @@
         "suggestion": true
       }
     ],
-    "quick": "430 → 875 → 493 → 545 → 585",
+    "quick": "430 → 876 → 493 → 545 → 585",
     "cycle": "—"
   },
   "2026-12-13": {

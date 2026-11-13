@@ -688,8 +688,8 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "587",
-        "title": "Bênção Solene — Na festa de um Santo",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
             "Uso",
@@ -699,7 +699,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 823 → 493 → 536 → 587",
+    "quick": "430 → 823 → 493 → 536 → 585",
     "cycle": "Ano II"
   },
   "2026-10-08": {
@@ -4989,8 +4989,8 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "587",
-        "title": "Bênção Solene — Na festa de um Santo",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
             "Uso",
@@ -5000,7 +5000,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 861 → 493 → 536 → 587",
+    "quick": "430 → 861 → 493 → 536 → 585",
     "cycle": "Ano II"
   },
   "2026-11-22": {
@@ -5195,7 +5195,7 @@ window.MISSAL_DATA = {
   },
   "2026-11-24": {
     "label": "Terça-feira • 24/11/2026",
-    "celebration": "Santo André Dung-Lac e companheiros, mártires",
+    "celebration": "Santo André Dung-Lac, presbítero, e companheiros, mártires",
     "subtitle": "Tempo Comum",
     "saint": "Santo André Dung-Lac e companheiros",
     "grade": "Memória",
@@ -5225,7 +5225,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "863",
-        "title": "Santo André Dung-Lac e companheiros, mártires",
+        "title": "Santo André Dung-Lac, presbítero, e companheiros, mártires",
         "details": [
           [
             "Formulário",
@@ -5839,11 +5839,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 865 → 498 → 545 → 586",
-    "cycle": "Ano II"
+    "cycle": "—"
   },
   "2026-12-01": {
     "label": "Terça-feira • 01/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Terça-feira da 1ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Dia de semana",
@@ -5873,7 +5873,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "98",
-        "title": "Dia de semana do Advento",
+        "title": "Terça-feira da 1ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -5935,7 +5935,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-02": {
     "label": "Quarta-feira • 02/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Quarta-feira da 1ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Dia de semana",
@@ -5965,7 +5965,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "99",
-        "title": "Dia de semana do Advento",
+        "title": "Quarta-feira da 1ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6119,7 +6119,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-04": {
     "label": "Sexta-feira • 04/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Sexta-feira da 1ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "São João Damasceno",
     "grade": "Memória facultativa",
@@ -6149,7 +6149,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "101",
-        "title": "Dia de semana do Advento",
+        "title": "Sexta-feira da 1ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6211,7 +6211,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-05": {
     "label": "Sábado • 05/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Sábado da 1ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Dia de semana",
@@ -6241,7 +6241,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "102",
-        "title": "Dia de semana do Advento",
+        "title": "Sábado da 1ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6516,7 +6516,7 @@ window.MISSAL_DATA = {
       },
       {
         "n": 2,
-        "page": "871",
+        "page": "872",
         "title": "Imaculada Conceição da Bem-aventurada Virgem Maria",
         "details": [
           [
@@ -6562,24 +6562,24 @@ window.MISSAL_DATA = {
       },
       {
         "n": 5,
-        "page": "586",
-        "title": "Bênção apropriada à Bem-aventurada Virgem Maria",
+        "page": "585",
+        "title": "Bênção Solene — Bem-aventurada Virgem Maria",
         "details": [
           [
             "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicada no próprio formulário do Missal (facultativa)"
           ]
         ],
         "suggestion": true
       }
     ],
-    "quick": "430 → 871 → 873 → 545 → 586",
+    "quick": "430 → 872 → 873 → 545 → 585",
     "cycle": "—",
     "missalPageReferenceVerified": true
   },
   "2026-12-09": {
     "label": "Quarta-feira • 09/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Quarta-feira da 2ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "São João Diego Cuauhtlatoatzin",
     "grade": "Memória facultativa",
@@ -6609,7 +6609,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "106",
-        "title": "Dia de semana do Advento",
+        "title": "Quarta-feira da 2ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6671,7 +6671,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-10": {
     "label": "Quinta-feira • 10/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Quinta-feira da 2ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "Bem-aventurada Virgem Maria de Loreto",
     "grade": "Memória facultativa",
@@ -6701,7 +6701,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "107",
-        "title": "Dia de semana do Advento",
+        "title": "Quinta-feira da 2ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6763,7 +6763,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-11": {
     "label": "Sexta-feira • 11/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Sexta-feira da 2ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "São Dâmaso I",
     "grade": "Memória facultativa",
@@ -6793,7 +6793,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "108",
-        "title": "Dia de semana do Advento",
+        "title": "Sexta-feira da 2ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -6884,7 +6884,7 @@ window.MISSAL_DATA = {
       },
       {
         "n": 2,
-        "page": "875",
+        "page": "876",
         "title": "Bem-aventurada Virgem Maria de Guadalupe",
         "details": [
           [
@@ -6941,7 +6941,7 @@ window.MISSAL_DATA = {
         "suggestion": true
       }
     ],
-    "quick": "430 → 875 → 493 → 545 → 585",
+    "quick": "430 → 876 → 493 → 545 → 585",
     "cycle": "—"
   },
   "2026-12-13": {
@@ -7130,7 +7130,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-15": {
     "label": "Terça-feira • 15/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Terça-feira da 3ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Dia de semana",
@@ -7160,7 +7160,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "112",
-        "title": "Dia de semana do Advento",
+        "title": "Terça-feira da 3ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -7222,7 +7222,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-16": {
     "label": "Quarta-feira • 16/12/2026",
-    "celebration": "Dia de semana do Advento",
+    "celebration": "Quarta-feira da 3ª Semana do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Dia de semana",
@@ -7252,7 +7252,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "113",
-        "title": "Dia de semana do Advento",
+        "title": "Quarta-feira da 3ª Semana do Advento",
         "details": [
           [
             "Formulário",
@@ -7314,7 +7314,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-17": {
     "label": "Quinta-feira • 17/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "17 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
@@ -7344,7 +7344,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "117",
-        "title": "Féria privilegiada do Advento",
+        "title": "17 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -7406,7 +7406,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-18": {
     "label": "Sexta-feira • 18/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "18 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
@@ -7436,7 +7436,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "118",
-        "title": "Féria privilegiada do Advento",
+        "title": "18 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -7498,7 +7498,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-19": {
     "label": "Sábado • 19/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "19 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
@@ -7528,7 +7528,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "119",
-        "title": "Féria privilegiada do Advento",
+        "title": "19 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -7682,7 +7682,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-21": {
     "label": "Segunda-feira • 21/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "21 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "São Pedro Canísio",
     "grade": "Féria privilegiada do Advento",
@@ -7712,7 +7712,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "121",
-        "title": "Féria privilegiada do Advento",
+        "title": "21 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -7774,7 +7774,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-22": {
     "label": "Terça-feira • 22/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "22 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
@@ -7804,7 +7804,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "122",
-        "title": "Féria privilegiada do Advento",
+        "title": "22 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -7866,7 +7866,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-23": {
     "label": "Quarta-feira • 23/12/2026",
-    "celebration": "Féria privilegiada do Advento",
+    "celebration": "23 de dezembro — Féria privilegiada do Advento",
     "subtitle": "Ano B • Advento",
     "saint": "São João Câncio",
     "grade": "Féria privilegiada do Advento",
@@ -7896,7 +7896,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "123",
-        "title": "Féria privilegiada do Advento",
+        "title": "23 de dezembro — Féria privilegiada do Advento",
         "details": [
           [
             "Formulário",
@@ -8346,7 +8346,7 @@ window.MISSAL_DATA = {
   },
   "2026-12-28": {
     "label": "Segunda-feira • 28/12/2026",
-    "celebration": "Santos Inocentes, Mártires",
+    "celebration": "Os Santos Inocentes, Mártires",
     "subtitle": "Natal",
     "saint": "Santos Inocentes",
     "grade": "Festa",
@@ -8376,7 +8376,7 @@ window.MISSAL_DATA = {
       {
         "n": 2,
         "page": "882",
-        "title": "Santos Inocentes, Mártires",
+        "title": "Os Santos Inocentes, Mártires",
         "details": [
           [
             "Formulário",
