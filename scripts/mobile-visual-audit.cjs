@@ -68,7 +68,9 @@ async function runCase(def) {
     if (await week.count() > 1) {
       const key = await week.first().getAttribute('data-date');
       await week.first().click();
-      await page.waitForTimeout(120);
+      // O dia é desenhado no quadro seguinte; em máquinas lentas pode levar mais que 120 ms.
+      await page.waitForFunction(k => window.currentDateKey === k &&
+        document.querySelector('#v3Week button[aria-pressed="true"]')?.dataset.date === k, key, { timeout: 3000 }).catch(() => {});
       emit(row, 'semana-troca-o-dia', await page.evaluate(k => window.currentDateKey === k &&
         document.querySelector('#v3Week button[aria-pressed="true"]')?.dataset.date === k &&
         document.getElementById('v3Title').textContent.trim() === getDisplayEntry(k).celebration, key), key);

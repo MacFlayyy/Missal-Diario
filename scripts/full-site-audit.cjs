@@ -238,7 +238,7 @@ async function run(config){
 
    /* ---- modo Celebração ---- */
    await page.locator(wide?'#v3DeskCel':'.v3-gt[data-v3-tab="cel"]').click();
-   await page.waitForTimeout(120);
+   await page.waitForFunction(()=>document.body.classList.contains('v3-cel')&&document.querySelectorAll('#v3Cards .v3-f').length===5,null,{timeout:3000}).catch(()=>{});
    const cel=await page.evaluate(()=>{const d=getDisplayEntry(window.currentDateKey);
      const cards=[...document.querySelectorAll('#v3Cards .v3-f')];
      return {mode:document.body.classList.contains('v3-cel'),homeHidden:document.getElementById('v3Home').hidden,celHidden:document.getElementById('v3Cel').hidden,
