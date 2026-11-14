@@ -920,7 +920,7 @@ def check_corrective_audit_2026():
     assert data["2026-12-12"]["tapes"][4]["page"]=="585"
     idx=INDEX.read_text(encoding="utf-8")
     standalone=STANDALONE.read_text(encoding="utf-8")
-    assert '<main id="mainContent">' in idx and '</main>' in idx
+    assert idx.count('<main')==1 and '<main class="v3-main" id="v3Main">' in idx and '<div id="mainContent">' in idx
     assert '<footer class="footer">' in idx and '</footer>' in idx
     assert '<meta name="description"' in idx and 'rel="canonical"' in idx
     assert 'property="og:image"' in idx

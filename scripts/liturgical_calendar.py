@@ -655,7 +655,6 @@ def build_entry(day):
                  "details": [["Indicação", "A Missa termina com a transladação do Santíssimo Sacramento, sem bênção final."]]}
         note = "Missa vespertina da Ceia do Senhor. Diz-se o Glória; não há bênção final."
     elif special == "paixao":
-        tape1_override = True
         tape2["details"] = [["Celebração", "Celebração da Paixão do Senhor (não há Missa neste dia)"],
                             ["Partes", "Liturgia da Palavra, Adoração da Cruz e Sagrada Comunhão"]]
         tape4 = {"n": 4, "page": "—", "title": "Oração Eucarística — não há neste dia", "notIndicated": True,

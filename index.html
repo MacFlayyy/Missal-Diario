@@ -3815,7 +3815,8 @@ body.leaflet-reader-open .mobile-nav{z-index:145!important}
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Crimson+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#651420" />
   <script>
     /* Tema: padrão é "claro"; "escuro" e "auto" (segue o aparelho) são escolhas do usuário (aba Mais) */
@@ -4428,11 +4429,13 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
   .v3-wi,.v3-wi-in,.v3-ind,.v3-sheet,.v3-dim,.v3-toast,#v3 .v3-gt,.v3-rib{transition:none!important}
 }
 @media print{.v3-glass,.v3-sheet,.v3-dim,.v3-hb,.v3-mon,.v3-week{display:none!important}}
+/* Até o primeiro desenho do dia, o conteúdo fica invisível (sem "pulos" de layout). */
+body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
 </style>
 </head>
 <body>
 <!-- design-v3:início -->
-  <script>document.body.classList.add("v3");</script>
+  <script>document.body.classList.add("v3");setTimeout(function(){document.body.classList.add("v3-ready");},4000);</script>
   <div id="v3">
     <div class="v3-lay">
       <header class="v3-hero" id="v3Hero">
@@ -4546,7 +4549,7 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
       </div>
 </header>
 
-    <main id="mainContent">
+    <div id="mainContent">
     <div id="dateChangeAnnouncement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
     <section class="hero">
       <div class="card hero-main">
@@ -4632,7 +4635,7 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
       </div>
     </section>
 
-    </main>
+    </div>
     <footer class="footer">
       <div class="footer-credit">Site criado por Ronielly Macflay</div>
       <div class="footer-contact">
@@ -6793,8 +6796,11 @@ setupInstallButton();
 // v53: o site funciona sem Service Worker para evitar HTML/JS antigo preso no PWA.
 if("serviceWorker" in navigator){
   let swReloading=false;
+  // Na primeira visita não havia Service Worker controlando a página: ele
+  // assume o controle sem mudar nada do que já está na tela, então não recarrega.
+  const hadSwController=!!navigator.serviceWorker.controller;
   navigator.serviceWorker.addEventListener("controllerchange",()=>{
-    if(swReloading) return;
+    if(swReloading || !hadSwController) return;
     swReloading=true;
     location.reload();
   });
@@ -6953,7 +6959,7 @@ document.addEventListener("visibilitychange",async()=>{
     if(t.n===3) return cap(String(t.title||"").replace(/^Prefácio\s+(d[aeo]s?\s+)?/i,""));
     if(t.n===4){var a=det.filter(function(r){return /^Aclamação/i.test(r[0]);})[0],
       m=String(t.title||"").split("—")[0].match(/\s+para\s+(.+)$/i),
-      parts=[m?cap(m[1].trim()):"",a?clean(a[1]):""].filter(Boolean);return parts.join(" · ");}
+      ps=[m?cap(m[1].trim()):"",a?clean(a[1]):""].filter(Boolean);return ps.join(" · ");}
     if(t.n===5){var parts=String(t.title||"").split("—");return parts.length>1?parts.slice(1).join("—").trim():"";}
     return "";
   }
@@ -7075,6 +7081,7 @@ document.addEventListener("visibilitychange",async()=>{
     if(lastKey && lastKey!==key && !reduce()) $("v3Quick").animate([{opacity:.4},{opacity:1}],{duration:200,easing:"ease-out"});
     lastKey=key;
     fitHero();
+    document.body.classList.add("v3-ready");
   };
 
   /* ---------- abas e telas ---------- */
