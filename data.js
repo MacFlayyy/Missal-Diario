@@ -4444,7 +4444,11 @@ window.MISSAL_DATA = {
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
-    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf"
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-16": {
     "label": "Segunda-feira • 16/11/2026",

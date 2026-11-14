@@ -9183,7 +9183,11 @@ window.MISSAL_DATA = {
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
-    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf"
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-16": {
     "label": "Segunda-feira • 16/11/2026",
@@ -13450,13 +13454,13 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-14",
+  "availableThrough": "2026-11-15",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
     "structureAndPageIndexChecked": true,
     "originalMissalPdfCheckedInThisRun": false,
-    "dailyOfficialLeafletApplied": false,
+    "dailyOfficialLeafletApplied": true,
     "unverifiedMissalPages": []
   },
   "sundayPreview": "2026-11-15",
@@ -13465,8 +13469,8 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/61-Povo-Deus-61-15_11_33o-Domingo-TC-Versao-celular.pdf",
-  "contentVersion": "344c084ca5d081ed42aa",
-  "lastSuccessfulUpdateAt": "2026-11-13T13:14:36.447029-03:00"
+  "contentVersion": "ee9171635b626cb42331",
+  "lastSuccessfulUpdateAt": "2026-11-14T04:31:13.985741-03:00"
 };
 </script>
 <script>
@@ -15531,7 +15535,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261113-7290caa22db0",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261114-1b52b3f881ee",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
