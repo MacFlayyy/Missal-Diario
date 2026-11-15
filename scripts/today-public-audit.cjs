@@ -54,9 +54,10 @@ try{
  });
  test(c.name,'live-date-matches-brasilia-release',s.selected===expectedSelection,{selected:s.selected,expected:expectedSelection,today,status:s.status});
  test(c.name,'five-tapes-and-quick-pages',s.tapes===5&&s.quick.length===5,{tapes:s.tapes,quick:s.quick});
- const expectedQuick=await page.evaluate(()=>String(getDisplayEntry(window.currentDateKey)?.quick || ''));
+ // Um botão de página por fita (Prefácio e Oração Eucarística podem cair na mesma página).
+ const expectedPages=await page.evaluate(()=>(getDisplayEntry(window.currentDateKey)?.tapes||[]).map(t=>String(t.page)));
  const digits=v=>String(v).replace(/[^0-9?]/g,'');
- test(c.name,'quick-pages-match-current-entry',digits(s.quick.join(''))===digits(expectedQuick),{quick:s.quick,expectedQuick});
+ test(c.name,'quick-pages-match-current-entry',s.quick.length===expectedPages.length&&s.quick.every((q,i)=>digits(q)===digits(expectedPages[i])),{quick:s.quick,expectedPages});
  test(c.name,'no-horizontal-overflow',s.scrollWidth<=c.width+1,{scrollWidth:s.scrollWidth,width:c.width});
  const hero=s.boxes['#v3Hero'];
  test(c.name,'hero-visible',!!hero&&Number(hero.opacity)>0.95&&hero.w>0&&hero.h>100,hero);

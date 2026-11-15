@@ -69,6 +69,18 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
+      - name: Preparar Node para análise do código
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Analisar código (JavaScript, CSS e Python)
+        run: |
+          python -m pip install pyflakes==3.4.0
+          npm ci --prefix scripts/lint --no-audit --no-fund
+          python scripts/lint/lint_code.py
+          rm -rf scripts/lint/node_modules   # não publicar dependências no site
+
       # Cópia guardada dos pacotes do leitor de folhetos (OCR): se os servidores
       # do Ubuntu caírem, instala a partir dela.
       - name: Restaurar cópia do leitor de folhetos
