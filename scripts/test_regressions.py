@@ -750,7 +750,7 @@ def check_on_demand_calendar():
     data = read_js_json(DATA,"window.MISSAL_DATA")
     known_differences = {
         "2026-10-02", "2026-10-05", "2026-10-06",   # cadastro antigo divergia do Calendário do Missal
-        "2026-10-12", "2026-12-08", "2026-12-12",   # página do título × página das orações
+        "2026-10-12",                               # folheto indicou a página do título
         "2026-12-24", "2026-12-25",                 # formato com várias Missas (tratado à parte)
     }
     compared = 0

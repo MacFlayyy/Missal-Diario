@@ -167,3 +167,18 @@ jobs:
 
       - name: Confirmar publicação pública
         run: python scripts/check_publication.py --expected-from-local
+
+      - name: Conferir se o domingo liberado está 100% conforme o folheto
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          out="$(python scripts/check_folheto_completo.py)" && code=0 || code=$?
+          echo "$out"
+          if [ $code -eq 0 ]; then exit 0; fi
+          if [ $code -eq 2 ]; then echo "::warning title=Folheto ainda não publicado::$out"; exit 0; fi
+          echo "::error title=Folheto incompleto::$out"
+          title="Folheto do domingo incompleto — $(TZ=America/Sao_Paulo date +%d/%m/%Y)"
+          if ! gh issue list --state open --search "$title in:title" --json number -q '.[0].number' | grep -q .; then
+            printf '%s\n\nO site continua no ar com as sugestões do Missal (marcadas como "Sugestão").\n' "$out" | gh issue create --title "$title" --body-file - || true
+          fi
+          exit 1

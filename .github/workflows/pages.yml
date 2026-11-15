@@ -52,6 +52,21 @@ jobs:
       - name: Conferir páginas com o índice do Missal Romano 2023
         run: python scripts/check_missal_references.py
 
+      - name: Conferir qualidade de todos os dias, calendário e página
+        run: python scripts/check_quality.py
+
+      - name: Preparar Node para análise do código
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Analisar código (JavaScript, CSS e Python)
+        run: |
+          python -m pip install pyflakes==3.4.0
+          npm ci --prefix scripts/lint --no-audit --no-fund
+          python scripts/lint/lint_code.py
+          rm -rf scripts/lint/node_modules   # não publicar dependências no site
+
       - name: Configurar Pages
         uses: actions/configure-pages@v5
 

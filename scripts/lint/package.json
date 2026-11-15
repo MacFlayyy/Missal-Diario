@@ -1,0 +1,1 @@
+{ "private": true, "devDependencies": { "eslint": "9.39.1", "globals": "16.5.0", "stylelint": "16.25.0" } }

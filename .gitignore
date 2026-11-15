@@ -1,1 +1,9 @@
 __pycache__/
+node_modules/
+full-audit-results/
+deep-audit-results/
+mobile-audit-results/
+app-icon-*.png
+brand-logo.webp
+mobile-visual-results/
+today-audit-results/

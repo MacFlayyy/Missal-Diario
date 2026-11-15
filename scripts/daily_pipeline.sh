@@ -18,7 +18,8 @@ run_checks() {
   && python scripts/build_standalone.py \
   && python scripts/verify_daily.py \
   && python scripts/test_regressions.py \
-  && python scripts/check_missal_references.py
+  && python scripts/check_missal_references.py \
+  && python scripts/check_quality.py
 }
 
 python scripts/generate_daily.py || exit 1

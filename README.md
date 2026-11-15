@@ -23,6 +23,15 @@ Site preparado para funcionar sem atualização manual.
 - A "Preparação rápida" foi retirada: a tela inicial já mostra as páginas na ordem da Missa.
 - A camada nova (`design-v3` em `index.html`) só desenha a tela: dados, liberação das 05h, folheto, cópia e calendário perpétuo continuam nas rotinas de antes. As auditorias em `scripts/*.cjs` conferem essa tela; `AUDIT_CHROMIUM_ONLY=1` e `AUDIT_ORIGIN=http://127.0.0.1:8765/` permitem rodá-las localmente antes de publicar.
 
+## Rede de verificação automática (novembro de 2026)
+
+Nada é publicado sem passar por todas estas conferências; as auditorias de navegador também rodam todo dia às 05h45.
+
+- **`scripts/check_quality.py`** (toda publicação, diária e de código): dia da semana × data, ordem das fitas, resumo × páginas, cor × código, textos quebrados; de hoje em diante cada dia precisa bater com o calendário litúrgico, salvo partes conferidas no folheto; um único `<main>`, ids únicos e referências ARIA válidas.
+- **`scripts/lint/lint_code.py`** (toda publicação de código): ESLint nos scripts da página e no Service Worker, Stylelint no CSS e pyflakes nos scripts Python.
+- **`scripts/behavior-audit.cjs`** (Chromium e WebKit): todos os dias abrem sem erro no celular e no computador, a página não pula ao abrir, a primeira visita não recarrega, funciona offline e a virada das 05h (inclusive sábado → domingo e página aberta desde a véspera).
+- **`scripts/check_folheto_completo.py`** (atualização diária): se o domingo já liberado tem folheto e faltou reconhecer Ritos Iniciais, Prefácio ou Oração Eucarística, a execução falha e abre um aviso (issue) no GitHub.
+
 ## Publicação
 
 Este projeto foi preparado para GitHub Pages.
