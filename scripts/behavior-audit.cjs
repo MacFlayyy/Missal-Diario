@@ -77,40 +77,46 @@ async function serviceWorker() {
 }
 
 async function release() {
+  // Simula a publicação como o robô faz: em cada dia D o status libera D
+  // (e, no sábado, marca o domingo como prévia). Assim o teste não depende
+  // do status real do dia em que roda.
   const b = await chromium.launch();
-  const status = await (await fetch(ORIGIN + 'status.js')).text().catch(() => '');
-  const open = async iso => {
+  const addDays = (k, n) => { const d = new Date(k + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); };
+  const open = async (iso, statusFor) => {
     const ctx = await b.newContext({timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
     await blockBeacon(ctx);
+    await ctx.route('**/status.js*', r => {
+      const sat = new Date(statusFor + 'T12:00:00Z').getUTCDay() === 6;
+      const body = 'window.MISSAL_STATUS = ' + JSON.stringify({availableThrough: statusFor, timezone: 'America/Sao_Paulo',
+        sundayPreview: sat ? addDays(statusFor, 1) : ''}) + ';';
+      r.fulfill({status: 200, contentType: 'application/javascript', body});
+    });
     const page = await ctx.newPage();
     await page.clock.install({time: new Date(iso)});
     await page.goto(URL, {waitUntil: 'load'}); await page.clock.runFor(1500);
     return {ctx, page};
   };
-  // Data de referência: o último dia liberado pelo status (sexta e sábado da mesma semana).
-  const through = (await (async () => { const {ctx, page} = await open(new Date().toISOString()); const v = await page.evaluate(() => window.MISSAL_STATUS.availableThrough); await ctx.close(); return v; })());
-  const base = new Date(through + 'T12:00:00-03:00');
-  const day = n => { const d = new Date(base); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
-  // Procura uma sexta-feira até 6 dias antes do último dia liberado.
-  let fri = null; for (let i = 0; i <= 8; i++) { const d = new Date(day(-i) + 'T12:00:00-03:00'); if (d.getUTCDay() === 5) { fri = day(-i); break; } }
-  if (!fri) { ok('virada das 05h: sexta encontrada', false); await b.close(); return; }
-  const sat = new Date(new Date(fri + 'T12:00:00-03:00').getTime() + 864e5).toISOString().slice(0, 10);
-  const sun = new Date(new Date(fri + 'T12:00:00-03:00').getTime() + 2 * 864e5).toISOString().slice(0, 10);
-  const thu = new Date(new Date(fri + 'T12:00:00-03:00').getTime() - 864e5).toISOString().slice(0, 10);
-  const last = async iso => { const {ctx, page} = await open(iso); const v = await page.evaluate(() => getVisibleDates().slice(-1)[0]); await ctx.close(); return v; };
-  ok(`sexta ${fri} 04:59 mostra até a quinta`, await last(fri + 'T04:59:00-03:00') === thu);
-  ok(`sexta ${fri} 05:00 libera a sexta`, await last(fri + 'T05:00:30-03:00') === fri);
-  if (sun <= through) {
-    ok(`sábado ${sat} 04:59 mostra até a sexta`, await last(sat + 'T04:59:00-03:00') === fri);
-    ok(`sábado ${sat} 05:00 libera o domingo`, await last(sat + 'T05:00:30-03:00') === sun);
-  }
-  for (const [label, iso] of [['aberta às 04:59:50', fri + 'T04:59:50-03:00'], ['aberta na véspera às 22h', thu + 'T22:00:00-03:00']]) {
-    const {ctx, page} = await open(iso);
+  // Uma semana com sexta, sábado e domingo cadastrados em data.js.
+  const probe = await open(new Date().toISOString(), addDays(new Date().toISOString().slice(0, 10), -1));
+  const keys = await probe.page.evaluate(() => Object.keys(window.MISSAL_DATA).sort());
+  await probe.ctx.close();
+  const fri = keys.find(k => new Date(k + 'T12:00:00Z').getUTCDay() === 5 && keys.includes(addDays(k, 2)) && keys.includes(addDays(k, -1)));
+  if (!fri) { ok('virada das 05h: semana completa encontrada', false); await b.close(); return; }
+  const thu = addDays(fri, -1), sat = addDays(fri, 1), sun = addDays(fri, 2);
+  const last = async (iso, statusFor) => { const {ctx, page} = await open(iso, statusFor); const v = await page.evaluate(() => getVisibleDates().slice(-1)[0]); await ctx.close(); return v; };
+  // O robô publica o dia por volta das 04h; antes das 05h a página ainda mostra o dia anterior.
+  ok(`sexta ${fri} 04:59 mostra até a quinta`, await last(fri + 'T04:59:00-03:00', fri) === thu);
+  ok(`sexta ${fri} 05:00 libera a sexta`, await last(fri + 'T05:00:30-03:00', fri) === fri);
+  ok(`sábado ${sat} 04:59 mostra até a sexta`, await last(sat + 'T04:59:00-03:00', sat) === fri);
+  ok(`sábado ${sat} 05:00 libera o domingo`, await last(sat + 'T05:00:30-03:00', sat) === sun);
+  ok(`domingo ${sun} 02:00 continua mostrando o domingo`, await last(sun + 'T02:00:00-03:00', sat) === sun);
+  ok(`segunda não aparece antes da hora (domingo ${sun} 13h)`, await last(sun + 'T13:00:00-03:00', addDays(sun, 1)) === sun);
+  for (const [label, iso, statusFor] of [['aberta às 04:59:50', fri + 'T04:59:50-03:00', fri], ['aberta na véspera às 22h', thu + 'T22:00:00-03:00', fri]]) {
+    const {ctx, page} = await open(iso, statusFor);
     const before = await page.evaluate(() => window.currentDateKey);
     await page.clock.runFor(label.includes('véspera') ? 7 * 3600e3 + 180e3 : 180e3).catch(() => {});
     await page.waitForLoadState('load').catch(() => {});
     await page.clock.runFor(1500).catch(() => {});
-    await page.waitForTimeout(800);
     const after = await page.evaluate(() => window.currentDateKey);
     ok(`página ${label} avança às 05h (${before} → ${after})`, before !== fri && after === fri, after);
     await ctx.close();
