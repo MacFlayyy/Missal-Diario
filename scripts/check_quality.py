@@ -97,6 +97,12 @@ def check_data(data: dict, status: dict) -> None:
             for row in t.get("details", []):
                 if not (isinstance(row, list) and len(row) == 2 and all(isinstance(x, str) and x.strip() for x in row)):
                     fail(key, f"fita {t.get('n')} com detalhe malformado: {row!r}")
+        mass_page = str(tapes[1].get("page", "")).split()[0] if len(tapes) > 1 else ""
+        for t in tapes:
+            for row in t.get("details", []):
+                m = re.search(r"Formulário: p\. (\d+)", str(row[1]) if isinstance(row, list) and len(row) == 2 else "")
+                if m and m.group(1) != mass_page:
+                    fail(key, f"fita {t.get('n')} cita formulário na p. {m.group(1)}, mas a Missa está na p. {mass_page}")
         if d.get("color") not in COLOR_HEX:
             fail(key, f"cor desconhecida: {d.get('color')}")
         elif d.get("colorHex", "").lower() != COLOR_HEX[d["color"]]:

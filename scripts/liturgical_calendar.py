@@ -403,22 +403,23 @@ def liturgical_day(day):
                 names.append("Santa Maria no Sábado")
             info["grade"] = "Memória facultativa"
             info["saint"] = "; ".join(names)
-            info["note"] = "; ".join(names) + " — memória facultativa"
+            info["note"] = "; ".join(names) + (" — memórias facultativas" if len(names) > 1 else " — memória facultativa")
         elif optional:
             kept = [s for s in optional if s["rank"] == "M" or s.get("demoted")]
             if t["rank"] == R_PRIV_FERIA and optional:
                 info["saint"] = "; ".join(names)
                 info["note"] = ("; ".join(names) + " — neste dia pode-se fazer apenas a comemoração "
-                                "(Coleta do santo), mantendo a Missa do dia.")
+                                + ("(Coleta de um dos santos)" if len(names) > 1 else "(Coleta do santo)")
+                                + ", mantendo a Missa do dia.")
             elif kept:
-                info["saint"] = "; ".join(short_name(s["name"]) for s in kept) + " — memória omitida"
+                info["saint"] = "; ".join(short_name(s["name"]) for s in kept) + (" — memórias omitidas" if len(kept) > 1 else " — memória omitida")
                 info["note"] = info["saint"] + " neste ano."
             else:
                 info["saint"] = "; ".join(names)
-                info["note"] = "; ".join(names) + " — memória facultativa omitida neste dia."
+                info["note"] = "; ".join(names) + (" — memórias facultativas omitidas neste dia." if len(names) > 1 else " — memória facultativa omitida neste dia.")
         feasts = [s for s in others if s["rank"] in ("F",)]
         if feasts:
-            info["saint"] = "; ".join(short_name(s["name"]) for s in feasts) + " — festa omitida"
+            info["saint"] = "; ".join(short_name(s["name"]) for s in feasts) + (" — festas omitidas" if len(feasts) > 1 else " — festa omitida")
             info["note"] = info["saint"] + " neste ano."
         if not info.get("note"):
             info["note"] = (info["celebration"] + ".") if info["grade"] != "Dia de semana" \

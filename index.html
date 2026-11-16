@@ -6327,6 +6327,20 @@ function getDominicalLeafletUrl(){
     return "";
   }
 
+  // 0) Ao consultar um dia de outra semana (ex.: o domingo anterior, aberto
+  // pela faixa da semana), mostra o folheto daquele dia/semana — e não o do
+  // próximo domingo, que traz outra Missa.
+  const selected=String(window.currentDateKey || "");
+  if(selected && selected!==today){
+    const selectedUrl=directUrl(data[selected] || null);
+    if(selectedUrl) return selectedUrl;
+    // Dia de semana de outra semana: folheto do domingo daquela semana.
+    const swd=weekdayForKey(selected);
+    const selectedSunday=swd===0 ? selected : addDaysKey(selected,7-swd);
+    const selectedSundayUrl=selectedSunday!==targetSunday ? directUrl(data[selectedSunday] || null) : "";
+    if(selectedSundayUrl) return selectedSundayUrl;
+  }
+
   // 1) Um folheto próprio do dia atual tem prioridade absoluta.
   // Ele vale somente naquele dia; ao virar a data, a seleção volta para
   // a lógica dominical normal.

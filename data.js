@@ -2714,7 +2714,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Referência no Missal Romano",
-            "Formulário: p. 840; bênção: p. 586. Indicação facultativa."
+            "Formulário: p. 839; indicação da bênção: p. 840; bênção: p. 586. Indicação facultativa."
           ]
         ],
         "suggestion": true
@@ -5839,7 +5839,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Referência no Missal Romano",
-            "Formulário: p. 866; bênção: p. 586. Indicação facultativa."
+            "Formulário: p. 865; indicação da bênção: p. 866; bênção: p. 586. Indicação facultativa."
           ]
         ],
         "suggestion": true
@@ -7696,8 +7696,8 @@ window.MISSAL_DATA = {
     "season": "Advento",
     "color": "Roxa",
     "colorHex": "#6b4f7b",
-    "note": "São Pedro Canísio — memória facultativa não celebrada por cair entre 17 e 24 de dezembro",
-    "liturgicalNote": "São Pedro Canísio — memória facultativa não celebrada por cair entre 17 e 24 de dezembro",
+    "note": "São Pedro Canísio — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
+    "liturgicalNote": "São Pedro Canísio — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
       {
@@ -7880,8 +7880,8 @@ window.MISSAL_DATA = {
     "season": "Advento",
     "color": "Roxa",
     "colorHex": "#6b4f7b",
-    "note": "São João Câncio — memória facultativa não celebrada por cair entre 17 e 24 de dezembro",
-    "liturgicalNote": "São João Câncio — memória facultativa não celebrada por cair entre 17 e 24 de dezembro",
+    "note": "São João Câncio — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
+    "liturgicalNote": "São João Câncio — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
       {
@@ -8452,8 +8452,8 @@ window.MISSAL_DATA = {
     "season": "Natal",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "São Tomás Becket — memória facultativa durante a Oitava do Natal",
-    "liturgicalNote": "São Tomás Becket — memória facultativa durante a Oitava do Natal",
+    "note": "São Tomás Becket — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
+    "liturgicalNote": "São Tomás Becket — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
       {
@@ -8636,8 +8636,8 @@ window.MISSAL_DATA = {
     "season": "Natal",
     "color": "Branca",
     "colorHex": "#f7f1df",
-    "note": "São Silvestre I — memória facultativa durante a Oitava do Natal",
-    "liturgicalNote": "São Silvestre I — memória facultativa durante a Oitava do Natal",
+    "note": "São Silvestre I — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
+    "liturgicalNote": "São Silvestre I — neste dia pode-se fazer apenas a comemoração (Coleta do santo), mantendo a Missa do dia.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
       {

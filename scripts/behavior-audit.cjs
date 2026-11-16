@@ -113,14 +113,42 @@ async function release() {
   ok(`segunda não aparece antes da hora (domingo ${sun} 13h)`, await last(sun + 'T13:00:00-03:00', addDays(sun, 1)) === sun);
   for (const [label, iso, statusFor] of [['aberta às 04:59:50', fri + 'T04:59:50-03:00', fri], ['aberta na véspera às 22h', thu + 'T22:00:00-03:00', fri]]) {
     const {ctx, page} = await open(iso, statusFor);
-    const before = await page.evaluate(() => window.currentDateKey);
+    const before = await page.evaluate(() => { window.__paginaAntiga = true; return window.currentDateKey; });
     await page.clock.runFor(label.includes('véspera') ? 7 * 3600e3 + 180e3 : 180e3).catch(() => {});
-    await page.waitForLoadState('load').catch(() => {});
-    await page.clock.runFor(1500).catch(() => {});
-    const after = await page.evaluate(() => window.currentDateKey);
+    // A recarga acontece durante o avanço do relógio; espera a página nova desenhar o dia.
+    let after;
+    for (let i = 0; i < 40 && !after; i++) {
+      await page.waitForLoadState('load').catch(() => {});
+      after = await page.evaluate(() => window.__paginaAntiga ? undefined : window.currentDateKey).catch(() => undefined);
+      if (!after) await page.clock.runFor(500).catch(() => {});
+    }
     ok(`página ${label} avança às 05h (${before} → ${after})`, before !== fri && after === fri, after);
     await ctx.close();
   }
+  await b.close();
+}
+
+async function leafletOfSelectedDay() {
+  // Ao abrir um domingo anterior pela faixa da semana, o botão Folheto
+  // precisa abrir o folheto DAQUELE domingo, não o do próximo.
+  const b = await chromium.launch();
+  const ctx = await b.newContext({viewport: {width: 1280, height: 800}, timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
+  await blockBeacon(ctx);
+  const page = await ctx.newPage();
+  await page.goto(URL, {waitUntil: 'load'});
+  const res = await page.evaluate(() => {
+    const bad = []; let checked = 0;
+    const url = d => d && (d.folhetoDesktopUrl || d.folhetoUrl || d.folhetoMobileUrl || '');
+    const visible = getVisibleDates();
+    for (const k of visible) {
+      if (weekdayForKey(k) !== 0 || !url(window.MISSAL_DATA[k]) || k === brasiliaTodayKey()) continue;
+      render(k); checked++;
+      const got = getDominicalLeafletUrl(); const d = window.MISSAL_DATA[k];
+      if (![d.folhetoDesktopUrl, d.folhetoMobileUrl, d.folhetoUrl].includes(got)) bad.push(k + ' → ' + got.slice(-40));
+    }
+    return {bad, checked};
+  });
+  ok(`folheto do domingo escolhido (${res.checked} domingos)`, res.checked > 0 && res.bad.length === 0, JSON.stringify(res.bad.slice(0, 4)));
   await b.close();
 }
 
@@ -133,6 +161,7 @@ async function release() {
   await layoutShift(chromium, 'Chromium', {width: 390, height: 844});
   await layoutShift(chromium, 'Chromium', {width: 1350, height: 940});
   await serviceWorker();
+  await leafletOfSelectedDay();
   await release();
   console.log(`COMPORTAMENTO_FIM ${JSON.stringify({total, failures})}`);
   process.exit(failures ? 1 : 0);
