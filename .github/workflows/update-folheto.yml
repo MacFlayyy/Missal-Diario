@@ -54,14 +54,14 @@ jobs:
 
     steps:
       - name: Baixar repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # sempre a versão mais recente do site (execuções na fila não partem de uma cópia antiga)
           ref: main
           fetch-depth: 0
 
       - name: Preparar Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: "pip"
@@ -70,7 +70,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Preparar Node para análise do código
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
 
@@ -84,7 +84,7 @@ jobs:
       # Cópia guardada dos pacotes do leitor de folhetos (OCR): se os servidores
       # do Ubuntu caírem, instala a partir dela.
       - name: Restaurar cópia do leitor de folhetos
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/ocr-debs
           key: ocr-debs-${{ runner.os }}-noble-v1
@@ -166,17 +166,17 @@ jobs:
           exit 1
 
       - name: Configurar GitHub Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Preparar arquivos do site
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "."
 
       - name: Publicar no GitHub Pages
         id: deployment
         continue-on-error: true
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       # O GitHub às vezes ainda não "enxerga" o pacote recém-enviado e a
       # publicação falha por alguns segundos. Espera e tenta de novo.
@@ -187,7 +187,7 @@ jobs:
       - name: Publicar de novo (2ª tentativa)
         id: deployment2
         if: steps.deployment.outcome == 'failure'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Confirmar publicação pública
         run: python scripts/check_publication.py --expected-from-local

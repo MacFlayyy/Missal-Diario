@@ -25,7 +25,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Baixar repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           # Sempre a versão mais recente do main: evita publicar um commit
           # antigo por cima dos dados que a atualização diária já salvou.
@@ -56,7 +56,7 @@ jobs:
         run: python scripts/check_quality.py
 
       - name: Preparar Node para análise do código
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
 
@@ -68,17 +68,17 @@ jobs:
           rm -rf scripts/lint/node_modules   # não publicar dependências no site
 
       - name: Configurar Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Enviar arquivos
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "."
 
       - name: Publicar
         id: deployment
         continue-on-error: true
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       # O GitHub às vezes ainda não "enxerga" o pacote recém-enviado e a
       # publicação falha por alguns segundos. Espera e tenta de novo.
@@ -89,7 +89,7 @@ jobs:
       - name: Publicar de novo (2ª tentativa)
         id: deployment2
         if: steps.deployment.outcome == 'failure'
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
       - name: Confirmar versão pública (HTML, dados e status)
         run: python scripts/check_publication.py --expected-from-local
