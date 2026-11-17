@@ -4495,7 +4495,6 @@ body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
             <a href="https://www.instagram.com/macflayyy/" target="_blank" rel="noopener noreferrer" aria-label="Instagram @macflayyy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="16.6" cy="7.4" r=".6"/></svg>@macflayyy</a>
           </div>
           <small>Missal Romano CNBB 2023 + folheto O Povo de Deus da Arquidiocese de Brasília quando disponível.</small>
-          <small id="v3Upd"></small>
         </footer>
       </main>
     </div>
@@ -7134,7 +7133,6 @@ document.addEventListener("visibilitychange",async()=>{
     $("v3NoteCel").innerHTML=nh; $("v3NoteCel").hidden=!nh;
     var sp=getSundayPreview();
     $("v3SundayNote").hidden=!sp || key===sp;
-    $("v3Upd").textContent=($("lastUpdateText")||{}).textContent||"";
   }
   var lastKey=null;
   window.v3Render=function(key){
