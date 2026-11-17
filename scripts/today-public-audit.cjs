@@ -100,6 +100,8 @@ try{
  if(c.name==='desktop'&&leaflet&&!process.env.AUDIT_SKIP_PDF){
   // No computador o folheto abre dentro do site: as páginas precisam aparecer
   // (desenhadas pelo pdf.js ou, se ele falhar, pelo visualizador do navegador).
+  const reasons=[];page.on('console',m=>{if(/Folheto/.test(m.text()))reasons.push(m.text().slice(0,160))});
+  const t0=Date.now();
   await page.locator('[data-v3-act="leaflet"]:visible').first().click();
   const mode=await page.waitForFunction(()=>{
     if(document.querySelector('#leafletCanvasPages .leaflet-canvas-page[data-rendered]'))return 'paginas';
@@ -107,7 +109,9 @@ try{
     if(f&&!f.hidden&&f.getAttribute('src'))return 'visualizador-do-navegador';
     return false;
   },null,{timeout:45000}).then(h=>h.jsonValue()).catch(()=>'nada-apareceu');
-  test(c.name,'leaflet-pages-appear',mode!=='nada-apareceu',{mode});
+  const seconds=Math.round((Date.now()-t0)/100)/10;
+  test(c.name,'leaflet-pages-appear',mode!=='nada-apareceu',{mode,seconds,reasons});
+  if(seconds>8)warn(c.name,'leaflet-slow',{seconds,mode});
   await capture(page,c.name+'-leaflet');
   await page.locator('#leafletReaderClose').click().catch(()=>{});
  }
