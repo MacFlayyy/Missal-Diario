@@ -99,14 +99,19 @@ try{
  test(c.name,'leaflet-direct-pdf',/^https:\/\/.+\.pdf(?:\?|#|$)/.test(leaflet),{url:leaflet});
  if(c.name==='desktop'&&leaflet&&!process.env.AUDIT_SKIP_PDF){
   // No computador o folheto abre o PDF oficial da Arquidiocese em outra aba.
+  // A aba nova pode baixar o PDF em vez de mostrá-lo (navegador sem
+  // visualizador); por isso confere o endereço pedido, não o da aba.
+  let pdfReq='';
+  const onReq=r=>{if(!pdfReq&&/\.pdf(?:[?#]|$)/i.test(r.url()))pdfReq=r.url()};
+  page.context().on('request',onReq);
   const [pop]=await Promise.all([
    page.context().waitForEvent('page',{timeout:15000}).catch(()=>null),
    page.locator('[data-v3-act="leaflet"]:visible').first().click()
   ]);
-  if(pop)await pop.waitForURL(/\.pdf/i,{timeout:20000}).catch(()=>{});
-  const popUrl=pop?pop.url():'';
+  for(let i=0;i<30&&!pdfReq;i++)await page.waitForTimeout(500);
+  page.context().off('request',onReq);
   const readerHidden=await page.evaluate(()=>document.getElementById('leafletReader').hidden);
-  test(c.name,'leaflet-opens-official-tab',!!pop&&popUrl===leaflet&&readerHidden,{popUrl,leaflet,readerHidden});
+  test(c.name,'leaflet-opens-official-tab',!!pop&&pdfReq===leaflet&&readerHidden,{pdfReq,leaflet,readerHidden,newTab:!!pop});
   if(pop)await pop.close().catch(()=>{});
  }
  }catch(e){test(c.name,'test-complete',false,{error:String(e.stack||e).slice(0,650)})}
