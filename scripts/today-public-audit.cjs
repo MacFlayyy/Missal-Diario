@@ -98,22 +98,16 @@ try{
  const leaflet=await page.evaluate(()=>getDominicalLeafletUrl());
  test(c.name,'leaflet-direct-pdf',/^https:\/\/.+\.pdf(?:\?|#|$)/.test(leaflet),{url:leaflet});
  if(c.name==='desktop'&&leaflet&&!process.env.AUDIT_SKIP_PDF){
-  // No computador o folheto abre dentro do site: as páginas precisam aparecer
-  // (desenhadas pelo pdf.js ou, se ele falhar, pelo visualizador do navegador).
-  const reasons=[];page.on('console',m=>{if(/Folheto/.test(m.text()))reasons.push(m.text().slice(0,160))});
-  const t0=Date.now();
-  await page.locator('[data-v3-act="leaflet"]:visible').first().click();
-  const mode=await page.waitForFunction(()=>{
-    if(document.querySelector('#leafletCanvasPages .leaflet-canvas-page[data-rendered]'))return 'paginas';
-    const f=document.getElementById('leafletReaderFrame');
-    if(f&&!f.hidden&&f.getAttribute('src'))return 'visualizador-do-navegador';
-    return false;
-  },null,{timeout:45000}).then(h=>h.jsonValue()).catch(()=>'nada-apareceu');
-  const seconds=Math.round((Date.now()-t0)/100)/10;
-  test(c.name,'leaflet-pages-appear',mode!=='nada-apareceu',{mode,seconds,reasons});
-  if(seconds>8)warn(c.name,'leaflet-slow',{seconds,mode});
-  await capture(page,c.name+'-leaflet');
-  await page.locator('#leafletReaderClose').click().catch(()=>{});
+  // No computador o folheto abre o PDF oficial da Arquidiocese em outra aba.
+  const [pop]=await Promise.all([
+   page.context().waitForEvent('page',{timeout:15000}).catch(()=>null),
+   page.locator('[data-v3-act="leaflet"]:visible').first().click()
+  ]);
+  if(pop)await pop.waitForURL(/\.pdf/i,{timeout:20000}).catch(()=>{});
+  const popUrl=pop?pop.url():'';
+  const readerHidden=await page.evaluate(()=>document.getElementById('leafletReader').hidden);
+  test(c.name,'leaflet-opens-official-tab',!!pop&&popUrl===leaflet&&readerHidden,{popUrl,leaflet,readerHidden});
+  if(pop)await pop.close().catch(()=>{});
  }
  }catch(e){test(c.name,'test-complete',false,{error:String(e.stack||e).slice(0,650)})}
  finally{await ctx.close();await browser.close()}

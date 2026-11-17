@@ -6558,14 +6558,15 @@ function closeLeafletReader(restoreFocus=true,fromHistory=false){
     leafletReaderPreviousFocus.focus({preventScroll:true});
   leafletReaderPreviousFocus=null;
 }
+const LEAFLET_OPENS_ORIGINAL_TAB=true;
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
   if(!url){notifyUser("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
-  // Safari/Android podem ampliar, cortar ou mostrar só a primeira página
-  // quando um PDF externo é incorporado. Sem autorização para hospedar
-  // cópias, no celular a leitura completa deve usar o PDF oficial.
-  // O clique é síncrono à ação do usuário para evitar bloqueadores de pop-up.
-  if(isMobileLeafletDevice()){
+  // O folheto é da Arquidiocese de Brasília: o site só leva ao PDF oficial,
+  // em outra aba, no celular e no computador (não mostra o arquivo dentro
+  // do site). O clique é síncrono à ação do usuário para evitar bloqueadores
+  // de pop-up.
+  if(LEAFLET_OPENS_ORIGINAL_TAB || isMobileLeafletDevice()){
     const link=document.createElement("a");
     link.href=url;
     link.target="_blank";

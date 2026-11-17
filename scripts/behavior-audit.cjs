@@ -208,21 +208,20 @@ async function backButton() {
   const after = await page.evaluate(() => ({len: history.length, state: history.state}));
   ok('fechar pelo X não deixa histórico sobrando', !(after.state && after.state.v3sheet), JSON.stringify(after));
   await b.close();
-  // Folheto aberto dentro do site (tablet): voltar fecha o leitor.
+  // No computador o folheto abre o PDF oficial em outra aba (não dentro do site).
   const b2 = await chromium.launch();
-  const ctx2 = await b2.newContext({viewport: {width: 1024, height: 768}, timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
+  const ctx2 = await b2.newContext({viewport: {width: 1280, height: 800}, timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
   await blockBeacon(ctx2);
-  await ctx2.route(/\.pdf(?:[?#]|$)/i, r => r.abort());
   const p2 = await ctx2.newPage();
   await p2.goto(URL, {waitUntil: 'load'}); await p2.waitForTimeout(600);
-  const has = await p2.evaluate(() => !!getDominicalLeafletUrl());
-  if (has) {
-    await p2.evaluate(() => openDominicalLeaflet()); await p2.waitForTimeout(400);
-    const readerOpen = await p2.evaluate(() => !document.getElementById('leafletReader').hidden);
-    await p2.goBack(); await p2.waitForTimeout(500);
-    const readerClosed = await p2.evaluate(() => document.getElementById('leafletReader').hidden);
-    ok('voltar fecha o leitor do folheto sem sair do site', readerOpen && readerClosed && p2.url().startsWith(URL.replace(/index\.html$/, '')));
-  }
+  const res = await p2.evaluate(() => {
+    const url = getDominicalLeafletUrl(); if (!url) return null;
+    let got = null; const orig = HTMLAnchorElement.prototype.click;
+    HTMLAnchorElement.prototype.click = function(){ got = {href: this.href, target: this.target}; };
+    try { openDominicalLeaflet(); } finally { HTMLAnchorElement.prototype.click = orig; }
+    return {url, got, readerHidden: document.getElementById('leafletReader').hidden};
+  });
+  if (res) ok('no computador o folheto abre o PDF oficial em outra aba', !!res.got && res.got.href === res.url && res.got.target === '_blank' && res.readerHidden);
   await b2.close();
 }
 

@@ -188,28 +188,19 @@ async function run(config){
    const expectedLeaflet=await page.evaluate(()=>getDominicalLeafletUrl());
    if(!expectedLeaflet){
      mark(row,'leaflet-unavailable-is-explained',/ainda não está disponível/.test(await page.evaluate(()=>openDominicalLeaflet.toString())),{url:expectedLeaflet});
-   }else if(config.w>700){
-     await page.locator(wide?'[data-v3-act="leaflet"]:visible':'.v3-gt[data-v3-tab="leaflet"]').first().click();
-     const inlineReader=await page.evaluate(()=>{
-       const panel=document.getElementById('leafletReader'),frame=document.getElementById('leafletReaderFrame'),original=document.getElementById('leafletReaderExternal');
-       return {open:!panel.hidden,official:frame.getAttribute('data-official-pdf'),original:original.href,
-         responsivePages:typeof renderLeafletPages==='function'&&!!document.getElementById('leafletCanvasPages'),
-         bodyLocked:getComputedStyle(document.body).position==='fixed',
-         tab:[...document.querySelectorAll('.v3-gt.on')].map(b=>b.dataset.v3Tab).join()};
-     });
-     mark(row,'official-leaflet-opens-inside-site',inlineReader.open&&/^https:\/\/.+\.pdf(?:[?#]|$)/i.test(inlineReader.official||'')&&
-       inlineReader.official===expectedLeaflet&&inlineReader.original===expectedLeaflet&&inlineReader.responsivePages&&inlineReader.bodyLocked&&
-       (wide||inlineReader.tab==='leaflet'),inlineReader);
-     await page.locator('#leafletReaderClose').click();
-     const closedReader=await page.evaluate(()=>({hidden:document.getElementById('leafletReader').hidden,
-       src:document.getElementById('leafletReaderFrame').getAttribute('src'),unlocked:getComputedStyle(document.body).position!=='fixed',
-       tab:[...document.querySelectorAll('.v3-gt.on')].map(b=>b.dataset.v3Tab).join()}));
-     mark(row,'leaflet-reader-closes-cleans-frame-restores-scroll',closedReader.hidden&&closedReader.src===null&&closedReader.unlocked&&closedReader.tab==='home',closedReader);
    }else{
-     const mobileLeaflet=await page.evaluate(()=>({url:getDominicalLeafletUrl(),
-       originalDirect:/link\.target="_blank"/.test(openDominicalLeaflet.toString()),
-       noThirdPartyPreview:!leafletFallbackFrame.toString().includes('docs.google.com')}));
-     mark(row,'mobile-official-leaflet-direct-link',mobileLeaflet.url===expectedLeaflet&&mobileLeaflet.originalDirect&&mobileLeaflet.noThirdPartyPreview,mobileLeaflet);
+     // Em qualquer tela o folheto abre o PDF oficial da Arquidiocese em outra aba.
+     const sel=config.w>700?(wide?'[data-v3-act="leaflet"]':'.v3-gt[data-v3-tab="leaflet"]'):'.v3-gt[data-v3-tab="leaflet"]';
+     const leafletTab=await page.evaluate(sel=>{
+       let got=null;const orig=HTMLAnchorElement.prototype.click;
+       HTMLAnchorElement.prototype.click=function(){got={href:this.href,target:this.target,rel:this.rel};};
+       try{const btn=[...document.querySelectorAll(sel)].find(el=>el.offsetParent!==null);if(btn)btn.click();}
+       finally{HTMLAnchorElement.prototype.click=orig;}
+       return {got,readerHidden:document.getElementById('leafletReader').hidden,
+         noThirdPartyPreview:!leafletFallbackFrame.toString().includes('docs.google.com')};
+     },sel);
+     mark(row,'official-leaflet-opens-in-new-tab',!!leafletTab.got&&leafletTab.got.href===expectedLeaflet&&leafletTab.got.target==='_blank'&&
+       /noopener/.test(leafletTab.got.rel)&&leafletTab.readerHidden&&leafletTab.noThirdPartyPreview,leafletTab);
    }
 
    /* ---- Mais opções e tema ---- */
