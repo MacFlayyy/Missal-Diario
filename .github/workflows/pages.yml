@@ -20,7 +20,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment2.outputs.page_url }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -77,6 +77,18 @@ jobs:
 
       - name: Publicar
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      # O GitHub às vezes ainda não "enxerga" o pacote recém-enviado e a
+      # publicação falha por alguns segundos. Espera e tenta de novo.
+      - name: Aguardar o GitHub antes de tentar de novo
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 45
+
+      - name: Publicar de novo (2ª tentativa)
+        id: deployment2
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
       - name: Confirmar versão pública (HTML, dados e status)
