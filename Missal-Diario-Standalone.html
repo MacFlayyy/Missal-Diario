@@ -4193,12 +4193,12 @@ html.theme-dark body.v3{--v-bg:#000;--v-card:#1c1c1e;--v-ink:#fff;--v-soft:#b8b8
   --v-tint:#2c2c2e;--v-ok:#8fd19a;--v-okbg:#1f3323;--v-tag:#2c2c2e;--v-sh:none;
   --gl-sat:180%;--gl-t:rgba(60,60,64,.42);--gl-b:rgba(30,30,32,.38);--gl-br:.92;--gl-line:rgba(255,255,255,.22);--gl-hi:rgba(255,255,255,.28);
   --gl-ind:rgba(255,255,255,.16);--gl-indl:rgba(255,255,255,.22);--gl-ink:#e5e5ea;--gl-on:#fff;--gl-hole:#4a4a4e;--gl-ts:rgba(0,0,0,.4)}
-html:has(body.v3){background:#f3efe9!important}
-html.theme-dark:has(body.v3){background:#000!important}
+html.v3-html{background:#f3efe9!important}
+html.theme-dark.v3-html{background:#000!important}
 /* No iPhone, o "elástico" do topo mostra vinho (como o cabeçalho), e o de baixo o fundo da página */
 @media (max-width:899px){
-  html:has(body.v3){background:linear-gradient(#5e121c 0 50%,#f3efe9 50% 100%)!important}
-  html.theme-dark:has(body.v3){background:linear-gradient(#5e121c 0 50%,#000 50% 100%)!important}
+  html.v3-html{background:linear-gradient(#5e121c 0 50%,#f3efe9 50% 100%)!important}
+  html.theme-dark.v3-html{background:linear-gradient(#5e121c 0 50%,#000 50% 100%)!important}
 }
 /* O leitor do folheto fica por cima de tudo; a barra some enquanto ele está aberto */
 body.v3.leaflet-reader-open .v3-glass{display:none}
@@ -4434,11 +4434,17 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
 body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
 /* Dia da semana e data nunca quebram no meio ("Terça-/feira"). */
 .v3-nw{white-space:nowrap}
+/* Impressão: sem fundo vinho sobrando, sem barra flutuante nem janelas. */
+@media print{
+  html.v3-html,html.theme-dark.v3-html{background:#fff!important}
+  body.v3{background:#fff!important}
+  #v3 .v3-glass,#v3 .v3-sheet,#v3Dim,#v3 .v3-toast{display:none!important}
+}
 </style>
 </head>
 <body>
 <!-- design-v3:início -->
-  <script>document.body.classList.add("v3");setTimeout(function(){document.body.classList.add("v3-ready");},4000);</script>
+  <script>document.body.classList.add("v3");document.documentElement.classList.add("v3-html");setTimeout(function(){document.body.classList.add("v3-ready");},4000);</script>
   <div id="v3">
     <div class="v3-lay">
       <header class="v3-hero" id="v3Hero">
@@ -11658,10 +11664,15 @@ window.MISSAL_DATA = {
         "title": "Prefácio da Bem-aventurada Virgem Maria I",
         "details": [
           [
+            "Título",
+            "A maternidade da Bem-aventurada Virgem Maria"
+          ],
+          [
             "Uso",
-            "Indicado no próprio da festa"
+            "Sugestão"
           ]
-        ]
+        ],
+        "suggestion": true
       },
       {
         "n": 4,
@@ -14923,7 +14934,7 @@ document.addEventListener("keydown",event=>{
 document.getElementById("datePickerBtn").addEventListener("click",()=>{
   const menu = document.getElementById("dateMenu");
   if(menu.hidden){
-    calendarCursor=(window.currentDateKey || getVisibleDates().at(-1) || brasiliaTodayKey()).slice(0,7);
+    calendarCursor=(window.currentDateKey || getVisibleDates().slice(-1)[0] || brasiliaTodayKey()).slice(0,7);
     buildDateMenu();
   }
   if(menu.hidden){
@@ -14966,7 +14977,7 @@ const visibleDates = getVisibleDates();
 const todayKey = brasiliaTodayKey();
 const initialKey = visibleDates.includes(todayKey)
   ? todayKey
-  : (visibleDates.at(-1) || todayKey);
+  : (visibleDates.slice(-1)[0] || todayKey);
 
 render(initialKey);
 
@@ -15746,7 +15757,7 @@ document.addEventListener("visibilitychange",async()=>{
 
   function origin(d,t){
     if(t.verifiedByFolheto) return ["Conferido no folheto",true];
-    if(t.fromMissal) return ["Indicada no Missal",true];
+    if(t.fromMissal) return [t.n===3?"Indicado no Missal":"Indicada no Missal",true];
     if(t.suggestion) return ["Sugestão",false];
     if(t.n===2 && !t.pageUnverified && !noPageIndicated(t)){
       if(d.grade==="Dia de semana" && /Tempo Comum/i.test(String(d.season||""))) return ["Missa do domingo da semana",false];
@@ -15762,6 +15773,7 @@ document.addEventListener("visibilitychange",async()=>{
   }
   function summary(t,d){
     var det=t.details||[];
+    if(t.notIndicated && !/\d/.test(String(t.page||""))) return "Não há neste dia";
     if(t.n===1) return det.map(function(r){return clean(r[0]);}).filter(Boolean).join(" · ");
     if(t.n===2){ var tt=String(t.title||"").trim(); return (/^missa( do dia)?$/i.test(tt) && d && d.celebration) ? d.celebration : tt; }
     if(t.n===3) return cap(String(t.title||"").replace(/^Prefácio\s+(d[aeo]s?\s+)?/i,""));

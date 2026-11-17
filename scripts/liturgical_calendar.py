@@ -273,7 +273,15 @@ def _saint_color(name, key=""):
 
 def short_name(name):
     """Nome do santo sem os títulos (", bispo e doutor da Igreja")."""
-    return re.split(r",\s*(?=[a-zà-ú])", name)[0].strip()
+    # Mantém os outros nomes ("e Metódio", "e companheiros"); tira só os títulos.
+    parts = [p.strip().rstrip(".") for p in name.split(",") if p.strip()]
+    out = parts[0]
+    for part in parts[1:]:
+        if part.startswith("e ") and (part[2:3].isupper() or part.startswith("e companheiros")):
+            out += " " + part
+        elif part[:1].isupper():
+            out += ", " + part
+    return out
 
 
 def _is_blocked(day):
@@ -379,6 +387,8 @@ def liturgical_day(day):
         )
         if celebrated.get("vigil"):
             info["vigil_page"] = celebrated["vigil"]
+        if celebrated.get("hint"):
+            info["hint"] = celebrated["hint"]
         if celebrated.get("transferred_from"):
             info["note"] = (f"{info['grade']} transferida de "
                             f"{celebrated['transferred_from']:%d/%m} conforme o calendário litúrgico do Brasil.")
@@ -474,12 +484,29 @@ def _season_preface(info, t):
     return _ordinary_preface(SEASON_PREFACE.get(season, 509))
 
 
+# Dias em que o próprio formulário do Missal manda um prefácio só, sem
+# alternativa (rubrica "Prefácio ..., p. N." conferida no texto do Missal).
+PRESCRIBED_PREFACE = {
+    "natal-noite", "mae-de-deus", "epifania-vigilia", "epifania",
+    "qua-5-1", "qua-5-2", "qua-5-3", "qua-5-4", "qua-5-5", "qua-5-6",
+    "ss-1", "ss-2", "ss-3", "ceia", "vigilia-pascal", "pascoa",
+    "oitava-1", "oitava-2", "oitava-3", "oitava-4", "oitava-5", "oitava-6", "pas-2-0",
+}
+
+
+# Santos cujo formulário manda um prefácio só (rubrica conferida no Missal).
+SANCT_PRESCRIBED_PREFACE = {"01-25": "498", "02-22": "498", "04-25": "499",
+                            "05-31": "494", "07-09": "508", "10-18": "499"}
+
+
 def _preface(info, t):
     if info["source"] == "santos" and not info.get("seasonal_preface"):
         own = info["sanct"].get("preface")
-        if own:
-            return dict(own)
-        return _ordinary_preface(KIND_PREFACE[info["kind"]])
+        pref = dict(own) if own else _ordinary_preface(KIND_PREFACE[info["kind"]])
+        if info["sanct"]["key"] in SANCT_PRESCRIBED_PREFACE:
+            assert str(pref["page"]) == SANCT_PRESCRIBED_PREFACE[info["sanct"]["key"]]
+            pref["prescribed"] = True
+        return pref
     if info["source"] == "santos":          # memória em tempo forte
         return _season_preface(info, t)
     own = TEMPORAL[t["key"]].get("preface")
@@ -497,7 +524,10 @@ def _preface(info, t):
     if t["key"].startswith(("natal-feria-", "pas-7-")) or t["key"] == "adv-3-0":
         return _season_preface(info, t)
     if own:
-        return dict(own)
+        pref = dict(own)
+        if t["key"] in PRESCRIBED_PREFACE:
+            pref["prescribed"] = True
+        return pref
     if t["season"] == "Tempo Comum":
         return _ordinary_preface(477 if info["is_sunday"] else 509)
     if t["key"] == "paixao":
@@ -568,18 +598,82 @@ def _blessing(info, t):
 OE_RESPONSE = "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
 
 
+# Nomes conferidos nos títulos do Missal (pp. 451–521 e prefácios próprios),
+# escritos com a grafia usada no site. O título exibido sai sempre daqui, para
+# que nenhum ano futuro mostre título cortado, sem subtítulo ou com maiúsculas
+# erradas.
+PREFACE_NAMES = {
+    "451": ("Prefácio do Advento I", "As duas vindas de Cristo"),
+    "453": ("Prefácio do Advento II", "A dupla espera de Cristo"),
+    "455": ("Prefácio do Natal do Senhor I", "Cristo luz"),
+    "458": ("Prefácio da Epifania do Senhor", "Cristo, luz dos povos"),
+    "459": ("Prefácio da Quaresma I", "O sentido espiritual da Quaresma"),
+    "461": ("Prefácio da Quaresma III", "Os frutos da abstinência"),
+    "464": ("Prefácio da Paixão do Senhor I", "O poder da cruz"),
+    "465": ("Prefácio da Paixão do Senhor II", "A vitória da Paixão"),
+    "466": ("Prefácio da Páscoa I", "O mistério pascal"),
+    "471": ("Prefácio da Ascensão do Senhor I", "O mistério da Ascensão"),
+    "473": ("Prefácio depois da Ascensão do Senhor", "Na espera da vinda do Espírito"),
+    "477": ("Prefácio dos Domingos do Tempo Comum IV", "A história da salvação"),
+    "486": ("Prefácio da Santíssima Eucaristia I", "Sacrifício e sacramento de Cristo"),
+    "493": ("Prefácio da Bem-aventurada Virgem Maria I", "A maternidade da Bem-aventurada Virgem Maria"),
+    "494": ("Prefácio da Bem-aventurada Virgem Maria II", "A Igreja louva a Deus com as palavras de Maria"),
+    "498": ("Prefácio dos Apóstolos I", "Os Apóstolos, pastores do povo de Deus"),
+    "499": ("Prefácio dos Apóstolos II", "A Igreja fundada sobre os Apóstolos e o seu testemunho"),
+    "500": ("Prefácio dos Santos I", "A glória dos Santos"),
+    "502": ("Prefácio dos Santos Mártires I", "O testemunho do martírio"),
+    "504": ("Prefácio dos Santos Pastores I", "A presença dos Santos Pastores na Igreja"),
+    "506": ("Prefácio dos Santos Doutores da Igreja I", "Os Doutores da Igreja, reflexo da sabedoria"),
+    "508": ("Prefácio das Santas Virgens e Religiosos", "O sinal da vida consagrada a Deus"),
+    "509": ("Prefácio Comum I", "A restauração universal em Cristo"),
+    "521": ("Prefácio dos Defuntos IV", "Da vida terrena à glória do céu"),
+}
+PROPER_PREFACE_NAMES = {
+    "159": "O Batismo do Senhor", "171": "A tentação do Senhor", "178": "A Transfiguração do Senhor",
+    "187": "A Samaritana", "196": "O cego de nascença", "204": "Lázaro", "226": "A Paixão do Senhor",
+    "242": "O sacerdócio de Cristo e o ministério dos sacerdotes",
+    "379": "O mistério de Pentecostes", "418": "O mistério da Santíssima Trindade",
+    "423": "O imenso amor de Cristo", "426": "Jesus Cristo, Rei do Universo",
+    "674": "O mistério da Apresentação do Senhor", "690": "A missão de São José",
+    "694": "O mistério da Encarnação", "721": "Maria, imagem e Mãe da Igreja",
+    "735": "A missão do Precursor", "741": "A dupla missão de Pedro e Paulo na Igreja",
+    "755": "Apóstola dos Apóstolos", "768": "O mistério da Transfiguração",
+    "781": "A glória da Assunção de Maria", "793": "A missão do Precursor",
+    "801": "A vitória da Cruz gloriosa", "813": "A glorificação de Deus pela veneração dos Anjos",
+    "818": "A glorificação de Deus pela veneração dos Anjos", "828": "Do mistério de Maria e da Igreja",
+    "843": "A glória de Jerusalém, nossa mãe",
+    "852": "O mistério da Igreja, esposa de Cristo e templo do Espírito Santo",
+    "873": "Do mistério de Maria e da Igreja",
+}
+
+
 def _tape_preface(pref):
+    if pref:
+        page = str(pref["page"])
+        pref = dict(pref)
+        if pref["title"] == "Prefácio próprio":
+            pref["subtitle"] = PROPER_PREFACE_NAMES[page]
+        else:
+            pref["title"], pref["subtitle"] = PREFACE_NAMES[page]
     if not pref:
         return {"n": 3, "page": "—", "title": "Prefácio — não há neste dia", "notIndicated": True,
                 "details": [["Indicação", "Nesta celebração não há Prefácio."]]}
     extra = [["Atenção", pref["alt"]]] if pref.get("alt") else []
     if pref["title"] == "Prefácio próprio":
         return {"n": 3, "page": pref["page"], "title": "Prefácio próprio — " + pref["subtitle"],
-                "details": [["Uso", "No próprio formulário da celebração"]] + extra}
-    use = ("Indicado pelo Missal para este ano litúrgico" if pref.get("by_year")
+                "details": [["Uso", "No próprio formulário da celebração"]] + extra, "fromMissal": True}
+    use = ("Indicado no próprio formulário da Missa" if pref.get("prescribed")
+           else "Indicado pelo Missal para este ano litúrgico" if pref.get("by_year")
            else "Indicado pela rubrica do Missal para estes dias" if pref.get("by_rubric") else "Sugestão")
     details = ([["Título", pref["subtitle"]]] if pref.get("subtitle") else []) + [["Uso", use]] + extra
-    return {"n": 3, "page": pref["page"], "title": pref["title"], "details": details, "suggestion": True}
+    tape = {"n": 3, "page": pref["page"], "title": pref["title"], "details": details}
+    # Só é "indicado" quando o formulário manda um prefácio sem alternativa;
+    # rubricas com "ou" continuam sendo escolha (sugestão).
+    if pref.get("prescribed"):
+        tape["fromMissal"] = True
+    else:
+        tape["suggestion"] = True
+    return tape
 
 
 def _tape_oe(solemn, sunday=False):

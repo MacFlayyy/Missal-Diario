@@ -39,6 +39,12 @@ async function allDays(browserType, label, viewport) {
       if (document.getElementById('v3Title').textContent.trim() !== e.celebration) bad.push(k + ' título diferente');
       if (document.querySelectorAll('#v3List .v3-r').length !== 5) bad.push(k + ' fitas ≠ 5');
       if (document.documentElement.scrollWidth > innerWidth + 1) bad.push(k + ' rolagem horizontal');
+      const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+      const mon = ((document.getElementById('v3MonthLabel') || {}).textContent || '').toLowerCase();
+      if (!mon.includes(MESES[+k.slice(5, 7) - 1])) bad.push(k + ' mês errado no botão: ' + mon);
+      const marcados = [...document.querySelectorAll('#v3Week button[aria-pressed="true"]')].map(b => b.dataset.date);
+      if (marcados.length !== 1 || marcados[0] !== k) bad.push(k + ' destaque da semana: ' + marcados);
+      for (const w of document.querySelectorAll('#v3Week button')) if (!window.MISSAL_DATA[w.dataset.date] && !w.disabled) bad.push(k + ' dia sem dados clicável ' + w.dataset.date);
       // "Terça-feira • 17/11/2026" nunca pode quebrar no meio (ex.: "Terça-" / "feira").
       window.v3SetView && window.v3SetView('cel');
       await new Promise(r => requestAnimationFrame(r));

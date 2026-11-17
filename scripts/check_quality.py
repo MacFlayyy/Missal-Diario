@@ -84,9 +84,11 @@ def check_data(data: dict, status: dict) -> None:
         if [t.get("n") for t in tapes] != [1, 2, 3, 4, 5]:
             fail(key, f"fitas fora de ordem: {[t.get('n') for t in tapes]}")
         pages, quick = [str(t.get("page", "")) for t in tapes], []
-        for p in pages:
+        for t, p in zip(tapes, pages):
             if not p or p == "—":
-                fail(key, f"fita sem página: {pages}")
+                # Tríduo Pascal: fitas que não existem no dia vêm marcadas como "não indicada".
+                if not t.get("notIndicated"):
+                    fail(key, f"fita {t.get('n')} sem página: {pages}")
             elif not quick or quick[-1] != p:
                 quick.append(p)
         if d.get("quick", "").replace(" ", "") != "→".join(quick).replace(" ", ""):
@@ -143,6 +145,116 @@ def check_calendar(data: dict) -> None:
                 fail(key, f"fita {i + 1} p. {got} ≠ calendário p. {want} (sem folheto que justifique)")
 
 
+VERIFIED_PAIRS = ROOT / "scripts" / "missal_pages_verified.json"
+
+
+def forever_years() -> list[int]:
+    """Anos que cobrem TODOS os casos possíveis do calendário, para sempre.
+
+    O ano litúrgico inteiro depende só de duas coisas: a data da Páscoa
+    (35 datas possíveis) e se o ano é bissexto. São no máximo 70 tipos de ano;
+    pegamos o primeiro ano de cada tipo a partir de hoje (até 9999), mais os
+    próximos anos seguidos. Se todos esses anos estão certos, qualquer ano
+    futuro também está, porque ele repete um desses tipos.
+    """
+    import calendar as cal
+    this = datetime.now(ZoneInfo("America/Sao_Paulo")).date().year
+    years = {this, this + 1, this + 2}
+    seen = set()
+    for y in range(this, 10000):
+        e = lc.easter(y)
+        kind = (e.month, e.day, cal.isleap(y))
+        if kind not in seen:
+            seen.add(kind)
+            years.add(y)
+    if len(seen) != 70:
+        fail("calendário", f"esperava 70 tipos de ano, achei {len(seen)}")
+    return sorted(years)
+
+
+def expected_cycle(day: date) -> tuple[str, str]:
+    """Cálculo independente do ciclo de leituras, para conferir o motor.
+
+    O ano litúrgico começa no 1º Domingo do Advento (domingo entre 27/11 e
+    3/12). Domingos: A, B, C conforme o resto da divisão do ano por 3
+    (1 → A, 2 → B, 0 → C). Dias de semana do Tempo Comum: Ano I nos anos
+    ímpares, Ano II nos pares.
+    """
+    from datetime import timedelta
+    nov27 = date(day.year, 11, 27)
+    advent = nov27 + timedelta(days=(6 - nov27.weekday()) % 7)
+    lit_year = day.year + 1 if day >= advent else day.year
+    return "Ano " + {1: "A", 2: "B", 0: "C"}[lit_year % 3], "Ano " + ("I" if lit_year % 2 else "II")
+
+
+def check_cycle(day: date, e: dict) -> None:
+    abc, weekday = expected_cycle(day)
+    cycle = e.get("cycle", "—")
+    where = day.isoformat()
+    if cycle in ("Ano A", "Ano B", "Ano C") and cycle != abc:
+        fail(where, f"ciclo {cycle} ≠ {abc}")
+    if cycle in ("Ano I", "Ano II") and cycle != weekday:
+        fail(where, f"ciclo {cycle} ≠ {weekday}")
+    if day.weekday() == 6 and cycle not in ("Ano A", "Ano B", "Ano C"):
+        fail(where, f"domingo sem ano A/B/C: {cycle}")
+    if e.get("grade") == "Dia de semana" and e.get("season") == "Tempo Comum" and cycle != weekday:
+        fail(where, f"dia de semana do Tempo Comum sem {weekday}: {cycle}")
+    pref = e["tapes"][2]
+    # 3º, 4º e 5º Domingos da Quaresma: prefácio próprio só no Ano A.
+    if day.weekday() == 6 and e.get("season") == "Quaresma" and pref.get("page") in ("187", "196", "204") and abc != "Ano A":
+        fail(where, f"prefácio próprio do Ano A usado no {abc}")
+
+
+def check_cycle_400_years() -> None:
+    """O ciclo A/B/C e I/II repete a cada 6 anos e o calendário gregoriano a
+    cada 400: confere as viradas do ano litúrgico em 400 anos seguidos."""
+    from datetime import timedelta
+    this = datetime.now(ZoneInfo("America/Sao_Paulo")).date().year
+    for y in range(this, this + 400):
+        nov27 = date(y, 11, 27)
+        advent = nov27 + timedelta(days=(6 - nov27.weekday()) % 7)
+        for day in (advent - timedelta(days=1), advent, advent + timedelta(days=7), date(y, 7, 1)):
+            check_cycle(day, lc.build_entry(day))
+
+
+def check_engine_forever() -> None:
+    """Exige que cada fita, em todo tipo de ano possível, aponte para uma
+    combinação já conferida no Missal. Nenhuma página nova entra no site sem
+    ter sido verificada, em nenhum ano futuro."""
+    from datetime import timedelta
+    ok = {tuple(x) for x in json.loads(VERIFIED_PAIRS.read_text(encoding="utf-8"))["pares"]}
+    seen, text_seen = set(), set()
+    for year in forever_years():
+        day = date(year, 1, 1)
+        while day.year == year:
+            try:
+                e = lc.build_entry(day)
+            except Exception as exc:  # noqa: BLE001
+                fail(day.isoformat(), f"calendário automático falhou: {exc}")
+            else:
+                before = len(problems)
+                walk_text(e, day.isoformat())
+                for t in e["tapes"]:
+                    if str(t.get("title", "")).rstrip().endswith((",", "—", "-")):
+                        fail(day.isoformat(), f"fita {t.get('n')} com título cortado: {t.get('title')}")
+                    if t.get("n") == 3 and not t.get("notIndicated") and not str(t.get("title", "")).startswith("Prefácio próprio") \
+                            and " / " not in str(t.get("page")) and not any(r[0] == "Título" for r in t.get("details", [])):
+                        fail(day.isoformat(), f"prefácio sem subtítulo: {t.get('title')}")
+                check_cycle(day, e)
+                if len(problems) > before:
+                    seen_text = {p.split(": ", 1)[-1] for p in problems[before:]}
+                    del problems[before:]
+                    for msg in sorted(seen_text - text_seen):
+                        fail(day.isoformat(), msg)
+                    text_seen |= seen_text
+                for t in e["tapes"]:
+                    k = (t.get("n"), str(t.get("page")), t.get("title"))
+                    if k not in ok and k not in seen:
+                        seen.add(k)
+                        fail(day.isoformat(), f"fita {k[0]} p. {k[1]} '{k[2]}' ainda não conferida no Missal")
+            day += timedelta(days=1)
+
+
 class PageParser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -187,13 +299,15 @@ def main() -> int:
     status = load_js_object(ROOT / "status.js")
     check_data(data, status)
     check_calendar(data)
+    check_engine_forever()
+    check_cycle_400_years()
     check_page()
     if problems:
         print(f"QUALIDADE: {len(problems)} problema(s) encontrado(s):")
         for p in problems:
             print("  ✗", p)
         return 1
-    print(f"QUALIDADE OK: {len(data)} dias, calendário e página sem erros.")
+    print(f"QUALIDADE OK: {len(data)} dias, calendário de todos os anos possíveis conferido e página sem erros.")
     return 0
 
 

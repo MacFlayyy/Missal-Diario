@@ -6913,10 +6913,15 @@ window.MISSAL_DATA = {
         "title": "Prefácio da Bem-aventurada Virgem Maria I",
         "details": [
           [
+            "Título",
+            "A maternidade da Bem-aventurada Virgem Maria"
+          ],
+          [
             "Uso",
-            "Indicado no próprio da festa"
+            "Sugestão"
           ]
-        ]
+        ],
+        "suggestion": true
       },
       {
         "n": 4,

@@ -1,0 +1,2245 @@
+{
+ "_sobre": "Combinações (fita, página, título) conferidas uma a uma no texto do Missal Romano (regra: a página da Missa é aquela onde começam as orações — antífona ou coleta). O check_quality.py bloqueia a publicação se o calendário automático produzir qualquer combinação que não esteja aqui.",
+ "pares": [
+  [
+   1,
+   "430",
+   "Ritos Iniciais"
+  ],
+  [
+   1,
+   "—",
+   "Ritos Iniciais — não há neste dia"
+  ],
+  [
+   2,
+   "100",
+   "Quinta-feira da 1ª Semana do Advento"
+  ],
+  [
+   2,
+   "101",
+   "Sexta-feira da 1ª Semana do Advento"
+  ],
+  [
+   2,
+   "102",
+   "Sábado da 1ª Semana do Advento"
+  ],
+  [
+   2,
+   "103",
+   "2º Domingo do Advento"
+  ],
+  [
+   2,
+   "104",
+   "Segunda-feira da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "105",
+   "Terça-feira da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "106",
+   "Quarta-feira da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "107",
+   "Quinta-feira da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "108",
+   "Sexta-feira da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "109",
+   "Sábado da 2ª Semana do Advento"
+  ],
+  [
+   2,
+   "110",
+   "3º Domingo do Advento — Gaudete"
+  ],
+  [
+   2,
+   "111",
+   "Segunda-feira da 3ª Semana do Advento"
+  ],
+  [
+   2,
+   "112",
+   "Terça-feira da 3ª Semana do Advento"
+  ],
+  [
+   2,
+   "113",
+   "Quarta-feira da 3ª Semana do Advento"
+  ],
+  [
+   2,
+   "114",
+   "Quinta-feira da 3ª Semana do Advento"
+  ],
+  [
+   2,
+   "115",
+   "Sexta-feira da 3ª Semana do Advento"
+  ],
+  [
+   2,
+   "116",
+   "4º Domingo do Advento"
+  ],
+  [
+   2,
+   "117",
+   "17 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "118",
+   "18 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "119",
+   "19 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "120",
+   "20 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "121",
+   "21 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "122",
+   "22 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "123",
+   "23 de dezembro — Féria privilegiada do Advento"
+  ],
+  [
+   2,
+   "124 / 126",
+   "24 de dezembro — manhã / Vigília do Natal"
+  ],
+  [
+   2,
+   "128 / 130 / 132",
+   "Natal do Senhor"
+  ],
+  [
+   2,
+   "134",
+   "Sagrada Família de Jesus, Maria e José"
+  ],
+  [
+   2,
+   "135",
+   "Quinto dia na Oitava do Natal"
+  ],
+  [
+   2,
+   "136",
+   "Sexto dia na Oitava do Natal"
+  ],
+  [
+   2,
+   "137",
+   "Sétimo dia na Oitava do Natal"
+  ],
+  [
+   2,
+   "138",
+   "Santa Maria, Mãe de Deus"
+  ],
+  [
+   2,
+   "144",
+   "Epifania do Senhor"
+  ],
+  [
+   2,
+   "146",
+   "Segunda-feira do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "148",
+   "Terça-feira do Tempo do Natal, antes da Epifania"
+  ],
+  [
+   2,
+   "148",
+   "Terça-feira do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "150",
+   "Quarta-feira do Tempo do Natal, antes da Epifania"
+  ],
+  [
+   2,
+   "150",
+   "Quarta-feira do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "152",
+   "Quinta-feira do Tempo do Natal, antes da Epifania"
+  ],
+  [
+   2,
+   "152",
+   "Quinta-feira do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "154",
+   "Sexta-feira do Tempo do Natal, antes da Epifania"
+  ],
+  [
+   2,
+   "154",
+   "Sexta-feira do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "156",
+   "Sábado do Tempo do Natal, antes da Epifania"
+  ],
+  [
+   2,
+   "156",
+   "Sábado do Tempo do Natal, depois da Epifania"
+  ],
+  [
+   2,
+   "158",
+   "Batismo do Senhor"
+  ],
+  [
+   2,
+   "163",
+   "Quarta-feira de Cinzas"
+  ],
+  [
+   2,
+   "167",
+   "Quinta-feira depois das Cinzas"
+  ],
+  [
+   2,
+   "168",
+   "Sexta-feira depois das Cinzas"
+  ],
+  [
+   2,
+   "169",
+   "Sábado depois das Cinzas"
+  ],
+  [
+   2,
+   "170",
+   "1º Domingo da Quaresma"
+  ],
+  [
+   2,
+   "172",
+   "Segunda-feira da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "173",
+   "Terça-feira da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "174",
+   "Quarta-feira da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "175",
+   "Quinta-feira da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "176",
+   "Sexta-feira da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "177",
+   "Sábado da 1ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "178",
+   "2º Domingo da Quaresma"
+  ],
+  [
+   2,
+   "180",
+   "Segunda-feira da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "181",
+   "Terça-feira da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "182",
+   "Quarta-feira da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "183",
+   "Quinta-feira da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "184",
+   "Sexta-feira da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "185",
+   "Sábado da 2ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "186",
+   "3º Domingo da Quaresma"
+  ],
+  [
+   2,
+   "189",
+   "Segunda-feira da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "190",
+   "Terça-feira da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "191",
+   "Quarta-feira da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "192",
+   "Quinta-feira da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "193",
+   "Sexta-feira da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "194",
+   "Sábado da 3ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "195",
+   "4º Domingo da Quaresma — Laetare"
+  ],
+  [
+   2,
+   "198",
+   "Segunda-feira da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "199",
+   "Terça-feira da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "200",
+   "Quarta-feira da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "201",
+   "Quinta-feira da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "202",
+   "Sexta-feira da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "203",
+   "Sábado da 4ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "204",
+   "5º Domingo da Quaresma"
+  ],
+  [
+   2,
+   "207",
+   "Segunda-feira da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "209",
+   "Terça-feira da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "210",
+   "Quarta-feira da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "211",
+   "Quinta-feira da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "212",
+   "Sexta-feira da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "214",
+   "Sábado da 5ª Semana da Quaresma"
+  ],
+  [
+   2,
+   "216",
+   "Domingo de Ramos da Paixão do Senhor"
+  ],
+  [
+   2,
+   "227",
+   "Segunda-feira da Semana Santa"
+  ],
+  [
+   2,
+   "229",
+   "Terça-feira da Semana Santa"
+  ],
+  [
+   2,
+   "230",
+   "Quarta-feira da Semana Santa"
+  ],
+  [
+   2,
+   "246",
+   "Quinta-feira da Ceia do Senhor"
+  ],
+  [
+   2,
+   "257",
+   "Sexta-feira da Paixão do Senhor"
+  ],
+  [
+   2,
+   "274",
+   "Sábado Santo — Vigília Pascal na Noite Santa"
+  ],
+  [
+   2,
+   "313",
+   "Domingo da Páscoa na Ressurreição do Senhor"
+  ],
+  [
+   2,
+   "315",
+   "Segunda-feira na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "316",
+   "Terça-feira na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "317",
+   "Quarta-feira na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "318",
+   "Quinta-feira na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "319",
+   "Sexta-feira na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "320",
+   "Sábado na Oitava da Páscoa"
+  ],
+  [
+   2,
+   "321",
+   "2º Domingo da Páscoa — Divina Misericórdia"
+  ],
+  [
+   2,
+   "323",
+   "Segunda-feira da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "324",
+   "Terça-feira da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "325",
+   "Quarta-feira da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "326",
+   "Quinta-feira da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "327",
+   "Sexta-feira da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "328",
+   "Sábado da 2ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "330",
+   "3º Domingo da Páscoa"
+  ],
+  [
+   2,
+   "331",
+   "Segunda-feira da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "332",
+   "Terça-feira da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "333",
+   "Quarta-feira da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "334",
+   "Quinta-feira da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "335",
+   "Sexta-feira da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "336",
+   "Sábado da 3ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "337",
+   "4º Domingo da Páscoa"
+  ],
+  [
+   2,
+   "338",
+   "Segunda-feira da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "339",
+   "Terça-feira da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "340",
+   "Quarta-feira da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "341",
+   "Quinta-feira da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "342",
+   "Sexta-feira da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "343",
+   "Sábado da 4ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "344",
+   "5º Domingo da Páscoa"
+  ],
+  [
+   2,
+   "345",
+   "Segunda-feira da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "346",
+   "Terça-feira da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "347",
+   "Quarta-feira da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "348",
+   "Quinta-feira da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "349",
+   "Sexta-feira da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "350",
+   "Sábado da 5ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "351",
+   "6º Domingo da Páscoa"
+  ],
+  [
+   2,
+   "352",
+   "Segunda-feira da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "353",
+   "Terça-feira da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "354",
+   "Quarta-feira da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "358",
+   "Ascensão do Senhor"
+  ],
+  [
+   2,
+   "360",
+   "Quinta-feira da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "361",
+   "Sexta-feira da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "363",
+   "Sábado da 6ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "366",
+   "Segunda-feira da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "367",
+   "Terça-feira da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "368",
+   "Quarta-feira da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "369",
+   "Quinta-feira da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "370",
+   "Sexta-feira da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "371",
+   "Sábado da 7ª Semana da Páscoa"
+  ],
+  [
+   2,
+   "378",
+   "Domingo de Pentecostes"
+  ],
+  [
+   2,
+   "383",
+   "1ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "384",
+   "2ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "384",
+   "2º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "385",
+   "3ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "385",
+   "3º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "386",
+   "4ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "386",
+   "4º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "387",
+   "5ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "387",
+   "5º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "388",
+   "6ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "388",
+   "6º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "389",
+   "7ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "389",
+   "7º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "390",
+   "8ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "390",
+   "8º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "391",
+   "9ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "391",
+   "9º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "392",
+   "10ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "392",
+   "10º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "393",
+   "11ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "393",
+   "11º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "394",
+   "12ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "394",
+   "12º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "395",
+   "13ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "395",
+   "13º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "396",
+   "14ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "396",
+   "14º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "397",
+   "15ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "397",
+   "15º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "398",
+   "16ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "398",
+   "16º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "399",
+   "17ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "399",
+   "17º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "400",
+   "18ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "400",
+   "18º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "401",
+   "19ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "401",
+   "19º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "402",
+   "20ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "402",
+   "20º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "403",
+   "21ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "403",
+   "21º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "404",
+   "22ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "404",
+   "22º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "405",
+   "23ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "405",
+   "23º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "406",
+   "24ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "406",
+   "24º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "407",
+   "25ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "407",
+   "25º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "408",
+   "26ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "408",
+   "26º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "409",
+   "27ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "409",
+   "27º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "410",
+   "28ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "410",
+   "28º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "411",
+   "29ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "411",
+   "29º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "412",
+   "30ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "412",
+   "30º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "413",
+   "31ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "413",
+   "31º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "414",
+   "32ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "414",
+   "32º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "415",
+   "33ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "415",
+   "33º Domingo do Tempo Comum"
+  ],
+  [
+   2,
+   "416",
+   "34ª Semana do Tempo Comum"
+  ],
+  [
+   2,
+   "417",
+   "Santíssima Trindade"
+  ],
+  [
+   2,
+   "420",
+   "Santíssimo Corpo e Sangue de Cristo"
+  ],
+  [
+   2,
+   "422",
+   "Sagrado Coração de Jesus"
+  ],
+  [
+   2,
+   "425",
+   "Nosso Senhor Jesus Cristo, Rei do Universo"
+  ],
+  [
+   2,
+   "659",
+   "Santos Basílio Magno e Gregório Nazianzeno, bispos e doutores da Igreja"
+  ],
+  [
+   2,
+   "662",
+   "Santo Antão, abade"
+  ],
+  [
+   2,
+   "664",
+   "Santa Inês, virgem e mártir"
+  ],
+  [
+   2,
+   "665",
+   "São Francisco de Sales, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "666",
+   "Conversão de São Paulo, Apóstolo"
+  ],
+  [
+   2,
+   "667",
+   "Santos Timóteo e Tito, bispos"
+  ],
+  [
+   2,
+   "669",
+   "Santo Tomás de Aquino, presbítero e doutor da Igreja"
+  ],
+  [
+   2,
+   "669",
+   "São João Bosco, presbítero"
+  ],
+  [
+   2,
+   "671",
+   "Apresentação do Senhor"
+  ],
+  [
+   2,
+   "676",
+   "Santa Águeda, virgem e mártir"
+  ],
+  [
+   2,
+   "677",
+   "São Paulo Miki e companheiros, mártires"
+  ],
+  [
+   2,
+   "678",
+   "Santa Escolástica, virgem"
+  ],
+  [
+   2,
+   "679",
+   "Santos Cirilo, monge, e Metódio, bispo"
+  ],
+  [
+   2,
+   "682",
+   "Cátedra de São Pedro, Apóstolo"
+  ],
+  [
+   2,
+   "683",
+   "São Policarpo, bispo e mártir"
+  ],
+  [
+   2,
+   "684",
+   "Santas Perpétua e Felicidade, mártires"
+  ],
+  [
+   2,
+   "689",
+   "São José, Esposo da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "693",
+   "Anunciação do Senhor"
+  ],
+  [
+   2,
+   "697",
+   "São João Batista de la Salle, presbítero"
+  ],
+  [
+   2,
+   "698",
+   "Santo Estanislau, bispo e mártir"
+  ],
+  [
+   2,
+   "701",
+   "São Marcos, Evangelista"
+  ],
+  [
+   2,
+   "703",
+   "Santa Catarina de Sena, virgem e doutora da Igreja"
+  ],
+  [
+   2,
+   "708",
+   "Santo Atanásio, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "709",
+   "Santos Filipe e Tiago, Apóstolos"
+  ],
+  [
+   2,
+   "712",
+   "São Matias, Apóstolo"
+  ],
+  [
+   2,
+   "717",
+   "São Filipe Néri, presbítero"
+  ],
+  [
+   2,
+   "719",
+   "Visitação da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "720",
+   "Bem-aventurada Virgem Maria, Mãe da Igreja"
+  ],
+  [
+   2,
+   "722",
+   "Imaculado Coração da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "724",
+   "São Justino, mártir"
+  ],
+  [
+   2,
+   "725",
+   "São Carlos Lwanga e companheiros, mártires"
+  ],
+  [
+   2,
+   "727",
+   "São Bonifácio, bispo e mártir"
+  ],
+  [
+   2,
+   "728",
+   "São José de Anchieta, presbítero"
+  ],
+  [
+   2,
+   "729",
+   "São Barnabé, apóstolo"
+  ],
+  [
+   2,
+   "730",
+   "Santo Antônio de Pádua, presbítero e doutor da Igreja"
+  ],
+  [
+   2,
+   "731",
+   "São Luís Gonzaga, religioso"
+  ],
+  [
+   2,
+   "734",
+   "Natividade de São João Batista"
+  ],
+  [
+   2,
+   "737",
+   "Santo Irineu, bispo e mártir"
+  ],
+  [
+   2,
+   "740",
+   "Santos Pedro e Paulo, Apóstolos"
+  ],
+  [
+   2,
+   "743",
+   "São Tomé, Apóstolo"
+  ],
+  [
+   2,
+   "746",
+   "Santa Paulina do Coração Agonizante de Jesus, virgem"
+  ],
+  [
+   2,
+   "748",
+   "São Bento, abade"
+  ],
+  [
+   2,
+   "750",
+   "Bem-aventurada Virgem Maria do Monte Carmelo"
+  ],
+  [
+   2,
+   "750",
+   "São Boaventura, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "754",
+   "Santa Maria Madalena"
+  ],
+  [
+   2,
+   "757",
+   "São Tiago, Apóstolo"
+  ],
+  [
+   2,
+   "758",
+   "Santos Joaquim e Ana, pais da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "759",
+   "Santos Marta, Maria e Lázaro"
+  ],
+  [
+   2,
+   "761",
+   "Santo Inácio de Loyola, presbítero"
+  ],
+  [
+   2,
+   "763",
+   "Santo Afonso Maria de Ligório, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "765",
+   "São João Maria Vianney, presbítero"
+  ],
+  [
+   2,
+   "768",
+   "Transfiguração do Senhor"
+  ],
+  [
+   2,
+   "771",
+   "São Domingos, presbítero"
+  ],
+  [
+   2,
+   "773",
+   "São Lourenço, Diácono e Mártir"
+  ],
+  [
+   2,
+   "774",
+   "Santa Clara, virgem"
+  ],
+  [
+   2,
+   "775",
+   "Santa Dulce Lopes Pontes, virgem"
+  ],
+  [
+   2,
+   "777",
+   "São Maximiliano Maria Kolbe, presbítero e mártir"
+  ],
+  [
+   2,
+   "780",
+   "Assunção da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "783",
+   "São Bernardo, abade e doutor da Igreja"
+  ],
+  [
+   2,
+   "785",
+   "Bem-aventurada Virgem Maria Rainha"
+  ],
+  [
+   2,
+   "785",
+   "São Pio X, papa"
+  ],
+  [
+   2,
+   "787",
+   "Santa Rosa de Lima, virgem"
+  ],
+  [
+   2,
+   "788",
+   "São Bartolomeu, Apóstolo"
+  ],
+  [
+   2,
+   "790",
+   "Santa Mônica"
+  ],
+  [
+   2,
+   "791",
+   "Santo Agostinho, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "792",
+   "Martírio de São João Batista"
+  ],
+  [
+   2,
+   "795",
+   "São Gregório Magno, papa e doutor da Igreja"
+  ],
+  [
+   2,
+   "796",
+   "Natividade da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "799",
+   "São João Crisóstomo, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "800",
+   "Exaltação da Santa Cruz"
+  ],
+  [
+   2,
+   "802",
+   "Bem-aventurada Virgem Maria das Dores"
+  ],
+  [
+   2,
+   "803",
+   "Santos Cornélio, papa, e Cipriano, bispo, mártires"
+  ],
+  [
+   2,
+   "806",
+   "Santos André Kim Tae-gon, presbítero, Paulo Chóng Hasang e companheiros, mártires"
+  ],
+  [
+   2,
+   "807",
+   "São Mateus, Apóstolo e Evangelista"
+  ],
+  [
+   2,
+   "808",
+   "São Pio de Pietrelcina, presbítero"
+  ],
+  [
+   2,
+   "810",
+   "São Vicente de Paulo, presbítero"
+  ],
+  [
+   2,
+   "812",
+   "Santos Miguel, Gabriel e Rafael, Arcanjos"
+  ],
+  [
+   2,
+   "814",
+   "São Jerônimo, presbítero e doutor da Igreja"
+  ],
+  [
+   2,
+   "816",
+   "Santa Teresa do Menino Jesus, virgem e doutora da Igreja"
+  ],
+  [
+   2,
+   "817",
+   "Santos Anjos da Guarda"
+  ],
+  [
+   2,
+   "819",
+   "Santos André de Soveral e Ambrósio Francisco Ferro, presbíteros, Mateus Moreira e companheiros, mártires"
+  ],
+  [
+   2,
+   "820",
+   "São Francisco de Assis"
+  ],
+  [
+   2,
+   "823",
+   "Bem-aventurada Virgem Maria do Rosário"
+  ],
+  [
+   2,
+   "827",
+   "Bem-aventurada Virgem Maria da Conceição Aparecida"
+  ],
+  [
+   2,
+   "830",
+   "Santa Teresa de Jesus, virgem e doutora da Igreja"
+  ],
+  [
+   2,
+   "832",
+   "Santo Inácio de Antioquia, bispo e mártir"
+  ],
+  [
+   2,
+   "833",
+   "São Lucas, Evangelista"
+  ],
+  [
+   2,
+   "838",
+   "Santo Antônio de Sant'Ana Galvão, religioso"
+  ],
+  [
+   2,
+   "839",
+   "Santos Simão e Judas, Apóstolos"
+  ],
+  [
+   2,
+   "842",
+   "Todos os Santos"
+  ],
+  [
+   2,
+   "846 / 847 / 848",
+   "Comemoração de Todos os Fiéis Defuntos"
+  ],
+  [
+   2,
+   "849",
+   "São Carlos Borromeu, bispo"
+  ],
+  [
+   2,
+   "850",
+   "Dedicação da Basílica do Latrão"
+  ],
+  [
+   2,
+   "853",
+   "São Leão Magno, papa e doutor da Igreja"
+  ],
+  [
+   2,
+   "854",
+   "São Martinho de Tours, bispo"
+  ],
+  [
+   2,
+   "855",
+   "São Josafá, bispo e mártir"
+  ],
+  [
+   2,
+   "858",
+   "Santa Isabel da Hungria, religiosa"
+  ],
+  [
+   2,
+   "860",
+   "Santos Roque González, Afonso Rodríguez e João de Castillo, presbíteros e mártires"
+  ],
+  [
+   2,
+   "861",
+   "Apresentação da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "861",
+   "Santa Cecília, virgem e mártir"
+  ],
+  [
+   2,
+   "863",
+   "Santo André Dung-Lac, presbítero, e companheiros, mártires"
+  ],
+  [
+   2,
+   "865",
+   "Santo André, Apóstolo"
+  ],
+  [
+   2,
+   "867",
+   "São Francisco Xavier, presbítero"
+  ],
+  [
+   2,
+   "869",
+   "Santo Ambrósio, bispo e doutor da Igreja"
+  ],
+  [
+   2,
+   "872",
+   "Imaculada Conceição da Bem-aventurada Virgem Maria"
+  ],
+  [
+   2,
+   "876",
+   "Bem-aventurada Virgem Maria de Guadalupe"
+  ],
+  [
+   2,
+   "877",
+   "Santa Luzia, virgem e mártir"
+  ],
+  [
+   2,
+   "877",
+   "São João da Cruz, presbítero e doutor da Igreja"
+  ],
+  [
+   2,
+   "880",
+   "Santo Estêvão, Protomártir"
+  ],
+  [
+   2,
+   "881",
+   "São João, Apóstolo e Evangelista"
+  ],
+  [
+   2,
+   "882",
+   "Os Santos Inocentes, Mártires"
+  ],
+  [
+   2,
+   "96",
+   "1º Domingo do Advento"
+  ],
+  [
+   2,
+   "97",
+   "Segunda-feira da 1ª Semana do Advento"
+  ],
+  [
+   2,
+   "98",
+   "Terça-feira da 1ª Semana do Advento"
+  ],
+  [
+   2,
+   "99",
+   "Quarta-feira da 1ª Semana do Advento"
+  ],
+  [
+   3,
+   "159",
+   "Prefácio próprio — O Batismo do Senhor"
+  ],
+  [
+   3,
+   "171",
+   "Prefácio próprio — A tentação do Senhor"
+  ],
+  [
+   3,
+   "178",
+   "Prefácio próprio — A Transfiguração do Senhor"
+  ],
+  [
+   3,
+   "187",
+   "Prefácio próprio — A Samaritana"
+  ],
+  [
+   3,
+   "196",
+   "Prefácio próprio — O cego de nascença"
+  ],
+  [
+   3,
+   "204",
+   "Prefácio próprio — Lázaro"
+  ],
+  [
+   3,
+   "226",
+   "Prefácio próprio — A Paixão do Senhor"
+  ],
+  [
+   3,
+   "379",
+   "Prefácio próprio — O mistério de Pentecostes"
+  ],
+  [
+   3,
+   "418",
+   "Prefácio próprio — O mistério da Santíssima Trindade"
+  ],
+  [
+   3,
+   "423",
+   "Prefácio próprio — O imenso amor de Cristo"
+  ],
+  [
+   3,
+   "426",
+   "Prefácio próprio — Jesus Cristo, Rei do Universo"
+  ],
+  [
+   3,
+   "451",
+   "Prefácio do Advento I"
+  ],
+  [
+   3,
+   "453",
+   "Prefácio do Advento II"
+  ],
+  [
+   3,
+   "453 / 455",
+   "Prefácio do Advento II / Prefácio do Natal do Senhor I"
+  ],
+  [
+   3,
+   "455",
+   "Prefácio do Natal do Senhor I"
+  ],
+  [
+   3,
+   "458",
+   "Prefácio da Epifania do Senhor"
+  ],
+  [
+   3,
+   "459",
+   "Prefácio da Quaresma I"
+  ],
+  [
+   3,
+   "461",
+   "Prefácio da Quaresma III"
+  ],
+  [
+   3,
+   "464",
+   "Prefácio da Paixão do Senhor I"
+  ],
+  [
+   3,
+   "465",
+   "Prefácio da Paixão do Senhor II"
+  ],
+  [
+   3,
+   "466",
+   "Prefácio da Páscoa I"
+  ],
+  [
+   3,
+   "471",
+   "Prefácio da Ascensão do Senhor I"
+  ],
+  [
+   3,
+   "473",
+   "Prefácio depois da Ascensão do Senhor"
+  ],
+  [
+   3,
+   "477",
+   "Prefácio dos Domingos do Tempo Comum IV"
+  ],
+  [
+   3,
+   "486",
+   "Prefácio da Santíssima Eucaristia I"
+  ],
+  [
+   3,
+   "493",
+   "Prefácio da Bem-aventurada Virgem Maria I"
+  ],
+  [
+   3,
+   "494",
+   "Prefácio da Bem-aventurada Virgem Maria II"
+  ],
+  [
+   3,
+   "498",
+   "Prefácio dos Apóstolos I"
+  ],
+  [
+   3,
+   "499",
+   "Prefácio dos Apóstolos II"
+  ],
+  [
+   3,
+   "500",
+   "Prefácio dos Santos I"
+  ],
+  [
+   3,
+   "502",
+   "Prefácio dos Santos Mártires I"
+  ],
+  [
+   3,
+   "504",
+   "Prefácio dos Santos Pastores I"
+  ],
+  [
+   3,
+   "506",
+   "Prefácio dos Santos Doutores da Igreja I"
+  ],
+  [
+   3,
+   "508",
+   "Prefácio das Santas Virgens e Religiosos"
+  ],
+  [
+   3,
+   "509",
+   "Prefácio Comum I"
+  ],
+  [
+   3,
+   "521",
+   "Prefácio dos Defuntos IV"
+  ],
+  [
+   3,
+   "674",
+   "Prefácio próprio — O mistério da Apresentação do Senhor"
+  ],
+  [
+   3,
+   "690",
+   "Prefácio próprio — A missão de São José"
+  ],
+  [
+   3,
+   "694",
+   "Prefácio próprio — O mistério da Encarnação"
+  ],
+  [
+   3,
+   "721",
+   "Prefácio próprio — Maria, imagem e Mãe da Igreja"
+  ],
+  [
+   3,
+   "735",
+   "Prefácio próprio — A missão do Precursor"
+  ],
+  [
+   3,
+   "741",
+   "Prefácio próprio — A dupla missão de Pedro e Paulo na Igreja"
+  ],
+  [
+   3,
+   "755",
+   "Prefácio próprio — Apóstola dos Apóstolos"
+  ],
+  [
+   3,
+   "768",
+   "Prefácio próprio — O mistério da Transfiguração"
+  ],
+  [
+   3,
+   "781",
+   "Prefácio próprio — A glória da Assunção de Maria"
+  ],
+  [
+   3,
+   "793",
+   "Prefácio próprio — A missão do Precursor"
+  ],
+  [
+   3,
+   "801",
+   "Prefácio próprio — A vitória da Cruz gloriosa"
+  ],
+  [
+   3,
+   "813",
+   "Prefácio próprio — A glorificação de Deus pela veneração dos Anjos"
+  ],
+  [
+   3,
+   "818",
+   "Prefácio próprio — A glorificação de Deus pela veneração dos Anjos"
+  ],
+  [
+   3,
+   "828",
+   "Prefácio próprio — Do mistério de Maria e da Igreja"
+  ],
+  [
+   3,
+   "843",
+   "Prefácio próprio — A glória de Jerusalém, nossa mãe"
+  ],
+  [
+   3,
+   "852",
+   "Prefácio próprio — O mistério da Igreja, esposa de Cristo e templo do Espírito Santo"
+  ],
+  [
+   3,
+   "873",
+   "Prefácio próprio — Do mistério de Maria e da Igreja"
+  ],
+  [
+   3,
+   "—",
+   "Prefácio — não há neste dia"
+  ],
+  [
+   4,
+   "536",
+   "Oração Eucarística II"
+  ],
+  [
+   4,
+   "545",
+   "Oração Eucarística III"
+  ],
+  [
+   4,
+   "—",
+   "Oração Eucarística — não há neste dia"
+  ],
+  [
+   5,
+   "139",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "145",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "166",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "167",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "168",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "169",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "171",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "172",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "173",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "174",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "175",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "176",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "177",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "179",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "180",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "181",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "182",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "183",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "184",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "185",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "188",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "189",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "190",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "191",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "192",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "193",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "194",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "197",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "198",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "199",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "200",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "201",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "202",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "203",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "206",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "208",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "209",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "210",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "211",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "213",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "215",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "226",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "228",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "229",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "231",
+   "Bênção: Oração sobre o povo — própria do dia"
+  ],
+  [
+   5,
+   "312",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "314",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "322",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "359",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "380",
+   "Bênção Solene — própria desta celebração"
+  ],
+  [
+   5,
+   "578",
+   "Bênção Solene — Advento"
+  ],
+  [
+   5,
+   "578 / 579",
+   "Bênção Solene — Advento / Natal"
+  ],
+  [
+   5,
+   "579",
+   "Bênção Solene — Natal"
+  ],
+  [
+   5,
+   "581",
+   "Bênção Solene — Tempo Pascal"
+  ],
+  [
+   5,
+   "585",
+   "Bênção Solene — Bem-aventurada Virgem Maria"
+  ],
+  [
+   5,
+   "585",
+   "Bênção Solene — Tempo Comum VI"
+  ],
+  [
+   5,
+   "586",
+   "Bênção Solene — Santos Apóstolos"
+  ],
+  [
+   5,
+   "586",
+   "Bênção Solene — Santos Pedro e Paulo"
+  ],
+  [
+   5,
+   "587",
+   "Bênção Solene — Na festa de um Santo"
+  ],
+  [
+   5,
+   "587",
+   "Bênção Solene — Todos os Santos"
+  ],
+  [
+   5,
+   "588",
+   "Bênção Solene — Celebração pelos Fiéis Defuntos"
+  ],
+  [
+   5,
+   "588",
+   "Bênção Solene — Dedicação de Igreja"
+  ],
+  [
+   5,
+   "589",
+   "Bênção: Oração sobre o povo — à escolha"
+  ],
+  [
+   5,
+   "—",
+   "Bênção Solene — não há neste dia"
+  ]
+ ]
+}
