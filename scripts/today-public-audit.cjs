@@ -2,7 +2,7 @@ const {chromium,webkit}=require('playwright');
 const fs=require('fs');const path=require('path');
 const ROOT=path.join(process.cwd(),'today-audit-results');fs.mkdirSync(ROOT,{recursive:true});
 /* Design v3. AUDIT_ORIGIN permite conferir uma cópia local antes de publicar. */
-const origin=process.env.AUDIT_ORIGIN||'https://macflayyy.github.io/Missal-Diario/';
+const origin=process.env.AUDIT_ORIGIN||'https://missaldiario.com.br/';
 const brDate=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{
  timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'
 }).formatToParts(new Date()).map(part=>[part.type,part.value]));

@@ -197,7 +197,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Referência independente**: `missal-rubrics-verified.json` guarda apenas metadados das remissões próprias do livro, sem reproduzir o texto da obra; `scripts/check_missal_references.py` passa a impedir que alterações futuras troquem essas bênçãos por outra página válida, salvo indicação diferente no folheto oficial.
 - **Teclado e leitor de telas**: o menu Mais é diálogo semântico, com navegação circular por Tab/Shift+Tab, foco devolvido ao botão original no fechamento e Escape funcionando.
 - **Marcação rápida responsiva**: as cinco fitas permanecem centralizadas em cinco colunas, com fonte mínima melhorada e coluna maior em datas com quatro alternativas. O layout é verificado em tamanhos Android e iPhone.
-- **Marcos de página e SEO**: `<main>` e `<footer>` semânticos, descrição, canonical e Open Graph. O arquivo `sitemap.xml` está disponível para submissão à busca; `robots.txt` nesta pasta só serve como documentação, pois regras efetivas de rastreamento precisam estar na raiz de `macflayyy.github.io`, fora do escopo do GitHub Pages deste projeto.
+- **Marcos de página e SEO**: `<main>` e `<footer>` semânticos, descrição, canonical e Open Graph. O site está em `https://missaldiario.com.br/`, onde `robots.txt` e `sitemap.xml` ficam na raiz e valem para a busca.
 - **Desempenho**: a imagem original da paróquia saiu do HTML principal (menos cerca de 190 KB de código Base64) e agora é `brand-logo.png` com cache separado pelo service worker. O arquivo HTML autossuficiente ainda inclui a logomarca para funcionar localmente e no chat.
 - **PWA offline**: logo e ícones PNG de instalação passam a integrar o cache. Os testes verificam carregamento da versão pública e funcionamento offline.
 - **Transparência de atualização**: o rodapé identifica o horário exibido como o momento da **preparação inicial do dia**, não como a hora da última verificação ou como garantia de publicação exatamente às 05h.
@@ -214,7 +214,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Acessibilidade:** calendário desktop e mobile usam foco inicial e ciclo de Tab, foco restaurado na escolha do dia e anúncio discreto da mudança de celebração via `aria-live`.
 - **Desempenho:** verificação de liberação às 05h por temporizador de transição + confirmação periódica; imagem da paróquia otimizada como WebP de qualidade 88 com PNG como fallback e versão incorporada no arquivo HTML autossuficiente.
 - **CSS:** as 17 camadas contíguas de estilos foram consolidadas em uma só, preservando a ordem da cascata, para evitar diferenças visuais. Regras antigas ainda têm substituições `!important`; remoções indiscriminadas seriam arriscadas.
-- **SEO:** índice principal tem `meta robots`, descrição e URL canônica. O arquivo `robots.txt` do subdiretório não substitui `https://macflayyy.github.io/robots.txt`, que precisaria ser mantido na raiz do host.
+- **SEO:** índice principal tem `meta robots`, descrição e URL canônica. `robots.txt` e `sitemap.xml` estão na raiz do domínio `missaldiario.com.br`.
 - **Visibilidade futura:** o controle no site é de interface. Como `data.js` e `calendar_seed.json` são públicos no GitHub Pages/repositório, não há sigilo técnico sobre dias ainda não liberados; isso exigiria migrar a fonte de dados para hospedagem privada.
 - **Status:** `validationDetails` diferencia a conferência estrutural/numérica da consulta integral ao PDF (que não é executada automaticamente no GitHub).
 

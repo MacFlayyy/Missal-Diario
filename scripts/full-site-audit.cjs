@@ -5,7 +5,7 @@ const fs=require('fs');
 const path=require('path');
 const ROOT=path.join(process.cwd(),'full-audit-results');fs.mkdirSync(ROOT,{recursive:true});
 const local='http://127.0.0.1:8765/';
-const publicUrl='https://macflayyy.github.io/Missal-Diario/';
+const publicUrl='https://missaldiario.com.br/';
 const onlyChromium=process.env.AUDIT_CHROMIUM_ONLY==='1';
 const skipPublic=process.env.AUDIT_SKIP_PUBLIC==='1';
 const scenarios=[

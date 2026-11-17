@@ -4,7 +4,7 @@ const path=require('path');
 const out=path.resolve('deep-audit-results');fs.mkdirSync(out,{recursive:true});
 /* Design v3: cabeçalho com semana, páginas no topo, modo Celebração e barra de vidro. */
 const base='http://127.0.0.1:8765/';
-const publicUrl='https://macflayyy.github.io/Missal-Diario/';
+const publicUrl='https://missaldiario.com.br/';
 const views=[
   {name:'android-280',engine:'chromium',w:280,h:600,mobile:true},
   {name:'android-320',engine:'chromium',w:320,h:700,mobile:true},

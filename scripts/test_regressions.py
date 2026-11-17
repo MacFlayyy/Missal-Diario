@@ -62,7 +62,7 @@ def verify_html(path,standalone=False):
     assert "effectiveLiturgicalColorName" in html,path
     assert 'if(weekdayForKey(key)!==0) continue;' in html,path
     # Compartilhar usa o endereço público atual; arquivo local cai no endereço oficial.
-    assert 'location.origin+location.pathname.replace(/[^/]*$/,"")' in html and '"https://macflayyy.github.io/Missal-Diario/"' in html,path
+    assert 'location.origin+location.pathname.replace(/[^/]*$/,"")' in html and '"https://missaldiario.com.br/"' in html,path
     assert "const tapeH=tapeHeights[i]" in html,path
     assert "drawAllLines(allTapeDetails(t)" in html,path
     assert "drawInstagramMark(ctx,canvas.width-pad" in html,path

@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 TZ = ZoneInfo("America/Sao_Paulo")
-BASE = "https://macflayyy.github.io/Missal-Diario"
+BASE = "https://missaldiario.com.br"
 
 
 def fetch(path, attempt):
