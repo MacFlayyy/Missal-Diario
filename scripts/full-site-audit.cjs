@@ -268,7 +268,7 @@ async function run(config){
    const origins=await page.evaluate(()=>{
      const out=[];for(const k of Object.keys(window.MISSAL_DATA)){render(k);const d=getDisplayEntry(k);const t=d.tapes.find(x=>x.n===2);if(!t)continue;
        const label=document.querySelector('#v3List .v3-r[data-tape="2"] em')?.textContent||'';
-       const want=t.verifiedByFolheto?'Conferido no folheto':t.suggestion?'Sugestão':(d.grade==='Dia de semana'&&/Tempo Comum/.test(d.season))?'Missa do domingo da semana':'Própria do dia';
+       const want=t.verifiedByFolheto?'Conferido no folheto':t.fromMissal?'Indicada no Missal':t.suggestion?'Sugestão':(d.grade==='Dia de semana'&&/Tempo Comum/.test(d.season))?'Missa do domingo da semana':'Própria do dia';
        if(label!==want)out.push({k,label,want});}
      const dates=getVisibleDates();render(dates[dates.length-1]);return out;});
    mark(row,'mass-of-the-day-origin-labels',origins.length===0,{wrong:origins.slice(0,5)});

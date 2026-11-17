@@ -681,7 +681,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -773,7 +773,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -872,7 +872,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -968,7 +968,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1262,7 +1262,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1358,7 +1358,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1454,7 +1454,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1550,7 +1550,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1646,7 +1646,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1838,7 +1838,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -1934,7 +1934,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2030,7 +2030,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2126,7 +2126,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2222,7 +2222,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2318,7 +2318,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2514,7 +2514,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2606,7 +2606,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2698,7 +2698,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2717,7 +2717,8 @@ window.MISSAL_DATA = {
             "Formulário: p. 839; indicação da bênção: p. 840; bênção: p. 586. Indicação facultativa."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "fromMissal": true
       }
     ],
     "quick": "430 → 839 → 498 → 545 → 586",
@@ -2794,7 +2795,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2886,7 +2887,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -2978,7 +2979,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3265,7 +3266,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3357,7 +3358,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3449,7 +3450,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3545,7 +3546,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3641,7 +3642,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3840,7 +3841,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -3937,7 +3938,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4033,7 +4034,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4129,7 +4130,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4225,7 +4226,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4321,7 +4322,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4521,7 +4522,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4617,7 +4618,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4713,7 +4714,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4809,7 +4810,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4901,7 +4902,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -4993,7 +4994,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5183,7 +5184,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5275,7 +5276,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5367,7 +5368,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5459,7 +5460,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5551,7 +5552,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5643,7 +5644,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5827,7 +5828,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -5846,7 +5847,8 @@ window.MISSAL_DATA = {
             "Formulário: p. 865; indicação da bênção: p. 866; bênção: p. 586. Indicação facultativa."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "fromMissal": true
       }
     ],
     "quick": "430 → 865 → 498 → 545 → 586",
@@ -5923,7 +5925,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6015,7 +6017,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6107,7 +6109,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6199,7 +6201,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6291,7 +6293,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6475,7 +6477,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6566,7 +6568,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6581,7 +6583,8 @@ window.MISSAL_DATA = {
             "Indicada no próprio formulário do Missal (facultativa)"
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "fromMissal": true
       }
     ],
     "quick": "430 → 872 → 873 → 545 → 585",
@@ -6659,7 +6662,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6751,7 +6754,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6843,7 +6846,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6930,7 +6933,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -6949,7 +6952,8 @@ window.MISSAL_DATA = {
             "Formulário: p. 876; bênção: p. 585. Indicação facultativa."
           ]
         ],
-        "suggestion": true
+        "suggestion": true,
+        "fromMissal": true
       }
     ],
     "quick": "430 → 876 → 493 → 545 → 585",
@@ -7118,7 +7122,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7210,7 +7214,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7302,7 +7306,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7394,7 +7398,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7486,7 +7490,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7578,7 +7582,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7762,7 +7766,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7854,7 +7858,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7946,7 +7950,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -7976,7 +7980,7 @@ window.MISSAL_DATA = {
     "season": "Advento",
     "color": "Roxa de manhã / Branca à tarde",
     "colorHex": "#6b4f7b",
-    "note": "De manhã usa-se o formulário de 24 de dezembro; à tarde/noite começa a Vigília do Natal.",
+    "note": "Manhã: Missa do dia 24, Advento, cor roxa. Tarde/noite: Vigília de Natal, cor branca. Escolher o prefácio e a bênção adequados à celebração.",
     "liturgicalNote": "Manhã: Missa do dia 24, Advento, cor roxa. Tarde/noite: Vigília de Natal, cor branca. Escolher o prefácio e a bênção adequados à celebração.",
     "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
     "tapes": [
@@ -8003,7 +8007,7 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Manhã",
-            "pág. 124"
+            "Missa do dia 24 de dezembro — pág. 124"
           ],
           [
             "Tarde/noite",
@@ -8026,7 +8030,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Escolher conforme a Missa celebrada; confirmar no folheto."
+            "Escolher conforme a Missa celebrada."
           ]
         ],
         "suggestion": true
@@ -8046,7 +8050,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8150,7 +8154,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8242,7 +8246,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8426,7 +8430,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8518,7 +8522,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8610,7 +8614,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true
@@ -8702,7 +8706,7 @@ window.MISSAL_DATA = {
           ],
           [
             "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Sugestão"
           ]
         ],
         "suggestion": true

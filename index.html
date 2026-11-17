@@ -4356,7 +4356,7 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
 #v3 .v3-seg button{min-height:44px;border-radius:11px;font-weight:700;font-size:16px;color:var(--v-soft)}
 #v3 .v3-seg button[aria-pressed="true"]{background:var(--v-card);color:var(--v-ink);box-shadow:0 2px 6px rgba(0,0,0,.12)}
 .v3-upd{color:var(--v-faint);font-size:13.5px;text-align:center;margin-top:14px}
-.v3-toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:rgba(36,28,26,.94);color:#fff;padding:10px 18px;border-radius:999px;font-weight:600;font-size:15.5px;z-index:170;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;max-width:90vw;text-align:center}
+.v3-toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translate(-50%,12px);background:rgba(36,28,26,.94);color:#fff;padding:10px 18px;font-weight:600;font-size:15.5px;z-index:170;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;max-width:90vw;text-align:center;border-radius:22px;line-height:1.35}
 .v3-toast.open{opacity:1;transform:translate(-50%,0)}
 
 /* ---------- computador ---------- */
@@ -4431,6 +4431,8 @@ html.theme-dark .v3-cal i{box-shadow:0 0 0 1px rgba(255,255,255,.25)}
 @media print{.v3-glass,.v3-sheet,.v3-dim,.v3-hb,.v3-mon,.v3-week{display:none!important}}
 /* Até o primeiro desenho do dia, o conteúdo fica invisível (sem "pulos" de layout). */
 body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
+/* Dia da semana e data nunca quebram no meio ("Terça-/feira"). */
+.v3-nw{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -4997,12 +4999,24 @@ function labelWithSuggestion(label){
 function sentenceFromUsage(value){
   const raw=String(value||"").trim();
   if(!raw) return "";
-  if(/^sugest[aã]o[,.]?/i.test(raw)){
-    const rest=raw.replace(/^sugest[aã]o[,.]?\s*/i,"").trim();
-    // "Sugestão adequada ao tempo…" → "(sugestão adequada ao tempo…)." — sem frase solta depois do ponto
-    return rest ? "*(sugestão "+rest.replace(/\.$/,"")+")*." : "*(sugestão)*.";
+  if(/^sugest[aã]o/i.test(raw)){
+    const sep=(raw.match(/^sugest[aã]o\s*([,.;:]?)/i)||[])[1]||"";
+    const rest=raw.replace(/^sugest[aã]o\s*[,.;:]?\s*/i,"").trim();
+    if(!rest) return "*(sugestão)*.";
+    // "Sugestão. O Missal permite…" / "Sugestão; o Missal…" → frase própria depois do "(sugestão)."
+    if(/[.;:]/.test(sep) || /^[A-ZÀ-Ú]/.test(rest)){
+      const frase=rest.charAt(0).toUpperCase()+rest.slice(1);
+      return "*(sugestão)*. "+(frase.endsWith(".")?frase:frase+".");
+    }
+    // "Sugestão adequada ao tempo…" → "(sugestão adequada ao tempo…)."
+    return "*(sugestão "+rest.replace(/\.$/,"")+")*.";
   }
   return raw.endsWith(".") ? raw : raw+".";
+}
+
+// "(sugestão …)." fica colado ao título; uma frase própria vem depois de um ponto.
+function joinUsage(usage){
+  return /^\*\(/.test(usage) ? " "+usage : ". "+usage;
 }
 
 function buildDetailedCopyText(dateKey){
@@ -5032,6 +5046,8 @@ function buildDetailedCopyText(dateKey){
     if(t.n===1){
       lines.push("**Fita 1 — pág. "+page+" — "+t.title+"**","");
       (t.details||[]).forEach(function(pair){
+        // "Uso: Sugestão" repetiria o "(sugestão)" do título.
+        if(/^uso$/i.test(String(pair[0]||"").trim()) && /^sugest[aã]o\.?$/i.test(String(pair[1]||"").trim())) return;
         const meta=labelWithSuggestion(pair[0]);
         lines.push("- **"+meta.clean+"**"+(meta.isSuggestion?" *(sugestão)*":"")+": "+pair[1]+"     ");
       });
@@ -5046,11 +5062,12 @@ function buildDetailedCopyText(dateKey){
 
     if(t.n===3){
       let title="**Fita 3 — pág. "+page+" — "+t.title;
-      if(info["Título"]) title+=" — “"+info["Título"]+"”";
+      // Não repete o título quando ele já faz parte do nome do prefácio.
+      if(info["Título"] && String(t.title||"").indexOf(info["Título"])<0) title+=" — “"+info["Título"]+"”";
       title+="**";
       const usage=sentenceFromUsage(info["Uso"]);
-      if(usage) title+=" "+usage;
-      else if(t.suggestion) title+=" *(sugestão)*";
+      if(usage) title+=joinUsage(usage);
+      else if(t.suggestion) title+=" *(sugestão)*.";
       lines.push(title+"     ","");
       return;
     }
@@ -5060,6 +5077,8 @@ function buildDetailedCopyText(dateKey){
       if(t.suggestion) title+=" *(sugestão)*.";
       lines.push(title+"     ","");
       (t.details||[]).forEach(function(pair){
+        // "Uso: Sugestão" repetiria o "(sugestão)" do título.
+        if(/^uso$/i.test(String(pair[0]||"").trim()) && /^sugest[aã]o\.?$/i.test(String(pair[1]||"").trim())) return;
         const meta=labelWithSuggestion(pair[0]);
         const valueSuggestion=/\s*•\s*sugestão\s*$/i.test(String(pair[1]||""));
         const value=String(pair[1]||"").replace(/\s*•\s*sugestão\s*$/i,"").trim();
@@ -5072,8 +5091,8 @@ function buildDetailedCopyText(dateKey){
     if(t.n===5){
       let title="**Fita 5 — pág. "+page+" — "+t.title+"**";
       const usage=sentenceFromUsage(info["Uso"]);
-      if(usage) title+=" "+usage;
-      else if(t.suggestion) title+=" *(sugestão)*";
+      if(usage) title+=joinUsage(usage);
+      else if(t.suggestion) title+=" *(sugestão)*.";
       lines.push(title+"     ","");
       return;
     }
@@ -5151,9 +5170,18 @@ function drawInstagramMark(ctx,x,y,size,color){
   ctx.restore();
 }
 
+// Avisos no estilo do site (sem a janela de alerta do navegador, que trava a página).
+function notifyUser(message){
+  if(typeof window.v3Toast==="function"){ window.v3Toast(String(message)); return; }
+  window.alert(String(message));
+}
+
 async function shareCurrent(){
   // Um HTML local/embutido nunca deve compartilhar seu caminho temporário.
-  const url="https://macflayyy.github.io/Missal-Diario/";
+  // Endereço público do site (continua certo se o site mudar para um domínio próprio).
+  const url=/^https?:$/.test(location.protocol)&&!/^(localhost|127\.)/.test(location.hostname)
+    ? location.origin+location.pathname.replace(/[^/]*$/,"")
+    : "https://macflayyy.github.io/Missal-Diario/";
   if(navigator.share){
     try{
       await navigator.share({url:url});
@@ -5164,9 +5192,9 @@ async function shareCurrent(){
   }
   try{
     await writeClipboard(url);
-    alert("Link do site/app copiado para compartilhar.");
+    notifyUser("Link do site/app copiado para compartilhar.");
   }catch(_e){
-    alert("Não foi possível copiar o link. Use a barra de endereço para compartilhar.");
+    notifyUser("Não foi possível copiar o link. Use a barra de endereço para compartilhar.");
   }
 }
 
@@ -5660,7 +5688,7 @@ async function shareCurrentImage(){
     setTimeout(function(){URL.revokeObjectURL(url);},1500);
   }catch(e){
     if(!(e && e.name==="AbortError")){
-      alert("Não foi possível gerar a imagem agora. Tente novamente.");
+      notifyUser("Não foi possível gerar a imagem agora. Tente novamente.");
     }
   }finally{
     if(btn){
@@ -5688,9 +5716,9 @@ function setupInstallButton(){
       return;
     }
     if(isIos()){
-      alert("No iPhone: toque no botão Compartilhar do Safari e escolha “Adicionar à Tela de Início”.");
+      notifyUser("No iPhone: toque no botão Compartilhar do Safari e escolha “Adicionar à Tela de Início”.");
     }else{
-      alert("Abra o menu do navegador e escolha “Instalar app” ou “Adicionar à tela inicial”, se disponível.");
+      notifyUser("Abra o menu do navegador e escolha “Instalar app” ou “Adicionar à tela inicial”, se disponível.");
     }
   });
 }
@@ -6428,12 +6456,15 @@ async function renderLeafletPages(original,token){
   const pages=document.getElementById("leafletCanvasPages");
   const status=document.getElementById("leafletRenderStatus");
   try{
-    const pdfjs=await import(LEAFLET_PDFJS);
+    // Internet lenta ou bloqueada: depois de 15 s usa o visualizador do próprio navegador
+    // em vez de ficar parado em "Preparando…".
+    const limit=(promise,ms)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error("tempo esgotado ao carregar o folheto")),ms))]);
+    const pdfjs=await limit(import(LEAFLET_PDFJS),15000);
     if(token!==leafletViewGeneration)return;
     pdfjs.GlobalWorkerOptions.workerSrc=LEAFLET_PDFJS_WORKER;
     const task=pdfjs.getDocument({url:original,isEvalSupported:false,withCredentials:false});
     leafletPdfTask=task;
-    const pdf=await task.promise;
+    const pdf=await limit(task.promise,20000);
     if(token!==leafletViewGeneration)return;
     frame.hidden=true;
     status.hidden=true;
@@ -6495,9 +6526,19 @@ async function renderLeafletPages(original,token){
     leafletFallbackFrame(original,error?.message||String(error));
   }
 }
-function closeLeafletReader(restoreFocus=true){
+// Botão "voltar" do celular/tablet fecha o folheto em vez de sair do site.
+let leafletHistory=false, leafletIgnorePop=false;
+if(typeof window.addEventListener==="function") window.addEventListener("popstate",function(){
+  if(leafletIgnorePop){ leafletIgnorePop=false; return; }
+  if(leafletHistory){ leafletHistory=false; closeLeafletReader(true,true); }
+});
+function closeLeafletReader(restoreFocus=true,fromHistory=false){
   const panel=document.getElementById("leafletReader");
   if(!panel || panel.hidden) return;
+  if(!fromHistory && leafletHistory){
+    leafletHistory=false;
+    try{ if(history.state && history.state.leafletReader){ leafletIgnorePop=true; history.back(); } }catch(_e){}
+  }
   panel.hidden=true;
   document.getElementById("leafletReaderBackdrop").hidden=true;
   releaseLeafletRendering();
@@ -6512,7 +6553,7 @@ function closeLeafletReader(restoreFocus=true){
 }
 function openDominicalLeaflet(){
   const url=getDominicalLeafletUrl();
-  if(!url){alert("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
+  if(!url){notifyUser("O folheto em PDF ainda não está disponível. Confira a publicação da Arquidiocese.");return false;}
   // Safari/Android podem ampliar, cortar ou mostrar só a primeira página
   // quando um PDF externo é incorporado. Sem autorização para hospedar
   // cópias, no celular a leitura completa deve usar o PDF oficial.
@@ -6546,6 +6587,7 @@ function openDominicalLeaflet(){
   status.hidden=false;
   const token=leafletViewGeneration;
   panel.hidden=false;
+  if(!leafletHistory){ try{ history.pushState({leafletReader:true},""); leafletHistory=true; }catch(_e){} }
   document.getElementById("leafletReaderBackdrop").hidden=false;
   document.body.classList.add("leaflet-reader-open");
   lockCalendarBackground();
@@ -6953,6 +6995,7 @@ document.addEventListener("visibilitychange",async()=>{
 
   function origin(d,t){
     if(t.verifiedByFolheto) return ["Conferido no folheto",true];
+    if(t.fromMissal) return ["Indicada no Missal",true];
     if(t.suggestion) return ["Sugestão",false];
     if(t.n===2 && !t.pageUnverified && !noPageIndicated(t)){
       if(d.grade==="Dia de semana" && /Tempo Comum/i.test(String(d.season||""))) return ["Missa do domingo da semana",false];
@@ -7036,7 +7079,7 @@ document.addEventListener("visibilitychange",async()=>{
     $("v3Title").textContent=d?d.celebration:$("celebration").textContent;
     var status=($("sourceStatusText")||{}).textContent||"";
     $("v3Sub").textContent=d?[d.season,(d.cycle && d.cycle!=="—")?d.cycle:"",status].filter(function(x){return x && x!=="—";}).join(" · "):"";
-    $("v3Kick").textContent="Modo Celebração · "+(d?String(d.label).replace(/ • /g,"\u00a0•\u00a0"):"");
+    (function(k){k.textContent="Modo Celebração · ";if(d){var nw=document.createElement("span");nw.className="v3-nw";nw.textContent=String(d.label);k.appendChild(nw);}})($("v3Kick"));
     var dec=$("v3Dec24"); dec.hidden=!String(key).endsWith("-12-24");
     var choice=december24Choice||"combined";
     dec.querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.dec24Mass===choice));});
@@ -7148,18 +7191,37 @@ document.addEventListener("visibilitychange",async()=>{
     var prev=r.style.scrollBehavior; r.style.scrollBehavior="auto"; window.scrollTo(0,s.y); r.style.scrollBehavior=prev;
   }
   function focusables(el){return [].slice.call(el.querySelectorAll("button:not([disabled]),a[href]")).filter(function(x){return x.getClientRects().length;});}
+  // Botão "voltar" do celular (Android) fecha a janela aberta em vez de sair do site.
+  var sheetHistory=false, ignorePop=false;
+  function pushSheetState(id){
+    try{
+      if(sheetHistory) history.replaceState({v3sheet:id},"");
+      else { history.pushState({v3sheet:id},""); sheetHistory=true; }
+    }catch(e){}
+  }
+  function popSheetState(){
+    if(!sheetHistory) return;
+    sheetHistory=false;
+    try{ if(history.state && history.state.v3sheet){ ignorePop=true; history.back(); } }catch(e){}
+  }
+  window.addEventListener("popstate",function(){
+    if(ignorePop){ ignorePop=false; return; }
+    if(sheetHistory){ sheetHistory=false; if(openSheetId) closeSheet(true,true); }
+  });
   function openSheet(id){
-    if(openSheetId && openSheetId!==id) closeSheet(false);
+    if(openSheetId && openSheetId!==id) closeSheet(false,true);
     if(!sheetOpener) sheetOpener=document.activeElement;
     var sheet=$(id); openSheetId=id;
+    pushSheetState(id);
     sheet.inert=false; lockBg(); syncTab();
     requestAnimationFrame(function(){ if(openSheetId!==id) return; sheet.classList.add("open"); $("v3Dim").classList.add("open"); });
     var first=sheet.querySelector("[data-v3-close]");
     var into=function(){ if(openSheetId===id && first && !sheet.contains(document.activeElement)) first.focus({preventScroll:true}); };
     into(); requestAnimationFrame(into); setTimeout(into,80);
   }
-  function closeSheet(restore){
+  function closeSheet(restore,keepHistory){
     if(!openSheetId) return;
+    if(!keepHistory) popSheetState();
     var sheet=$(openSheetId); sheet.classList.remove("open"); sheet.inert=true; openSheetId=null;
     $("v3Dim").classList.remove("open"); unlockBg();
     syncTab();
@@ -7216,7 +7278,9 @@ document.addEventListener("visibilitychange",async()=>{
   /* ---------- ações ---------- */
   function toast(msg){
     var t=$("v3Toast"); t.textContent=msg; t.classList.add("open");
-    clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove("open");},2200);
+    // Mensagens longas (ex.: como instalar o app) ficam mais tempo na tela.
+    var ms=Math.min(8000,Math.max(2200,String(msg).length*65));
+    clearTimeout(toastTimer); toastTimer=setTimeout(function(){t.classList.remove("open");},ms);
   }
   window.v3Toast=toast;
   function act(name){

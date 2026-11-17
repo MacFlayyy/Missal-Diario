@@ -103,6 +103,12 @@ def check_data(data: dict, status: dict) -> None:
                 m = re.search(r"Formulário: p\. (\d+)", str(row[1]) if isinstance(row, list) and len(row) == 2 else "")
                 if m and m.group(1) != mass_page:
                     fail(key, f"fita {t.get('n')} cita formulário na p. {m.group(1)}, mas a Missa está na p. {mass_page}")
+        # Folheto só existe para o domingo: dia de semana não pode prometer "indicação do folheto".
+        if day.weekday() != 6 and not d.get("officialLeafletApplied"):
+            for t in tapes:
+                for row in t.get("details", []):
+                    if isinstance(row, list) and "folheto" in " ".join(map(str, row)).lower():
+                        fail(key, f"fita {t.get('n')} fala de folheto num dia de semana: {row[1][:70]}")
         if d.get("color") not in COLOR_HEX:
             fail(key, f"cor desconhecida: {d.get('color')}")
         elif d.get("colorHex", "").lower() != COLOR_HEX[d["color"]]:

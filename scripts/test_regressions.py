@@ -61,7 +61,8 @@ def verify_html(path,standalone=False):
     assert "madrugada de domingo" in html,path
     assert "effectiveLiturgicalColorName" in html,path
     assert 'if(weekdayForKey(key)!==0) continue;' in html,path
-    assert 'const url="https://macflayyy.github.io/Missal-Diario/";' in html,path
+    # Compartilhar usa o endereço público atual; arquivo local cai no endereço oficial.
+    assert 'location.origin+location.pathname.replace(/[^/]*$/,"")' in html and '"https://macflayyy.github.io/Missal-Diario/"' in html,path
     assert "const tapeH=tapeHeights[i]" in html,path
     assert "drawAllLines(allTapeDetails(t)" in html,path
     assert "drawInstagramMark(ctx,canvas.width-pad" in html,path
@@ -69,7 +70,7 @@ def verify_html(path,standalone=False):
     assert "december24Choice=" in html,path
     # Texto do rodapé sobre a atualização automática removido a pedido do usuário (05/11/2026).
     assert 'id="lastUpdateText"' in html,path
-    assert 'if(!url){alert("O folheto em PDF' in html,path
+    assert 'if(!url){notifyUser("O folheto em PDF' in html and "function notifyUser(" in html,path
     assert 'bottomExit.textContent="Sair do modo celebração"' in html,path
     assert 'madrugada de domingo' in html,path
     assert 'if(weekday===0)' in html,path

@@ -97,6 +97,20 @@ try{
  test(c.name,'celebration-mode-exits',await page.evaluate(()=>!document.body.classList.contains('v3-cel')));
  const leaflet=await page.evaluate(()=>getDominicalLeafletUrl());
  test(c.name,'leaflet-direct-pdf',/^https:\/\/.+\.pdf(?:\?|#|$)/.test(leaflet),{url:leaflet});
+ if(c.name==='desktop'&&leaflet&&!process.env.AUDIT_SKIP_PDF){
+  // No computador o folheto abre dentro do site: as páginas precisam aparecer
+  // (desenhadas pelo pdf.js ou, se ele falhar, pelo visualizador do navegador).
+  await page.locator('[data-v3-act="leaflet"]:visible').first().click();
+  const mode=await page.waitForFunction(()=>{
+    if(document.querySelector('#leafletCanvasPages .leaflet-canvas-page[data-rendered]'))return 'paginas';
+    const f=document.getElementById('leafletReaderFrame');
+    if(f&&!f.hidden&&f.getAttribute('src'))return 'visualizador-do-navegador';
+    return false;
+  },null,{timeout:45000}).then(h=>h.jsonValue()).catch(()=>'nada-apareceu');
+  test(c.name,'leaflet-pages-appear',mode!=='nada-apareceu',{mode});
+  await capture(page,c.name+'-leaflet');
+  await page.locator('#leafletReaderClose').click().catch(()=>{});
+ }
  }catch(e){test(c.name,'test-complete',false,{error:String(e.stack||e).slice(0,650)})}
  finally{await ctx.close();await browser.close()}
 }

@@ -39,6 +39,12 @@ async function allDays(browserType, label, viewport) {
       if (document.getElementById('v3Title').textContent.trim() !== e.celebration) bad.push(k + ' título diferente');
       if (document.querySelectorAll('#v3List .v3-r').length !== 5) bad.push(k + ' fitas ≠ 5');
       if (document.documentElement.scrollWidth > innerWidth + 1) bad.push(k + ' rolagem horizontal');
+      // "Terça-feira • 17/11/2026" nunca pode quebrar no meio (ex.: "Terça-" / "feira").
+      window.v3SetView && window.v3SetView('cel');
+      await new Promise(r => requestAnimationFrame(r));
+      const nw = document.querySelector('#v3Kick .v3-nw');
+      if (!nw || nw.getClientRects().length !== 1) bad.push(k + ' dia da semana quebrado no cabeçalho');
+      window.v3SetView && window.v3SetView('home');
     }
     return {n: keys.length, bad};
   });
@@ -152,6 +158,68 @@ async function leafletOfSelectedDay() {
   await b.close();
 }
 
+async function copiedText() {
+  // Texto do botão "Copiar" de todos os dias: sem lixo, sem frase colada ao título.
+  const b = await chromium.launch();
+  const page = await b.newPage();
+  await page.route('**/cloudflareinsights.com/**', r => r.abort());
+  await page.goto(URL, {waitUntil: 'load'});
+  const bad = await page.evaluate(() => {
+    const out = [];
+    for (const k of Object.keys(window.MISSAL_DATA).sort()) {
+      const text = buildDetailedCopyText(k);
+      for (const line of text.split('\n')) {
+        const rules = [[/undefined|\bnull\b|NaN|\[object/, 'texto quebrado'], [/\S {2,}\S/, 'espaço duplo'],
+          [/\s[,;.](?!\d)|\.\./, 'pontuação'], [/\(sugestão\s*[;,.]|\(sugestão [A-ZÀ-Ú]/, 'sugestão mal formada'],
+          [/[”a-zà-ú)] (Indicada|Escolher|Prefácio próprio|Sugestão|Pode-se)/, 'frase colada ao título'], [/—\s*—/, 'traço duplo']];
+        for (const [re, name] of rules) if (re.test(line)) out.push(k + ' ' + name + ': ' + line.slice(0, 90));
+      }
+      if (/Fita 3[^\n]*“([^”]+)”[^\n]*“\1”/.test(text)) out.push(k + ' título repetido na fita 3');
+    }
+    return out;
+  });
+  ok(`texto do botão Copiar dos ${'dias'} sem defeitos`, bad.length === 0, JSON.stringify(bad.slice(0, 5)));
+  await b.close();
+}
+
+async function backButton() {
+  // Botão "voltar" do celular fecha a janela aberta e não sai do site;
+  // fechar pelo X não deixa "voltas" sobrando no histórico.
+  const b = await chromium.launch();
+  const ctx = await b.newContext({viewport: {width: 390, height: 844}, hasTouch: true, isMobile: true, timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
+  await blockBeacon(ctx);
+  const page = await ctx.newPage();
+  await page.goto(URL, {waitUntil: 'load'}); await page.waitForTimeout(600);
+  const start = await page.evaluate(() => history.length);
+  const isOpen = id => page.evaluate(i => document.getElementById(i).classList.contains('open'), id);
+  await page.locator('.v3-gt[data-v3-tab="more"]').click(); await page.waitForTimeout(400);
+  const opened = await isOpen('v3MoreSheet');
+  await page.goBack(); await page.waitForTimeout(500);
+  const closedByBack = !(await isOpen('v3MoreSheet')) && page.url().startsWith(URL.replace(/index\.html$/, ''));
+  ok('voltar do celular fecha o menu Mais sem sair do site', opened && closedByBack);
+  await page.locator('.v3-gt[data-v3-tab="cal"]').click(); await page.waitForTimeout(400);
+  await page.locator('#v3CalSheet [data-v3-close]').first().click(); await page.waitForTimeout(600);
+  const after = await page.evaluate(() => ({len: history.length, state: history.state}));
+  ok('fechar pelo X não deixa histórico sobrando', !(after.state && after.state.v3sheet), JSON.stringify(after));
+  await b.close();
+  // Folheto aberto dentro do site (tablet): voltar fecha o leitor.
+  const b2 = await chromium.launch();
+  const ctx2 = await b2.newContext({viewport: {width: 1024, height: 768}, timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
+  await blockBeacon(ctx2);
+  await ctx2.route(/\.pdf(?:[?#]|$)/i, r => r.abort());
+  const p2 = await ctx2.newPage();
+  await p2.goto(URL, {waitUntil: 'load'}); await p2.waitForTimeout(600);
+  const has = await p2.evaluate(() => !!getDominicalLeafletUrl());
+  if (has) {
+    await p2.evaluate(() => openDominicalLeaflet()); await p2.waitForTimeout(400);
+    const readerOpen = await p2.evaluate(() => !document.getElementById('leafletReader').hidden);
+    await p2.goBack(); await p2.waitForTimeout(500);
+    const readerClosed = await p2.evaluate(() => document.getElementById('leafletReader').hidden);
+    ok('voltar fecha o leitor do folheto sem sair do site', readerOpen && readerClosed && p2.url().startsWith(URL.replace(/index\.html$/, '')));
+  }
+  await b2.close();
+}
+
 (async () => {
   const engines = onlyChromium ? [[chromium, 'Chromium']] : [[chromium, 'Chromium'], [webkit, 'WebKit']];
   for (const [type, label] of engines) {
@@ -162,6 +230,8 @@ async function leafletOfSelectedDay() {
   await layoutShift(chromium, 'Chromium', {width: 1350, height: 940});
   await serviceWorker();
   await leafletOfSelectedDay();
+  await copiedText();
+  await backButton();
   await release();
   console.log(`COMPORTAMENTO_FIM ${JSON.stringify({total, failures})}`);
   process.exit(failures ? 1 : 0);

@@ -582,11 +582,13 @@ def _tape_preface(pref):
     return {"n": 3, "page": pref["page"], "title": pref["title"], "details": details, "suggestion": True}
 
 
-def _tape_oe(solemn):
+def _tape_oe(solemn, sunday=False):
     page, title = ("545", "Oração Eucarística III") if solemn else ("536", "Oração Eucarística II")
+    # Folheto só existe para o domingo; nos dias de semana não há o que esperar.
+    use = "Sugestão enquanto não houver indicação do folheto" if sunday else "Sugestão"
     return {"n": 4, "page": page, "title": title, "suggestion": True,
             "details": [["Aclamação", "Mistério da fé! • sugestão"], ["Resposta", OE_RESPONSE],
-                        ["Uso", "Sugestão enquanto não houver indicação do folheto"]]}
+                        ["Uso", use]]}
 
 
 def _tape_blessing(bless):
@@ -597,8 +599,12 @@ def _tape_blessing(bless):
         use = "Indicada no próprio formulário do Missal (facultativa)"
     else:
         use = "Sugestão adequada ao tempo ou à celebração"
-    return {"n": 5, "page": bless["page"], "title": bless["title"], "details": [["Uso", use]],
+    tape = {"n": 5, "page": bless["page"], "title": bless["title"], "details": [["Uso", use]],
             "suggestion": True}
+    if bless.get("from_missal"):
+        # O próprio formulário do Missal indica esta bênção: não é palpite do site.
+        tape["fromMissal"] = True
+    return tape
 
 
 def build_entry(day):
@@ -619,7 +625,7 @@ def build_entry(day):
                     ["Missa da Vigília", f"pág. {info['vigil_page']} — na tarde/noite da véspera"]]
     tape2 = {"n": 2, "page": page, "title": info["celebration"], "details": details2}
     tape3 = _tape_preface(info["preface"])
-    tape4 = _tape_oe(info["solemn"])
+    tape4 = _tape_oe(info["solemn"], day.weekday() == 6)
     tape5 = _tape_blessing(info["blessing"])
     note = info.get("note") or ""
     celebration = info["celebration"]
@@ -627,13 +633,13 @@ def build_entry(day):
 
     if special == "dec24":
         tape2 = {"n": 2, "page": "124 / 126", "title": "24 de dezembro — manhã / Vigília do Natal",
-                 "details": [["Manhã", "pág. 124"], ["Tarde/noite", "Missa da Vigília do Natal — pág. 126"]]}
+                 "details": [["Manhã", "Missa do dia 24 de dezembro — pág. 124"], ["Tarde/noite", "Missa da Vigília do Natal — pág. 126"]]}
         tape3 = {"n": 3, "page": "453 / 455", "title": "Prefácio do Advento II / Prefácio do Natal do Senhor I",
                  "details": [["Manhã", "Prefácio do Advento II — pág. 453"],
                              ["Vigília do Natal", "Prefácio do Natal do Senhor I — pág. 455"],
-                             ["Uso", "Escolher conforme a Missa celebrada; confirmar no folheto."]],
+                             ["Uso", "Escolher conforme a Missa celebrada."]],
                  "suggestion": True}
-        tape4 = _tape_oe(True)
+        tape4 = _tape_oe(True, day.weekday() == 6)
         tape5 = {"n": 5, "page": "578 / 579", "title": "Bênção Solene — Advento / Natal",
                  "details": [["Manhã", "Bênção do Advento — pág. 578 (sugestão)"],
                              ["Vigília", "Bênção do Natal — pág. 579 (sugestão)"]], "suggestion": True}
