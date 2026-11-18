@@ -31,10 +31,30 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
+      # Os servidores de pacotes do Ubuntu às vezes ficam muito lentos e a
+      # instalação dos navegadores de teste estourava o tempo. Guardamos os
+      # navegadores e os pacotes do sistema para as próximas execuções.
+      - name: Guardar navegadores de teste entre execuções
+        uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cache/ms-playwright
+            ~/pw-debs
+          key: playwright-1.56.1-${{ runner.os }}-ubuntu-24.04-v1
       - name: Preparar Chromium e WebKit
+        timeout-minutes: 20
         run: |
           npm install --no-save playwright@1.56.1
-          npx playwright install --with-deps chromium webkit
+          mkdir -p ~/pw-debs
+          sudo cp -n ~/pw-debs/*.deb /var/cache/apt/archives/ 2>/dev/null || true
+          echo 'Acquire::Retries "3"; Acquire::http::Timeout "30"; APT::Keep-Downloaded-Packages "true";' | sudo tee /etc/apt/apt.conf.d/80-missal >/dev/null
+          for attempt in 1 2 3; do
+            if timeout 420 npx playwright install --with-deps chromium webkit; then break; fi
+            echo "Tentativa $attempt de instalar os navegadores falhou ou demorou demais; tentando de novo..."
+            sleep 20
+          done
+          npx playwright install chromium webkit
+          cp -n /var/cache/apt/archives/*.deb ~/pw-debs/ 2>/dev/null || true
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
