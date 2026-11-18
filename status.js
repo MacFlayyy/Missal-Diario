@@ -1,5 +1,5 @@
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-18",
+  "availableThrough": "2026-11-19",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -13,6 +13,6 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "contentVersion": "fdf9e062ca334c18b89f",
-  "lastSuccessfulUpdateAt": "2026-11-17T13:38:21.413199-03:00"
+  "contentVersion": "0ca65a011b26bd28c37b",
+  "lastSuccessfulUpdateAt": "2026-11-18T01:04:08.026923-03:00"
 };

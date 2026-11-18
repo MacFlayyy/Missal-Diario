@@ -4829,7 +4829,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 860 → 502 → 536 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-20": {
     "label": "Sexta-feira • 20/11/2026",

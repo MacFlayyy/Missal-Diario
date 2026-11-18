@@ -1,6 +1,6 @@
 // Cache limitado aos arquivos-base da aplicação: nenhuma versão query,
 // PDF, resposta de monitoramento ou recurso de terceiros fica no armazenamento.
-const CACHE_NAME = "missal-diario-20261117-6cb5e72d27f1";
+const CACHE_NAME = "missal-diario-20261118-45348acd1ff9";
 const SHELL = [
   "./", "./index.html", "./data.js", "./status.js",
   "./manifest.webmanifest", "./app-icon.svg",
