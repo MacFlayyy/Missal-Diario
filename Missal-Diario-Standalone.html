@@ -9694,7 +9694,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 415 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-21": {
     "label": "Sábado • 21/11/2026",
@@ -13509,7 +13513,7 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-19",
+  "availableThrough": "2026-11-20",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -13523,8 +13527,8 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "contentVersion": "0ca65a011b26bd28c37b",
-  "lastSuccessfulUpdateAt": "2026-11-18T01:04:08.026923-03:00"
+  "contentVersion": "411d313a0155d76a62dd",
+  "lastSuccessfulUpdateAt": "2026-11-19T01:00:31.785823-03:00"
 };
 </script>
 <script>
@@ -15647,7 +15651,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261118-f4e196c70d88",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261119-8b75f22d6f3b",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
