@@ -15953,6 +15953,12 @@ document.addEventListener("visibilitychange",async()=>{
     if(target){
       window.scrollTo({top:0,behavior:"instant"});
       requestAnimationFrame(function(){target.scrollIntoView({behavior:smooth,block:"start"});});
+      // Se as letras do site terminarem de carregar durante a rolagem, o texto
+      // acima muda de altura e a fita pode ficar um pouco cortada no topo.
+      // Depois da rolagem, confere e acerta a posição (só se ficou cortada).
+      setTimeout(function(){
+        if(view==="cel"&&target.isConnected&&target.getBoundingClientRect().top<0) target.scrollIntoView({behavior:"instant",block:"start"});
+      },900);
     }else if(changed) window.scrollTo({top:0,behavior:"instant"});
     if(changed && !reduce()){
       var el=v==="cel"?$("v3Cel"):$("v3Home");

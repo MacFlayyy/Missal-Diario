@@ -247,7 +247,7 @@ async function run(config){
    await page.locator(wide?'#v3DeskCel':'.v3-gt[data-v3-tab="home"]').click();
    mark(row,'celebration-mode-exits',await page.evaluate(()=>!document.body.classList.contains('v3-cel')&&!document.getElementById('v3Home').hidden&&document.getElementById('v3Cel').hidden));
    await page.locator('#v3Quick button[data-tape="3"]').click();
-   await page.waitForTimeout(450);
+   await page.waitForTimeout(1100);
    const jump=await page.evaluate(()=>{const c=document.getElementById('v3-tape-3').getBoundingClientRect();
      return {mode:document.body.classList.contains('v3-cel'),top:c.top,bottom:c.bottom,h:innerHeight};});
    mark(row,'quick-third-page-opens-preface-in-celebration',jump.mode&&jump.top>=-4&&jump.top<jump.h*0.75,jump);
