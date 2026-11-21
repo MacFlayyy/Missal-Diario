@@ -9893,7 +9893,11 @@ window.MISSAL_DATA = {
     ],
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-23": {
     "label": "Segunda-feira • 23/11/2026",
@@ -13518,13 +13522,13 @@ window.MISSAL_DATA = {
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-21",
+  "availableThrough": "2026-11-22",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
     "structureAndPageIndexChecked": true,
     "originalMissalPdfCheckedInThisRun": false,
-    "dailyOfficialLeafletApplied": false,
+    "dailyOfficialLeafletApplied": true,
     "unverifiedMissalPages": []
   },
   "sundayPreview": "2026-11-22",
@@ -13533,8 +13537,8 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "contentVersion": "512c2e73b3a56ed85df0",
-  "lastSuccessfulUpdateAt": "2026-11-20T00:54:11.414191-03:00"
+  "contentVersion": "42c930b0d0a91ea8baf9",
+  "lastSuccessfulUpdateAt": "2026-11-21T00:47:04.260634-03:00"
 };
 </script>
 <script>
@@ -15657,7 +15661,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261120-a989e8e6cdfe",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261121-f42f6787355d",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{

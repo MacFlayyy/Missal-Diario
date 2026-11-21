@@ -5123,7 +5123,11 @@ window.MISSAL_DATA = {
     ],
     "officialLeafletApplied": true,
     "ritesPendingOfficial": false,
-    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf"
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-23": {
     "label": "Segunda-feira • 23/11/2026",
