@@ -5219,7 +5219,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 416 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-24": {
     "label": "Terça-feira • 24/11/2026",
@@ -8747,5 +8751,99 @@ window.MISSAL_DATA = {
     ],
     "quick": "430 → 137 → 455 → 536 → 579",
     "cycle": "—"
+  },
+  "2027-01-01": {
+    "label": "Sexta-feira • 01/01/2027",
+    "celebration": "Santa Maria, Mãe de Deus",
+    "subtitle": "Natal",
+    "saint": "Oitava do Natal do Senhor",
+    "grade": "Solenidade",
+    "season": "Natal",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Santa Maria, Mãe de Deus.",
+    "liturgicalNote": "Santa Maria, Mãe de Deus.",
+    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "cycle": "—",
+    "tapes": [
+      {
+        "n": 1,
+        "page": "430",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "138",
+        "title": "Santa Maria, Mãe de Deus",
+        "details": [
+          [
+            "Formulário",
+            "Missa do dia"
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "493",
+        "title": "Prefácio da Bem-aventurada Virgem Maria I",
+        "details": [
+          [
+            "Título",
+            "A maternidade da Bem-aventurada Virgem Maria"
+          ],
+          [
+            "Uso",
+            "Indicado no próprio formulário da Missa"
+          ]
+        ],
+        "fromMissal": true
+      },
+      {
+        "n": 4,
+        "page": "545",
+        "title": "Oração Eucarística III",
+        "suggestion": true,
+        "details": [
+          [
+            "Aclamação",
+            "Mistério da fé! • sugestão"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ],
+          [
+            "Uso",
+            "Sugestão"
+          ]
+        ]
+      },
+      {
+        "n": 5,
+        "page": "139",
+        "title": "Bênção Solene — própria desta celebração",
+        "details": [
+          [
+            "Uso",
+            "Indicada no próprio formulário do Missal (facultativa)"
+          ]
+        ],
+        "suggestion": true,
+        "fromMissal": true
+      }
+    ],
+    "generated": "calendario-perpetuo",
+    "quick": "430 → 138 → 493 → 545 → 139"
   }
 };
