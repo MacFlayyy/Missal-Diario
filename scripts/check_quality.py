@@ -201,6 +201,22 @@ def check_cycle(day: date, e: dict) -> None:
         fail(where, f"domingo sem ano A/B/C: {cycle}")
     if e.get("grade") == "Dia de semana" and e.get("season") == "Tempo Comum" and cycle != weekday:
         fail(where, f"dia de semana do Tempo Comum sem {weekday}: {cycle}")
+    # Linha abaixo do título, em qualquer ano: domingo mostra Ano A/B/C;
+    # dia de semana do Tempo Comum (sem solenidade/festa) mostra Ano I/II;
+    # os demais dias mostram só o tempo, sem ano.
+    sub = str(e.get("subtitle", ""))
+    lord_abc = ("Santíssima Trindade", "Santíssimo Corpo e Sangue de Cristo", "Sagrado Coração de Jesus",
+                "Batismo do Senhor", "Sagrada Família de Jesus, Maria e José", "Sábado Santo — Vigília Pascal")
+    if day.weekday() == 6 or str(e.get("celebration", "")).startswith(lord_abc):
+        want_year = abc
+    elif e.get("season") == "Tempo Comum" and e.get("grade") not in ("Solenidade", "Festa"):
+        want_year = weekday
+    else:
+        want_year = None
+    if want_year and not sub.startswith(want_year + " • "):
+        fail(where, f"linha do título '{sub}' deveria começar com '{want_year} • '")
+    if not want_year and sub.startswith("Ano "):
+        fail(where, f"linha do título '{sub}' não deveria mostrar ano")
     pref = e["tapes"][2]
     # 3º, 4º e 5º Domingos da Quaresma: prefácio próprio só no Ano A.
     if day.weekday() == 6 and e.get("season") == "Quaresma" and pref.get("page") in ("187", "196", "204") and abc != "Ano A":

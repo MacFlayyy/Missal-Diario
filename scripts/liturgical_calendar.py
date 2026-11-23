@@ -436,12 +436,13 @@ def liturgical_day(day):
                 else f"Dia de semana — {t['season']}: Missa do dia."
 
     # Ciclo de leituras: domingos e solenidades do Senhor seguem o ano A/B/C;
-    # dias de semana do Tempo Comum, o ano I/II; os demais têm leituras próprias.
+    # dias de semana do Tempo Comum, o ano I/II; festas, solenidades e os demais
+    # dias têm leituras próprias.
     abc_keys = ("trindade", "corpus-christi", "sagrado-coracao", "batismo", "sagrada-familia",
                 "vigilia-pascal")
     if is_sunday or (info["source"] == "tempo" and t["key"] in abc_keys):
         info["cycle"] = sunday_cycle(day)
-    elif t["season"] == "Tempo Comum" and info["grade"] != "Solenidade":
+    elif t["season"] == "Tempo Comum" and info["grade"] not in ("Solenidade", "Festa"):
         info["cycle"] = weekday_cycle(day)
     else:
         info["cycle"] = "—"

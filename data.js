@@ -1175,7 +1175,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 826 → 828 → 523 → 585",
-    "cycle": "Ano II",
+    "cycle": "—",
     "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
     "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/10/55_2-Povo-Deus-61-12_10_NSra-APARECIDA-Paroquias-Prova-Final.pdf",
     "officialLeafletApplied": true,
@@ -2630,7 +2630,7 @@ window.MISSAL_DATA = {
   "2026-10-28": {
     "label": "Quarta-feira • 28/10/2026",
     "celebration": "Santos Simão e Judas Tadeu, apóstolos",
-    "subtitle": "Ano II • Tempo Comum",
+    "subtitle": "Tempo Comum",
     "saint": "Santos Simão e Judas Tadeu",
     "grade": "Festa",
     "season": "Tempo Comum",
@@ -2722,7 +2722,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 839 → 498 → 545 → 586",
-    "cycle": "Ano II"
+    "cycle": "—"
   },
   "2026-10-29": {
     "label": "Quinta-feira • 29/10/2026",
@@ -3774,7 +3774,7 @@ window.MISSAL_DATA = {
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",
     "celebration": "Dedicação da Basílica do Latrão",
-    "subtitle": "Ano II • Tempo Comum",
+    "subtitle": "Tempo Comum",
     "saint": "—",
     "grade": "Festa",
     "season": "Tempo Comum",
@@ -3860,7 +3860,7 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 850 → 852 → 545 → 588",
-    "cycle": "Ano II",
+    "cycle": "—",
     "missalPageReferenceVerified": true,
     "autoReview": {
       "reviewed": true,
