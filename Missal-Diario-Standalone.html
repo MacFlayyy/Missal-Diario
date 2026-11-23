@@ -10085,7 +10085,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 863 → 502 → 536 → 587",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-25": {
     "label": "Quarta-feira • 25/11/2026",
@@ -13615,12 +13619,105 @@ window.MISSAL_DATA = {
     ],
     "generated": "calendario-perpetuo",
     "quick": "430 → 138 → 493 → 545 → 139"
+  },
+  "2027-01-02": {
+    "label": "Sábado • 02/01/2027",
+    "celebration": "Santos Basílio Magno e Gregório Nazianzeno, bispos e doutores da Igreja",
+    "subtitle": "Natal",
+    "saint": "Santos Basílio Magno e Gregório Nazianzeno",
+    "grade": "Memória",
+    "season": "Natal",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Memória celebrada neste dia.",
+    "liturgicalNote": "Memória celebrada neste dia.",
+    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "cycle": "—",
+    "tapes": [
+      {
+        "n": 1,
+        "page": "430",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "659",
+        "title": "Santos Basílio Magno e Gregório Nazianzeno, bispos e doutores da Igreja",
+        "details": [
+          [
+            "Formulário",
+            "Missa do dia"
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "455",
+        "title": "Prefácio do Natal do Senhor I",
+        "details": [
+          [
+            "Título",
+            "Cristo luz"
+          ],
+          [
+            "Uso",
+            "Sugestão"
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 4,
+        "page": "536",
+        "title": "Oração Eucarística II",
+        "suggestion": true,
+        "details": [
+          [
+            "Aclamação",
+            "Mistério da fé! • sugestão"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ],
+          [
+            "Uso",
+            "Sugestão"
+          ]
+        ]
+      },
+      {
+        "n": 5,
+        "page": "579",
+        "title": "Bênção Solene — Natal",
+        "details": [
+          [
+            "Uso",
+            "Sugestão adequada ao tempo ou à celebração"
+          ]
+        ],
+        "suggestion": true
+      }
+    ],
+    "generated": "calendario-perpetuo",
+    "quick": "430 → 659 → 455 → 536 → 579"
   }
 };
 </script>
 <script>
 window.MISSAL_STATUS = {
-  "availableThrough": "2026-11-23",
+  "availableThrough": "2026-11-24",
   "timezone": "America/Sao_Paulo",
   "validation": "technical-checks-passed",
   "validationDetails": {
@@ -13629,13 +13726,13 @@ window.MISSAL_STATUS = {
     "dailyOfficialLeafletApplied": false,
     "unverifiedMissalPages": []
   },
-  "calendarDataThrough": "2027-01-01",
+  "calendarDataThrough": "2027-01-02",
   "sundayLeafletDate": "2026-11-22",
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "contentVersion": "5dcb3d3bab64db6f766f",
-  "lastSuccessfulUpdateAt": "2026-11-22T06:32:22.521963-03:00"
+  "contentVersion": "d32975ca451a6e4561b2",
+  "lastSuccessfulUpdateAt": "2026-11-23T00:32:12.262391-03:00"
 };
 </script>
 <script>
@@ -15758,7 +15855,7 @@ if(false && "serviceWorker" in navigator){
   });
   window.addEventListener("load",async()=>{
     try{
-      const reg=await navigator.serviceWorker.register("./sw.js?v=20261122-f9017b425c2b",{updateViaCache:"none"});
+      const reg=await navigator.serviceWorker.register("./sw.js?v=20261123-383c893262ac",{updateViaCache:"none"});
       await reg.update();
       window.addEventListener("focus",()=>reg.update());
       document.addEventListener("visibilitychange",()=>{
