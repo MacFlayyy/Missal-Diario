@@ -16273,7 +16273,9 @@ document.addEventListener("visibilitychange",async()=>{
     syncTab();
     if(restore!==false){ if(sheetOpener && sheetOpener.focus && document.contains(sheetOpener)) sheetOpener.focus({preventScroll:true}); sheetOpener=null; }
   }
-  $("v3Dim").addEventListener("click",function(){closeSheet();});
+  // O calendário só fecha pelo X, pelo Esc ou ao escolher uma data: um toque
+  // fora dele (sem querer) não o fecha. As outras janelas fecham ao tocar fora.
+  $("v3Dim").addEventListener("click",function(){ if(openSheetId!=="v3CalSheet") closeSheet(); });
   root.querySelectorAll("[data-v3-close]").forEach(function(b){b.addEventListener("click",function(){closeSheet();});});
   document.addEventListener("keydown",function(e){
     if(!openSheetId) return;

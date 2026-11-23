@@ -133,6 +133,17 @@ async function run(config){
        statuses.sunAfter=test('2026-10-11',5,'2026-10-11',undefined);
      }finally{brasiliaTodayKey=realDay;brasiliaClockParts=realClock;window.MISSAL_STATUS=realStatus;}return statuses;
    });
+   const calOutside=await page.evaluate(async()=>{
+     const wait=ms=>new Promise(r=>setTimeout(r,ms));
+     const sheet=document.getElementById('v3CalSheet'),dim=document.getElementById('v3Dim');
+     document.getElementById('v3MonthBtn').click(); await wait(400);
+     const opened=sheet.classList.contains('open');
+     dim.click(); await wait(400);
+     const stillOpen=sheet.classList.contains('open');
+     const x=sheet.querySelector('[data-v3-close]'); if(x) x.click(); await wait(400);
+     return {opened,stillOpen,closedByX:!sheet.classList.contains('open')};
+   });
+   mark(row,'calendar-stays-open-on-outside-tap',calOutside.opened&&calOutside.stillOpen&&calOutside.closedByX,calOutside);
    mark(row,'saturday-release-rule',gate.satBefore.preview===null && gate.satAfter.preview==='2026-10-11' && gate.satBefore.limit==='2026-10-09',gate);
    const weekdayLeaflet=await page.evaluate(()=>{
      const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS,previous=window.currentDateKey;
