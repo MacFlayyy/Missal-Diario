@@ -1036,6 +1036,28 @@ def check_diverse_circumstances_leaflet():
         assert page in U.OE_BY_PAGE and page in U.OE_OWN_PREFACE, page
     print("PASSOU folheto com Oração Eucarística para Diversas Circunstâncias e saudação adaptada")
 
+def check_auto_fix():
+    import copy
+    sys.path.insert(0,str(ROOT/"scripts"))
+    import auto_fix
+    data=read_js_json(DATA,"window.MISSAL_DATA")
+    key="2026-12-01"
+    original=data[key]
+    broken=copy.deepcopy(original)
+    broken["subtitle"]="Tempo Comum"; broken["color"]="Verde"
+    broken["label"]="Sexta-feira • 01/12/2026"; broken["tapes"][1]["page"]="999"
+    broken["tapes"].reverse(); broken["celebration"]=" "+broken["celebration"]+"  "
+    fixes=auto_fix.fix_entry(key,broken)
+    assert fixes,"Robô corretor não corrigiu nada"
+    for field in ("subtitle","color","colorHex","label","celebration","quick"):
+        assert broken[field]==original[field],(field,broken[field],original[field])
+    assert [t["n"] for t in broken["tapes"]]==[1,2,3,4,5]
+    assert broken["tapes"][1]["page"]==original["tapes"][1]["page"]
+    from datetime import date as _date
+    rebuilt=auto_fix.fresh_entry(_date(2027,3,9))
+    assert rebuilt["quick"] and len(rebuilt["tapes"])==5
+    print("PASSOU robô corretor: arruma rótulo, linha do título, cor, fitas, páginas e espaços")
+
 def main():
     verify_html(INDEX)
     verify_html(STANDALONE,standalone=True)
@@ -1060,6 +1082,7 @@ def main():
     check_known_sunday_page_survives_leaflet_ocr()
     check_design_v3()
     check_diverse_circumstances_leaflet()
+    check_auto_fix()
     print("TODOS OS TESTES PASSARAM")
 
 if __name__=="__main__":

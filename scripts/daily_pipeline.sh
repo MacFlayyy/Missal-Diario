@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Pipeline diário do Missal Diário, com rede de segurança.
 #
-# 1ª tentativa: gera o dia, aplica os folhetos e roda TODAS as verificações.
+# 1ª tentativa: gera o dia, aplica os folhetos, passa o robô corretor e roda
+# TODAS as verificações.
 # Se algo falhar por causa de um folheto (leitura ruim do PDF escaneado, regra
 # nova etc.), o site NÃO fica sem o dia: as mudanças do folheto são desfeitas,
 # o dia é gerado de novo pelo Missal e TODAS as verificações rodam outra vez.
@@ -13,7 +14,9 @@ FILES="data.js status.js index.html sw.js Missal-Diario-Standalone.html"
 SNAP="$(mktemp -d)"
 
 run_checks() {
-  python scripts/validate_daily.py \
+  # Robô corretor: arruma sozinho o que estiver fora do padrão antes de verificar.
+  python scripts/auto_fix.py \
+  && python scripts/validate_daily.py \
   && python scripts/bump_daily_version.py \
   && python scripts/build_standalone.py \
   && python scripts/verify_daily.py \
