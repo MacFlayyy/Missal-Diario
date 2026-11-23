@@ -2,7 +2,7 @@ window.MISSAL_DATA = {
   "2026-09-30": {
     "label": "Quarta-feira • 30/09/2026",
     "celebration": "São Jerônimo, presbítero e doutor da Igreja",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Jerônimo",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -90,7 +90,7 @@ window.MISSAL_DATA = {
   "2026-10-01": {
     "label": "Quinta-feira • 01/10/2026",
     "celebration": "Santa Teresa do Menino Jesus, virgem e doutora da Igreja",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Teresa do Menino Jesus",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -178,7 +178,7 @@ window.MISSAL_DATA = {
   "2026-10-02": {
     "label": "Sexta-feira • 02/10/2026",
     "celebration": "Santos Anjos da Guarda",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santos Anjos da Guarda",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -261,7 +261,7 @@ window.MISSAL_DATA = {
   "2026-10-03": {
     "label": "Sábado • 03/10/2026",
     "celebration": "Santos André de Soveral, Ambrósio Francisco Ferro, presbíteros, Mateus Moreira, leigo, e companheiros mártires",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santos André de Soveral, Ambrósio Francisco Ferro, Mateus Moreira e companheiros mártires",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -437,7 +437,7 @@ window.MISSAL_DATA = {
   "2026-10-05": {
     "label": "Segunda-feira • 05/10/2026",
     "celebration": "São Benedito, o Negro, religioso",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Benedito, o Negro",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -525,7 +525,7 @@ window.MISSAL_DATA = {
   "2026-10-06": {
     "label": "Terça-feira • 06/10/2026",
     "celebration": "Santa Faustina Kowalska, virgem",
-    "subtitle": "27ª Semana do Tempo Comum • Ano II",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Faustina Kowalska",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -613,7 +613,7 @@ window.MISSAL_DATA = {
   "2026-10-07": {
     "label": "Quarta-feira • 07/10/2026",
     "celebration": "Bem-aventurada Virgem Maria do Rosário",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Nossa Senhora do Rosário",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -705,7 +705,7 @@ window.MISSAL_DATA = {
   "2026-10-08": {
     "label": "Quinta-feira • 08/10/2026",
     "celebration": "27ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Sem memória litúrgica própria neste dia",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -804,7 +804,7 @@ window.MISSAL_DATA = {
   "2026-10-09": {
     "label": "Sexta-feira • 09/10/2026",
     "celebration": "27ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Dionísio e companheiros; São João Leonardi",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -900,7 +900,7 @@ window.MISSAL_DATA = {
   "2026-10-10": {
     "label": "Sábado • 10/10/2026",
     "celebration": "27ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -1194,7 +1194,7 @@ window.MISSAL_DATA = {
   "2026-10-13": {
     "label": "Terça-feira • 13/10/2026",
     "celebration": "28ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -1290,7 +1290,7 @@ window.MISSAL_DATA = {
   "2026-10-14": {
     "label": "Quarta-feira • 14/10/2026",
     "celebration": "28ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Calisto I",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -1386,7 +1386,7 @@ window.MISSAL_DATA = {
   "2026-10-15": {
     "label": "Quinta-feira • 15/10/2026",
     "celebration": "Santa Teresa de Jesus, virgem e doutora da Igreja",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Teresa de Jesus",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -1482,7 +1482,7 @@ window.MISSAL_DATA = {
   "2026-10-16": {
     "label": "Sexta-feira • 16/10/2026",
     "celebration": "28ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Edviges; Santa Margarida Maria Alacoque",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -1578,7 +1578,7 @@ window.MISSAL_DATA = {
   "2026-10-17": {
     "label": "Sábado • 17/10/2026",
     "celebration": "Santo Inácio de Antioquia, bispo e mártir",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santo Inácio de Antioquia",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -1770,7 +1770,7 @@ window.MISSAL_DATA = {
   "2026-10-19": {
     "label": "Segunda-feira • 19/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Pedro de Alcântara; Santos João de Brébeuf e Isaac Jogues e companheiros; São Paulo da Cruz",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -1866,7 +1866,7 @@ window.MISSAL_DATA = {
   "2026-10-20": {
     "label": "Terça-feira • 20/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -1962,7 +1962,7 @@ window.MISSAL_DATA = {
   "2026-10-21": {
     "label": "Quarta-feira • 21/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -2058,7 +2058,7 @@ window.MISSAL_DATA = {
   "2026-10-22": {
     "label": "Quinta-feira • 22/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São João Paulo II",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -2154,7 +2154,7 @@ window.MISSAL_DATA = {
   "2026-10-23": {
     "label": "Sexta-feira • 23/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São João de Capistrano",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -2250,7 +2250,7 @@ window.MISSAL_DATA = {
   "2026-10-24": {
     "label": "Sábado • 24/10/2026",
     "celebration": "29ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado; Santo Antônio Maria Claret",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -2446,7 +2446,7 @@ window.MISSAL_DATA = {
   "2026-10-26": {
     "label": "Segunda-feira • 26/10/2026",
     "celebration": "30ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -2538,7 +2538,7 @@ window.MISSAL_DATA = {
   "2026-10-27": {
     "label": "Terça-feira • 27/10/2026",
     "celebration": "30ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -2630,7 +2630,7 @@ window.MISSAL_DATA = {
   "2026-10-28": {
     "label": "Quarta-feira • 28/10/2026",
     "celebration": "Santos Simão e Judas Tadeu, apóstolos",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santos Simão e Judas Tadeu",
     "grade": "Festa",
     "season": "Tempo Comum",
@@ -2727,7 +2727,7 @@ window.MISSAL_DATA = {
   "2026-10-29": {
     "label": "Quinta-feira • 29/10/2026",
     "celebration": "30ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -2819,7 +2819,7 @@ window.MISSAL_DATA = {
   "2026-10-30": {
     "label": "Sexta-feira • 30/10/2026",
     "celebration": "30ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -2911,7 +2911,7 @@ window.MISSAL_DATA = {
   "2026-10-31": {
     "label": "Sábado • 31/10/2026",
     "celebration": "30ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -3099,7 +3099,7 @@ window.MISSAL_DATA = {
   "2026-11-02": {
     "label": "Segunda-feira • 02/11/2026",
     "celebration": "Comemoração de Todos os Fiéis Defuntos",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Comemoração",
     "season": "Tempo Comum",
@@ -3198,7 +3198,7 @@ window.MISSAL_DATA = {
   "2026-11-03": {
     "label": "Terça-feira • 03/11/2026",
     "celebration": "31ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Martinho de Lima",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -3290,7 +3290,7 @@ window.MISSAL_DATA = {
   "2026-11-04": {
     "label": "Quarta-feira • 04/11/2026",
     "celebration": "São Carlos Borromeu, bispo",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Carlos Borromeu",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -3382,7 +3382,7 @@ window.MISSAL_DATA = {
   "2026-11-05": {
     "label": "Quinta-feira • 05/11/2026",
     "celebration": "31ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -3478,7 +3478,7 @@ window.MISSAL_DATA = {
   "2026-11-06": {
     "label": "Sexta-feira • 06/11/2026",
     "celebration": "31ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -3574,7 +3574,7 @@ window.MISSAL_DATA = {
   "2026-11-07": {
     "label": "Sábado • 07/11/2026",
     "celebration": "31ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -3774,7 +3774,7 @@ window.MISSAL_DATA = {
   "2026-11-09": {
     "label": "Segunda-feira • 09/11/2026",
     "celebration": "Dedicação da Basílica do Latrão",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Festa",
     "season": "Tempo Comum",
@@ -3870,7 +3870,7 @@ window.MISSAL_DATA = {
   "2026-11-10": {
     "label": "Terça-feira • 10/11/2026",
     "celebration": "São Leão Magno, papa e doutor da Igreja",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Leão Magno",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -3966,7 +3966,7 @@ window.MISSAL_DATA = {
   "2026-11-11": {
     "label": "Quarta-feira • 11/11/2026",
     "celebration": "São Martinho de Tours, bispo",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Martinho de Tours",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -4062,7 +4062,7 @@ window.MISSAL_DATA = {
   "2026-11-12": {
     "label": "Quinta-feira • 12/11/2026",
     "celebration": "São Josafá, bispo e mártir",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Josafá",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -4158,7 +4158,7 @@ window.MISSAL_DATA = {
   "2026-11-13": {
     "label": "Sexta-feira • 13/11/2026",
     "celebration": "32ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -4254,7 +4254,7 @@ window.MISSAL_DATA = {
   "2026-11-14": {
     "label": "Sábado • 14/11/2026",
     "celebration": "32ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -4454,7 +4454,7 @@ window.MISSAL_DATA = {
   "2026-11-16": {
     "label": "Segunda-feira • 16/11/2026",
     "celebration": "33ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Margarida da Escócia; Santa Gertrudes",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -4550,7 +4550,7 @@ window.MISSAL_DATA = {
   "2026-11-17": {
     "label": "Terça-feira • 17/11/2026",
     "celebration": "Santa Isabel da Hungria, religiosa",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Isabel da Hungria",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -4646,7 +4646,7 @@ window.MISSAL_DATA = {
   "2026-11-18": {
     "label": "Quarta-feira • 18/11/2026",
     "celebration": "33ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Dedicação das Basílicas dos Santos Pedro e Paulo",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -4742,7 +4742,7 @@ window.MISSAL_DATA = {
   "2026-11-19": {
     "label": "Quinta-feira • 19/11/2026",
     "celebration": "Santos Roque González, Afonso Rodríguez e João de Castillo, presbíteros e mártires",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santos Roque González, Afonso Rodríguez e João de Castillo",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -4838,7 +4838,7 @@ window.MISSAL_DATA = {
   "2026-11-20": {
     "label": "Sexta-feira • 20/11/2026",
     "celebration": "33ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -4934,7 +4934,7 @@ window.MISSAL_DATA = {
   "2026-11-21": {
     "label": "Sábado • 21/11/2026",
     "celebration": "Apresentação da Bem-aventurada Virgem Maria",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Bem-aventurada Virgem Maria",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -5132,7 +5132,7 @@ window.MISSAL_DATA = {
   "2026-11-23": {
     "label": "Segunda-feira • 23/11/2026",
     "celebration": "34ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "São Clemente I; São Columbano",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -5228,7 +5228,7 @@ window.MISSAL_DATA = {
   "2026-11-24": {
     "label": "Terça-feira • 24/11/2026",
     "celebration": "Santo André Dung-Lac, presbítero, e companheiros, mártires",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santo André Dung-Lac e companheiros",
     "grade": "Memória",
     "season": "Tempo Comum",
@@ -5324,7 +5324,7 @@ window.MISSAL_DATA = {
   "2026-11-25": {
     "label": "Quarta-feira • 25/11/2026",
     "celebration": "34ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Catarina de Alexandria",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -5416,7 +5416,7 @@ window.MISSAL_DATA = {
   "2026-11-26": {
     "label": "Quinta-feira • 26/11/2026",
     "celebration": "34ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -5508,7 +5508,7 @@ window.MISSAL_DATA = {
   "2026-11-27": {
     "label": "Sexta-feira • 27/11/2026",
     "celebration": "34ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Tempo Comum",
@@ -5600,7 +5600,7 @@ window.MISSAL_DATA = {
   "2026-11-28": {
     "label": "Sábado • 28/11/2026",
     "celebration": "34ª Semana do Tempo Comum",
-    "subtitle": "Tempo Comum",
+    "subtitle": "Ano II • Tempo Comum",
     "saint": "Santa Maria no Sábado",
     "grade": "Memória facultativa",
     "season": "Tempo Comum",
@@ -5881,7 +5881,7 @@ window.MISSAL_DATA = {
   "2026-12-01": {
     "label": "Terça-feira • 01/12/2026",
     "celebration": "Terça-feira da 1ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Advento",
@@ -5973,7 +5973,7 @@ window.MISSAL_DATA = {
   "2026-12-02": {
     "label": "Quarta-feira • 02/12/2026",
     "celebration": "Quarta-feira da 1ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Advento",
@@ -6157,7 +6157,7 @@ window.MISSAL_DATA = {
   "2026-12-04": {
     "label": "Sexta-feira • 04/12/2026",
     "celebration": "Sexta-feira da 1ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "São João Damasceno",
     "grade": "Memória facultativa",
     "season": "Advento",
@@ -6249,7 +6249,7 @@ window.MISSAL_DATA = {
   "2026-12-05": {
     "label": "Sábado • 05/12/2026",
     "celebration": "Sábado da 1ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Advento",
@@ -6618,7 +6618,7 @@ window.MISSAL_DATA = {
   "2026-12-09": {
     "label": "Quarta-feira • 09/12/2026",
     "celebration": "Quarta-feira da 2ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "São João Diego Cuauhtlatoatzin",
     "grade": "Memória facultativa",
     "season": "Advento",
@@ -6710,7 +6710,7 @@ window.MISSAL_DATA = {
   "2026-12-10": {
     "label": "Quinta-feira • 10/12/2026",
     "celebration": "Quinta-feira da 2ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "Bem-aventurada Virgem Maria de Loreto",
     "grade": "Memória facultativa",
     "season": "Advento",
@@ -6802,7 +6802,7 @@ window.MISSAL_DATA = {
   "2026-12-11": {
     "label": "Sexta-feira • 11/12/2026",
     "celebration": "Sexta-feira da 2ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "São Dâmaso I",
     "grade": "Memória facultativa",
     "season": "Advento",
@@ -7175,7 +7175,7 @@ window.MISSAL_DATA = {
   "2026-12-15": {
     "label": "Terça-feira • 15/12/2026",
     "celebration": "Terça-feira da 3ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Advento",
@@ -7267,7 +7267,7 @@ window.MISSAL_DATA = {
   "2026-12-16": {
     "label": "Quarta-feira • 16/12/2026",
     "celebration": "Quarta-feira da 3ª Semana do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Dia de semana",
     "season": "Advento",
@@ -7359,7 +7359,7 @@ window.MISSAL_DATA = {
   "2026-12-17": {
     "label": "Quinta-feira • 17/12/2026",
     "celebration": "17 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -7451,7 +7451,7 @@ window.MISSAL_DATA = {
   "2026-12-18": {
     "label": "Sexta-feira • 18/12/2026",
     "celebration": "18 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -7543,7 +7543,7 @@ window.MISSAL_DATA = {
   "2026-12-19": {
     "label": "Sábado • 19/12/2026",
     "celebration": "19 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -7727,7 +7727,7 @@ window.MISSAL_DATA = {
   "2026-12-21": {
     "label": "Segunda-feira • 21/12/2026",
     "celebration": "21 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "São Pedro Canísio",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -7819,7 +7819,7 @@ window.MISSAL_DATA = {
   "2026-12-22": {
     "label": "Terça-feira • 22/12/2026",
     "celebration": "22 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "—",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -7911,7 +7911,7 @@ window.MISSAL_DATA = {
   "2026-12-23": {
     "label": "Quarta-feira • 23/12/2026",
     "celebration": "23 de dezembro — Féria privilegiada do Advento",
-    "subtitle": "Ano B • Advento",
+    "subtitle": "Advento",
     "saint": "São João Câncio",
     "grade": "Féria privilegiada do Advento",
     "season": "Advento",
@@ -8299,7 +8299,7 @@ window.MISSAL_DATA = {
   "2026-12-27": {
     "label": "Domingo • 27/12/2026",
     "celebration": "Sagrada Família de Jesus, Maria e José",
-    "subtitle": "Tempo do Natal",
+    "subtitle": "Ano B • Natal",
     "saint": "São João, Apóstolo e Evangelista",
     "grade": "Festa",
     "season": "Natal",
@@ -8483,7 +8483,7 @@ window.MISSAL_DATA = {
   "2026-12-29": {
     "label": "Terça-feira • 29/12/2026",
     "celebration": "Quinto dia na Oitava do Natal",
-    "subtitle": "Tempo do Natal",
+    "subtitle": "Natal",
     "saint": "São Tomás Becket",
     "grade": "Dia na Oitava do Natal",
     "season": "Natal",
@@ -8575,7 +8575,7 @@ window.MISSAL_DATA = {
   "2026-12-30": {
     "label": "Quarta-feira • 30/12/2026",
     "celebration": "Sexto dia na Oitava do Natal",
-    "subtitle": "Tempo do Natal",
+    "subtitle": "Natal",
     "saint": "—",
     "grade": "Dia na Oitava do Natal",
     "season": "Natal",
@@ -8667,7 +8667,7 @@ window.MISSAL_DATA = {
   "2026-12-31": {
     "label": "Quinta-feira • 31/12/2026",
     "celebration": "Sétimo dia na Oitava do Natal",
-    "subtitle": "Tempo do Natal",
+    "subtitle": "Natal",
     "saint": "São Silvestre I",
     "grade": "Dia na Oitava do Natal",
     "season": "Natal",

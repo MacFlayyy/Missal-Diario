@@ -23,6 +23,7 @@ import hashlib
 from zoneinfo import ZoneInfo
 from ritos_texts import apply_rite_suggestions, fill_folheto_gaps
 from generate_daily import ensure_dates
+from liturgical_calendar import build_entry
 import json
 import re
 
@@ -408,6 +409,12 @@ def main():
 
         apply_rite_suggestions(data[key])
         fill_folheto_gaps(data[key])
+        # Linha abaixo do título: sempre o mesmo padrão do calendário perpétuo
+        # (domingo: Ano A/B/C; semana do Tempo Comum: Ano I/II; demais: só o tempo).
+        padrao = build_entry(datetime.fromisoformat(key).date())["subtitle"]
+        if data[key].get("subtitle") != padrao:
+            all_fixes.append(f"{key}: linha do título passa a ser '{padrao}'.")
+            data[key]["subtitle"] = padrao
         all_fixes += [f"{key}: {item}" for item in repair_entry(data[key])]
 
     save_data(data)

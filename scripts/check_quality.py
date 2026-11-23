@@ -136,6 +136,8 @@ def check_calendar(data: dict) -> None:
             continue
         e = lc.build_entry(date.fromisoformat(key))
         verified = set(d.get("officialVerifiedParts") or []) if d.get("officialLeafletApplied") else set()
+        if d.get("subtitle") != e.get("subtitle"):
+            fail(key, f"linha do título '{d.get('subtitle')}' ≠ padrão '{e.get('subtitle')}'")
         for field in ("color", "season", "cycle"):
             if d.get(field) != e.get(field):
                 fail(key, f"{field} '{d.get(field)}' ≠ calendário '{e.get(field)}'")
