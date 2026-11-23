@@ -16,7 +16,7 @@ on:
     - cron: "0 7 * * *"   # 04:00 Brasília
     - cron: "30 7 * * *"  # 04:30 Brasília
     - cron: "50 7 * * *"  # 04:50 Brasília
-    - cron: "0 8 * * *"   # 05:00 Brasília (tentativa principal)
+    - cron: "0 8 * * *"   # 05:00 Brasília
     - cron: "10 8 * * *"  # 05:10 Brasília
     - cron: "30 8 * * *"  # 05:30 Brasília
     - cron: "0 9 * * *"   # 06:00 Brasília
@@ -28,7 +28,7 @@ on:
     - cron: "0 15 * * *"  # 12:00 Brasília
     - cron: "0 17 * * *"  # 14:00 Brasília
     - cron: "0 19 * * *"  # 16:00 Brasília — nova checagem à tarde
-    - cron: "0 23 * * *"  # 20:00 Brasília — checagem noturna
+    - cron: "0 23 * * *"  # 20:00 Brasília — última procura de folheto do dia
     # Véspera: prepara, corrige e confere o dia seguinte entre 22h e 23h, para
     # ele estar pronto quando o site trocar de dia, à meia-noite. Várias
     # tentativas porque o GitHub às vezes atrasa as execuções agendadas.

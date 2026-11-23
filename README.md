@@ -8,7 +8,7 @@ Site preparado para funcionar sem atualização manual.
 - preserva o histórico de 30/09/2026 a 31/12/2026 e gera novas datas automaticamente **no dia da celebração**;
 - usa o Missal Romano CNBB 2023 como base das páginas;
 - mantém marcações futuras como **sugestão** quando ainda não há folheto oficial;
-- executa verificações diárias às 04h, 04h30, 04h50, 05h, 05h10, 05h30 e 06h (horário de Brasília); o GitHub pode atrasar o início real;
+- prepara e confere o dia seguinte às 18h, 21h, 22h, 22h20, 22h40, 23h, 23h20 e 23h40, e confere de novo o dia já publicado às 04h, 04h30, 04h50, 05h, 05h10, 05h30 e 06h (horário de Brasília); o GitHub pode atrasar o início real;
 - quando encontra um novo PDF de **O Povo de Deus**, tenta identificar Saudação, Ato Penitencial, Prefácio, Oração Eucarística, aclamação e presença de bênção solene; a página do formulário não é declarada confirmada se não tiver correspondência verificável no folheto;
 - só grava alterações quando encontrou informação nova.
 
@@ -21,15 +21,15 @@ Site preparado para funcionar sem atualização manual.
 - **Modo escuro**: fundo preto, cabeçalho vinho e números brancos em negrito.
 - **Imagem gerada** no mesmo visual, com as cinco páginas e o resumo das fitas.
 - A "Preparação rápida" foi retirada: a tela inicial já mostra as páginas na ordem da Missa.
-- A camada nova (`design-v3` em `index.html`) só desenha a tela: dados, liberação das 05h, folheto, cópia e calendário perpétuo continuam nas rotinas de antes. As auditorias em `scripts/*.cjs` conferem essa tela; `AUDIT_CHROMIUM_ONLY=1` e `AUDIT_ORIGIN=http://127.0.0.1:8765/` permitem rodá-las localmente antes de publicar.
+- A camada nova (`design-v3` em `index.html`) só desenha a tela: dados, liberação diária à meia-noite, folheto, cópia e calendário perpétuo continuam nas rotinas de antes. As auditorias em `scripts/*.cjs` conferem essa tela; `AUDIT_CHROMIUM_ONLY=1` e `AUDIT_ORIGIN=http://127.0.0.1:8765/` permitem rodá-las localmente antes de publicar.
 
 ## Rede de verificação automática (novembro de 2026)
 
-Nada é publicado sem passar por todas estas conferências; as auditorias de navegador também rodam todo dia às 05h45.
+Nada é publicado sem passar por todas estas conferências; as auditorias de navegador também rodam todo dia às 00h20 (com segunda chance às 01h40) e às 06h30.
 
 - **`scripts/check_quality.py`** (toda publicação, diária e de código): dia da semana × data, ordem das fitas, resumo × páginas, cor × código, textos quebrados; de hoje em diante cada dia precisa bater com o calendário litúrgico, salvo partes conferidas no folheto; um único `<main>`, ids únicos e referências ARIA válidas.
 - **`scripts/lint/lint_code.py`** (toda publicação de código): ESLint nos scripts da página e no Service Worker, Stylelint no CSS e pyflakes nos scripts Python.
-- **`scripts/behavior-audit.cjs`** (Chromium e WebKit): todos os dias abrem sem erro no celular e no computador, a página não pula ao abrir, a primeira visita não recarrega, funciona offline e a virada das 05h (inclusive sábado → domingo e página aberta desde a véspera).
+- **`scripts/behavior-audit.cjs`** (Chromium e WebKit): todos os dias abrem sem erro no celular e no computador, a página não pula ao abrir, a primeira visita não recarrega, funciona offline e a virada da meia-noite (inclusive sábado → domingo e página aberta desde a véspera).
 - **`scripts/check_folheto_completo.py`** (atualização diária): se o domingo já liberado tem folheto e faltou reconhecer Ritos Iniciais, Prefácio ou Oração Eucarística, a execução falha e abre um aviso (issue) no GitHub.
 
 ## Publicação
@@ -53,11 +53,11 @@ A leitura automática do folheto usa reconhecimento por texto. Quando o layout d
 - Os dias que já passaram continuam disponíveis para consulta.
 - O dia seguinte não aparece antecipadamente.
 - À meia-noite, o novo dia ainda permanece bloqueado.
-- A preparação automática começa antes das 05h, e há tentativas posteriores como recuperação.
-- A rotina pode atualizar `status.js` antes das 05h; o navegador só libera o dia a partir das 05h, caso os dados já tenham sido publicados.
+- A preparação automática do dia seguinte acontece entre 21h e 23h40, e há tentativas na madrugada e de manhã como recuperação.
+- A rotina atualiza `status.js` na noite anterior; o navegador só libera o dia a partir da meia-noite, caso os dados já tenham sido publicados.
 - A seta para a direita fica desativada quando o usuário já está na data mais recente liberada.
 
-## Revisão automática e tentativas de publicação das 05h
+## Revisão automática e tentativas de publicação
 
 A rotina tenta corrigir inconsistências estruturais comuns, mas bloqueia erros que impedem uma publicação responsável e distingue páginas ainda não conferidas.
 
@@ -87,7 +87,7 @@ As sugestões continuam identificadas como `(sugestão)`.
 
 O calendário de 2026 permanece guardado como histórico. **Não é necessário cadastrar nenhum ano:** `scripts/liturgical_calendar.py` calcula a liturgia de qualquer dia (calendário litúrgico perpétuo do Brasil) e busca as páginas em `missal-calendar-index.json`.
 
-Execuções antes das 05:00 preparam os dados e o status, enquanto o navegador impede a liberação do novo dia antes das 05:00 de Brasília. A pontualidade do início dos trabalhos agendados pelo GitHub Actions não é garantida; a preparação antecipada reduz o risco.
+Execuções na noite anterior preparam os dados e o status, enquanto o navegador impede a liberação do novo dia antes da meia-noite de Brasília. A pontualidade do início dos trabalhos agendados pelo GitHub Actions não é garantida; a preparação antecipada reduz o risco.
 
 
 
@@ -143,7 +143,7 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - Fitas cuja escolha não consta do folheto recebem **sugestão**, nunca rótulo de indicação oficial. A Fita 2 só é confirmada como página oficial se o código encontrar o mesmo número referenciado no PDF; caso contrário, mostra a necessidade de conferência.
 - O Service Worker armazena no máximo uma cópia por arquivo essencial, independentemente dos parâmetros usados na URL, e ignora PDFs e outros recursos externos.
 - O texto copiado não contém identificadores técnicos internos. O site ganhou foco visível e legendas maiores no menu mobile.
-- A publicação às 05h depende do agendamento GitHub Actions; atrasos externos não podem ser eliminados por software. Há várias execuções programadas de recuperação.
+- A publicação do dia à meia-noite depende do agendamento GitHub Actions na noite anterior; atrasos externos não podem ser eliminados por software. Há várias execuções programadas de recuperação.
 - As auditorias com Playwright verificam dimensões de tela Android, WebKit (motor do Safari), desktop e tablet; **emulação não substitui testes em aparelhos físicos**.
 
 
@@ -155,7 +155,7 @@ As sugestões mostram somente a frase da Saudação Inicial e a introdução do 
 - Em larguras de até 950 px, o calendário funciona como painel central com altura limitada e rolagem interna, inclusive com o aparelho deitado.
 - A exportação em imagem e a lista de fitas do design v3 distinguem escolha sugerida, página ainda não conferida e página não indicada.
 - O status `requires-missal-page-check` significa que a data foi cadastrada, mas uma ou mais páginas do Missal precisam de referência externa. **Não é confirmação litúrgica completa.**
-- Nenhuma execução agendada do GitHub Actions tem garantia de começar exatamente no minuto configurado. Executar antes das 05h reduz o risco de atraso, mas não elimina o risco de falha na plataforma.
+- Nenhuma execução agendada do GitHub Actions tem garantia de começar exatamente no minuto configurado. Preparar o dia na noite anterior, com várias tentativas, reduz o risco de atraso, mas não elimina o risco de falha na plataforma.
 - Não há fonte online confiável de correspondência completa de **todas as páginas** da edição CNBB 2023 do Missal para cada celebração futura. Na ausência de correspondência verificada, o site informa **Página a conferir** em vez de inventar uma referência.
 - O HTML público autossuficiente é acessível pelo arquivo `Missal-Diario-Standalone.html` no próprio GitHub Pages.
 
@@ -200,7 +200,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Marcos de página e SEO**: `<main>` e `<footer>` semânticos, descrição, canonical e Open Graph. O site está em `https://missaldiario.com.br/`, onde `robots.txt` e `sitemap.xml` ficam na raiz e valem para a busca.
 - **Desempenho**: a imagem original da paróquia saiu do HTML principal (menos cerca de 190 KB de código Base64) e agora é `brand-logo.png` com cache separado pelo service worker. O arquivo HTML autossuficiente ainda inclui a logomarca para funcionar localmente e no chat.
 - **PWA offline**: logo e ícones PNG de instalação passam a integrar o cache. Os testes verificam carregamento da versão pública e funcionamento offline.
-- **Transparência de atualização**: o rodapé identifica o horário exibido como o momento da **preparação inicial do dia**, não como a hora da última verificação ou como garantia de publicação exatamente às 05h.
+- **Transparência de atualização**: o rodapé identifica o horário exibido como o momento da **preparação inicial do dia**, não como a hora da última verificação ou como garantia de publicação exatamente à meia-noite.
 
 **Limitações remanescentes**: o workflow do GitHub não pode abrir diretamente o PDF privado guardado na Biblioteca do ChatGPT e o GitHub Actions não garante início pontual dos crons. O índice confirmado pelo PDF reduz divergências das datas cobertas, mas a confirmação de novos dias e orientações específicas requer consulta à edição de 2023 ou ao folheto apropriado. O site público não distribui o livro integral por direitos autorais.
 
@@ -212,7 +212,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 - **Recuperação:** o `calendar_seed.json` contém as aberturas curtas de Saudação/Ato Penitencial dos 93 dias registrados, em vez de placeholders genéricos. Os testes comparam esse backup aos registros sem folheto oficial.
 - **Conferência editorial:** a associação entre páginas e datas é verificada por regras específicas adicionais; datas futuras ainda podem exigir conferência individual do Missal e folheto. O PDF integral permanece privado e não é distribuído em repositório público.
 - **Acessibilidade:** calendário desktop e mobile usam foco inicial e ciclo de Tab, foco restaurado na escolha do dia e anúncio discreto da mudança de celebração via `aria-live`.
-- **Desempenho:** verificação de liberação às 05h por temporizador de transição + confirmação periódica; imagem da paróquia otimizada como WebP de qualidade 88 com PNG como fallback e versão incorporada no arquivo HTML autossuficiente.
+- **Desempenho:** verificação de liberação à meia-noite por temporizador de transição + confirmação periódica; imagem da paróquia otimizada como WebP de qualidade 88 com PNG como fallback e versão incorporada no arquivo HTML autossuficiente.
 - **CSS:** as 17 camadas contíguas de estilos foram consolidadas em uma só, preservando a ordem da cascata, para evitar diferenças visuais. Regras antigas ainda têm substituições `!important`; remoções indiscriminadas seriam arriscadas.
 - **SEO:** índice principal tem `meta robots`, descrição e URL canônica. `robots.txt` e `sitemap.xml` estão na raiz do domínio `missaldiario.com.br`.
 - **Visibilidade futura:** o controle no site é de interface. Como `data.js` e `calendar_seed.json` são públicos no GitHub Pages/repositório, não há sigilo técnico sobre dias ainda não liberados; isso exigiria migrar a fonte de dados para hospedagem privada.
@@ -221,7 +221,7 @@ Estas verificações aumentam a segurança, mas não garantem acerto litúrgico 
 
 ## Atualizações de novembro/2026
 
-- **Publicação sem depender do horário do GitHub:** cada execução prepara e confere HOJE e AMANHÃ; o próprio site só mostra o dia a partir das 05h (Brasília). Há execuções à noite (18h, 20h, 22h, 23h) além das da madrugada.
+- **Publicação sem depender do horário do GitHub:** cada execução prepara e confere HOJE e AMANHÃ; o próprio site só mostra o dia a partir da meia-noite (Brasília). Há execuções à noite (18h, 21h, 22h, 22h20, 22h40, 23h, 23h20, 23h40) além das da madrugada.
 - **Rede de segurança (`scripts/daily_pipeline.sh`):** se um folheto mal lido quebrar alguma verificação, o dia é publicado pelo Missal (com todas as verificações) e uma issue avisa qual folheto ficou de fora. Se o leitor de folhetos (OCR) não puder ser instalado, os folhetos já aplicados são mantidos.
 - **Leitura de folhetos tolerante a erros de OCR:** Oração Eucarística e prefácio identificados pela página; todos os 72 prefácios do Ordinário (p. 451–522) conferidos no PDF do Missal em `missal-prefaces-verified.json`.
 - **Tema:** claro por padrão; escuro e automático em "Mais" / "Mais ações".

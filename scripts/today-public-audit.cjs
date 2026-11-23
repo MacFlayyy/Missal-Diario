@@ -53,6 +53,8 @@ try{
    return available.includes(current)?current:(available.at(-1)||current);
  });
  test(c.name,'live-date-matches-brasilia-release',s.selected===expectedSelection,{selected:s.selected,expected:expectedSelection,today,status:s.status});
+ // O site troca de dia à meia-noite: o dia de hoje precisa estar liberado e aberto.
+ test(c.name,'today-released-after-midnight',String(s.status||'')>=today&&s.selected===today,{status:s.status,selected:s.selected,today});
  test(c.name,'five-tapes-and-quick-pages',s.tapes===5&&s.quick.length===5,{tapes:s.tapes,quick:s.quick});
  // Um botão de página por fita (Prefácio e Oração Eucarística podem cair na mesma página).
  const expectedPages=await page.evaluate(()=>(getDisplayEntry(window.currentDateKey)?.tapes||[]).map(t=>String(t.page)));

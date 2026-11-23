@@ -1029,7 +1029,7 @@ def check_design_v3():
     for label in ("Conferido no folheto","Própria do dia","Missa do domingo da semana","Sugestão"):
         assert label in script,f"etiqueta de origem ausente: {label}"
     assert "window.buildShareImageBlob=v3ShareImage" in script,"imagem gerada deve seguir o visual novo"
-    assert "getVisibleDates()" in script and "getSundayPreview()" in script,"a semana e o calendário respeitam a liberação das 05h"
+    assert "getVisibleDates()" in script and "getSundayPreview()" in script,"a semana e o calendário respeitam a liberação da meia-noite"
     assert "december24Choice=b.dataset.dec24Mass" in script,"24/12 continua exigindo escolha explícita"
     assert "body.v3 .shell" in style and "prefers-reduced-motion" in style
     assert "--v-num:#fff" in style,"números brancos no modo escuro"
