@@ -116,17 +116,17 @@ async function run(config){
        futureEnabled:[...document.querySelectorAll('#v3Week button')].filter(b=>b.dataset.date>last&&!b.disabled).length};});
    mark(row,'future-dates-locked',visibility.futureEnabled===0&&visibility.last<=new Date(Date.parse(visibility.today+'T00:00:00Z')+86400000).toISOString().slice(0,10),visibility);
 
-   /* ---- regras de liberação (05h, sábado/domingo), com status simulado ---- */
+   /* ---- regras de liberação (meia-noite, sábado/domingo), com status simulado ---- */
    const gate=await page.evaluate(()=>{
      const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS;
      const statuses={};function test(date,hour,available,preview,noLeaflet){brasiliaTodayKey=()=>date;brasiliaClockParts=()=>({hour:String(hour)});window.MISSAL_STATUS={availableThrough:available,sundayPreview:preview};const item=preview&&data[preview],saved=item&&item.officialLeafletApplied;if(item&&noLeaflet)item.officialLeafletApplied=false;try{return {visible:getVisibleDates().slice(-2),preview:getSundayPreview(),limit:getAvailableThrough()};}finally{if(item)item.officialLeafletApplied=saved;}}
      try {
-       statuses.satBefore=test('2026-10-10',4,'2026-10-10','2026-10-11',true);
-       statuses.satBeforeLeaflet=test('2026-10-10',4,'2026-10-10','2026-10-11');
+       statuses.satBefore=test('2026-10-09',23,'2026-10-10','2026-10-11',true);
+       statuses.satBeforeLeaflet=test('2026-10-09',23,'2026-10-10','2026-10-11');
        statuses.wedLeaflet=test('2026-10-07',14,'2026-10-08','2026-10-11');
        statuses.wedNoLeaflet=test('2026-10-07',14,'2026-10-08','2026-10-11',true);
        statuses.wedNotConfigured=test('2026-10-07',14,'2026-10-08',undefined);
-       statuses.satAfter=test('2026-10-10',5,'2026-10-10','2026-10-11');
+       statuses.satAfter=test('2026-10-10',0,'2026-10-10','2026-10-11',true);
        statuses.sunBefore=test('2026-10-11',4,'2026-10-10','2026-10-11');
        statuses.sunEarlyPublished=test('2026-10-11',4,'2026-10-11','2026-10-11');
        statuses.solemnitySaturday=test('2026-10-31',6,'2026-10-31','2026-11-01');
@@ -160,7 +160,7 @@ async function run(config){
    mark(row,'sunday-released-when-leaflet-ready',gate.wedLeaflet.preview==='2026-10-11'&&gate.wedLeaflet.visible.includes('2026-10-11')&&gate.satBeforeLeaflet.preview==='2026-10-11',gate);
    mark(row,'sunday-not-released-without-leaflet',gate.wedNoLeaflet.preview===null&&gate.wedNotConfigured.preview===null&&!gate.wedNoLeaflet.visible.includes('2026-10-11'),gate);
    mark(row,'sunday-midnight-preview-rule',gate.sunBefore.preview==='2026-10-11'&&gate.sunAfter.limit==='2026-10-11',gate);
-   mark(row,'sunday-prepared-early-remains-visible',gate.sunEarlyPublished.preview==='2026-10-11'&&gate.sunEarlyPublished.limit==='2026-10-10',gate.sunEarlyPublished);
+   mark(row,'sunday-prepared-early-remains-visible',gate.sunEarlyPublished.preview==='2026-10-11'&&gate.sunEarlyPublished.limit==='2026-10-11',gate.sunEarlyPublished);
    mark(row,'sunday-solemnity-saturday-visible',gate.solemnitySaturday.preview==='2026-11-01'&&gate.solemnitySaturday.visible.includes('2026-11-01'),gate.solemnitySaturday);
    const satNote=await page.evaluate(()=>{
      const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS,previous=window.currentDateKey;

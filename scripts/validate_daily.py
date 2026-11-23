@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Revisão e correção automática do Missal Diário antes da publicação das 05:00.
+Revisão e correção automática do Missal Diário antes da troca do dia, à meia-noite.
 
 Fluxo:
 1) lê os dados atualizados;
@@ -88,11 +88,10 @@ def save_status(key, data):
         },
     }
 
-    # Aos sábados, deixa o domingo seguinte preparado para liberação
-    # APENAS após 05:00, quando status do sábado já estiver publicado.
+    # Aos sábados, deixa o domingo seguinte preparado para liberação.
+    # Também quando o sábado é preparado com antecedência (execução da noite de
+    # sexta): o site só mostra o sábado — e o domingo — a partir da meia-noite.
     # O front-end também verifica o horário e availableThrough.
-    # Também quando o sábado é liberado com antecedência (execução da noite de sexta):
-    # o site só mostra o sábado — e a prévia do domingo — a partir das 05h.
     # Durante a semana, o domingo também é liberado assim que o folheto
     # oficial dele foi aplicado e conferido (Ritos Iniciais, Prefácio e Oração
     # Eucarística), depois de todas as verificações desta execução.
@@ -142,8 +141,8 @@ def save_status(key, data):
             payload["sundayPreview"] = sunday_key
 
     # O domingo liberado no sábado continua acessível durante a madrugada.
-    # A execução antecipada (04h) não pode retirar uma prévia já autorizada
-    # antes da liberação ordinária das 05h de domingo.
+    # Uma execução da madrugada de domingo não pode retirar uma prévia já
+    # autorizada no sábado.
     today_iso = now.date().isoformat()
     if (now.weekday() == 6 and now.hour < 5
             and existing.get("sundayPreview") == today_iso and today_iso in data):
@@ -408,7 +407,7 @@ def main():
     today_key = now.strftime("%Y-%m-%d")
     # Prepara HOJE e AMANHÃ. O GitHub costuma atrasar (às vezes horas) as execuções
     # agendadas da madrugada; liberando o dia seguinte já na véspera, o site não
-    # depende desse horário: o próprio site só mostra cada dia a partir das 05h.
+    # depende desse horário: o próprio site só mostra cada dia a partir da meia-noite.
     keys = [today_key, (now.date() + timedelta(days=1)).isoformat()]
     data = load_js_object(DATA_FILE, "window.MISSAL_DATA")
 

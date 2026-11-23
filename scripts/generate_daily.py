@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA_FILE = ROOT / "data.js"
 TZ = ZoneInfo("America/Sao_Paulo")
 # Dias gerados com antecedência, para que os folhetos (publicados alguns dias
-# antes) possam ser aplicados. O site só mostra cada dia a partir das 05h.
+# antes) possam ser aplicados. O site mostra cada dia a partir da meia-noite.
 DAYS_AHEAD = 40
 
 

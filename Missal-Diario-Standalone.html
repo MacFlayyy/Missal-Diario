@@ -14914,10 +14914,14 @@ function brasiliaClockParts(){
   return Object.fromEntries(BRASILIA_CLOCK_FORMAT.formatToParts(new Date()).map(x=>[x.type,x.value]));
 }
 
+// Hora em que o site troca de dia (horário de Brasília). O robô prepara e
+// confere o dia seguinte entre 22h e 23h; à meia-noite ele já está pronto.
+const DAILY_RELEASE_HOUR=0;
+
 function getAvailableThrough(){
   const today=brasiliaTodayKey();
   const p=brasiliaClockParts();
-  const releaseLimit=Number(p.hour)<5 ? addDaysKey(today,-1) : today;
+  const releaseLimit=Number(p.hour)<DAILY_RELEASE_HOUR ? addDaysKey(today,-1) : today;
   const statusDate=window.MISSAL_STATUS?.availableThrough || addDaysKey(today,-1);
   return statusDate < releaseLimit ? statusDate : releaseLimit;
 }
@@ -14954,14 +14958,14 @@ function getSundayPreview(){
   if(weekday>=1 && weekday<=6){
     // O domingo da semana é liberado assim que o folheto oficial dele foi
     // aplicado e conferido pelo robô (qualquer dia e hora); sem folheto,
-    // continua sendo liberado no sábado às 05h, como antes.
+    // continua sendo liberado no sábado, à meia-noite.
     const sunday=addDaysKey(today,7-weekday);
     if(configured!==sunday || published<today || !data[sunday]) return null;
     if(sundayLeafletReady(data[sunday])) return sunday;
-    return weekday===6 && hour>=5 ? sunday : null;
+    return weekday===6 && hour>=DAILY_RELEASE_HOUR ? sunday : null;
   }
   // A prévia já liberada no sábado permanece acessível na madrugada de domingo
-  // e durante eventuais atrasos da atualização dominical após as 05h.
+  // e durante eventuais atrasos da atualização dominical.
   if(weekday===0){
     const saturday=addDaysKey(today,-1);
     return configured===today && published>=saturday && data[today] ? today : null;
@@ -14984,7 +14988,7 @@ function getLeafletPreviews(){
 }
 
 // Missas liberadas antes do dia (dia de semana com folheto e domingo) que
-// ainda não estariam visíveis pela regra normal das 05h; a mais próxima primeiro.
+// ainda não estariam visíveis pela regra normal da meia-noite; a mais próxima primeiro.
 function getEarlyDates(){
   const today=brasiliaTodayKey();
   const limit=getAvailableThrough();
@@ -15237,7 +15241,7 @@ document.getElementById("nextBtn").addEventListener("click",()=>moveDay(1));
 
 // Ao abrir o site, mostra hoje como data principal quando estiver liberado.
 // Aos sábados, o domingo seguinte também pode ficar disponível para seleção,
-// mas o sábado continua aberto por padrão. No domingo, após a liberação das 05h,
+// mas o sábado continua aberto por padrão. No domingo, após a liberação da meia-noite,
 // o domingo passa a ser a data principal.
 const visibleDates = getVisibleDates();
 const todayKey = brasiliaTodayKey();
@@ -15812,23 +15816,23 @@ window.addEventListener("scroll",updateMobileHeader,{passive:true});
 updateMobileHeader();
 
 const loadedBrasiliaDay=brasiliaTodayKey();
-const loadedBeforeDailyRelease=Number(brasiliaClockParts().hour)<5;
+const loadedBeforeDailyRelease=Number(brasiliaClockParts().hour)<DAILY_RELEASE_HOUR;
 
 function refreshIfBrasiliaDayChanged(){
   if(brasiliaTodayKey()!==loadedBrasiliaDay) location.reload();
 }
 
 function refreshAtDailyRelease(){
-  // Recarrega às 05h tanto quando a página foi aberta na madrugada quanto
+  // Recarrega na troca do dia tanto quando a página foi aberta na madrugada quanto
   // quando ficou aberta desde a véspera (ex.: aberta às 22h e mantida na tela).
-  if(Number(brasiliaClockParts().hour)>=5 &&
+  if(Number(brasiliaClockParts().hour)>=DAILY_RELEASE_HOUR &&
      (loadedBeforeDailyRelease || brasiliaTodayKey()!==loadedBrasiliaDay)){
     location.reload();
   }
 }
 
 async function refreshIfDailyStatusAdvanced(){
-  if(Number(brasiliaClockParts().hour)<5 || !navigator.onLine) return;
+  if(Number(brasiliaClockParts().hour)<DAILY_RELEASE_HOUR || !navigator.onLine) return;
   try{
     const res=await fetch("./status.js?daily-check="+Date.now(),{cache:"no-store"});
     if(!res.ok) return;
@@ -15861,12 +15865,12 @@ document.addEventListener("visibilitychange",()=>{
     refreshIfDailyStatusAdvanced();
   }
 });
-// A transição das 05h é agendada ao segundo, com checagem de segurança
+// A troca do dia (meia-noite) é agendada ao segundo, com checagem de segurança
 // após retorno à aba e a cada minuto (evita trabalho por segundo).
 function scheduleNextFiveAMRelease(){
   const now=brasiliaClockParts();
   const elapsed=Number(now.hour)*3600+Number(now.minute)*60+Number(now.second);
-  const untilFive=((5*3600-elapsed+86400)%86400)*1000+120;
+  const untilFive=((DAILY_RELEASE_HOUR*3600-elapsed+86400)%86400)*1000+120;
   setTimeout(refreshAtDailyRelease,untilFive);
 }
 scheduleNextFiveAMRelease();
@@ -15986,7 +15990,7 @@ document.addEventListener("visibilitychange",async()=>{
 </script>
 <script id="design-v3-js">
 /* ===== Design v3 (11/2026) — camada de interface. Usa as rotinas já existentes
-   (dados, liberação das 05h, folheto, cópia, imagem) e apenas desenha a tela nova. ===== */
+   (dados, liberação diária, folheto, cópia, imagem) e apenas desenha a tela nova. ===== */
 (function(){
   "use strict";
   var $=function(id){return document.getElementById(id);};

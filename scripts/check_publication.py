@@ -47,7 +47,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--expected-from-local", action="store_true",
-        help="Validar contra o commit que está sendo implantado, inclusive antes das 05h."
+        help="Validar contra o commit que está sendo implantado, inclusive antes da meia-noite."
     )
     args = parser.parse_args()
     local_status = status_obj((ROOT / "status.js").read_text(encoding="utf-8"))

@@ -5,8 +5,8 @@
    2. A página não "pula" ao abrir (CLS < 0,05), mesmo com fontes lentas.
    3. A primeira visita não recarrega quando o Service Worker assume.
    4. Offline: a página abre com o dia certo.
-   5. Virada das 05h: antes das 05h mostra o dia anterior; às 05h libera o dia;
-      no sábado às 05h libera o domingo; aberta na véspera, avança às 05h.
+   5. Virada da meia-noite: às 23:59 mostra o dia anterior; à 00h libera o dia;
+      no sábado à 00h libera o domingo; aberta na véspera, avança à meia-noite.
    Sai com código 1 se qualquer verificação falhar. */
 const {chromium, webkit} = require('playwright');
 const ORIGIN = process.env.AUDIT_ORIGIN || 'http://127.0.0.1:8765/';
@@ -115,24 +115,24 @@ async function release() {
   const keys = await probe.page.evaluate(() => Object.keys(window.MISSAL_DATA).sort());
   await probe.ctx.close();
   const fri = keys.find(k => new Date(k + 'T12:00:00Z').getUTCDay() === 5 && keys.includes(addDays(k, 2)) && keys.includes(addDays(k, -1)));
-  if (!fri) { ok('virada das 05h: semana completa encontrada', false); await b.close(); return; }
+  if (!fri) { ok('virada da meia-noite: semana completa encontrada', false); await b.close(); return; }
   const thu = addDays(fri, -1), sat = addDays(fri, 1), sun = addDays(fri, 2);
   const leafletReady = await (async () => { const {ctx, page} = await open(new Date().toISOString(), fri);
     const r = await page.evaluate(k => sundayLeafletReady(window.MISSAL_DATA[k]), sun); await ctx.close(); return r; })();
-  // Domingo com folheto conferido aparece já durante a semana; sem folheto, só no sábado às 05h.
+  // Domingo com folheto conferido aparece já durante a semana; sem folheto, só no sábado (00h).
   const beforeSat = leafletReady ? sun : null;
   const last = async (iso, statusFor) => { const {ctx, page} = await open(iso, statusFor); const v = await page.evaluate(() => getVisibleDates().slice(-1)[0]); await ctx.close(); return v; };
-  // O robô publica o dia por volta das 04h; antes das 05h a página ainda mostra o dia anterior.
-  ok(`sexta ${fri} 04:59 mostra até a quinta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T04:59:00-03:00', fri) === (beforeSat || thu));
-  ok(`sexta ${fri} 05:00 libera a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T05:00:30-03:00', fri) === (beforeSat || fri));
-  ok(`sábado ${sat} 04:59 mostra até a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(sat + 'T04:59:00-03:00', sat) === (beforeSat || fri));
-  ok(`sábado ${sat} 05:00 libera o domingo`, await last(sat + 'T05:00:30-03:00', sat) === sun);
+  // O robô prepara o dia seguinte entre 22h e 23h; o site troca de dia à meia-noite.
+  ok(`quinta ${thu} 23:59 mostra até a quinta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(thu + 'T23:59:00-03:00', fri) === (beforeSat || thu));
+  ok(`sexta ${fri} 00:00 libera a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T00:00:30-03:00', fri) === (beforeSat || fri));
+  ok(`sexta ${fri} 23:59 mostra até a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T23:59:00-03:00', sat) === (beforeSat || fri));
+  ok(`sábado ${sat} 00:00 libera o domingo`, await last(sat + 'T00:00:30-03:00', sat) === sun);
   ok(`domingo ${sun} 02:00 continua mostrando o domingo`, await last(sun + 'T02:00:00-03:00', sat) === sun);
   ok(`segunda não aparece antes da hora (domingo ${sun} 13h)`, await last(sun + 'T13:00:00-03:00', addDays(sun, 1)) === sun);
-  for (const [label, iso, statusFor] of [['aberta às 04:59:50', fri + 'T04:59:50-03:00', fri], ['aberta na véspera às 22h', thu + 'T22:00:00-03:00', fri]]) {
+  for (const [label, iso, statusFor] of [['aberta às 23:59:50', thu + 'T23:59:50-03:00', fri], ['aberta na véspera às 22h', thu + 'T22:00:00-03:00', fri]]) {
     const {ctx, page} = await open(iso, statusFor);
     const before = await page.evaluate(() => { window.__paginaAntiga = true; return window.currentDateKey; });
-    await page.clock.runFor(label.includes('véspera') ? 7 * 3600e3 + 180e3 : 180e3).catch(() => {});
+    await page.clock.runFor(label.includes('véspera') ? 2 * 3600e3 + 180e3 : 180e3).catch(() => {});
     // A recarga acontece durante o avanço do relógio; espera a página nova desenhar o dia.
     let after;
     for (let i = 0; i < 40 && !after; i++) {
@@ -140,7 +140,7 @@ async function release() {
       after = await page.evaluate(() => window.__paginaAntiga ? undefined : window.currentDateKey).catch(() => undefined);
       if (!after) await page.clock.runFor(500).catch(() => {});
     }
-    ok(`página ${label} avança às 05h (${before} → ${after})`, before !== fri && after === fri, after);
+    ok(`página ${label} avança à meia-noite (${before} → ${after})`, before !== fri && after === fri, after);
     await ctx.close();
   }
   await b.close();

@@ -28,7 +28,7 @@ def main():
     errors = []
     if today not in data:
         errors.append(f"data.js não contém {today}")
-    # O dia seguinte é liberado com antecedência (o site só o mostra a partir das 05h).
+    # O dia seguinte é liberado com antecedência (o site só o mostra a partir da meia-noite).
     tomorrow = (datetime.now(TZ).date() + timedelta(days=1)).isoformat()
     released = str(status.get("availableThrough") or "")
     if released not in (today, tomorrow):

@@ -11,7 +11,8 @@ on:
       - "scripts/daily_pipeline.sh"
   schedule:
     # GitHub Actions usa UTC; Brasília é UTC-3.
-    # Há tentativas antes e depois das 05:00 para tolerar atrasos do agendador.
+    # De madrugada e de manhã: nova conferência do dia (folheto de última hora,
+    # correções); o dia já foi liberado à meia-noite.
     - cron: "0 7 * * *"   # 04:00 Brasília
     - cron: "30 7 * * *"  # 04:30 Brasília
     - cron: "50 7 * * *"  # 04:50 Brasília
@@ -28,11 +29,17 @@ on:
     - cron: "0 17 * * *"  # 14:00 Brasília
     - cron: "0 19 * * *"  # 16:00 Brasília — nova checagem à tarde
     - cron: "0 23 * * *"  # 20:00 Brasília — checagem noturna
-    # Véspera: libera o dia seguinte com antecedência (o site só o mostra às 05h).
-    # O GitHub costuma atrasar as execuções da madrugada em várias horas.
+    # Véspera: prepara, corrige e confere o dia seguinte entre 22h e 23h, para
+    # ele estar pronto quando o site trocar de dia, à meia-noite. Várias
+    # tentativas porque o GitHub às vezes atrasa as execuções agendadas.
     - cron: "0 21 * * *"  # 18:00 Brasília
+    - cron: "0 0 * * *"   # 21:00 Brasília
     - cron: "0 1 * * *"   # 22:00 Brasília
+    - cron: "20 1 * * *"  # 22:20 Brasília
+    - cron: "40 1 * * *"  # 22:40 Brasília
     - cron: "0 2 * * *"   # 23:00 Brasília
+    - cron: "20 2 * * *"  # 23:20 Brasília
+    - cron: "40 2 * * *"  # 23:40 Brasília
 
 # Compartilhada com pages.yml: serializa o deploy do atualizador e do site.
 concurrency:
