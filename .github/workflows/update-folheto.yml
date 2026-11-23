@@ -19,7 +19,13 @@ on:
     - cron: "10 8 * * *"  # 05:10 Brasília
     - cron: "30 8 * * *"  # 05:30 Brasília
     - cron: "0 9 * * *"   # 06:00 Brasília
+    # Durante o dia, procura o folheto do domingo de 2 em 2 horas: assim que
+    # ele sai e passa nas verificações, o domingo é liberado no site.
+    - cron: "0 11 * * *"  # 08:00 Brasília
+    - cron: "0 13 * * *"  # 10:00 Brasília
     - cron: "0 14 * * *"  # 11:00 Brasília — novo folheto publicado durante a manhã
+    - cron: "0 15 * * *"  # 12:00 Brasília
+    - cron: "0 17 * * *"  # 14:00 Brasília
     - cron: "0 19 * * *"  # 16:00 Brasília — nova checagem à tarde
     - cron: "0 23 * * *"  # 20:00 Brasília — checagem noturna
     # Véspera: libera o dia seguinte com antecedência (o site só o mostra às 05h).

@@ -168,7 +168,29 @@ def check_saturday_preview():
                 f"Festa ou solenidade de domingo {sunday} indisponível no sábado",
                 special,
             )
-    print("PASSOU prévias: domingo comum, madrugada, solenidades e festas")
+        # Durante a semana: o domingo é liberado assim que o folheto oficial
+        # dele foi aplicado e conferido; sem folheto, espera o sábado.
+        import copy as _copy
+        class Wednesday(RealDatetime):
+            @classmethod
+            def now(cls,tz=None):return cls(2026,11,18,14,0,tzinfo=tz)
+        module.datetime=Wednesday
+        week=_copy.deepcopy(data)
+        week["2026-11-22"]["officialLeafletApplied"]=True
+        week["2026-11-22"]["officialVerifiedParts"]=[1,3,4]
+        module.save_status("2026-11-19",week)
+        status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+        assert status.get("sundayPreview")=="2026-11-22",("Domingo com folheto não liberado na quarta",status)
+        week["2026-11-22"]["officialVerifiedParts"]=[1,3]
+        module.save_status("2026-11-19",week)
+        status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+        assert "sundayPreview" not in status,("Domingo liberado com folheto incompleto",status)
+        week["2026-11-22"]["officialLeafletApplied"]=False
+        week["2026-11-22"]["officialVerifiedParts"]=[]
+        module.save_status("2026-11-19",week)
+        status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+        assert "sundayPreview" not in status,("Domingo liberado sem folheto",status)
+    print("PASSOU prévias: domingo comum, madrugada, solenidades, festas e folheto durante a semana")
 
 def check_liturgical_integrity():
     import copy

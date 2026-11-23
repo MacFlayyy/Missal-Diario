@@ -98,9 +98,11 @@ async function release() {
     const ctx = await b.newContext({timezoneId: 'America/Sao_Paulo', serviceWorkers: 'block'});
     await blockBeacon(ctx);
     await ctx.route('**/status.js*', r => {
-      const sat = new Date(statusFor + 'T12:00:00Z').getUTCDay() === 6;
+      // Como o robô: o domingo da semana fica marcado como prévia (no sábado
+      // sempre; nos outros dias o site só o mostra se o folheto já foi aplicado).
+      const wd = new Date(statusFor + 'T12:00:00Z').getUTCDay();
       const body = 'window.MISSAL_STATUS = ' + JSON.stringify({availableThrough: statusFor, timezone: 'America/Sao_Paulo',
-        sundayPreview: sat ? addDays(statusFor, 1) : ''}) + ';';
+        sundayPreview: wd !== 0 ? addDays(statusFor, 7 - wd) : ''}) + ';';
       r.fulfill({status: 200, contentType: 'application/javascript', body});
     });
     const page = await ctx.newPage();
@@ -115,11 +117,15 @@ async function release() {
   const fri = keys.find(k => new Date(k + 'T12:00:00Z').getUTCDay() === 5 && keys.includes(addDays(k, 2)) && keys.includes(addDays(k, -1)));
   if (!fri) { ok('virada das 05h: semana completa encontrada', false); await b.close(); return; }
   const thu = addDays(fri, -1), sat = addDays(fri, 1), sun = addDays(fri, 2);
+  const leafletReady = await (async () => { const {ctx, page} = await open(new Date().toISOString(), fri);
+    const r = await page.evaluate(k => sundayLeafletReady(window.MISSAL_DATA[k]), sun); await ctx.close(); return r; })();
+  // Domingo com folheto conferido aparece já durante a semana; sem folheto, só no sábado às 05h.
+  const beforeSat = leafletReady ? sun : null;
   const last = async (iso, statusFor) => { const {ctx, page} = await open(iso, statusFor); const v = await page.evaluate(() => getVisibleDates().slice(-1)[0]); await ctx.close(); return v; };
   // O robô publica o dia por volta das 04h; antes das 05h a página ainda mostra o dia anterior.
-  ok(`sexta ${fri} 04:59 mostra até a quinta`, await last(fri + 'T04:59:00-03:00', fri) === thu);
-  ok(`sexta ${fri} 05:00 libera a sexta`, await last(fri + 'T05:00:30-03:00', fri) === fri);
-  ok(`sábado ${sat} 04:59 mostra até a sexta`, await last(sat + 'T04:59:00-03:00', sat) === fri);
+  ok(`sexta ${fri} 04:59 mostra até a quinta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T04:59:00-03:00', fri) === (beforeSat || thu));
+  ok(`sexta ${fri} 05:00 libera a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(fri + 'T05:00:30-03:00', fri) === (beforeSat || fri));
+  ok(`sábado ${sat} 04:59 mostra até a sexta${leafletReady ? ' (e o domingo com folheto)' : ''}`, await last(sat + 'T04:59:00-03:00', sat) === (beforeSat || fri));
   ok(`sábado ${sat} 05:00 libera o domingo`, await last(sat + 'T05:00:30-03:00', sat) === sun);
   ok(`domingo ${sun} 02:00 continua mostrando o domingo`, await last(sun + 'T02:00:00-03:00', sat) === sun);
   ok(`segunda não aparece antes da hora (domingo ${sun} 13h)`, await last(sun + 'T13:00:00-03:00', addDays(sun, 1)) === sun);

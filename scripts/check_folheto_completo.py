@@ -32,7 +32,7 @@ def main() -> int:
     today = datetime.now(ZoneInfo("America/Sao_Paulo")).date()
     sunday = today + timedelta(days=(6 - today.weekday()) % 7)
     key = sunday.isoformat()
-    if status.get("availableThrough", "") < key:
+    if status.get("availableThrough", "") < key and status.get("sundayPreview") != key:
         print(f"Domingo {key} ainda não liberado; nada a conferir.")
         return 0
     d = data.get(key)

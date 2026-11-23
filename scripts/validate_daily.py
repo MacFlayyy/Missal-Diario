@@ -93,12 +93,21 @@ def save_status(key, data):
     # O front-end também verifica o horário e availableThrough.
     # Também quando o sábado é liberado com antecedência (execução da noite de sexta):
     # o site só mostra o sábado — e a prévia do domingo — a partir das 05h.
+    # Durante a semana, o domingo também é liberado assim que o folheto
+    # oficial dele foi aplicado e conferido (Ritos Iniciais, Prefácio e Oração
+    # Eucarística), depois de todas as verificações desta execução.
     from datetime import date as _date, timedelta
     saturday = None
     if now.weekday() == 5:
         saturday = now.date()
     elif _date.fromisoformat(key).weekday() == 5:
         saturday = _date.fromisoformat(key)
+    elif now.weekday() <= 4:
+        coming = now.date() + timedelta(days=6 - now.weekday())
+        item = data.get(coming.isoformat())
+        if (isinstance(item, dict) and item.get("officialLeafletApplied")
+                and {1, 3, 4} <= set(item.get("officialVerifiedParts") or [])):
+            saturday = coming - timedelta(days=1)
     if saturday is not None:
         sunday_key = (saturday + timedelta(days=1)).isoformat()
         sunday = data.get(sunday_key)

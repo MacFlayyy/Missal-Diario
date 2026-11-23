@@ -5972,16 +5972,26 @@ function weekdayForKey(key){
   return new Date(Date.UTC(y,m-1,d)).getUTCDay();
 }
 
+function sundayLeafletReady(item){
+  const parts=(item && item.officialVerifiedParts) || [];
+  return Boolean(item && item.officialLeafletApplied &&
+    [1,3,4].every(function(n){return parts.indexOf(n)>=0;}));
+}
+
 function getSundayPreview(){
   const today=brasiliaTodayKey();
   const weekday=weekdayForKey(today);
   const hour=Number(brasiliaClockParts().hour);
   const configured=String(window.MISSAL_STATUS?.sundayPreview || "");
   const published=String(window.MISSAL_STATUS?.availableThrough || "");
-  if(weekday===6){
-    const sunday=addDaysKey(today,1);
-    return hour>=5 && published>=today && configured===sunday &&
-      data[sunday] ? sunday : null;
+  if(weekday>=1 && weekday<=6){
+    // O domingo da semana é liberado assim que o folheto oficial dele foi
+    // aplicado e conferido pelo robô (qualquer dia e hora); sem folheto,
+    // continua sendo liberado no sábado às 05h, como antes.
+    const sunday=addDaysKey(today,7-weekday);
+    if(configured!==sunday || published<today || !data[sunday]) return null;
+    if(sundayLeafletReady(data[sunday])) return sunday;
+    return weekday===6 && hour>=5 ? sunday : null;
   }
   // A prévia já liberada no sábado permanece acessível na madrugada de domingo
   // e durante eventuais atrasos da atualização dominical após as 05h.
