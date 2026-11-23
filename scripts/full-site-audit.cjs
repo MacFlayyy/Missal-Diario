@@ -134,6 +134,29 @@ async function run(config){
      }finally{brasiliaTodayKey=realDay;brasiliaClockParts=realClock;window.MISSAL_STATUS=realStatus;}return statuses;
    });
    mark(row,'saturday-release-rule',gate.satBefore.preview===null && gate.satAfter.preview==='2026-10-11' && gate.satBefore.limit==='2026-10-09',gate);
+   const weekdayLeaflet=await page.evaluate(()=>{
+     const realDay=brasiliaTodayKey,realClock=brasiliaClockParts,realStatus=window.MISSAL_STATUS,previous=window.currentDateKey;
+     const item=data['2026-10-12'],saved=item&&item.officialLeafletApplied,out={};
+     function at(day,hour,available,list){brasiliaTodayKey=()=>day;brasiliaClockParts=()=>({hour:String(hour)});window.MISSAL_STATUS={availableThrough:available,leafletPreviews:list};return getVisibleDates();}
+     try{
+       out.before=at('2026-10-08',14,'2026-10-08',['2026-10-12']).includes('2026-10-12');
+       out.dayItselfEarly=at('2026-10-12',3,'2026-10-12',['2026-10-12']).includes('2026-10-12');
+       out.tooFar=at('2026-10-03',14,'2026-10-03',['2026-10-12']).includes('2026-10-12');
+       out.notListed=at('2026-10-08',14,'2026-10-08',[]).includes('2026-10-12');
+       item.officialLeafletApplied=false;
+       out.noLeaflet=at('2026-10-08',14,'2026-10-08',['2026-10-12']).includes('2026-10-12');
+       item.officialLeafletApplied=saved;
+       at('2026-10-08',14,'2026-10-08',['2026-10-12']);
+       render('2026-10-08');
+       const note=document.getElementById('v3SundayNote'),btn=document.getElementById('v3SundayBtn');
+       out.pill=!note.hidden && /Missa de 12\/10 disponível/.test(btn.textContent);
+       btn.click();
+       out.opened=window.currentDateKey==='2026-10-12';
+     }finally{if(item)item.officialLeafletApplied=saved;brasiliaTodayKey=realDay;brasiliaClockParts=realClock;window.MISSAL_STATUS=realStatus;if(previous)render(previous);}
+     return out;
+   });
+   mark(row,'weekday-leaflet-released-early',weekdayLeaflet.before&&weekdayLeaflet.dayItselfEarly&&weekdayLeaflet.pill&&weekdayLeaflet.opened,weekdayLeaflet);
+   mark(row,'weekday-without-leaflet-not-early',!weekdayLeaflet.tooFar&&!weekdayLeaflet.notListed&&!weekdayLeaflet.noLeaflet,weekdayLeaflet);
    mark(row,'sunday-released-when-leaflet-ready',gate.wedLeaflet.preview==='2026-10-11'&&gate.wedLeaflet.visible.includes('2026-10-11')&&gate.satBeforeLeaflet.preview==='2026-10-11',gate);
    mark(row,'sunday-not-released-without-leaflet',gate.wedNoLeaflet.preview===null&&gate.wedNotConfigured.preview===null&&!gate.wedNoLeaflet.visible.includes('2026-10-11'),gate);
    mark(row,'sunday-midnight-preview-rule',gate.sunBefore.preview==='2026-10-11'&&gate.sunAfter.limit==='2026-10-11',gate);

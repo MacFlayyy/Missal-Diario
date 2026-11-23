@@ -6002,13 +6002,39 @@ function getSundayPreview(){
   return null;
 }
 
+// Missas de dia de semana com folheto próprio (solenidades, festas, Natal):
+// aparecem assim que o folheto oficial foi aplicado e conferido pelo robô.
+function getLeafletPreviews(){
+  const today=brasiliaTodayKey();
+  const published=String(window.MISSAL_STATUS?.availableThrough || "");
+  const list=window.MISSAL_STATUS?.leafletPreviews;
+  if(!Array.isArray(list) || published<addDaysKey(today,-1)) return [];
+  const last=addDaysKey(today,7);
+  return list.filter(function(k){
+    k=String(k);
+    return k>=today && k<=last && weekdayForKey(k)!==0 && data[k] && sundayLeafletReady(data[k]);
+  }).map(String).sort();
+}
+
+// Missas liberadas antes do dia (dia de semana com folheto e domingo) que
+// ainda não estariam visíveis pela regra normal das 05h; a mais próxima primeiro.
+function getEarlyDates(){
+  const today=brasiliaTodayKey();
+  const limit=getAvailableThrough();
+  const sp=getSundayPreview();
+  return getLeafletPreviews().concat(sp ? [sp] : []).filter(function(k){
+    return !(k <= today && k <= limit);
+  }).sort();
+}
+
 function getVisibleDates(){
   const today=brasiliaTodayKey();
   const limit=getAvailableThrough();
   const sundayPreview=getSundayPreview();
+  const leafletPreviews=getLeafletPreviews();
   return getRegisteredDates().filter(function(k){
     const normallyAvailable=k <= today && k <= limit;
-    return normallyAvailable || k===sundayPreview;
+    return normallyAvailable || k===sundayPreview || leafletPreviews.indexOf(k)>=0;
   });
 }
 
@@ -7162,8 +7188,15 @@ document.addEventListener("visibilitychange",async()=>{
     var nh=noteHtml(d||{});
     $("v3NoteHome").innerHTML=nh; $("v3NoteHome").hidden=!nh;
     $("v3NoteCel").innerHTML=nh; $("v3NoteCel").hidden=!nh;
-    var sp=getSundayPreview();
-    $("v3SundayNote").hidden=!sp || key===sp;
+    var sp=getEarlyDates().filter(function(k){return k!==key;})[0]||null;
+    var btn=$("v3SundayBtn");
+    if(sp){
+      var label=weekdayForKey(sp)===0 ? "Domingo disponível — Missa dominical já preparada"
+        : "Missa de "+sp.slice(8,10)+"/"+sp.slice(5,7)+" disponível — "+String((data[sp]||{}).celebration||"já preparada");
+      if(btn.lastChild && btn.lastChild.nodeType===3) btn.lastChild.nodeValue=label;
+      btn.dataset.target=sp;
+    }
+    $("v3SundayNote").hidden=!sp;
   }
   var lastKey=null;
   window.v3Render=function(key){
@@ -7362,7 +7395,7 @@ document.addEventListener("visibilitychange",async()=>{
   $("v3DeskCel").addEventListener("click",function(){setView(view==="cel"?"home":"cel");});
   $("v3Quick").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
   $("v3List").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
-  $("v3SundayBtn").addEventListener("click",function(){var sp=getSundayPreview(); if(sp) render(sp);});
+  $("v3SundayBtn").addEventListener("click",function(){var sp=this.dataset.target||getSundayPreview(); if(sp && getVisibleDates().indexOf(sp)>=0) render(sp);});
   $("v3Dec24").addEventListener("click",function(e){
     var b=e.target.closest("button[data-dec24-mass]"); if(!b) return;
     december24Choice=b.dataset.dec24Mass; render(window.currentDateKey);

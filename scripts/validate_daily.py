@@ -149,6 +149,22 @@ def save_status(key, data):
             and existing.get("sundayPreview") == today_iso and today_iso in data):
         payload["sundayPreview"] = today_iso
 
+    # Missas de dia de semana com folheto próprio (solenidades, festas, Natal):
+    # liberadas assim que o folheto oficial foi aplicado e conferido, até 7
+    # dias antes, e mantidas visíveis até o próprio dia (inclusive madrugada).
+    from datetime import timedelta as _td
+    early = []
+    for offset in range(0, 8):
+        k = (now.date() + _td(days=offset)).isoformat()
+        item = data.get(k)
+        if (isinstance(item, dict) and date_is_weekday(k)
+                and item.get("officialLeafletApplied")
+                and {1, 3, 4} <= set(item.get("officialVerifiedParts") or [])
+                and len(item.get("tapes", [])) >= 5):
+            early.append(k)
+    if early:
+        payload["leafletPreviews"] = early
+
     # Avisa com antecedência quando o cadastro litúrgico futuro está acabando.
     # Nunca gera páginas do Missal por adivinhação.
     from datetime import date, timedelta
@@ -179,6 +195,7 @@ def save_status(key, data):
         "availableThrough": key,
         "data": data,
         "sundayPreview": payload.get("sundayPreview"),
+        "leafletPreviews": payload.get("leafletPreviews"),
         "leaflets": {
             field: payload.get(field)
             for field in (
@@ -205,6 +222,10 @@ def save_status(key, data):
         ";\n",
         encoding="utf-8"
     )
+
+def date_is_weekday(key):
+    from datetime import date as _d
+    return _d.fromisoformat(key).weekday() != 6
 
 def is_valid_page(page):
     p = str(page or "").strip()

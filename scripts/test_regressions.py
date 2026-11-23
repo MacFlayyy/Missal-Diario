@@ -190,7 +190,30 @@ def check_saturday_preview():
         module.save_status("2026-11-19",week)
         status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
         assert "sundayPreview" not in status,("Domingo liberado sem folheto",status)
-    print("PASSOU prévias: domingo comum, madrugada, solenidades, festas e folheto durante a semana")
+        # Dia de semana com folheto próprio (ex.: Aparecida, Natal): liberado
+        # assim que o folheto foi conferido, e continua até o próprio dia.
+        class ThursdayBefore(RealDatetime):
+            @classmethod
+            def now(cls,tz=None):return cls(2026,10,8,14,0,tzinfo=tz)
+        class DayItselfEarly(RealDatetime):
+            @classmethod
+            def now(cls,tz=None):return cls(2026,10,12,3,0,tzinfo=tz)
+        class TooEarly(RealDatetime):
+            @classmethod
+            def now(cls,tz=None):return cls(2026,10,3,14,0,tzinfo=tz)
+        feast=_copy.deepcopy(data)
+        assert feast["2026-10-12"].get("officialLeafletApplied")
+        for clock,expect in ((ThursdayBefore,True),(DayItselfEarly,True),(TooEarly,False)):
+            module.datetime=clock
+            module.save_status(clock.now().date().isoformat(),feast)
+            status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+            assert ("2026-10-12" in (status.get("leafletPreviews") or []))==expect,(clock.__name__,status)
+        feast["2026-10-12"]["officialVerifiedParts"]=[1,3]
+        module.datetime=ThursdayBefore
+        module.save_status("2026-10-08",feast)
+        status=read_js_json(module.STATUS_FILE,"window.MISSAL_STATUS")
+        assert "2026-10-12" not in (status.get("leafletPreviews") or []),("Folheto incompleto liberado",status)
+    print("PASSOU prévias: domingo, madrugada, solenidades, festas e folhetos durante a semana (domingo e dias de semana)")
 
 def check_liturgical_integrity():
     import copy
