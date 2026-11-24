@@ -8,11 +8,12 @@ window.MISSAL_STATUS = {
     "dailyOfficialLeafletApplied": false,
     "unverifiedMissalPages": []
   },
+  "sundayPreview": "2026-11-29",
   "calendarDataThrough": "2027-01-03",
-  "sundayLeafletDate": "2026-11-22",
-  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/62-Povo-Deus-61-22_11_CRISTO-REI-Prova-Final.pdf",
-  "contentVersion": "70e44c2514720efddef2",
-  "lastSuccessfulUpdateAt": "2026-11-24T00:09:35.772477-03:00"
+  "sundayLeafletDate": "2026-11-29",
+  "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Prova-Final.pdf",
+  "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Versao-celular.pdf",
+  "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Versao-celular.pdf",
+  "contentVersion": "943c388d7a6358a3c41c",
+  "lastSuccessfulUpdateAt": "2026-11-24T15:32:47.446668-03:00"
 };

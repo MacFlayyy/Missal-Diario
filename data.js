@@ -5702,9 +5702,9 @@ window.MISSAL_DATA = {
     "season": "Advento",
     "color": "Roxa",
     "colorHex": "#6b4f7b",
-    "note": "Início do Ano Litúrgico B.",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "Início do Ano Litúrgico B.",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -5712,15 +5712,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação B",
+            "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor, estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Terceira fórmula, 1ª opção",
+            "Irmãos e irmãs, reconheçamos os nossos pecados, para celebrarmos dignamente os santos mistérios."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -5729,9 +5729,10 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -5739,35 +5740,27 @@ window.MISSAL_DATA = {
         "title": "Prefácio do Advento I",
         "details": [
           [
-            "Título",
-            "As duas vindas de Cristo"
-          ],
-          [
-            "Uso",
-            "Sugestão"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
-        "page": "545",
-        "title": "Oração Eucarística III",
+        "page": "537",
+        "title": "Oração Eucarística II",
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!"
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -5775,15 +5768,27 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Advento",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "Bênção Solene indicada no folheto oficial."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       }
     ],
-    "quick": "430 → 96 → 451 → 545 → 578",
-    "cycle": "Ano B"
+    "quick": "430 → 96 → 451 → 537 → 578",
+    "cycle": "Ano B",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Prova-Final.pdf",
+    "folhetoMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Versao-celular.pdf"
   },
   "2026-11-30": {
     "label": "Segunda-feira • 30/11/2026",
