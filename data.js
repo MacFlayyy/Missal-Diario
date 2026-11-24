@@ -5411,7 +5411,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 416 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-26": {
     "label": "Quinta-feira • 26/11/2026",
@@ -8942,5 +8946,103 @@ window.MISSAL_DATA = {
     ],
     "generated": "calendario-perpetuo",
     "quick": "430 → 659 → 455 → 536 → 579"
+  },
+  "2027-01-03": {
+    "label": "Domingo • 03/01/2027",
+    "celebration": "Epifania do Senhor",
+    "subtitle": "Ano B • Natal",
+    "saint": "Santíssimo Nome de Jesus",
+    "grade": "Solenidade",
+    "season": "Natal",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Santíssimo Nome de Jesus — memória facultativa omitida neste dia.",
+    "liturgicalNote": "Santíssimo Nome de Jesus — memória facultativa omitida neste dia.",
+    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "cycle": "Ano B",
+    "tapes": [
+      {
+        "n": 1,
+        "page": "430",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "144",
+        "title": "Epifania do Senhor",
+        "details": [
+          [
+            "Missa do dia",
+            "pág. 144"
+          ],
+          [
+            "Missa da Vigília",
+            "pág. 142 — na tarde/noite da véspera"
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "458",
+        "title": "Prefácio da Epifania do Senhor",
+        "details": [
+          [
+            "Título",
+            "Cristo, luz dos povos"
+          ],
+          [
+            "Uso",
+            "Indicado no próprio formulário da Missa"
+          ]
+        ],
+        "fromMissal": true
+      },
+      {
+        "n": 4,
+        "page": "545",
+        "title": "Oração Eucarística III",
+        "suggestion": true,
+        "details": [
+          [
+            "Aclamação",
+            "Mistério da fé! • sugestão"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ],
+          [
+            "Uso",
+            "Sugestão enquanto não houver indicação do folheto"
+          ]
+        ]
+      },
+      {
+        "n": 5,
+        "page": "145",
+        "title": "Bênção Solene — própria desta celebração",
+        "details": [
+          [
+            "Uso",
+            "Indicada no próprio formulário do Missal (facultativa)"
+          ]
+        ],
+        "suggestion": true,
+        "fromMissal": true
+      }
+    ],
+    "generated": "calendario-perpetuo",
+    "quick": "430 → 144 → 458 → 545 → 145"
   }
 };
