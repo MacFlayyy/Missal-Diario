@@ -111,10 +111,14 @@ async function run(config){
    const scrollUnlocked=await page.evaluate(()=>({bodyPosition:getComputedStyle(document.body).position,rootOverflow:document.documentElement.style.overflow}));
    mark(row,'calendar-restores-background-scroll',scrollUnlocked.bodyPosition!=='fixed'&&scrollUnlocked.rootOverflow!=='hidden',scrollUnlocked);
    await page.evaluate(()=>{const dates=getVisibleDates();render(dates[dates.length-1]);});
-   const visibility=await page.evaluate(()=>{const d=getVisibleDates(),last=d[d.length-1];
-     return {today:brasiliaTodayKey(),last,total:d.length,
+   // Dias futuros só podem aparecer quando foram liberados antes do dia pela regra
+   // do folheto (domingo ou missa da semana com folheto conferido) ou do sábado.
+   const visibility=await page.evaluate(()=>{const d=getVisibleDates(),last=d[d.length-1],today=brasiliaTodayKey();
+     const future=d.filter(k=>k>today),early=getEarlyDates();
+     const legit=future.every(k=>early.includes(k)&&(sundayLeafletReady(data[k])||(weekdayForKey(k)===0&&weekdayForKey(today)===6)));
+     return {today,last,total:d.length,future,early,legit,
        futureEnabled:[...document.querySelectorAll('#v3Week button')].filter(b=>b.dataset.date>last&&!b.disabled).length};});
-   mark(row,'future-dates-locked',visibility.futureEnabled===0&&visibility.last<=new Date(Date.parse(visibility.today+'T00:00:00Z')+86400000).toISOString().slice(0,10),visibility);
+   mark(row,'future-dates-locked',visibility.futureEnabled===0&&visibility.legit,visibility);
 
    /* ---- regras de liberação (meia-noite, sábado/domingo), com status simulado ---- */
    const gate=await page.evaluate(()=>{
