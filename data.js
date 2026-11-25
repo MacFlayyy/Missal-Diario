@@ -5507,7 +5507,11 @@ window.MISSAL_DATA = {
       }
     ],
     "quick": "430 → 416 → 509 → 536 → 585",
-    "cycle": "Ano II"
+    "cycle": "Ano II",
+    "autoReview": {
+      "reviewed": true,
+      "corrections": []
+    }
   },
   "2026-11-27": {
     "label": "Sexta-feira • 27/11/2026",
@@ -9049,5 +9053,106 @@ window.MISSAL_DATA = {
     ],
     "generated": "calendario-perpetuo",
     "quick": "430 → 144 → 458 → 545 → 145"
+  },
+  "2027-01-04": {
+    "label": "Segunda-feira • 04/01/2027",
+    "celebration": "Segunda-feira do Tempo do Natal, depois da Epifania",
+    "subtitle": "Natal",
+    "saint": "—",
+    "grade": "Dia de semana",
+    "season": "Natal",
+    "color": "Branca",
+    "colorHex": "#f7f1df",
+    "note": "Dia de semana — Natal: Missa do dia.",
+    "liturgicalNote": "Dia de semana — Natal: Missa do dia.",
+    "source": "Separação pelo Missal Romano • sugestões onde não houver folheto",
+    "cycle": "—",
+    "tapes": [
+      {
+        "n": 1,
+        "page": "430",
+        "title": "Ritos Iniciais",
+        "details": [
+          [
+            "Saudação A • sugestão",
+            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+          ],
+          [
+            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
+            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 2,
+        "page": "146",
+        "title": "Segunda-feira do Tempo do Natal, depois da Epifania",
+        "details": [
+          [
+            "Formulário",
+            "Missa do dia"
+          ],
+          [
+            "Atenção",
+            "Usar a Coleta indicada para depois da Epifania."
+          ]
+        ]
+      },
+      {
+        "n": 3,
+        "page": "458",
+        "title": "Prefácio da Epifania do Senhor",
+        "details": [
+          [
+            "Título",
+            "Cristo, luz dos povos"
+          ],
+          [
+            "Uso",
+            "Indicado pela rubrica do Missal para estes dias"
+          ],
+          [
+            "Atenção",
+            "Depois da Epifania: Prefácio da Epifania (p. 458) ou do Natal (p. 455–457)."
+          ]
+        ],
+        "suggestion": true
+      },
+      {
+        "n": 4,
+        "page": "536",
+        "title": "Oração Eucarística II",
+        "suggestion": true,
+        "details": [
+          [
+            "Aclamação",
+            "Mistério da fé! • sugestão"
+          ],
+          [
+            "Resposta",
+            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
+          ],
+          [
+            "Uso",
+            "Sugestão"
+          ]
+        ]
+      },
+      {
+        "n": 5,
+        "page": "579",
+        "title": "Bênção Solene — Natal",
+        "details": [
+          [
+            "Uso",
+            "Sugestão adequada ao tempo ou à celebração"
+          ]
+        ],
+        "suggestion": true
+      }
+    ],
+    "generated": "calendario-perpetuo",
+    "quick": "430 → 146 → 458 → 536 → 579"
   }
 };
