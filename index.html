@@ -4243,6 +4243,7 @@ body.v3::before,body.v3::after{display:none!important}
 .v3-chip i{width:14px;height:14px;border-radius:50%;box-shadow:0 0 0 2px #fff;flex:none;background:#d92c3a}
 #v3 .v3-kick{display:none;font:700 13px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.4px;text-transform:uppercase;opacity:.95;padding-right:56px}
 #v3 .v3-title{font-size:34px;line-height:1.05;margin:14px 0 8px;-webkit-text-stroke:1.2px currentColor;letter-spacing:.5px;color:#fff;overflow-wrap:anywhere}
+#v3 .v3-saint{margin:2px 0 6px;font-size:16px;line-height:1.35;color:#fff;opacity:.96}#v3 .v3-saint[hidden]{display:none}#v3 .v3-saint b{font:700 12px/1 "Crimson Pro",Georgia,serif;letter-spacing:1.2px;text-transform:uppercase;opacity:.85;margin-right:6px}body.v3-cel #v3 .v3-saint{display:none!important}
 #v3 .v3-sub{opacity:.92;font-size:17px;line-height:1.4;color:#fff}
 .v3-dec24{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .v3-dec24[hidden]{display:none}
@@ -4466,6 +4467,7 @@ body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
         <div class="v3-kick" id="v3Kick"></div>
         <span class="v3-chip"><i id="v3Dot" aria-hidden="true"></i><span id="v3Chip">—</span></span>
         <h2 class="v3-title" id="v3Title">Carregando celebração...</h2>
+        <p class="v3-saint" id="v3Saint" hidden><b>Santo do dia</b> <span id="v3SaintName"></span></p>
         <p class="v3-sub" id="v3Sub"></p>
         <div class="v3-dec24" id="v3Dec24" role="group" aria-label="Escolher celebração de 24 de dezembro" hidden>
           <button type="button" data-dec24-mass="combined" aria-pressed="true">Visão geral</button>
@@ -4493,7 +4495,7 @@ body.v3:not(.v3-ready) #v3 .v3-lay{visibility:hidden}
           <div class="v3-sec">Marcações do Missal</div>
           <div class="v3-ls" id="v3List"></div>
           <div class="v3-note" id="v3NoteHome"></div>
-          <p class="v3-hint">Toque em uma fita para ver tudo no modo Celebração.</p>
+          <p class="v3-hint">Para usar durante a Missa, toque em Celebração.</p>
         </div>
         <div id="v3Cel" hidden>
           <div class="v3-note" id="v3NoteCel"></div>
@@ -5767,6 +5769,22 @@ function cycleLabelFor(dateKey,d){
   return dt.getDay() === 0 ? "Ciclo dominical" : "Ciclo ferial";
 }
 
+// Linha "Santo do dia" no topo: só quando há santo e ele não é a própria
+// celebração já escrita no título (ex.: Santo André, Apóstolo).
+function saintLineText(d){
+  const value=String(d?.saint || "").trim();
+  if(!value || value==="—") return "";
+  const norm=function(x){return String(x||"").toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim();};
+  const first=norm(value.split(/;| e /)[0]).replace(/,.*$/,"");
+  if(first && norm(d.celebration).indexOf(first)>=0) return "";
+  return value;
+}
+function renderSaintLine(d){
+  const line=document.getElementById("v3Saint"); if(!line) return;
+  const text=saintLineText(d);
+  document.getElementById("v3SaintName").textContent=text;
+  line.hidden=!text;
+}
 function saintDisplayName(d){
   const value=String(d?.saint || "").trim();
   return (!value || value === "—") ? "Sem memória litúrgica própria neste dia" : value;
@@ -7142,9 +7160,10 @@ document.addEventListener("visibilitychange",async()=>{
     rib.style.background=paint(colors);
     rib.classList.toggle("light",colors.length===1 && colors[0]==="#f4f1ea");
     $("v3Dot").style.background=paint(colors);
-    $("v3Chip").textContent=d?[d.color,d.grade].filter(function(x){return x && x!=="—";}).join(" · ")||"—":"—";
+    $("v3Chip").textContent=d?[(d.color && d.color!=="—")?"Cor litúrgica do dia: "+d.color:"",d.grade].filter(function(x){return x && x!=="—";}).join(" · ")||"—":"—";
     $("v3Title").textContent=d?d.celebration:$("celebration").textContent;
     var status=($("sourceStatusText")||{}).textContent||"";
+    renderSaintLine(d);
     $("v3Sub").textContent=d?[d.season,(d.cycle && d.cycle!=="—")?d.cycle:"",status].filter(function(x){return x && x!=="—";}).join(" · "):"";
     (function(k){k.textContent="Modo Celebração · ";if(d){var nw=document.createElement("span");nw.className="v3-nw";nw.textContent=String(d.label);k.appendChild(nw);}})($("v3Kick"));
     var dec=$("v3Dec24"); dec.hidden=!String(key).endsWith("-12-24");
@@ -7159,13 +7178,13 @@ document.addEventListener("visibilitychange",async()=>{
     }else{
       quick.innerHTML=d.tapes.map(function(t){
         var p=pageText(t);
-        return '<button type="button" data-tape="'+t.n+'"><b'+(String(p).length>4?' class="sm"':"")+">"+esc(p)+"</b><small>"+esc(SHORT[t.n]||"Fita "+t.n)+'</small><span class="v3-sr">: página da fita '+t.n+", "+esc(KIND[t.n]||"")+". Abre os detalhes</span></button>";
+        return '<button type="button" data-tape="'+t.n+'"><b'+(String(p).length>4?' class="sm"':"")+">"+esc(p)+"</b><small>"+esc(SHORT[t.n]||"Fita "+t.n)+'</small><span class="v3-sr">: página da fita '+t.n+", "+esc(KIND[t.n]||"")+". Mostra a fita na lista</span></button>";
       }).join("");
       list.innerHTML=d.tapes.map(function(t){
         var o=origin(d,t), s=summary(t,d), p=pageText(t);
-        return '<button type="button" class="v3-r" data-tape="'+t.n+'">'+
+        return '<div class="v3-r v3-r-static" data-tape="'+t.n+'" id="v3-row-'+t.n+'">'+
           '<span class="v3-o" aria-hidden="true">'+t.n+"</span><span><h3>"+esc(rowTitle(t))+"</h3>"+(s?"<p>"+esc(s)+"</p>":"")+
-          (o?'<em class="'+(o[1]?"ok":"")+'">'+esc(o[0])+"</em>":"")+'</span><span class="'+numClass(p)+'"><span class="v3-sr">página </span>'+esc(p)+"</span>"+CHEV+"</button>";
+          (o?'<em class="'+(o[1]?"ok":"")+'">'+esc(o[0])+"</em>":"")+'</span><span class="'+numClass(p)+'">'+(/\d/.test(p)?"<small>PÁGINA</small>":'<span class="v3-sr">página </span>')+esc(p)+"</span></div>";
       }).join("");
       cardsFor=null; if(view==="cel") buildCards(key);
       return finishDay(d,key);
@@ -7399,8 +7418,13 @@ document.addEventListener("visibilitychange",async()=>{
   });
   $("v3MonthBtn").addEventListener("click",openCalendar);
   $("v3DeskCel").addEventListener("click",function(){setView(view==="cel"?"home":"cel");});
-  $("v3Quick").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
-  $("v3List").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(b) setView("cel",b.dataset.tape);});
+  // As fitas da página inicial não abrem o modo Celebração: ele abre só pelo
+  // botão Celebração. Tocar num número das 5 páginas leva até a fita na lista.
+  $("v3Quick").addEventListener("click",function(e){var b=e.target.closest("button[data-tape]"); if(!b) return;
+    var row=document.getElementById("v3-row-"+b.dataset.tape); if(!row) return;
+    var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    row.scrollIntoView({behavior:reduced?"auto":"smooth",block:"center"});
+    row.classList.remove("v3-flash"); void row.offsetWidth; row.classList.add("v3-flash");});
   $("v3SundayBtn").addEventListener("click",function(){var sp=this.dataset.target||getSundayPreview(); if(sp && getVisibleDates().indexOf(sp)>=0) render(sp);});
   $("v3Dec24").addEventListener("click",function(e){
     var b=e.target.closest("button[data-dec24-mass]"); if(!b) return;

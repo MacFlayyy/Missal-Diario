@@ -214,8 +214,8 @@ async function run(config){
    });
    mark(row,'christmas-selections-match-data',christmas.every(x=>
      x.shown&&x.pressed.length===1&&x.pressed[0]===(x.choice||"combined") &&
-     (x.choice==="vigil"?x.title.includes("Vigília") && x.label.startsWith("Branca") && x.quick.includes("126"):
-       x.choice==="morning"?x.title.includes("manhã") && x.label.startsWith("Roxa ·") && x.quick.includes("124"):
+     (x.choice==="vigil"?x.title.includes("Vigília") && x.label.startsWith("Cor litúrgica do dia: Branca") && x.quick.includes("126"):
+       x.choice==="morning"?x.title.includes("manhã") && x.label.startsWith("Cor litúrgica do dia: Roxa ·") && x.quick.includes("124"):
        x.title.includes("Féria privilegiada") && x.label.includes("Roxa") && x.quick.includes("124 / 126"))
    ),{samples:christmas});
    mark(row,'christmas-choice-hidden-on-other-days',await page.evaluate(()=>document.getElementById('v3Dec24').hidden));
@@ -293,16 +293,26 @@ async function run(config){
    }
    await page.locator(wide?'#v3DeskCel':'.v3-gt[data-v3-tab="home"]').click();
    mark(row,'celebration-mode-exits',await page.evaluate(()=>!document.body.classList.contains('v3-cel')&&!document.getElementById('v3Home').hidden&&document.getElementById('v3Cel').hidden));
+   // O número do topo leva até a fita na lista, sem abrir o modo Celebração.
+   await page.evaluate(()=>scrollTo(0,0));
    await page.locator('#v3Quick button[data-tape="3"]').click();
    await page.waitForTimeout(1100);
-   const jump=await page.evaluate(()=>{const c=document.getElementById('v3-tape-3').getBoundingClientRect();
+   const jump=await page.evaluate(()=>{const c=document.getElementById('v3-row-3').getBoundingClientRect();
      return {mode:document.body.classList.contains('v3-cel'),top:c.top,bottom:c.bottom,h:innerHeight};});
-   mark(row,'quick-third-page-opens-preface-in-celebration',jump.mode&&jump.top>=-4&&jump.top<jump.h*0.75,jump);
-   await page.locator(wide?'#v3DeskCel':'.v3-gt[data-v3-tab="home"]').click();
+   mark(row,'quick-third-page-scrolls-to-preface-row',!jump.mode&&jump.top>=-4&&jump.bottom<=jump.h+4,jump);
+   // Tocar numa fita da lista não abre o modo Celebração (só o botão Celebração abre).
    await page.locator('#v3List .v3-r[data-tape="5"]').click();
    await page.waitForTimeout(450);
-   mark(row,'summary-row-opens-its-tape',await page.evaluate(()=>document.body.classList.contains('v3-cel')&&document.getElementById('v3-tape-5').getBoundingClientRect().top<innerHeight));
-   await page.locator(wide?'#v3DeskCel':'.v3-gt[data-v3-tab="home"]').click();
+   const rowTap=await page.evaluate(()=>({cel:document.body.classList.contains('v3-cel'),home:!document.getElementById('v3Home').hidden,
+     label:document.querySelector('#v3List .v3-r[data-tape="5"] .v3-num small')?.textContent||''}));
+   mark(row,'summary-row-stays-on-home',!rowTap.cel&&rowTap.home,rowTap);
+   mark(row,'summary-row-shows-page-label',rowTap.label==='PÁGINA',rowTap);
+   // Linha do Santo do dia e cor litúrgica escrita no selo.
+   const saint=await page.evaluate(()=>{const out={};
+     for(const k of ['2026-11-23','2026-11-27','2026-11-30']){render(k);out[k]={line:document.getElementById('v3Saint').hidden?'':document.getElementById('v3SaintName').textContent,chip:document.getElementById('v3Chip').textContent};}
+     const dates=getVisibleDates();render(dates[dates.length-1]);return out;});
+   mark(row,'saint-of-the-day-line',saint['2026-11-23'].line==='São Clemente I; São Columbano'&&saint['2026-11-27'].line===''&&saint['2026-11-30'].line==='',saint);
+   mark(row,'liturgical-color-written-in-chip',/^Cor litúrgica do dia: Verde/.test(saint['2026-11-23'].chip)&&/^Cor litúrgica do dia: Vermelh/.test(saint['2026-11-30'].chip),saint);
    const origins=await page.evaluate(()=>{
      const out=[];for(const k of Object.keys(window.MISSAL_DATA)){render(k);const d=getDisplayEntry(k);const t=d.tapes.find(x=>x.n===2);if(!t)continue;
        const label=document.querySelector('#v3List .v3-r[data-tape="2"] em')?.textContent||'';

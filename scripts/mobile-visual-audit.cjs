@@ -134,9 +134,7 @@ async function runCase(def) {
     emit(row, 'modo-celebracao-fecha', !(await page.evaluate(() => document.body.classList.contains('v3-cel'))) && await activeTab() === 'home');
     await page.locator('#v3List .v3-r[data-tape="4"]').click();
     await page.waitForTimeout(350);
-    emit(row, 'fita-abre-no-modo-celebracao', await page.evaluate(() => document.body.classList.contains('v3-cel') &&
-      document.getElementById('v3-tape-4').getBoundingClientRect().top < innerHeight));
-    await tab('home').click();
+    emit(row, 'fita-nao-abre-modo-celebracao', await page.evaluate(() => !document.body.classList.contains('v3-cel')) && await activeTab() === 'home');
     const after = await page.evaluate(() => ({ viewport: innerWidth, scroll: document.documentElement.scrollWidth }));
     emit(row, 'sem-rolagem-horizontal-final', after.scroll <= after.viewport + 2, JSON.stringify(after));
     const appErrors = row.pageErrors.filter(msg => !/cloudflareinsights\.com|\/cdn-cgi\/rum/i.test(msg));
