@@ -4266,6 +4266,11 @@ html.theme-dark .v3-q b,html.theme-dark .v3-num{font-weight:800!important;letter
 #v3 .v3-pill button{width:100%;min-height:46px;border-radius:16px;background:var(--v-card);box-shadow:var(--v-sh);font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--v-ink);padding:6px 14px}
 .v3-pill i{width:10px;height:10px;border-radius:50%;background:#2e9b57;flex:none}
 
+/* ---------- lista de fitas sem toque (página inicial) ---------- */
+#v3 .v3-r.v3-r-static{grid-template-columns:auto 1fr auto;cursor:default}
+#v3 .v3-r .v3-num small{display:block;margin-bottom:4px;font:700 11px/1 "Crimson Pro",Georgia,serif;letter-spacing:1px;color:var(--v-faint);text-align:right}
+@keyframes v3flash{0%{background:var(--v-tint)}100%{background:transparent}}
+#v3 .v3-flash{animation:v3flash 1.6s ease-out}
 /* ---------- lista resumida (início) ---------- */
 .v3-sec{font:700 13px/1.4 "Crimson Pro",Georgia,serif;letter-spacing:1.6px;text-transform:uppercase;color:var(--v-faint);margin:22px 20px 10px}
 .v3-ls{margin:0 12px;background:var(--v-card);border-radius:24px;overflow:hidden;box-shadow:var(--v-sh)}
@@ -15163,7 +15168,7 @@ function cycleLabelFor(dateKey,d){
 // celebração já escrita no título (ex.: Santo André, Apóstolo).
 function saintLineText(d){
   const value=String(d?.saint || "").trim();
-  if(!value || value==="—") return "";
+  if(!value || value==="—") return "Sem memória de santo hoje";
   const norm=function(x){return String(x||"").toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim();};
   const first=norm(value.split(/;| e /)[0]).replace(/,.*$/,"");
   if(first && norm(d.celebration).indexOf(first)>=0) return "";

@@ -304,14 +304,16 @@ async function run(config){
    await page.locator('#v3List .v3-r[data-tape="5"]').click();
    await page.waitForTimeout(450);
    const rowTap=await page.evaluate(()=>({cel:document.body.classList.contains('v3-cel'),home:!document.getElementById('v3Home').hidden,
-     label:document.querySelector('#v3List .v3-r[data-tape="5"] .v3-num small')?.textContent||''}));
+     label:document.querySelector('#v3List .v3-r[data-tape="5"] .v3-num small')?.textContent||'',
+     labelStyle:(()=>{const e=document.querySelector('#v3List .v3-r[data-tape="5"] .v3-num small');if(!e)return null;const c=getComputedStyle(e);return {display:c.display,size:parseFloat(c.fontSize)};})(),
+     cols:getComputedStyle(document.querySelector('#v3List .v3-r[data-tape="5"]')).gridTemplateColumns.split(' ').length}));
    mark(row,'summary-row-stays-on-home',!rowTap.cel&&rowTap.home,rowTap);
-   mark(row,'summary-row-shows-page-label',rowTap.label==='PÁGINA',rowTap);
+   mark(row,'summary-row-shows-page-label',rowTap.label==='PÁGINA'&&rowTap.labelStyle&&rowTap.labelStyle.display==='block'&&rowTap.labelStyle.size<=13&&rowTap.cols===3,rowTap);
    // Linha do Santo do dia e cor litúrgica escrita no selo.
    const saint=await page.evaluate(()=>{const out={};
      for(const k of ['2026-11-23','2026-11-27','2026-11-30']){render(k);out[k]={line:document.getElementById('v3Saint').hidden?'':document.getElementById('v3SaintName').textContent,chip:document.getElementById('v3Chip').textContent};}
      const dates=getVisibleDates();render(dates[dates.length-1]);return out;});
-   mark(row,'saint-of-the-day-line',saint['2026-11-23'].line==='São Clemente I; São Columbano'&&saint['2026-11-27'].line===''&&saint['2026-11-30'].line==='',saint);
+   mark(row,'saint-of-the-day-line',saint['2026-11-23'].line==='São Clemente I; São Columbano'&&saint['2026-11-27'].line==='Sem memória de santo hoje'&&saint['2026-11-30'].line==='',saint);
    mark(row,'liturgical-color-written-in-chip',/^Cor litúrgica do dia: Verde/.test(saint['2026-11-23'].chip)&&/^Cor litúrgica do dia: Vermelh/.test(saint['2026-11-30'].chip),saint);
    const origins=await page.evaluate(()=>{
      const out=[];for(const k of Object.keys(window.MISSAL_DATA)){render(k);const d=getDisplayEntry(k);const t=d.tapes.find(x=>x.n===2);if(!t)continue;
