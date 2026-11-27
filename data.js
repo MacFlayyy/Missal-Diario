@@ -6368,9 +6368,9 @@ window.MISSAL_DATA = {
     "season": "Advento",
     "color": "Roxa",
     "colorHex": "#6b4f7b",
-    "note": "São Nicolau — memória facultativa omitida por coincidir com domingo",
+    "note": "Folheto oficial vinculado. Partes conferidas no folheto seguem o folheto; partes que o folheto não indica aparecem como sugestão.",
     "liturgicalNote": "São Nicolau — memória facultativa omitida por coincidir com domingo",
-    "source": "Pré-separação pelo Missal • revisar com o folheto O Povo de Deus quando publicado",
+    "source": "Folheto oficial O Povo de Deus • Arquidiocese de Brasília",
     "tapes": [
       {
         "n": 1,
@@ -6378,15 +6378,15 @@ window.MISSAL_DATA = {
         "title": "Ritos Iniciais",
         "details": [
           [
-            "Saudação A • sugestão",
-            "A graça de nosso Senhor Jesus Cristo, o amor do Pai e a comunhão do Espírito Santo estejam convosco."
+            "Saudação B",
+            "A graça e a paz de Deus, nosso Pai, e de Jesus Cristo, nosso Senhor, estejam convosco."
           ],
           [
-            "Ato Penitencial — Segunda fórmula, 2ª opção • sugestão",
-            "No início desta celebração eucarística, peçamos a conversão do coração, fonte de reconciliação e comunhão com Deus e com os irmãos e irmãs."
+            "Ato Penitencial — Primeira fórmula, 2ª opção",
+            "O Senhor Jesus, que nos convida à mesa da Palavra e da Eucaristia, nos chama a segui-lo fielmente."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 2,
@@ -6395,9 +6395,10 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Formulário",
-            "Missa do dia"
+            "Página da Missa indicada e conferida no folheto oficial."
           ]
-        ]
+        ],
+        "verifiedByFolheto": true
       },
       {
         "n": 3,
@@ -6405,15 +6406,15 @@ window.MISSAL_DATA = {
         "title": "Prefácio do Advento I",
         "details": [
           [
-            "Título",
-            "As duas vindas de Cristo"
+            "Indicação",
+            "Prefácio indicado no folheto oficial"
           ],
           [
-            "Uso",
-            "Sugestão"
+            "Atenção",
+            "O folheto indica p. 452; no Missal Romano 2023 este prefácio está na p. 451."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 4,
@@ -6422,18 +6423,14 @@ window.MISSAL_DATA = {
         "details": [
           [
             "Aclamação",
-            "Mistério da fé! • sugestão"
+            "Mistério da fé para a salvação do mundo!"
           ],
           [
             "Resposta",
-            "“Anunciamos, Senhor, a vossa morte e proclamamos a vossa ressurreição. Vinde, Senhor Jesus!”"
-          ],
-          [
-            "Uso",
-            "Sugestão enquanto não houver indicação do folheto"
+            "Salvador do mundo, salvai-nos, vós que nos libertastes pela cruz e ressurreição."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       },
       {
         "n": 5,
@@ -6441,15 +6438,26 @@ window.MISSAL_DATA = {
         "title": "Bênção Solene — Advento",
         "details": [
           [
-            "Uso",
-            "Sugestão adequada ao tempo ou à celebração"
+            "Indicação",
+            "Bênção Solene indicada no folheto oficial."
           ]
         ],
-        "suggestion": true
+        "verifiedByFolheto": true
       }
     ],
     "quick": "430 → 103 → 451 → 545 → 578",
-    "cycle": "Ano B"
+    "cycle": "Ano B",
+    "folhetoDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/02-Povo-Deus-62-06_12_2o-Domingo-ADVENTO-Prova-Final.pdf",
+    "officialVerifiedParts": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "officialLeafletApplied": true,
+    "ritesPendingOfficial": false,
+    "folhetoUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/02-Povo-Deus-62-06_12_2o-Domingo-ADVENTO-Prova-Final.pdf"
   },
   "2026-12-07": {
     "label": "Segunda-feira • 07/12/2026",

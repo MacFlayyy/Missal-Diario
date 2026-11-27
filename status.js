@@ -14,6 +14,6 @@ window.MISSAL_STATUS = {
   "sundayLeafletDesktopUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Prova-Final.pdf",
   "sundayLeafletMobileUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Versao-celular.pdf",
   "sundayLeafletUrl": "https://arqbrasilia.com.br/wp-content/uploads/2026/11/01-Povo-Deus-62-29_11_1o-Domingo-ADVENTO-Versao-celular.pdf",
-  "contentVersion": "2e16e80ad150d016b1c5",
-  "lastSuccessfulUpdateAt": "2026-11-27T00:33:41.218202-03:00"
+  "contentVersion": "a316a682cfd6bbfaebd1",
+  "lastSuccessfulUpdateAt": "2026-11-27T15:44:12.466684-03:00"
 };
